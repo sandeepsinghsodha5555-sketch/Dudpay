@@ -1,53 +1,1001 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1769d2">
 <title>DUDPAY</title>
+
 <style>
-:root{--b:#1769d2;--b2:#0c55b5;--p:#eaf3ff;--navy:#17345c;--o:#f4a62a;--bg:#f5f8fd;--muted:#74849a;--line:#e3ebf5;--green:#16865b}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Arial;color:var(--navy)}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:480px;min-height:100vh;margin:auto;background:#f9fbff;padding-bottom:80px;box-shadow:0 0 30px #1b477012}.top{padding:18px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(120deg,#fff,#eaf3ff)}.brand{font-weight:900;font-size:22px;color:var(--b);letter-spacing:.6px}.muted{font-size:12px;color:var(--muted)}main{padding:15px}.page{display:none;animation:fade .2s}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.card,.metric{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px;margin-bottom:12px;box-shadow:0 7px 22px #1b47700b}.balance{background:linear-gradient(120deg,#1769d2,#3989ee);color:#fff;border:0;padding:20px}.balance .muted{color:#e1efff}.big{font-size:31px;font-weight:850;margin:6px 0}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric b{display:block;font-size:20px;margin-top:4px}.orange{border-top:3px solid var(--o)}.title{font-size:18px;font-weight:800;margin:8px 0 12px}.btn{border:0;background:var(--b);color:white;padding:11px 14px;border-radius:11px;font-weight:750}.btn.light{background:var(--p);color:var(--b)}.btn.line{background:white;color:var(--b);border:1px solid var(--b)}.btn:disabled{opacity:.45;cursor:not-allowed}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.quick button{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 2px;color:var(--b);font-weight:800}.quick small{display:block;color:var(--navy);font-weight:650;margin-top:5px}.banner{padding:15px;border-radius:16px;background:linear-gradient(110deg,#e6f1ff,#fff);border:1px solid #d7e8ff;margin:13px 0}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:white;border-top:1px solid var(--line);padding:8px 3px calc(8px + env(safe-area-inset-bottom));z-index:5}.nav button{border:0;background:none;color:#8291a6;font-size:10px;padding:3px}.nav button span{display:block;font-size:19px}.nav button.active{color:var(--b);font-weight:850}.field{width:100%;padding:12px;border:1px solid #d8e5f5;border-radius:11px;background:#fbfdff;margin:6px 0 12px}.amount{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.amount:last-child{border:0}.notice{padding:12px;border-radius:11px;background:#fff6e6;border:1px solid #ffe2ad;color:#775000;font-size:12px;margin:12px 0}.empty{text-align:center;color:var(--muted);padding:28px 8px}.tabs{display:flex;gap:8px;margin-bottom:12px}.tabs button{flex:1;border:0;border-radius:10px;padding:10px;background:var(--p);color:var(--b);font-weight:750}.tabs button.active{background:var(--b);color:white}.item{padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}.link{color:var(--b);font-weight:750}.pill{background:#fff1d8;color:#946000;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:800}.center{text-align:center}.progress{height:8px;background:#e9eff7;border-radius:10px;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--b)}.toast{position:fixed;z-index:20;bottom:90px;left:50%;transform:translate(-50%,12px);opacity:0;background:#17345c;color:white;padding:10px 15px;border-radius:10px;transition:.2s;max-width:90%;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}.modalbg{display:none;position:fixed;inset:0;background:#07182c99;z-index:10;align-items:flex-end;justify-content:center}.modalbg.show{display:flex}.modal{width:min(480px,100%);background:white;border-radius:22px 22px 0 0;padding:20px 17px 28px;animation:rise .2s}@keyframes rise{
-  from{transform:translateY(30px)}to{transform:none}}.small{font-size:12px}.hide{display:none!important}
-</style></head><body><div class="app">
-<header class="top"><div><div class="brand">DUDPAY</div><div class="muted">Your account dashboard</div></div><button class="btn light" onclick="toast('No new notifications')">♧</button></header>
-<main>
-<section id="home" class="page active">
-<div class="row"><div><b id="username">Hello, User</b><div class="muted">User ID: DP102938 <a class="link" onclick="copy('DP102938')">Copy</a></div></div><span class="pill">Account</span></div>
-<div class="card balance" style="margin-top:13px"><div class="muted">Available Balance</div><div class="big">₹77.00</div><div class="row muted"><span>Deposit ₹0</span><span>Withdrawal ₹0</span></div></div>
-<div class="grid"><div class="metric"><span class="muted">Deposit</span><b>₹0</b></div><div class="metric"><span class="muted">Withdrawal</span><b>₹0</b></div></div>
-<div class="title">Quick Access</div><div class="quick"><button onclick="go('usdt')">₮<small>USDT</small></button><button onclick="go('task')">✓<small>Task</small></button><button onclick="go('team')">♧<small>Team</small></button><button onclick="go('order')">▤<small>Order</small></button></div>
-<div class="banner"><b style="color:var(--b)">Newcomer Rewards</b><div class="muted">Check your eligible newcomer task.</div><button class="btn light" style="margin-top:8px" onclick="go('task')">View Task</button></div>
-<div class="row"><b class="title">Transactions</b><a class="link" onclick="go('order')">See All</a></div><div class="card empty">▤<br><b>No Transactions</b><div class="muted">Your activity will appear here.</div></div>
+:root{
+ --blue:#1769d2;
+ --blue2:#0d55b5;
+ --light:#eaf3ff;
+ --white:#ffffff;
+ --navy:#17345c;
+ --orange:#f4a62a;
+ --green:#16865b;
+ --red:#d64b4b;
+ --muted:#7b899d;
+ --bg:#f5f8fd;
+ --border:#e3ebf5;
+ --shadow:0 7px 25px rgba(30,75,130,.09);
+}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--navy);
+ font-family:Arial,Helvetica,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{
+ max-width:480px;
+ min-height:100vh;
+ margin:auto;
+ background:#f9fbff;
+ padding-bottom:85px;
+ box-shadow:0 0 30px #183c6610;
+}
+.page{display:none;animation:fade .22s ease}
+.page.active{display:block}
+@keyframes fade{
+ from{opacity:0;transform:translateY(7px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:18px;
+ background:linear-gradient(120deg,#fff,#eaf3ff);
+}
+.logo{
+ font-size:24px;
+ font-weight:900;
+ letter-spacing:1px;
+ color:var(--blue);
+}
+.muted{font-size:12px;color:var(--muted)}
+.title{
+ font-size:19px;
+ font-weight:800;
+ margin:8px 0 14px;
+}
+.card{
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:17px;
+ padding:16px;
+ margin-bottom:13px;
+ box-shadow:var(--shadow);
+}
+.row{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+}
+.grid2{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:11px;
+}
+.metric{
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:15px;
+ padding:14px;
+ box-shadow:var(--shadow);
+}
+.metric b{
+ display:block;
+ font-size:21px;
+ margin-top:5px;
+}
+.orange{border-top:3px solid var(--orange)}
+.btn{
+ border:0;
+ border-radius:12px;
+ padding:13px 16px;
+ background:var(--blue);
+ color:#fff;
+ font-weight:750;
+ transition:transform .15s,opacity .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn.light{background:var(--light);color:var(--blue)}
+.btn.outline{
+ background:#fff;
+ border:1px solid var(--blue);
+ color:var(--blue);
+}
+.btn.full{width:100%}
+.field{
+ display:block;
+ width:100%;
+ padding:14px;
+ margin:7px 0 14px;
+ border:1px solid #d8e5f5;
+ border-radius:12px;
+ background:#fbfdff;
+ outline:none;
+}
+.field:focus{
+ border-color:var(--blue);
+ box-shadow:0 0 0 3px #1769d21a;
+}
+.label{
+ display:block;
+ font-size:12px;
+ font-weight:700;
+ color:var(--navy);
+}
+.auth{
+ min-height:90vh;
+ padding:30px 20px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+}
+.auth-logo{
+ text-align:center;
+ font-size:34px;
+ font-weight:950;
+ color:var(--blue);
+ letter-spacing:1px;
+ margin-bottom:8px;
+}
+.auth-sub{
+ text-align:center;
+ color:var(--muted);
+ font-size:13px;
+ margin-bottom:25px;
+}
+.auth-card{
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:22px;
+ padding:22px;
+ box-shadow:var(--shadow);
+}
+.auth-tabs{
+ display:flex;
+ gap:8px;
+ margin-bottom:20px;
+}
+.auth-tabs button{
+ flex:1;
+ padding:12px;
+ border:0;
+ border-radius:11px;
+ color:var(--blue);
+ background:var(--light);
+ font-weight:750;
+}
+.auth-tabs button.active{
+ background:var(--blue);
+ color:#fff;
+}
+.checkrow{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ font-size:12px;
+ margin:8px 0 15px;
+}
+.checkrow input{accent-color:var(--blue)}
+.link{
+ color:var(--blue);
+ font-weight:700;
+ cursor:pointer;
+}
+.error{
+ color:var(--red);
+ font-size:12px;
+ margin:0 0 10px;
+}
+.nav{
+ position:fixed;
+ bottom:0;
+ left:50%;
+ transform:translateX(-50%);
+ width:min(480px,100%);
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ background:#fff;
+ border-top:1px solid var(--border);
+ padding:8px 4px calc(8px + env(safe-area-inset-bottom));
+ z-index:5;
+}
+.nav button{
+ border:0;
+ background:none;
+ color:#8291a6;
+ font-size:10px;
+ padding:4px 0;
+}
+.nav button span{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+.nav button.active{
+ color:var(--blue);
+ font-weight:850;
+}
+.balance{
+ background:linear-gradient(120deg,#1769d2,#3989ee);
+ color:#fff;
+ border:0;
+ padding:21px;
+}
+.balance .muted{color:#e1efff}
+.big{
+ font-size:32px;
+ font-weight:850;
+ margin:7px 0;
+}
+.quick{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:9px;
+}
+.quick button{
+ border:1px solid var(--border);
+ background:#fff;
+ border-radius:15px;
+ padding:13px 3px;
+ color:var(--blue);
+ font-weight:800;
+ box-shadow:var(--shadow);
+}
+.quick small{
+ display:block;
+ color:var(--navy);
+ margin-top:5px;
+}
+.banner{
+ padding:16px;
+ border-radius:16px;
+ background:linear-gradient(110deg,#e6f1ff,#fff);
+ border:1px solid #d7e8ff;
+ margin:14px 0;
+}
+.notice{
+ padding:12px;
+ background:#fff6e6;
+ border:1px solid #ffe2ad;
+ color:#775000;
+ border-radius:11px;
+ font-size:12px;
+ margin:12px 0;
+}
+.pill{
+ background:#fff1d8;
+ color:#946000;
+ padding:5px 10px;
+ border-radius:20px;
+ font-size:11px;
+ font-weight:800;
+}
+.amount{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:8px;
+ padding:13px 0;
+ border-bottom:1px solid var(--border);
+}
+.amount:last-child{border:0}
+.tabs{
+ display:flex;
+ gap:8px;
+ margin-bottom:13px;
+}
+.tabs button{
+ flex:1;
+ border:0;
+ border-radius:10px;
+ padding:11px;
+ background:var(--light);
+ color:var(--blue);
+ font-weight:750;
+}
+.tabs button.active{
+ background:var(--blue);
+ color:white;
+}
+.empty{
+ text-align:center;
+ padding:30px 10px;
+ color:var(--muted);
+}
+.item{
+ padding:13px 0;
+ border-bottom:1px solid var(--border);
+}
+.item:last-child{border:0}
+.progress{
+ height:9px;
+ background:#e9eff7;
+ border-radius:10px;
+ overflow:hidden;
+}
+.progress i{
+ display:block;
+ height:100%;
+ background:var(--blue);
+ width:0;
+}
+.modal-bg{
+ display:none;
+ position:fixed;
+ inset:0;
+ z-index:10;
+ background:#07182c99;
+ align-items:flex-end;
+ justify-content:center;
+}
+.modal-bg.show{display:flex}
+.modal{
+ width:min(480px,100%);
+ background:#fff;
+ border-radius:22px 22px 0 0;
+ padding:22px 18px 28px;
+ animation:rise .2s ease;
+}
+@keyframes rise{
+ from{transform:translateY(30px)}
+ to{transform:translateY(0)}
+}
+.toast{
+ position:fixed;
+ z-index:20;
+ bottom:95px;
+ left:50%;
+ transform:translate(-50%,12px);
+ opacity:0;
+ background:var(--navy);
+ color:#fff;
+ padding:11px 16px;
+ border-radius:11px;
+ transition:.2s;
+ max-width:90%;
+ font-size:13px;
+}
+.toast.show{
+ opacity:1;
+ transform:translate(-50%,0);
+}
+.hidden{display:none!important}
+.center{text-align:center}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<!-- LOGIN / REGISTER -->
+<section id="authPage" class="page active">
+ <div class="auth">
+  <div class="auth-logo">DUDPAY</div>
+  <div class="auth-sub">Welcome to your account</div>
+
+  <div class="auth-card">
+   <div class="auth-tabs">
+    <button id="loginTab" class="active" onclick="showAuth('login')">Login</button>
+    <button id="registerTab" onclick="showAuth('register')">Register</button>
+   </div>
+
+   <form id="loginForm">
+    <h2>Welcome Back</h2>
+    <p class="muted">Login to continue to DUDPAY</p>
+
+    <label class="label">Mobile Number</label>
+    <input class="field" id="loginMobile"
+     type="tel" maxlength="10"
+     inputmode="numeric"
+     placeholder="Enter mobile number" required>
+
+    <label class="label">Password</label>
+    <input class="field" id="loginPassword"
+     type="password" placeholder="Enter password" required>
+
+    <div class="checkrow">
+     <input type="checkbox" id="remember">
+     <label for="remember">Remember Me</label>
+    </div>
+
+    <p id="loginError" class="error"></p>
+    <button class="btn full" type="submit">Login</button>
+    <p class="center muted" style="margin-top:15px">
+     New user?
+     <a class="link" onclick="showAuth('register')">Create Account</a>
+    </p>
+   </form>
+
+   <form id="registerForm" class="hidden">
+    <h2>Create Account</h2>
+    <p class="muted">Register your DUDPAY account</p>
+
+    <label class="label">Username</label>
+    <input class="field" id="regName"
+     placeholder="Enter username" required>
+
+    <label class="label">Mobile Number</label>
+    <input class="field" id="regMobile"
+     type="tel" maxlength="10"
+     inputmode="numeric"
+     placeholder="10-digit mobile number" required>
+
+    <label class="label">Password</label>
+    <input class="field" id="regPassword"
+     type="password" minlength="6"
+     placeholder="Minimum 6 characters" required>
+
+    <label class="label">Confirm Password</label>
+    <input class="field" id="regConfirm"
+     type="password"
+     placeholder="Confirm password" required>
+
+    <label class="label">Invite Code (Optional)</label>
+    <input class="field" id="regInvite"
+     placeholder="Enter invite code">
+
+    <div class="checkrow">
+     <input type="checkbox" id="privacy">
+     <label for="privacy">I agree to the Privacy Policy</label>
+    </div>
+
+    <p id="registerError" class="error"></p>
+    <button class="btn full" type="submit">Create Account</button>
+
+    <p class="center muted" style="margin-top:15px">
+     Already registered?
+     <a class="link" onclick="showAuth('login')">Login</a>
+    </p>
+   </form>
+  </div>
+
+  <p class="center muted" style="margin-top:18px">
+   DUDPAY · Account access
+  </p>
+ </div>
 </section>
-<section id="payment" class="page"><div class="title">Payment</div><div class="grid"><div class="metric"><span class="muted">Balance</span><b>₹77</b></div><div class="metric"><span class="muted">Reward</span><b>₹0</b></div><div class="metric"><span class="muted">Pending</span><b>₹0</b></div><div class="metric orange"><span class="muted">Cashback rate</span><b style="color:#ad7100">5.5%</b></div></div>
-<div class="notice">Payment collection and cashback are not enabled until a secure backend and verified payment provider are connected. No payment should be sent to a personal account based only on this preview.</div><div class="title">Select Amount</div><div class="card" id="amounts"></div></section>
-<section id="wallet" class="page"><div class="title">Wallet</div><div class="card"><div class="row"><b>Saved payment apps</b><button class="btn" onclick="addWallet()">+ Add</button></div><div id="wallets" class="empty">No wallet apps added</div></div><div class="notice">Saved locally on this device only. This does not connect or verify a bank or payment account.</div></section>
-<section id="order" class="page"><div class="title">Order</div><div class="tabs"><button class="active" onclick="tab('rec',this)">Receive</button><button onclick="tab('pur',this)">Purchase</button></div><div id="rec" class="card empty">▤<br><b>No Data</b></div><div id="pur" class="card hide"><div class="grid"><div>Balance <b>₹77</b></div><div>Reward <b>₹0</b></div><div>Pending <b>₹0</b></div></div><div class="empty">No Data</div></div></section>
-<section id="usdt" class="page"><div class="title">USDT</div><div class="card"><div class="row"><span class="muted">Exchange rate</span><b>1 USDT = ₹114</b></div><label class="small">Amount (minimum 10 USDT)</label><input class="field" id="usdtval" type="number" min="10" placeholder="Enter USDT" oninput="document.getElementById('inr').textContent='₹'+((+this.value||0)*114).toLocaleString('en-IN')"><div class="row"><span class="muted">Estimated INR</span><b id="inr">₹0</b></div><label class="small">Network</label><select class="field"><option>TRC20</option><option>BSC (BEP20)</option></select><div class="notice">Transfer functionality requires a compliant crypto provider and backend.</div><button class="btn" style="width:100%" onclick="toast('Transfer is not enabled')">Continue</button></div></section>
-<section id="task" class="page"><div class="title">Newbie Task</div><div class="card"><div class="row"><b>Newbie Task</b><span class="pill">Reward ₹300</span></div><p class="muted">Eligible deposit / transaction volume
-   target</p><div class="big" style="font-size:25px">₹0 / ₹2,000</div><div class="progress"><i></i></div><p class="muted">Progress appears after eligible activity is verified.</p></div></section>
-<section id="team" class="page"><div class="title">Team</div><div class="grid"><div class="metric"><span class="muted">Total Commission</span><b>₹0</b></div><div class="metric"><span class="muted">Yesterday Commission</span><b>₹0</b></div><div class="metric"><span class="muted">Today's Commission</span><b>₹0</b></div><div class="metric"><span class="muted">Team Members</span><b>0</b></div><div class="metric"><span class="muted">Team Deposit</span><b>₹0</b></div><div class="metric"><span class="muted">Level B / C</span><b>1% / 0.3%</b></div></div><div class="card"><b>Invitation link</b><div class="row" style="margin-top:10px"><span class="small">DUDPAY referral</span><button class="btn light" onclick="toast('Referral link available after backend setup')">Copy</button></div><div class="muted">Commission is calculated only on verified qualifying activity.</div></div></section>
-<section id="statistics" class="page"><div class="title">Statistics</div><div class="grid"><div class="metric orange"><span class="muted">Balance</span><b>₹77</b></div><div class="metric"><span class="muted">Sell</span><b>₹0</b></div><div class="metric"><span class="muted">Deposit</span><b>₹0</b></div><div class="metric orange"><span class="muted">Commission</span><b>₹0</b></div></div><div class="title">Payment</div><div class="card"><div class="item row"><span class="muted">Exchange Rate (INR/USDT)</span><b>₹114</b></div><div class="item row"><span class="muted">In Process Amount</span><b>₹0</b></div><div class="item row"><span class="muted">In Process Orders</span><b>0</b></div><div class="item row"><span class="muted">Commission Rate</span><b>5.5%</b></div><div class="item row"><span class="muted">Estimated Income</span><b>₹0</b></div><button class="btn" disabled style="width:100%;margin-top:12px;background:var(--o);color:#573800">Closed Selling</button></div></section>
-<section id="my" class="page"><div class="title">My</div><div class="grid"><div class="metric"><span class="muted">Deposit</span><b>₹0</b></div><div class="metric"><span class="muted">Withdraw</span><b>₹0</b></div><div class="metric"><span class="muted">Commission</span><b>₹0</b></div><div class="metric orange"><span class="muted">Balance</span><b>₹77</b></div></div><div class="card"><div class="item" onclick="go('wallet')">▣ &nbsp; Wallet</div><div class="item" onclick="go('service')">◉ &nbsp; Service</div><div class="item" onclick="go('message')">✉ &nbsp; Message</div><div class="item" onclick="go('tutorial')">▤ &nbsp; Tutorial</div><div class="item" onclick="toast('Logged out of local preview')">↪ &nbsp; Logout</div></div><div class="muted center">Version 1.0.0</div></section>
-<section id="service" class="page"><div class="title">Customer Service</div><div class="card center"><div style="font-size:48px">▦</div><b>@OFFICALSERVICE06</b><p class="muted">Official support contact</p></div></section>
-<section id="message" class="page"><div class="title">Message</div><div class="card empty">No Message</div></section><section id="tutorial" class="page"><div class="title">Tutorial</div><div class="card empty">No Tutorial</div></section>
-<section id="details" class="page"><div class="title">Order Details</div><div class="card"><div class="row"><b>Order status</b><span class="pill">Pending Setup</span></div><div class="big" id="selected">₹0</div><div class="notice">Payment is not enabled. No transfer has been started and no payment has been received. Connect a verified payment provider and secure backend before accepting funds.</div><button class="btn light" style="width:100%" onclick="go('order')">Back to Orders</button></div></section>
+
+<!-- MAIN WEBSITE LAYOUT -->
+<div id="mainSite" class="hidden">
+
+<header class="topbar">
+ <div>
+  <div class="logo">DUDPAY</div>
+  <div class="muted">Your account dashboard</div>
+ </div>
+ <button class="btn light" onclick="toast('No new notifications')">♧</button>
+</header>
+
+<main>
+
+<section id="home" class="page active">
+ <div class="row">
+  <div>
+   <b id="displayName">Hello, User</b>
+   <div class="muted">
+    User ID: <span id="displayId">DP102938</span>
+    <a class="link" onclick="copyText('DP102938')">Copy</a>
+   </div>
+  </div>
+  <span class="pill">Account</span>
+ </div>
+
+ <div class="card balance" style="margin-top:14px">
+  <div class="muted">Available Balance</div>
+  <div class="big">₹77.00</div>
+  <div class="row muted">
+   <span>Deposit ₹0</span>
+   <span>Withdrawal ₹0</span>
+  </div>
+ </div>
+
+ <div class="grid2">
+  <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Withdrawal</span><b>₹0</b></div>
+ </div>
+
+ <div class="title">Quick Access</div>
+ <div class="quick">
+  <button onclick="go('usdt')">₮<small>USDT</small></button>
+  <button onclick="go('task')">✓<small>Task</small></button>
+  <button onclick="go('team')">♧<small>Team</small></button>
+  <button onclick="go('order')">▤<small>Order</small></button>
+ </div>
+
+ <div class="banner">
+  <b style="color:var(--blue)">Newcomer Rewards</b>
+  <div class="muted">Check your newcomer task progress.</div>
+  <button class="btn light" style="margin-top:9px"
+   onclick="go('task')">View Task</button>
+ </div>
+
+ <div class="row">
+  <b class="title">Transactions</b>
+  <a class="link" onclick="go('order')">See All</a>
+ </div>
+ <div class="card empty">
+  ▤<br><b>No Transactions</b>
+  <div class="muted">Your activity will appear here.</div>
+ </div>
+</section>
+
+<!-- PART 2 CONTINUES HERE -->
+  <!-- PAYMENT PAGE -->
+<section id="payment" class="page">
+ <div class="title">Payment</div>
+
+ <div class="grid2">
+  <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
+  <div class="metric"><span class="muted">Reward</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Pending</span><b>₹0</b></div>
+  <div class="metric orange"><span class="muted">Cashback Rate</span><b style="color:#ad7100">5.5%</b></div>
+ </div>
+
+ <div class="title">Select Amount</div>
+ <div class="card" id="amountList"></div>
+</section>
+
+<!-- USDT PAGE -->
+<section id="usdt" class="page">
+ <div class="title">USDT</div>
+ <div class="card">
+  <div class="row">
+   <span class="muted">Exchange Rate</span>
+   <b>1 USDT = ₹114</b>
+  </div>
+
+  <label class="label">Amount (Minimum 10 USDT)</label>
+  <input class="field" id="usdtInput" type="number"
+   min="10" placeholder="Enter USDT"
+   oninput="calculateUSDT()">
+
+  <div class="row">
+   <span class="muted">Estimated INR</span>
+   <b id="usdtResult">₹0</b>
+  </div>
+
+  <label class="label">Network</label>
+  <select class="field" id="network">
+   <option>TRC20</option>
+   <option>BSC (BEP20)</option>
+  </select>
+
+  <button class="btn full" onclick="toast('USDT service is not connected')">
+   Continue
+  </button>
+ </div>
+</section>
+
+<!-- TASK PAGE -->
+<section id="task" class="page">
+ <div class="title">Newbie Task</div>
+ <div class="card">
+  <div class="row">
+   <b>Newbie Task</b>
+   <span class="pill">Reward ₹300</span>
+  </div>
+
+  <p class="muted">Eligible deposit / transaction volume target</p>
+  <div class="big" style="font-size:26px">₹0 / ₹2,000</div>
+
+  <div class="progress"><i></i></div>
+
+  <p class="muted">
+   Progress is updated after eligible activity is verified.
+  </p>
+ </div>
+</section>
+
+<!-- TEAM PAGE -->
+<section id="team" class="page">
+ <div class="title">Team</div>
+
+ <div class="grid2">
+  <div class="metric"><span class="muted">Total Commission</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Yesterday Commission</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Today's Commission</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Total Team Members</span><b>0</b></div>
+  <div class="metric"><span class="muted">Total Team Deposit</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Level B Commission</span><b>1%</b></div>
+ </div>
+
+ <div class="card">
+  <b>Invitation Link</b>
+  <div class="row" style="margin-top:12px">
+   <span class="muted">Referral link</span>
+   <button class="btn light" onclick="copyText('DUDPAY referral link')">Copy</button>
+  </div>
+  <p class="muted">Level B: Direct referrals · 1%</p>
+  <p class="muted">Level C: Indirect referrals · 0.3%</p>
+ </div>
+
+ <div class="card">
+  <b>Share Invitation</b>
+  <div class="grid2" style="margin-top:12px">
+   <button class="btn light" onclick="toast('Telegram sharing')">Telegram</button>
+   <button class="btn light" onclick="toast('WhatsApp sharing')">WhatsApp</button>
+   <button class="btn light" onclick="toast('Facebook sharing')">Facebook</button>
+   <button class="btn light" onclick="copyText('DUDPAY referral link')">Copy Link</button>
+  </div>
+ </div>
+</section>
+
+<!-- ORDER PAGE -->
+<section id="order" class="page">
+ <div class="title">Order</div>
+
+ <div class="tabs">
+  <button class="active" onclick="switchOrder('receive',this)">Receive</button>
+  <button onclick="switchOrder('purchase',this)">Purchase</button>
+ </div>
+
+ <div id="receiveOrders" class="card empty">
+  <div style="font-size:30px">▤</div>
+  <b>No Data</b>
+ </div>
+
+ <div id="purchaseOrders" class="card hidden">
+  <div class="grid2">
+   <div><span class="muted">Balance</span><b>₹77</b></div>
+   <div><span class="muted">Reward</span><b>₹0</b></div>
+   <div><span class="muted">Pending</span><b>₹0</b></div>
+  </div>
+  <div class="empty">No Data</div>
+ </div>
+</section>
+
+<!-- PART 3 CONTINUES HERE -->
+  <!-- STATISTICS PAGE -->
+<section id="statistics" class="page">
+ <div class="title">Statistics</div>
+
+ <div class="grid2">
+  <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
+  <div class="metric"><span class="muted">Sell</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Commission</span><b>₹0</b></div>
+ </div>
+
+ <div class="title">Payment Details</div>
+ <div class="card">
+  <div class="row"><span class="muted">Exchange Rate</span><b>₹114</b></div>
+  <div class="row"><span class="muted">In Process Amount</span><b>₹0</b></div>
+  <div class="row"><span class="muted">In Process Orders</span><b>0</b></div>
+  <div class="row"><span class="muted">Commission Rate</span><b>5.5%</b></div>
+  <div class="row"><span class="muted">Estimated Income</span><b>₹0</b></div>
+  <button class="btn full orangeBtn" disabled>Closed Selling</button>
+ </div>
+</section>
+
+<!-- MY PAGE -->
+<section id="my" class="page">
+ <div class="title">My Account</div>
+
+ <div class="profile card">
+  <div class="avatar">D</div>
+  <div>
+   <b id="profileUsername">User</b>
+   <p class="muted" id="profileUserId">ID: —</p>
+  </div>
+ </div>
+
+ <div class="grid2">
+  <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Withdraw</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Commission</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
+ </div>
+
+ <div class="card menuList">
+  <button onclick="showPage('wallet')"><span>▣</span> Wallet <span>›</span></button>
+  <button onclick="showPage('service')"><span>♧</span> Customer Service <span>›</span></button>
+  <button onclick="showPage('message')"><span>✉</span> Message <span>›</span></button>
+  <button onclick="showPage('tutorial')"><span>▤</span> Tutorial <span>›</span></button>
+  <button onclick="logout()"><span>↪</span> Logout <span>›</span></button>
+ </div>
+
+ <p class="muted center">DUDPAY · Version 1.0.0</p>
+</section>
+
+<!-- WALLET PAGE -->
+<section id="wallet" class="page">
+ <div class="title">Wallet</div>
+ <div class="card">
+  <div class="row">
+   <b>Saved Payment Apps</b>
+   <span class="pill">Demo</span>
+  </div>
+  <p class="muted">Choose an app to try opening it. This page cannot verify account ownership or payment-app installation.</p>
+
+  <div class="walletItem">
+   <div class="walletLogo paytm">P</div>
+   <div class="walletInfo"><b>Paytm</b><small>Personal / Business</small></div>
+   <button class="btn light" onclick="openWallet('paytm')">Open</button>
+  </div>
+
+  <div class="walletItem">
+   <div class="walletLogo phonepe">पे</div>
+   <div class="walletInfo"><b>PhonePe</b><small>Personal</small></div>
+   <button class="btn light" onclick="openWallet('phonepe')">Open</button>
+  </div>
+
+  <div class="walletItem">
+   <div class="walletLogo mobikwik">M</div>
+   <div class="walletInfo"><b>MobiKwik</b><small>Personal</small></div>
+   <button class="btn light" onclick="openWallet('mobikwik')">Open</button>
+  </div>
+
+  <div class="walletItem">
+   <div class="walletLogo navi">N</div>
+   <div class="walletInfo"><b>Navi</b><small>Personal</small></div>
+   <button class="btn light" onclick="openWallet('navi')">Open</button>
+  </div>
+
+  <div class="walletItem">
+   <div class="walletLogo bharatpe">B</div>
+   <div class="walletInfo"><b>BharatPe</b><small>Business</small></div>
+   <button class="btn light" onclick="openWallet('bharatpe')">Open</button>
+  </div>
+ </div>
+</section>
+
+<!-- CUSTOMER SERVICE PAGE -->
+<section id="service" class="page">
+ <div class="title">Customer Service</div>
+ <div class="card center">
+  <div class="serviceIcon">客服</div>
+  <h3>Official Customer Service</h3>
+  <p class="muted">Telegram Username</p>
+  <h2>@OFFICALSERVICE06</h2>
+  <button class="btn full" onclick="copyText('@OFFICALSERVICE06')">
+   Copy Username
+  </button>
+  <p class="muted">Use the username to find customer support on Telegram.</p>
+ </div>
+</section>
+
+<!-- MESSAGE PAGE -->
+<section id="message" class="page">
+ <div class="title">Message</div>
+ <div class="card empty">
+  <div style="font-size:30px">✉</div>
+  <b>No Message</b>
+ </div>
+</section>
+
+<!-- TUTORIAL PAGE -->
+<section id="tutorial" class="page">
+ <div class="title">Tutorial</div>
+ <div class="card empty">
+  <div style="font-size:30px">▤</div>
+  <b>No Tutorial</b>
+ </div>
+</section>
+
+<!-- ORDER DETAILS PAGE -->
+<section id="orderDetails" class="page">
+ <div class="title">Order Details</div>
+ <div class="card empty">
+  <div style="font-size:30px">▤</div>
+  <b>No Order Selected</b>
+ </div>
+</section>
+
+<!-- PART 4 CONTINUES HERE -->
+  <script>
+/* DUDPAY FRONT-END DEMO
+   Login, wallet and payment actions are prototype-only.
+   No real payments, deposits, withdrawals or cashback are processed.
+*/
+
+const cashbackRate = 0.055;
+const receiveAmounts = [200,300,500,700,1000,1200,1500,2000,3000,4000,5000];
+
+function toast(message) {
+  let box = document.getElementById("toastMessage");
+
+  if (!box) {
+    box = document.createElement("div");
+    box.id = "toastMessage";
+    box.style.cssText =
+      "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);" +
+      "background:#172b4d;color:white;padding:12px 20px;border-radius:12px;" +
+      "z-index:9999;font-size:14px;box-shadow:0 5px 20px #0002;" +
+      "max-width:85%;text-align:center";
+    document.body.appendChild(box);
+  }
+
+  box.textContent = message;
+  box.style.display = "block";
+
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => {
+    box.style.display = "none";
+  }, 2600);
+}
+
+function copyText(value) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(value)
+      .then(() => toast("Copied"))
+      .catch(() => toast("Copy is not available"));
+  } else {
+    const field = document.createElement("textarea");
+    field.value = value;
+    document.body.appendChild(field);
+    field.select();
+
+    try {
+      document.execCommand("copy");
+      toast("Copied");
+    } catch (error) {
+      toast("Copy is not available");
+    }
+
+    field.remove();
+  }
+}
+
+/* PAGE NAVIGATION */
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+    page.style.display = "none";
+  });
+
+  const selected = document.getElementById(pageId);
+
+  if (selected) {
+    selected.classList.add("active");
+    selected.style.display = "block";
+  }
+
+  document.querySelectorAll("[data-page]").forEach(item => {
+    item.classList.toggle("active", item.dataset.page === pageId);
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* PAYMENT AMOUNT LIST — DEMO DISPLAY ONLY */
+function renderAmounts() {
+  const container = document.getElementById("amountList");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  receiveAmounts.forEach(amount => {
+    const cashback = (amount * cashbackRate).toFixed(2);
+
+    const item = document.createElement("div");
+    item.className = "amountItem";
+    item.innerHTML = `
+      <div>
+        <b>₹${amount.toLocaleString("en-IN")}</b>
+        <small>Demo cashback: ₹${Number(cashback).toLocaleString("en-IN")}</small>
+      </div>
+      <button class="btn light" type="button">Select</button>
+    `;
+
+    item.querySelector("button").addEventListener("click", () => {
+      toast("Demo only — no payment or deposit is created.");
+    });
+
+    container.appendChild(item);
+  });
+}
+
+/* USDT CALCULATOR */
+function calculateUSDT() {
+  const input = document.getElementById("usdtInput");
+  const output = document.getElementById("usdtResult");
+
+  if (!input || !output) return;
+
+  const amount = Number(input.value);
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    output.textContent = "₹0";
+    return;
+  }
+
+  output.textContent = "₹" + (amount * 114).toLocaleString("en-IN", {
+    maximumFractionDigits: 2
+  });
+}
+
+/* ORDER TABS */
+function switchOrder(type, button) {
+  const receive = document.getElementById("receiveOrders");
+  const purchase = document.getElementById("purchaseOrders");
+
+  if (!receive || !purchase) return;
+
+  receive.classList.toggle("hidden", type !== "receive");
+  purchase.classList.toggle("hidden", type !== "purchase");
+
+  document.querySelectorAll("#order .tabs button").forEach(tab => {
+    tab.classList.remove("active");
+  });
+
+  if (button) button.classList.add("active");
+}
+
+/* WALLET APP OPEN — BEST-EFFORT ONLY */
+function openWallet(app) {
+  const links = {
+    paytm: "paytmmp://",
+    phonepe: "phonepe://",
+    mobikwik: "mobikwik://",
+    navi: "navi://",
+    bharatpe: "bharatpe://"
+  };
+
+  if (!links[app]) {
+    toast("App link is not available");
+    return;
+  }
+
+  toast("Trying to open app…");
+
+  window.location.href = links[app];
+
+  setTimeout(() => {
+    toast("If the app did not open, it may not support this link.");
+  }, 1600);
+}
+
+/* DEMO LOGIN / LOGOUT */
+function logout() {
+  const auth = document.getElementById("authScreen");
+  const site = document.getElementById("mainSite");
+
+  if (site) site.style.display = "none";
+  if (auth) auth.style.display = "block";
+
+  toast("Logged out");
+}
+
+/* NAVIGATION BUTTON SUPPORT */
+document.addEventListener("click", function(event) {
+  const target = event.target.closest("[data-page]");
+
+  if (target) {
+    event.preventDefault();
+    showPage(target.dataset.page);
+  }
+});
+
+/* INITIAL SETUP */
+document.addEventListener("DOMContentLoaded", function() {
+  renderAmounts();
+
+  const pages = document.querySelectorAll(".page");
+
+  pages.forEach(page => {
+    page.style.display = "none";
+  });
+
+  const home = document.getElementById("home");
+
+  if (home) {
+    home.style.display = "block";
+    home.classList.add("active");
+  }
+});
+</script>
+
 </main>
-<nav class="nav"><button class="active" data-p="home" onclick="go('home',this)"><span>⌂</span>Home</button><button data-p="payment" onclick="go('payment',this)"><span>⇄</span>Payment</button><button data-p="wallet" onclick="go('wallet',this)"><span>▣</span>Wallet</button><button data-p="statistics" onclick="go('statistics',this)"><span>▥</span>Statistics</button><button data-p="my" onclick="go('my',this)"><span>●</span>My</but
-                                                                                                                                                                                                                                                                                                                                                                                                                                           ton></nav>
-</div><div class="toast" id="toast"></div><div class="modalbg" id="mb" onclick="if(event.target===this)closeM()"><div class="modal" id="modal"></div></div>
-<script>
-const amounts=[200,300,500,700,1000,1200,1500,2000,3000,4000,5000],fmt=n=>n.toLocaleString('en-IN'),cb=n=>(n*.055).toFixed(2);
-function go(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.p===id));window.scrollTo({top:0,behavior:'smooth'})}
-function toast(s){let e=document.getElementById('toast');e.textContent=s;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
-function copy(s){if(navigator.clipboard)navigator.clipboard.writeText(s).then(()=>toast('Copied')).catch(()=>toast(s));else toast(s)}
-document.getElementById('amounts').innerHTML=amounts.map(n=>`<div class="amount"><div><b>₹${fmt(n)}</b><div class="muted">5.5% cashback preview ₹${cb(n)}</div></div><button class="btn" onclick="choose(${n})">Receive</button></div>`).join('');
-function choose(n){let w=JSON.parse(localStorage.getItem('dpwallets')||'[]');if(!w.length){toast('Add a wallet first');go('wallet');return}document.getElementById('modal').innerHTML=`<h3>Select saved wallet</h3>${w.map((x,i)=>`<div class="item row"><b>${x.app} · ${x.type}</b><button class="btn light" onclick="confirmW(${i},${n})">Select</button></div>`).join('')}<button class="btn line" style="width:100%;margin-top:12px" onclick="closeM()">Cancel</button>`;document.getElementById('mb').classList.add('show')}
-function confirmW(i,n){let w=JSON.parse(localStorage.getItem('dpwallets')||'[]')[i];document.getElementById('modal').innerHTML=`<h3>Read Details</h3><p>Selected amount: <b>₹${fmt(n)}</b></p><p>Cashback preview: <b>₹${cb(n)}</b></p><p>Wallet: <b>${w.app}</b></p><div class="notice">Payment setup is not connected yet. Confirming cannot send money or create a real payment order.</div><button class="btn" style="width:100%" onclick="closeM();document.getElementById('selected').textContent='₹${fmt(n)}';go('details')">Continue</button><button class="btn light" style="width:100%;margin-top:8px" onclick="closeM()">Cancel</button>`}
-function closeM(){document.getElementById('mb').classList.remove('show')}
-function addWallet(){document.getElementById('modal').innerHTML=`<h3>Add Wallet</h3><label class="small">Account type</label><select id="wt" class="field"><option>Personal</option><option>Business</option></select><label class="small">Payment app</label><select id="wa" class="field"><option>Paytm</option><option>PhonePe</option><option>MobiKwik</option><option>Navi</option><option>BharatPe</option><option>Paytm Business</option></select><label class="small">Mobile number</label><input id="wm" class="field" maxlength="10" inputmode="numeric" placeholder="10-digit mobile"><button class="btn" style="width:100%" onclick="saveW()">Save</button>`;document.getElementById('mb').classList.add('show')}
-function saveW(){let m=document.getElementById('wm').value.trim();if(!/^[0-9]{10}$/.test(m)){toast('Enter a valid 10-digit mobile');return}let a=JSON.parse(localStorage.getItem('dpwallets')||'[]');a.push({app:document.getElementById('wa').value,type:document.getElementById('wt').value,mobile:m});localStorage.setItem('dpwallets',JSON.stringify(a));closeM();renderW();toast('Wallet saved on this device')}
-function renderW(){let a=JSON.parse(localStorage.getItem('dpwallets')||'[]');document.getElementById('wallets').innerHTML=a.length?a.map((x,i)=>`<div class="item row"><div><b>${x.app}</b><div class="muted">${x.type} · ••••${x.mobile.slice(-4)} · Saved locally</div></div><button class="btn light" onclick="removeW(${i})">Remove</button></div>`).join(''):'No wallet apps added'}
-function removeW(i){let a=JSON.parse(localStorage.getItem('dpwallets')||'[]');a.splice(i,1);localStorage.setItem('dpwallets',JSON.stringify(a));renderW()}
-function tab(t,b){document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('rec').classList.toggle('hide',t!=='rec');document.getElementById('pur').classList.toggle('hide',t!=='pur')}
-renderW();
-</script></body></html>
+</div>
+</body>
+</html>
