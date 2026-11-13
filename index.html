@@ -1,171 +1,152 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dudpay - Earning & Wallet</title>
+    <title>Dudpay - Login & Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between p-6">
 
-    <!-- Header -->
-    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 p-4 flex justify-between items-center sticky top-0 z-50">
-        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-1.5 rounded-xl font-bold text-white tracking-wider shadow-lg">
-            DUDPAY
-        </div>
-        <div class="flex items-center space-x-2 text-sm text-slate-400">
-            <span class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full text-xs font-medium">Online</span>
-        </div>
-    </header>
+    <div class="max-w-md mx-auto w-full flex-grow flex flex-col justify-center">
 
-    <!-- Main Container -->
-    <main class="flex-grow p-4 max-w-md mx-auto w-full pb-24">
-
-        <!-- TAB 1: HOME / AUTH SECTION -->
-        <div id="tab-home" class="space-y-6">
-            <div class="text-center space-y-2 mt-4">
-                <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Welcome to Dudpay</h1>
-                <p class="text-sm text-slate-400">Manage your earnings & wallet securely</p>
-            </div>
-
-            <!-- Toggle Buttons for Login / Register -->
-            <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-800">
-                <button onclick="switchAuthMode('login')" id="btn-mode-login" class="flex-1 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white transition">Login</button>
-                <button onclick="switchAuthMode('register')" id="btn-mode-register" class="flex-1 py-2 text-sm font-medium rounded-lg text-slate-400 transition">Register</button>
-            </div>
-
-            <!-- LOGIN FORM -->
-            <div id="form-login" class="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 rounded-2xl shadow-2xl space-y-4">
-                <form onsubmit="handleLogin(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Mobile Number or Username</label>
-                        <input type="text" required placeholder="Enter mobile or username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
-                        <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm">
-                        Login Now
-                    </button>
-                </form>
-            </div>
-
-            <!-- REGISTER FORM -->
-            <div id="form-register" class="hidden bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 rounded-2xl shadow-2xl space-y-4">
-                <form onsubmit="handleRegister(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Username</label>
-                        <input type="text" required placeholder="Choose a username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Mobile Number</label>
-                        <input type="tel" required placeholder="10-digit mobile number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
-                        <input type="password" required placeholder="Create a strong password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Invite Code (Optional)</label>
-                        <input type="text" placeholder="Enter invite code" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">OTP Verification</label>
-                        <div class="flex space-x-2">
-                            <input type="text" placeholder="Enter 4-digit OTP" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                            <button type="button" onclick="alert('OTP sent successfully!')" class="bg-slate-800 hover:bg-slate-700 text-xs px-4 py-2.5 rounded-xl border border-slate-700 text-indigo-400 font-medium">Get OTP</button>
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm">
-                        Register Account
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- TAB 2: DEPOSIT SECTION -->
-        <div id="tab-deposit" class="hidden space-y-6">
-            <div class="text-center mt-4">
-                <h2 class="text-xl font-bold text-white">Deposit Funds</h2>
-                <p class="text-xs text-slate-400">Add money securely to your wallet</p>
-            </div>
-            <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Enter Amount (₹)</label>
-                    <input type="number" id="deposit-amount" placeholder="500" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500">
+        <!-- LOGIN SCREEN -->
+        <div id="login-screen" class="space-y-6">
+            <!-- Logo & Header -->
+            <div class="text-center space-y-3">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-600 text-white text-3xl font-extrabold rounded-2xl shadow-lg">
+                    D
                 </div>
-                <button onclick="processDeposit()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-emerald-600/20 text-sm">
-                    Proceed to Pay
+                <h1 class="text-2xl font-bold tracking-wide text-slate-900">DUDPAY</h1>
+                <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Digital Payment</p>
+            </div>
+
+            <!-- Login Form Container -->
+            <form onsubmit="handleLogin(event)" class="space-y-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                <!-- Phone Field -->
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-regular fa-user"></i>
+                    </span>
+                    <input type="tel" required placeholder="Phone" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-800 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+
+                <!-- Password Field -->
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input type="password" required placeholder="Password" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-800 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+
+                <!-- Extra Options (Register & Remember Me) -->
+                <div class="flex justify-between items-center text-sm pt-1 px-1">
+                    <button type="button" onclick="showRegister()" class="text-emerald-600 font-medium hover:underline">Register</button>
+                    <label class="flex items-center space-x-2 text-slate-500 text-xs cursor-pointer">
+                        <input type="checkbox" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                        <span>Remember Me</span>
+                    </label>
+                </div>
+
+                <!-- Privacy Agreement -->
+                <div class="flex items-center space-x-2 pt-2 px-1 text-xs text-slate-500">
+                    <input type="checkbox" checked class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                    <span>Agree <a href="#" class="text-emerald-600 underline">User Privacy Agreement</a></span>
+                </div>
+
+                <!-- Sign In Button -->
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3.5 rounded-2xl transition shadow-lg shadow-emerald-600/20 text-base mt-2">
+                    Sign In
                 </button>
-            </div>
-        </div>
 
-        <!-- TAB 3: WALLET SECTION -->
-        <div id="tab-wallet" class="hidden space-y-6">
-            <div class="bg-gradient-to-r from-indigo-900/50 to-purple-900/50 border border-indigo-500/30 p-6 rounded-2xl shadow-xl">
-                <p class="text-xs text-indigo-300 uppercase tracking-wider font-medium">Total Balance</p>
-                <h2 class="text-3xl font-extrabold text-white mt-1">₹ 0.00</h2>
-                <div class="mt-4 flex space-x-2">
-                    <span class="bg-indigo-500/20 text-indigo-300 text-xs px-3 py-1 rounded-full">Active Wallet</span>
+                <!-- Forget Password -->
+                <div class="text-center pt-2">
+                    <a href="#" onclick="alert('Password reset link sent to your phone'); return false;" class="text-xs text-emerald-600 hover:underline">Forget Password</a>
                 </div>
-            </div>
+            </form>
         </div>
 
-        <!-- TAB 4: ADMIN SECTION -->
-        <div id="tab-admin" class="hidden space-y-6">
-            <div class="text-center mt-4">
-                <h2 class="text-xl font-bold text-white">Admin Panel</h2>
-                <p class="text-xs text-slate-400">Manage system settings & requests</p>
+        <!-- REGISTER SCREEN (Hidden by default) -->
+        <div id="register-screen" class="hidden space-y-6">
+            <!-- Header with Back Arrow -->
+            <div class="flex items-center space-x-4">
+                <button onclick="showLogin()" class="text-emerald-600 text-lg p-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 class="text-xl font-bold text-slate-900">Register</h2>
             </div>
-            <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl text-center space-y-3">
-                <p class="text-sm text-slate-300">No pending requests found.</p>
-            </div>
+
+            <!-- Register Form Container -->
+            <form onsubmit="handleRegister(event)" class="space-y-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                <!-- User Name -->
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-regular fa-user"></i>
+                    </span>
+                    <input type="text" required placeholder="User Name" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-800 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+
+                <!-- Password -->
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input type="password" required placeholder="Password" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-800 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+
+                <!-- Phone with +91 -->
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+                    <span class="absolute left-12 text-xs font-semibold text-slate-500">+91</span>
+                    <input type="tel" required placeholder="Phone" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-24 pr-4 text-sm text-slate-800 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+
+                <!-- OTP Code -->
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-regular fa-envelope"></i>
+                    </span>
+                    <input type="text" required placeholder="OTP Code" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-24 text-sm text-slate-800 focus:outline-none focus:border-emerald-500 transition">
+                    <button type="button" onclick="alert('OTP sent successfully!')" class="absolute right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2 rounded-xl font-medium transition">
+                        Send
+                    </button>
+                </div>
+
+                <!-- Invite Code -->
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-solid fa-link"></i>
+                    </span>
+                    <input type="text" placeholder="Invite Code" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-800 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+
+                <!-- Sign Up Button -->
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3.5 rounded-2xl transition shadow-lg shadow-emerald-600/20 text-base mt-2">
+                    Sign Up
+                </button>
+            </form>
         </div>
 
-    </main>
+    </div>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-lg border-t border-slate-800 py-3 px-6 flex justify-around items-center z-50">
-        <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-indigo-400 transition">
-            <i class="fa-solid fa-house text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Home</span>
-        </button>
-        <button onclick="switchTab('deposit')" id="nav-deposit" class="flex flex-col items-center text-slate-400 hover:text-indigo-400 transition">
-            <i class="fa-solid fa-wallet text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Deposit</span>
-        </button>
-        <button onclick="switchTab('wallet')" id="nav-wallet" class="flex flex-col items-center text-slate-400 hover:text-indigo-400 transition">
-            <i class="fa-solid fa-chart-pie text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Wallet</span>
-        </button>
-        <button onclick="switchTab('admin')" id="nav-admin" class="flex flex-col items-center text-slate-400 hover:text-indigo-400 transition">
-            <i class="fa-solid fa-shield-halved text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Admin</span>
-        </button>
-    </nav>
+    <!-- Footer Version -->
+    <footer class="text-center text-xs text-slate-400 py-4">
+        v1.0.3
+    </footer>
 
-    <!-- JavaScript -->
+    <!-- JavaScript to toggle between Login & Register -->
     <script>
-        function switchAuthMode(mode) {
-            const loginForm = document.getElementById('form-login');
-            const regForm = document.getElementById('form-register');
-            const btnLogin = document.getElementById('btn-mode-login');
-            const btnReg = document.getElementById('btn-mode-register');
+        function showRegister() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('register-screen').classList.remove('hidden');
+        }
 
-            if(mode === 'login') {
-                loginForm.classList.remove('hidden');
-                regForm.classList.add('hidden');
-                btnLogin.className = 'flex-1 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white transition';
-                btnReg.className = 'flex-1 py-2 text-sm font-medium rounded-lg text-slate-400 transition';
-            } else {
-                loginForm.classList.add('hidden');
-                regForm.classList.remove('hidden');
-                btnReg.className = 'flex-1 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white transition';
-                btnLogin.className = 'flex-1 py-2 text-sm font-medium rounded-lg text-slate-400 transition';
-            }
+        function showLogin() {
+            document.getElementById('register-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
         }
 
         function handleLogin(event) {
@@ -175,34 +156,9 @@
 
         function handleRegister(event) {
             event.preventDefault();
-            alert('Registration Successful! Please login now.');
-            switchAuthMode('login');
-        }
-
-        function processDeposit() {
-            const amount = document.getElementById('deposit-amount').value;
-            if(!amount || amount <= 0) {
-                alert('Please enter a valid amount');
-                return;
-            }
-            alert('Redirecting to payment gateway for ₹' + amount);
-        }
-
-        function switchTab(tabName) {
-            document.getElementById('tab-home').classList.add('hidden');
-            document.getElementById('tab-deposit').classList.add('hidden');
-            document.getElementById('tab-wallet').classList.add('hidden');
-            document.getElementById('tab-admin').classList.add('hidden');
-
-            document.getElementById('nav-home').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
-            document.getElementById('nav-deposit').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
-            document.getElementById('nav-wallet').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
-            document.getElementById('nav-admin').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
-
-            document.getElementById('tab-' + tabName).classList.remove('hidden');
-            document.getElementById('nav-' + tabName).className = 'flex flex-col items-center text-indigo-400 transition';
+            alert('Registration Successful! Please sign in.');
+            showLogin();
         }
     </script>
 </body>
-                            </html>
-                                
+</html>
