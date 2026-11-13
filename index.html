@@ -1,578 +1,252 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dudpay - Digital Payment & Task App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .sms-banner-animate {
-            animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dudpay</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col justify-between select-none">
+<body>
+<main class="phone-shell">
 
-    <!-- REAL SMS NOTIFICATION BANNER -->
-    <div id="sms-notification" class="fixed top-4 left-4 right-4 max-w-md mx-auto bg-slate-900/95 backdrop-blur-xl text-white p-4 rounded-2xl shadow-2xl border border-slate-700/80 z-50 hidden sms-banner-animate">
-        <div class="flex items-start space-x-3">
-            <div class="bg-emerald-500 text-slate-950 p-2.5 rounded-xl font-bold flex items-center justify-center">
-                <i class="fa-solid fa-comment-sms text-lg"></i>
-            </div>
-            <div class="flex-grow">
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Messages • Just now</span>
-                    <button onclick="closeSmsBanner()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <p class="text-sm font-medium text-slate-100 mt-1">
-                    Your Dudpay verification code is <span id="sms-otp-display" class="font-bold text-emerald-400 tracking-widest">----</span>. Valid for 2 mins.
-                </p>
-                <div class="mt-2 flex space-x-2">
-                    <button onclick="autoFillOtp()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition">
-                        Auto-Fill OTP
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+<section id="auth-screen" class="auth-screen">
+<div class="brand-mark"><i class="fa-solid fa-wallet"></i></div>
+<p class="eyebrow">WELCOME TO</p>
+<h1>Dudpay</h1>
+<p class="muted center">Wallet dashboard</p>
 
-    <!-- MAIN APP CONTAINER -->
-    <div class="max-w-md mx-auto w-full bg-slate-50 min-h-screen flex flex-col relative shadow-xl overflow-hidden pb-20">
+<div class="auth-card">
+<div class="auth-tabs">
+<button class="auth-tab active" data-auth="login">Login</button>
+<button class="auth-tab" data-auth="register">Register</button>
+</div>
 
-        <!-- 1. LOGIN SCREEN -->
-        <div id="login-screen" class="p-6 flex flex-col justify-center flex-grow space-y-6">
-            <div class="text-center space-y-3">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-emerald-600 text-white text-3xl font-extrabold rounded-2xl shadow-lg">
-                    D
-                </div>
-                <h1 class="text-2xl font-bold tracking-wide text-slate-900">DUDPAY</h1>
-                <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Digital Payment System</p>
-            </div>
+<form id="login-form" class="auth-form">
+<label>Mobile number
+<input type="tel" placeholder="Enter mobile number" required minlength="10" maxlength="10">
+</label>
+<label>Password
+<input type="password" placeholder="Enter password" required minlength="4">
+</label>
+<button class="primary-btn" type="submit">Login</button>
+</form>
 
-            <form onsubmit="handleLogin(event)" class="space-y-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                <div class="relative flex items-center">
-                    <span class="absolute left-4 text-slate-400"><i class="fa-solid fa-phone"></i></span>
-                    <input type="tel" id="login-phone" required placeholder="Phone Number" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-emerald-500">
-                </div>
-                <div class="relative flex items-center">
-                    <span class="absolute left-4 text-slate-400"><i class="fa-solid fa-lock"></i></span>
-                    <input type="password" id="login-password" required placeholder="Password" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-emerald-500">
-                </div>
-                <div class="flex justify-between items-center text-sm pt-1 px-1">
-                    <button type="button" onclick="switchScreen('register-screen')" class="text-emerald-600 font-medium hover:underline">Register New Account</button>
-                </div>
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3.5 rounded-2xl transition shadow-lg shadow-emerald-600/20 text-base mt-2">
-                    Sign In
-                </button>
-            </form>
-        </div>
+<form id="register-form" class="auth-form hidden">
+<label>Full name
+<input type="text" placeholder="Enter your name" required>
+</label>
+<label>Mobile number
+<input type="tel" placeholder="Enter mobile number" required minlength="10" maxlength="10">
+</label>
+<label>Password
+<input type="password" placeholder="Create password" required minlength="4">
+</label>
+<button class="primary-btn" type="submit">Register</button>
+</form>
+<p class="demo-note">Demo interface. Real authentication is not connected.</p>
+</div>
+</section>
 
-        <!-- 2. REGISTER SCREEN -->
-        <div id="register-screen" class="p-6 flex flex-col justify-center flex-grow space-y-6 hidden">
-            <div class="flex items-center space-x-4">
-                <button type="button" onclick="switchScreen('login-screen')" class="text-emerald-600 text-lg p-2"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2 class="text-xl font-bold text-slate-900">Create Account</h2>
-            </div>
-            <form onsubmit="handleRegister(event)" class="space-y-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                <div class="relative flex items-center">
-                    <span class="absolute left-4 text-slate-400"><i class="fa-regular fa-user"></i></span>
-                    <input type="text" id="reg-name" required placeholder="User Name" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-emerald-500">
-                </div>
-                <div class="relative flex items-center">
-                    <span class="absolute left-4 text-slate-400"><i class="fa-solid fa-lock"></i></span>
-                    <input type="password" id="reg-password" required placeholder="Password" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-emerald-500">
-                </div>
-                <div class="relative flex items-center">
-                    <span class="absolute left-4 text-slate-400"><i class="fa-solid fa-phone"></i></span>
-                    <span class="absolute left-12 text-xs font-semibold text-slate-500">+91</span>
-                    <input type="tel" id="reg-phone" required placeholder="Phone Number" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-24 pr-4 text-sm focus:outline-none focus:border-emerald-500">
-                </div>
-                <div class="relative flex items-center">
-                    <span class="absolute left-4 text-slate-400"><i class="fa-regular fa-envelope"></i></span>
-                    <input type="text" id="reg-otp" required placeholder="OTP Code" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-28 text-sm focus:outline-none focus:border-emerald-500">
-                    <button type="button" id="otp-btn" onclick="sendSMSOTP()" class="absolute right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3.5 py-2.5 rounded-xl font-medium transition">
-                        Send SMS
-                    </button>
-                </div>
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3.5 rounded-2xl transition shadow-lg shadow-emerald-600/20 text-base mt-2">
-                    Sign Up
-                </button>
-            </form>
-        </div>
+<section id="app" class="app hidden">
 
-        <!-- DASHBOARD CONTAINER (Contains Bottom Tabs) -->
-        <div id="app-dashboard" class="hidden flex flex-col flex-grow">
+<header class="topbar">
+<div><span class="eyebrow">DUDPAY</span><h2 id="page-title">Home</h2></div>
+<button class="icon-btn" id="notification-btn"><i class="fa-regular fa-bell"></i></button>
+</header>
 
-            <!-- TAB 1: HOME SCREEN -->
-            <div id="tab-home" class="p-4 space-y-4 flex-grow">
-                <!-- Top User Bar -->
-                <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-slate-900 text-sm" id="profile-username">Sandeep838</h3>
-                            <p class="text-xs text-slate-400">ID: <span id="profile-id">277989</span> <i class="fa-regular fa-copy cursor-pointer text-emerald-600"></i></p>
-                        </div>
-                    </div>
-                    <div class="text-slate-600 text-lg relative cursor-pointer">
-                        <i class="fa-regular fa-bell"></i>
-                    </div>
-                </div>
+<section id="page-home" class="page active">
 
-                <!-- Available Balance Card (Green Theme) -->
-                <div class="bg-gradient-to-br from-emerald-600 to-emerald-800 text-white p-5 rounded-3xl shadow-lg relative overflow-hidden space-y-4">
-                    <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-yellow-400/20 rounded-full blur-xl"></div>
-                    <div>
-                        <p class="text-xs font-medium text-emerald-100 uppercase tracking-wider">Available Balance</p>
-                        <h2 class="text-3xl font-black mt-1">₹<span id="user-balance">225.00</span></h2>
-                    </div>
-                    <div class="flex justify-end">
-                        <button onclick="switchTab('payment')" class="bg-white text-emerald-800 text-xs font-bold px-5 py-2 rounded-xl shadow hover:bg-emerald-50 transition">Detail</button>
-                    </div>
-                </div>
+<div class="profile-strip">
+<div class="avatar"><i class="fa-solid fa-user"></i></div>
+<div><strong id="display-name">Demo User</strong><small>Demo account</small></div>
+<span class="demo-pill">DEMO</span>
+</div>
 
-                <!-- Deposit & Withdrawal Quick Card -->
-                <div class="bg-gradient-to-r from-emerald-700 to-emerald-900 text-white p-4 rounded-2xl shadow flex justify-around text-center">
-                    <div>
-                        <p class="text-xs text-emerald-200">Deposit</p>
-                        <p class="text-lg font-bold">₹<span id="user-deposit">200.00</span></p>
-                    </div>
-                    <div class="border-r border-emerald-600"></div>
-                    <div>
-                        <p class="text-xs text-emerald-200">Withdrawal</p>
-                        <p class="text-lg font-bold">₹0.00</p>
-                    </div>
-                </div>
+<article class="balance-card">
+<div class="balance-top">
+<span>AVAILABLE BALANCE</span>
+<span class="rate-chip">PREVIEW</span>
+</div>
+<div class="balance-value">₹77.00</div>
+<div class="balance-bottom">
+<div><small>Deposit</small><strong>₹0.00</strong></div>
+<div><small>Withdrawal</small><strong>₹0.00</strong></div>
+</div>
+</article>
 
-                <!-- Feature Icons Grid (USDT, Task, Team, Order) -->
-                <div class="grid grid-cols-4 gap-3 bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-center">
-                    <div onclick="openFeature('USDT')" class="cursor-pointer space-y-1">
-                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-xl shadow-inner"><i class="fa-solid fa-coins"></i></div>
-                        <p class="text-xs font-semibold text-slate-700">USDT</p>
-                    </div>
-                    <div onclick="openFeature('Task')" class="cursor-pointer space-y-1">
-                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-xl shadow-inner"><i class="fa-solid fa-list-check"></i></div>
-                        <p class="text-xs font-semibold text-slate-700">Task</p>
-                    </div>
-                    <div onclick="openFeature('Team')" class="cursor-pointer space-y-1">
-                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-xl shadow-inner"><i class="fa-solid fa-users"></i></div>
-                        <p class="text-xs font-semibold text-slate-700">Team</p>
-                    </div>
-                    <div onclick="openFeature('Order')" class="cursor-pointer space-y-1">
-                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-xl shadow-inner"><i class="fa-solid fa-file-invoice"></i></div>
-                        <p class="text-xs font-semibold text-slate-700">Order</p>
-                    </div>
-                </div>
+<div class="quick-grid">
+<button class="quick-action" data-page="usdt"><span><i class="fa-solid fa-coins"></i></span>USDT</button>
+<button class="quick-action" data-page="tasks"><span><i class="fa-solid fa-list-check"></i></span>Task</button>
+<button class="quick-action" data-page="team"><span><i class="fa-solid fa-people-group"></i></span>Team</button>
+<button class="quick-action" data-page="orders"><span><i class="fa-solid fa-receipt"></i></span>Order</button>
+</div>
 
-                <!-- Newcomer Rewards Banner -->
-                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-2xl shadow-md space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded uppercase">Newcomer Rewards</span>
-                        <span class="text-xs underline cursor-pointer">Multi-Day Task</span>
-                    </div>
-                    <h3 class="font-bold text-lg">In progress</h3>
-                    <p class="text-xs text-blue-100">Complete daily paid tasks to claim rewards.</p>
-                </div>
+<article class="feature-card">
+<div class="feature-head"><span>DAILY TASKS</span><i class="fa-solid fa-lock"></i></div>
+<h3>Daily task</h3>
+<p>Demo task interface. No purchase or payment required.</p>
+<button class="outline-light" data-page="tasks">View tasks</button>
+</article>
 
-                <!-- Transactions Section -->
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
-                    <div class="flex justify-between items-center text-sm font-bold">
-                        <span>Transactions</span>
-                        <span class="text-xs text-emerald-600 cursor-pointer">See All</span>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center"><i class="fa-solid fa-arrow-down"></i></div>
-                            <div>
-                                <p class="text-xs font-bold text-slate-800">Deposit INR</p>
-                                <p class="text-[10px] text-slate-400">2026-11-12 20:05:19</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xs font-bold text-slate-900">₹200.00</p>
-                            <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-semibold">Completed</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<article class="panel">
+<div class="panel-heading"><h3>Transaction history</h3></div>
+<div class="empty-state"><i class="fa-regular fa-folder-open"></i><p>No transactions available</p></div>
+</article>
+</section>
 
-            <!-- TAB 2: PAYMENT / ORDER TASK SCREEN -->
-            <div id="tab-payment" class="p-4 space-y-4 flex-grow hidden">
-                <h2 class="text-lg font-bold text-center text-slate-900 mb-2">Payment Orders</h2>
-                
-                <!-- Payment Header Card -->
-                <div class="bg-gradient-to-br from-emerald-600 to-teal-800 text-white p-5 rounded-3xl shadow-md space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs font-medium">Cashback</span>
-                        <span class="text-xs bg-yellow-400 text-slate-950 font-bold px-2 py-0.5 rounded">4.5%</span>
-                    </div>
-                    <h2 class="text-2xl font-black">4.5%</h2>
-                    <div class="grid grid-cols-2 gap-2 pt-2">
-                        <div class="bg-white/10 p-2.5 rounded-xl">
-                            <p class="text-[10px] text-emerald-200">Balance</p>
-                            <p class="text-sm font-bold">₹225</p>
-                        </div>
-                        <div class="bg-white/10 p-2.5 rounded-xl">
-                            <p class="text-[10px] text-emerald-200">Reward</p>
-                            <p class="text-sm font-bold">₹9</p>
-                        </div>
-                    </div>
-                </div>
+<section id="page-payment" class="page">
+<div class="cashback-card">
+<div><small>Commission preview</small><strong>5.5%</strong></div>
+<div class="cashback-stats">
+<span>Balance<strong>₹77</strong></span>
+<span>Reward<strong>₹0</strong></span>
+<span>Pending<strong>₹0</strong></span>
+</div>
+</div>
 
-                <p class="text-xs text-amber-600 bg-amber-50 p-2 rounded-xl border border-amber-200 text-center font-medium">
-                    ⚠️ Please use Freecharge, PhonePe, Mobikwik, or MoneyView wallet for payment!
-                </p>
+<div class="notice">Demo only. Real payments are not enabled.</div>
+<div class="section-title"><h3>Payment options</h3><span class="muted">INR</span></div>
+<div id="amount-list" class="amount-list"></div>
+</section>
 
-                <!-- Order Cards -->
-                <div class="space-y-3">
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
-                        <div class="space-y-1">
-                            <p class="text-xs font-bold text-slate-900">Order amount: ₹300.00</p>
-                            <p class="text-[10px] text-slate-400">Order quantity: 88</p>
-                            <p class="text-[11px] text-emerald-600 font-semibold">Reward: ₹13.50</p>
-                        </div>
-                        <div class="text-right space-y-2">
-                            <button onclick="openCheckout(300, 13.5)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Receive</button>
-                            <p class="text-xs font-bold text-slate-800">Final: ₹313.50</p>
-                        </div>
-                    </div>
+<section id="page-wallet" class="page">
+<div class="section-title"><h3>Wallet</h3><span class="muted">Preview</span></div>
+<p class="muted intro">Select a wallet to preview the interface.</p>
+<div id="wallet-list" class="wallet-list"></div>
+<div class="panel selected-wallet hidden" id="selected-wallet">
+<h3 id="selected-wallet-name">Wallet</h3>
+<p>No account details stored.</p>
+<button class="secondary-btn" id="remove-wallet">Remove</button>
+</div>
+</section>
 
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
-                        <div class="space-y-1">
-                            <p class="text-xs font-bold text-slate-900">Order amount: ₹500.00</p>
-                            <p class="text-[10px] text-slate-400">Order quantity: 57</p>
-                            <p class="text-[11px] text-emerald-600 font-semibold">Reward: ₹22.50</p>
-                        </div>
-                        <div class="text-right space-y-2">
-                            <button onclick="openCheckout(500, 22.5)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Receive</button>
-                            <p class="text-xs font-bold text-slate-800">Final: ₹522.50</p>
-                        </div>
-                    </div>
+<section id="page-usdt" class="page">
+<div class="section-title"><h3>USDT</h3><span class="rate-chip">1 USDT = ₹114</span></div>
+<div class="panel">
+<label class="field-label">USDT amount
+<input id="usdt-input" type="number" min="0" step="0.01" placeholder="Enter amount">
+</label>
+<div class="calc-results">
+<div><small>INR estimate</small><strong id="inr-result">₹0.00</strong></div>
+<div><small>Reward</small><strong>₹0.00</strong></div>
+</div>
+<p class="demo-note">Calculator preview only.</p>
+</div>
+</section>
 
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
-                        <div class="space-y-1">
-                            <p class="text-xs font-bold text-slate-900">Order amount: ₹200.00</p>
-                            <p class="text-[10px] text-slate-400">Order quantity: 54</p>
-                            <p class="text-[11px] text-emerald-600 font-semibold">Reward: ₹9.00</p>
-                        </div>
-                        <div class="text-right space-y-2">
-                            <button onclick="openCheckout(200, 9.0)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Receive</button>
-                            <p class="text-xs font-bold text-slate-800">Final: ₹209.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section id="page-tasks" class="page">
+<div class="section-title"><h3>Newbie Task</h3></div>
+<div class="segmented"><button class="selected">Newbie tasks</button></div>
+<article class="task-card">
+<div class="task-meta"><span>NEWBIE</span><span>0 / 1</span></div>
+<h3>New member task</h3>
+<p>Task preview. No purchase or deposit required.</p>
+<div class="task-footer">
+<strong><i class="fa-solid fa-star"></i> 0 points</strong>
+<button class="status-btn" id="task-status">Demo locked</button>
+</div>
+</article>
+<div class="notice">No real rewards are issued in this demo.</div>
+</section>
 
-            <!-- TAB 3: STATISTICS SCREEN -->
-            <div id="tab-statistics" class="p-4 space-y-4 flex-grow hidden">
-                <h2 class="text-lg font-bold text-slate-900">Statistics</h2>
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-                    <p class="text-xs font-semibold text-slate-500">Statistics (12/11/2026)</p>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                            <p class="text-[10px] text-slate-400">Balance</p>
-                            <p class="text-sm font-bold text-slate-900">₹225.00</p>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                            <p class="text-[10px] text-slate-400">Sell</p>
-                            <p class="text-sm font-bold text-slate-900">₹0.00</p>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                            <p class="text-[10px] text-slate-400">Deposit</p>
-                            <p class="text-sm font-bold text-slate-900">₹200.00</p>
-                        </div>                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <p class="text-[10px] text-slate-400">Deposit</p>
-                                <p class="text-sm font-bold text-slate-900">₹200.00</p>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <p class="text-[10px] text-slate-400">Commission</p>
-                                <p class="text-sm font-bold text-slate-900">₹9.00</p>
-                            </div>
-                        </div>
-                    </div>
+<section id="page-team" class="page">
+<div class="section-title"><h3>Team</h3></div>
+<article class="team-card">
+<small>My total commissions</small>
+<strong>₹0.00</strong>
+<div class="team-metrics">
+<div>Level 1 commission<b>1%</b></div>
+<div>Level 2 commission<b>0.3%</b></div>
+<div>Team members<b>0</b></div>
+<div>Team deposit<b>₹0.00</b></div>
+</div>
+</article>
+<article class="panel">
+<h3>Invitation link</h3>
+<div class="copy-row">
+<span id="referral-code">DEMO-REF-077</span>
+<button class="secondary-btn" id="copy-ref">Copy</button>
+</div>
+<p class="demo-note">Sample referral code only.</p>
+</article>
+</section>
 
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 space-y-3">
-                        <div class="flex justify-between items-center text-xs font-bold bg-emerald-50 text-emerald-800 p-2.5 rounded-xl">
-                            <span>Real Time Exchange Rates (INR/USDT)</span>
-                            <span>111</span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3 pt-2">
-                            <div class="bg-slate-50 p-3 rounded-xl">
-                                <p class="text-[10px] text-slate-400">In Process Amount</p>
-                                <p class="text-xs font-bold">₹0.00</p>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-xl">
-                                <p class="text-[10px] text-slate-400">In Process Orders</p>
-                                <p class="text-xs font-bold">0</p>
-                            </div>
-                        </div>
-                    </div>
+<section id="page-orders" class="page">
+<div class="section-title"><h3>Order history</h3></div>
+<div class="segmented">
+<button class="selected" data-order="receive">Receive</button>
+<button data-order="purchase">Purchase</button>
+</div>
+<div id="order-summary" class="order-summary hidden">
+<div>Balance<strong>₹77</strong></div>
+<div>Reward<strong>₹0</strong></div>
+<div>Pending<strong>₹0</strong></div>
+</div>
+<div class="empty-state large"><i class="fa-regular fa-file-lines"></i><p>No more data</p></div>
+</section>
 
-                    <button class="w-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold py-3.5 rounded-2xl shadow transition">
-                        Closed Selling
-                    </button>
-                </div>
+<section id="page-statistics" class="page">
+<div class="section-title"><h3>Statistics</h3></div>
+<div class="stats-grid">
+<div><small>Balance</small><strong>₹77.00</strong></div>
+<div><small>Sell</small><strong>₹0.00</strong></div>
+<div><small>Deposit</small><strong>₹0.00</strong></div>
+<div><small>Withdrawal</small><strong>₹0.00</strong></div>
+<div><small>Commission</small><strong>₹0.00</strong></div>
+</div>
+<div class="orange-banner">Selling status: Demo</div>
+</section>
 
-                <!-- TAB 4: MY ASSET / PROFILE SCREEN -->
-                <div id="tab-my" class="p-4 space-y-4 flex-grow hidden">
-                    <h2 class="text-lg font-bold text-slate-900">My Asset</h2>
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 grid grid-cols-2 gap-3">
-                        <div class="bg-slate-50 p-3 rounded-xl">
-                            <p class="text-[10px] text-slate-400">Deposit</p>
-                            <p class="text-sm font-bold text-slate-900">₹200</p>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl">
-                            <p class="text-[10px] text-slate-400">Withdraw</p>
-                            <p class="text-sm font-bold text-slate-900">₹0</p>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl col-span-2">
-                            <p class="text-[10px] text-slate-400">Commission</p>
-                            <p class="text-sm font-bold text-slate-900">₹9</p>
-                        </div>
-                    </div>
+<section id="page-my" class="page">
+<div class="profile-strip">
+<div class="avatar"><i class="fa-solid fa-user"></i></div>
+<div><strong id="my-name">Demo User</strong><small>Demo profile</small></div>
+</div>
+<div class="stats-grid compact">
+<div><small>Balance</small><strong>₹77</strong></div>
+<div><small>Deposit</small><strong>₹0</strong></div>
+<div><small>Commission</small><strong>₹0</strong></div>
+</div>
+<div class="my-grid">
+<button data-page="wallet"><i class="fa-solid fa-wallet"></i>Wallet</button>
+<button data-page="service"><i class="fa-solid fa-headset"></i>Service</button>
+<button data-page="message"><i class="fa-regular fa-envelope"></i>Message</button>
+<button data-page="tutorial"><i class="fa-solid fa-book"></i>Tutorial</button>
+</div>
+<button class="secondary-btn full" id="logout-btn">Logout</button>
+</section>
 
-                    <!-- Grid Options (Wallet, Service, etc.) -->
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 grid grid-cols-3 gap-4 text-center">
-                        <div onclick="openWalletBinding()" class="cursor-pointer space-y-1 p-2 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-wallet text-emerald-600 text-lg"></i>
-                            <p class="text-[11px] font-semibold">Wallet</p>
-                        </div>
-                        <div class="cursor-pointer space-y-1 p-2 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-puzzle-piece text-emerald-600 text-lg"></i>
-                            <p class="text-[11px] font-semibold">Integral</p>
-                        </div>
-                        <div class="cursor-pointer space-y-1 p-2 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-headset text-emerald-600 text-lg"></i>
-                            <p class="text-[11px] font-semibold">Service</p>
-                        </div>
-                        <div class="cursor-pointer space-y-1 p-2 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-envelope text-emerald-600 text-lg"></i>
-                            <p class="text-[11px] font-semibold">Message</p>
-                        </div>
-                        <div class="cursor-pointer space-y-1 p-2 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-shield-halved text-emerald-600 text-lg"></i>
-                            <p class="text-[11px] font-semibold">Pin</p>
-                        </div>
-                        <div class="cursor-pointer space-y-1 p-2 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-book text-emerald-600 text-lg"></i>
-                            <p class="text-[11px] font-semibold">Tutorial</p>
-                        </div>
-                    </div>
+<section id="page-service" class="page">
+<div class="section-title"><h3>Service</h3></div>
+<div class="panel"><h3>Customer support</h3><p class="muted">Official support contact can be added here.</p></div>
+</section>
 
-                    <button onclick="handleLogout()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-2xl shadow transition text-sm">
-                        Logout
-                    </button>
-                </div>
+<section id="page-message" class="page">
+<div class="section-title"><h3>Message</h3></div>
+<div class="empty-state large"><p>No message available</p></div>
+</section>
 
-                <!-- FIXED BOTTOM NAVIGATION BAR -->
-                <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 py-2.5 px-6 flex justify-between items-center z-40 shadow-lg">
-                    <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-emerald-600 space-y-0.5">
-                        <i class="fa-solid fa-house text-lg"></i>
-                        <span class="text-[10px] font-semibold">Home</span>
-                    </button>
-                    <button onclick="switchTab('payment')" id="nav-payment" class="flex flex-col items-center text-slate-400 space-y-0.5">
-                        <i class="fa-solid fa-credit-card text-lg"></i>
-                        <span class="text-[10px] font-semibold">Payment</span>
-                    </button>
-                    <!-- Center Floating Wallet Button -->
-                    <button onclick="switchTab('payment')" class="relative -top-3 w-12 h-12 bg-amber-400 hover:bg-amber-500 text-slate-950 rounded-full flex items-center justify-center shadow-lg border-4 border-slate-50 text-xl">
-                        <i class="fa-solid fa-wallet"></i>
-                    </button>
-                    <button onclick="switchTab('statistics')" id="nav-statistics" class="flex flex-col items-center text-slate-400 space-y-0.5">
-                        <i class="fa-solid fa-chart-pie text-lg"></i>
-                        <span class="text-[10px] font-semibold">Statistics</span>
-                    </button>
-                    <button onclick="switchTab('my')" id="nav-my" class="flex flex-col items-center text-slate-400 space-y-0.5">
-                        <i class="fa-solid fa-user text-lg"></i>
-                        <span class="text-[10px] font-semibold">My</span>
-                    </button>
-                </div>
-            </div>
+<section id="page-tutorial" class="page">
+<div class="section-title"><h3>Tutorial</h3></div>
+<div class="empty-state large"><p>No tutorial available</p></div>
+</section>
 
-            <!-- CHECKOUT MODAL (For Payment / UTR Upload Simulation) -->
-            <div id="checkout-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-                <div class="bg-white w-full max-w-sm rounded-3xl p-6 space-y-4 shadow-2xl animate-scale">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-slate-900 text-base">Complete Payment</h3>
-                        <button onclick="closeCheckout()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-                    </div>
-                    <div class="bg-emerald-50 p-4 rounded-2xl text-center space-y-1 border border-emerald-100">
-                        <p class="text-xs text-emerald-700 font-medium">Scan QR or Pay to UPI ID</p>
-                        <p class="text-sm font-bold text-slate-900 select-all">9079677379@mbk</p>
-                        <p class="text-xs font-black text-emerald-800" id="checkout-amount">Amount: ₹300</p>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-semibold text-slate-600">Enter 12-digit UTR / Ref Number:</label>
-                        <input type="text" id="utr-input" placeholder="e.g. 432109876543" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-3 text-xs focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-semibold text-slate-600">Upload Payment Screenshot:</label>
-                        <input type="file" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
-                    </div>
-                    <button onclick="submitPayment()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-2xl shadow transition text-sm">
-                        I Have Paid (Verify Order)
-                    </button>
-                </div>
-            </div>
+<nav class="bottom-nav">
+<button class="nav-item active" data-page="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+<button class="nav-item" data-page="payment"><i class="fa-solid fa-credit-card"></i><span>Payment</span></button>
+<button class="nav-wallet" data-page="wallet"><i class="fa-solid fa-wallet"></i></button>
+<button class="nav-item" data-page="statistics"><i class="fa-solid fa-chart-pie"></i><span>Statistics</span></button>
+<button class="nav-item" data-page="my"><i class="fa-solid fa-user"></i><span>My</span></button>
+</nav>
+</section>
+</main>
 
-        </div>
-
-        <!-- JAVASCRIPT LOGIC -->
-        <script>
-            let currentGeneratedOTP = "";
-            let countdownTimer = null;
-            let selectedOrderAmount = 0;
-
-            function switchScreen(screenId) {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('register-screen').classList.add('hidden');
-                document.getElementById('app-dashboard').classList.add('hidden');
-                document.getElementById(screenId).classList.remove('hidden');
-            }
-
-            function switchTab(tabName) {
-                document.getElementById('tab-home').classList.add('hidden');
-                document.getElementById('tab-payment').classList.add('hidden');
-                document.getElementById('tab-statistics').classList.add('hidden');
-                document.getElementById('tab-my').classList.add('hidden');
-
-                document.getElementById('nav-home').className = 'flex flex-col items-center text-slate-400 space-y-0.5';
-                document.getElementById('nav-payment').className = 'flex flex-col items-center text-slate-400 space-y-0.5';
-                document.getElementById('nav-statistics').className = 'flex flex-col items-center text-slate-400 space-y-0.5';
-                document.getElementById('nav-my').className = 'flex flex-col items-center text-slate-400 space-y-0.5';
-
-                document.getElementById('tab-' + tabName).classList.remove('hidden');
-                document.getElementById('nav-' + tabName).className = 'flex flex-col items-center text-emerald-600 space-y-0.5';
-            }
-
-            function sendSMSOTP() {
-                const phone = document.getElementById('reg-phone').value;
-                if(!phone || phone.length < 10) {
-                    alert('Please enter a valid 10-digit mobile number!');
-                    return;
-                }
-
-                currentGeneratedOTP = Math.floor(1000 + Math.random() * 9000).toString();
-                document.getElementById('sms-otp-display').innerText = currentGeneratedOTP;
-                document.getElementById('sms-notification').classList.remove('hidden');
-
-                const otpBtn = document.getElementById('otp-btn');
-                otpBtn.disabled = true;
-                let timeLeft = 60;
-                otpBtn.innerText = `Resend (${timeLeft}s)`;
-                otpBtn.className = 'absolute right-2 bg-slate-300 text-slate-600 text-xs px-3.5 py-2.5 rounded-xl font-medium cursor-not-allowed';
-
-                if(countdownTimer) clearInterval(countdownTimer);
-                countdownTimer = setInterval(() => {
-                    timeLeft--;
-                    otpBtn.innerText = `Resend (${timeLeft}s)`;
-                    if(timeLeft <= 0) {
-                        clearInterval(countdownTimer);
-                        otpBtn.disabled = false;
-                        otpBtn.innerText = 'Send SMS';
-                        otpBtn.className = 'absolute right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3.5 py-2.5 rounded-xl font-medium transition';
-                    }
-                }, 1000);
-            }
-
-            function autoFillOtp() {
-                document.getElementById('reg-otp').value = currentGeneratedOTP;
-                closeSmsBanner();
-            }
-
-            function closeSmsBanner() {
-                document.getElementById('sms-notification').classList.add('hidden');
-            }
-
-            function handleRegister(event) {
-                event.preventDefault();
-                const name = document.getElementById('reg-name').value;
-                const password = document.getElementById('reg-password').value;
-                const phone = document.getElementById('reg-phone').value;
-                const otp = document.getElementById('reg-otp').value;
-
-                if(otp !== currentGeneratedOTP) {
-                    alert('Invalid OTP code! Please check the SMS message.');
-                    return;
-                }
-
-                localStorage.setItem('dudpay_phone', phone);
-                localStorage.setItem('dudpay_password', password);
-                localStorage.setItem('dudpay_name', name);
-
-                alert('Account registered successfully! Please sign in.');
-                switchScreen('login-screen');
-            }
-
-            function handleLogin(event) {
-                event.preventDefault();
-                const phone = document.getElementById('login-phone').value;
-                const password = document.getElementById('login-password').value;
-
-                const savedPhone = localStorage.getItem('dudpay_phone');
-                const savedPass = localStorage.getItem('dudpay_password');
-                const savedName = localStorage.getItem('dudpay_name') || 'Sandeep838';
-
-                if(!savedPhone) {
-                    localStorage.setItem('dudpay_phone', '9999999999');
-                    localStorage.setItem('dudpay_password', '123456');
-                    localStorage.setItem('dudpay_name', 'Sandeep838');
-                }
-
-                if(phone === localStorage.getItem('dudpay_phone') && password === localStorage.getItem('dudpay_password')) {
-                    document.getElementById('profile-username').innerText = localStorage.getItem('dudpay_name');
-                    switchScreen('app-dashboard');
-                    switchTab('home');
-                } else {
-                    alert('Incorrect phone number or password!');
-                }
-            }
-
-            function handleLogout() {
-                switchScreen('login-screen');
-                document.getElementById('login-phone').value = '';
-                document.getElementById('login-password').value = '';
-            }
-
-            function openFeature(name) {
-                alert('Opening ' + name + ' module...');
-            }
-
-            function openWalletBinding() {
-                alert('Redirecting to Wallet Binding (Mobikwik / Paytm / Freecharge)...');
-            }
-
-            function openCheckout(amount, reward) {
-                selectedOrderAmount = amount;
-                document.getElementById('checkout-amount').innerText = `Amount: ₹${amount} (Reward: ₹${reward})`;
-                document.getElementById('checkout-modal').classList.remove('hidden');
-            }
-
-            function closeCheckout() {
-                document.getElementById('checkout-modal').classList.add('hidden');
-            }
-
-            function submitPayment() {
-                const utr = document.getElementById('utr-input').value;
-                if(!utr || utr.length < 8) {
-                    alert('Please enter a valid UTR transaction number!');
-                    return;
-                }
-                closeCheckout();
-                alert('We will check your payment and process your order. Please wait 30 minutes.');
-            }
-        </script>
-    </body>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
     </html>
-    ```
-                                    
-                        <div class="bg-slate-50 p-3 rounded-x
+                        
