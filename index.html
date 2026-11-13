@@ -1,252 +1,621 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Dudpay</title>
-<link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dudpay - Wallet Dashboard</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f3f6fc;
+  color: #17233c;
+  padding-bottom: 85px;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.header {
+  background: #155eef;
+  color: white;
+  padding: 22px 18px;
+  border-radius: 0 0 24px 24px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+.header small {
+  display: block;
+  margin-top: 5px;
+  opacity: .85;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 16px;
+}
+
+.auth-box {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  margin: 18px 0;
+  box-shadow: 0 4px 18px #14264b12;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.auth-tabs button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  background: #eaf0ff;
+  color: #155eef;
+  font-weight: bold;
+}
+
+.auth-tabs button.active {
+  background: #155eef;
+  color: white;
+}
+
+.auth-box h2 {
+  margin-bottom: 16px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d8e0ef;
+  border-radius: 10px;
+  margin: 7px 0;
+  outline: none;
+}
+
+.auth-box input:focus {
+  border-color: #155eef;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 13px;
+  background: #155eef;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.demo-note {
+  color: #78849a;
+  font-size: 12px;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 22px 0 14px;
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #155eef, #4787ff);
+  color: white;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px #155eef35;
+}
+
+.balance-card p {
+  opacity: .85;
+  font-size: 14px;
+}
+
+.balance-card h1 {
+  font-size: 34px;
+  margin: 12px 0 20px;
+}
+
+.balance-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.balance-info div {
+  background: #ffffff20;
+  padding: 12px;
+  border-radius: 12px;
+  flex: 1;
+}
+
+.balance-info span {
+  display: block;
+  font-size: 12px;
+  opacity: .85;
+  margin-bottom: 5px;
+}
+
+.balance-info strong {
+  font-size: 16px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.quick-item {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 5px;
+  text-align: center;
+  box-shadow: 0 3px 12px #14264b0c;
+  color: #155eef;
+}
+
+.quick-item .quick-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 7px;
+}
+
+.quick-item span:last-child {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 17px;
+  margin-top: 14px;
+  box-shadow: 0 3px 14px #14264b0c;
+}
+
+.card p {
+  color: #78849a;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 3px;
+  box-shadow: 0 -4px 18px #14264b12;
+  z-index: 100;
+}
+
+.bottom-nav button {
+  background: transparent;
+  color: #7c879b;
+  font-size: 11px;
+  padding: 5px;
+}
+
+.bottom-nav button.active {
+  color: #155eef;
+  font-weight: bold;
+}
+
+.bottom-nav span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.hidden {
+  display: none !important;
+}
+    </style>
 </head>
+
 <body>
-<main class="phone-shell">
 
-<section id="auth-screen" class="auth-screen">
-<div class="brand-mark"><i class="fa-solid fa-wallet"></i></div>
-<p class="eyebrow">WELCOME TO</p>
-<h1>Dudpay</h1>
-<p class="muted center">Wallet dashboard</p>
-
-<div class="auth-card">
-<div class="auth-tabs">
-<button class="auth-tab active" data-auth="login">Login</button>
-<button class="auth-tab" data-auth="register">Register</button>
-</div>
-
-<form id="login-form" class="auth-form">
-<label>Mobile number
-<input type="tel" placeholder="Enter mobile number" required minlength="10" maxlength="10">
-</label>
-<label>Password
-<input type="password" placeholder="Enter password" required minlength="4">
-</label>
-<button class="primary-btn" type="submit">Login</button>
-</form>
-
-<form id="register-form" class="auth-form hidden">
-<label>Full name
-<input type="text" placeholder="Enter your name" required>
-</label>
-<label>Mobile number
-<input type="tel" placeholder="Enter mobile number" required minlength="10" maxlength="10">
-</label>
-<label>Password
-<input type="password" placeholder="Create password" required minlength="4">
-</label>
-<button class="primary-btn" type="submit">Register</button>
-</form>
-<p class="demo-note">Demo interface. Real authentication is not connected.</p>
-</div>
-</section>
-
-<section id="app" class="app hidden">
-
-<header class="topbar">
-<div><span class="eyebrow">DUDPAY</span><h2 id="page-title">Home</h2></div>
-<button class="icon-btn" id="notification-btn"><i class="fa-regular fa-bell"></i></button>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <div>
+      <div class="logo">DUDPAY</div>
+      <small>Wallet Dashboard</small>
+    </div>
+    <div style="font-size:25px;">🔔</div>
+  </div>
 </header>
 
-<section id="page-home" class="page active">
+<div class="container">
 
-<div class="profile-strip">
-<div class="avatar"><i class="fa-solid fa-user"></i></div>
-<div><strong id="display-name">Demo User</strong><small>Demo account</small></div>
-<span class="demo-pill">DEMO</span>
+<!-- LOGIN / REGISTER -->
+<div class="auth-box" id="authBox">
+  <div class="auth-tabs">
+    <button class="active" id="loginTab" onclick="showAuth('login')">Login</button>
+    <button id="registerTab" onclick="showAuth('register')">Register</button>
+  </div>
+
+  <form id="loginForm">
+    <h2>Welcome Back</h2>
+    <input type="tel" id="loginMobile" placeholder="Mobile number" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button class="primary-btn" type="submit">Login</button>
+  </form>
+
+  <form id="registerForm" class="hidden">
+    <h2>Create Account</h2>
+    <input type="text" id="regName" placeholder="Full name" required>
+    <input type="tel" id="regMobile" placeholder="Mobile number" required>
+    <input type="password" id="regPassword" placeholder="Create password" required>
+    <button class="primary-btn" type="submit">Register</button>
+  </form>
+
+  <div class="demo-note">
+    Demo interface only. Real account authentication and payment services are not connected.
+  </div>
 </div>
 
-<article class="balance-card">
-<div class="balance-top">
-<span>AVAILABLE BALANCE</span>
-<span class="rate-chip">PREVIEW</span>
-</div>
-<div class="balance-value">₹77.00</div>
-<div class="balance-bottom">
-<div><small>Deposit</small><strong>₹0.00</strong></div>
-<div><small>Withdrawal</small><strong>₹0.00</strong></div>
-</div>
-</article>
+<!-- MAIN APP -->
+<div id="mainApp" class="hidden">
 
-<div class="quick-grid">
-<button class="quick-action" data-page="usdt"><span><i class="fa-solid fa-coins"></i></span>USDT</button>
-<button class="quick-action" data-page="tasks"><span><i class="fa-solid fa-list-check"></i></span>Task</button>
-<button class="quick-action" data-page="team"><span><i class="fa-solid fa-people-group"></i></span>Team</button>
-<button class="quick-action" data-page="orders"><span><i class="fa-solid fa-receipt"></i></span>Order</button>
-</div>
+<!-- HOME PAGE -->
+<section class="page active" id="homePage">
+  <div class="section-title">Home Dashboard</div>
 
-<article class="feature-card">
-<div class="feature-head"><span>DAILY TASKS</span><i class="fa-solid fa-lock"></i></div>
-<h3>Daily task</h3>
-<p>Demo task interface. No purchase or payment required.</p>
-<button class="outline-light" data-page="tasks">View tasks</button>
-</article>
+  <div class="card" style="display:flex;align-items:center;gap:12px;">
+    <div style="font-size:32px;">👤</div>
+    <div>
+      <strong id="userName">Demo User</strong>
+      <p>Welcome to Dudpay</p>
+    </div>
+  </div>
 
-<article class="panel">
-<div class="panel-heading"><h3>Transaction history</h3></div>
-<div class="empty-state"><i class="fa-regular fa-folder-open"></i><p>No transactions available</p></div>
-</article>
+  <div class="balance-card" style="margin-top:15px;">
+    <p>AVAILABLE BALANCE PREVIEW</p>
+    <h1>₹77.00</h1>
+    <div class="balance-info">
+      <div>
+        <span>Deposit</span>
+        <strong>₹0.00</strong>
+      </div>
+      <div>
+        <span>Withdrawal</span>
+        <strong>₹0.00</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-grid">
+    <button class="quick-item" onclick="openPage('usdtPage')">
+      <span class="quick-icon">💰</span>
+      <span>USDT</span>
+    </button>
+    <button class="quick-item" onclick="openPage('taskPage')">
+      <span class="quick-icon">📋</span>
+      <span>Task</span>
+    </button>
+    <button class="quick-item" onclick="openPage('teamPage')">
+      <span class="quick-icon">👥</span>
+      <span>Team</span>
+    </button>
+    <button class="quick-item" onclick="openPage('orderPage')">
+      <span class="quick-icon">🧾</span>
+      <span>Order</span>
+    </button>
+  </div>
+
+  <div class="section-title">Daily Tasks 🔒</div>
+  <div class="card">
+    <h3>Daily Task</h3>
+    <p>Demo task interface. No purchase or payment required.</p>
+    <button class="primary-btn" onclick="openPage('taskPage')">View Tasks</button>
+  </div>
+
+  <div class="section-title">Recent Transactions</div>
+  <div class="card">
+    <p>No transactions available yet.</p>
+  </div>
 </section>
 
-<section id="page-payment" class="page">
-<div class="cashback-card">
-<div><small>Commission preview</small><strong>5.5%</strong></div>
-<div class="cashback-stats">
-<span>Balance<strong>₹77</strong></span>
-<span>Reward<strong>₹0</strong></span>
-<span>Pending<strong>₹0</strong></span>
-</div>
-</div>
+<!-- USDT PAGE -->
+<section class="page" id="usdtPage">
+  <div class="section-title">USDT Wallet</div>
 
-<div class="notice">Demo only. Real payments are not enabled.</div>
-<div class="section-title"><h3>Payment options</h3><span class="muted">INR</span></div>
-<div id="amount-list" class="amount-list"></div>
+  <div class="card">
+    <h3>USDT Calculator</h3>
+    <p>Demo conversion preview. Rate is illustrative only.</p>
+    <input id="usdtAmount" type="number" placeholder="Enter USDT amount" min="0">
+    <button class="primary-btn" onclick="calculateUSDT()">Calculate</button>
+    <h3 id="usdtResult" style="margin-top:15px;">₹0.00</h3>
+  </div>
+
+  <div class="card">
+    <h3>Wallet Information</h3>
+    <p>No real crypto wallet is connected.</p>
+  </div>
 </section>
 
-<section id="page-wallet" class="page">
-<div class="section-title"><h3>Wallet</h3><span class="muted">Preview</span></div>
-<p class="muted intro">Select a wallet to preview the interface.</p>
-<div id="wallet-list" class="wallet-list"></div>
-<div class="panel selected-wallet hidden" id="selected-wallet">
-<h3 id="selected-wallet-name">Wallet</h3>
-<p>No account details stored.</p>
-<button class="secondary-btn" id="remove-wallet">Remove</button>
-</div>
+<!-- TASK PAGE -->
+<section class="page" id="taskPage">
+  <div class="section-title">Daily Tasks</div>
+
+  <div class="card">
+    <h3>Welcome Task</h3>
+    <p>This is a sample task for preview purposes.</p>
+    <button class="primary-btn" onclick="demoMessage()">View Details</button>
+  </div>
+
+  <div class="card">
+    <h3>Daily Activity</h3>
+    <p>Task completion and rewards are not connected.</p>
+  </div>
 </section>
 
-<section id="page-usdt" class="page">
-<div class="section-title"><h3>USDT</h3><span class="rate-chip">1 USDT = ₹114</span></div>
-<div class="panel">
-<label class="field-label">USDT amount
-<input id="usdt-input" type="number" min="0" step="0.01" placeholder="Enter amount">
-</label>
-<div class="calc-results">
-<div><small>INR estimate</small><strong id="inr-result">₹0.00</strong></div>
-<div><small>Reward</small><strong>₹0.00</strong></div>
-</div>
-<p class="demo-note">Calculator preview only.</p>
-</div>
+<!-- TEAM PAGE -->
+<section class="page" id="teamPage">
+  <div class="section-title">My Team</div>
+
+  <div class="card">
+    <h3>Referral Information</h3>
+    <p>Your demo referral code:</p>
+    <h2 id="referralCode">DUDPAY77</h2>
+    <button class="primary-btn" onclick="copyReferral()">Copy Code</button>
+  </div>
+
+  <div class="card">
+    <h3>Team Members</h3>
+    <p>No team members available in this demo.</p>
+  </div>
 </section>
 
-<section id="page-tasks" class="page">
-<div class="section-title"><h3>Newbie Task</h3></div>
-<div class="segmented"><button class="selected">Newbie tasks</button></div>
-<article class="task-card">
-<div class="task-meta"><span>NEWBIE</span><span>0 / 1</span></div>
-<h3>New member task</h3>
-<p>Task preview. No purchase or deposit required.</p>
-<div class="task-footer">
-<strong><i class="fa-solid fa-star"></i> 0 points</strong>
-<button class="status-btn" id="task-status">Demo locked</button>
-</div>
-</article>
-<div class="notice">No real rewards are issued in this demo.</div>
+<!-- ORDER PAGE -->
+<section class="page" id="orderPage">
+  <div class="section-title">My Orders</div>
+
+  <div class="card">
+    <h3>Order History</h3>
+    <p>No orders found.</p>
+  </div>
+</section>
+<!-- PROFILE PAGE -->
+<section class="page" id="profilePage">
+  <div class="section-title">My Profile</div>
+
+  <div class="card">
+    <div style="font-size:45px;text-align:center;">👤</div>
+    <h3 id="profileName" style="text-align:center;">Demo User</h3>
+    <p style="text-align:center;">Dudpay Demo Account</p>
+  </div>
+
+  <div class="card">
+    <h3>Account Settings</h3>
+    <p>Mobile number and account details are demo-only.</p>
+    <button class="primary-btn" onclick="logout()">Logout</button>
+  </div>
 </section>
 
-<section id="page-team" class="page">
-<div class="section-title"><h3>Team</h3></div>
-<article class="team-card">
-<small>My total commissions</small>
-<strong>₹0.00</strong>
-<div class="team-metrics">
-<div>Level 1 commission<b>1%</b></div>
-<div>Level 2 commission<b>0.3%</b></div>
-<div>Team members<b>0</b></div>
-<div>Team deposit<b>₹0.00</b></div>
 </div>
-</article>
-<article class="panel">
-<h3>Invitation link</h3>
-<div class="copy-row">
-<span id="referral-code">DEMO-REF-077</span>
-<button class="secondary-btn" id="copy-ref">Copy</button>
 </div>
-<p class="demo-note">Sample referral code only.</p>
-</article>
-</section>
 
-<section id="page-orders" class="page">
-<div class="section-title"><h3>Order history</h3></div>
-<div class="segmented">
-<button class="selected" data-order="receive">Receive</button>
-<button data-order="purchase">Purchase</button>
-</div>
-<div id="order-summary" class="order-summary hidden">
-<div>Balance<strong>₹77</strong></div>
-<div>Reward<strong>₹0</strong></div>
-<div>Pending<strong>₹0</strong></div>
-</div>
-<div class="empty-state large"><i class="fa-regular fa-file-lines"></i><p>No more data</p></div>
-</section>
-
-<section id="page-statistics" class="page">
-<div class="section-title"><h3>Statistics</h3></div>
-<div class="stats-grid">
-<div><small>Balance</small><strong>₹77.00</strong></div>
-<div><small>Sell</small><strong>₹0.00</strong></div>
-<div><small>Deposit</small><strong>₹0.00</strong></div>
-<div><small>Withdrawal</small><strong>₹0.00</strong></div>
-<div><small>Commission</small><strong>₹0.00</strong></div>
-</div>
-<div class="orange-banner">Selling status: Demo</div>
-</section>
-
-<section id="page-my" class="page">
-<div class="profile-strip">
-<div class="avatar"><i class="fa-solid fa-user"></i></div>
-<div><strong id="my-name">Demo User</strong><small>Demo profile</small></div>
-</div>
-<div class="stats-grid compact">
-<div><small>Balance</small><strong>₹77</strong></div>
-<div><small>Deposit</small><strong>₹0</strong></div>
-<div><small>Commission</small><strong>₹0</strong></div>
-</div>
-<div class="my-grid">
-<button data-page="wallet"><i class="fa-solid fa-wallet"></i>Wallet</button>
-<button data-page="service"><i class="fa-solid fa-headset"></i>Service</button>
-<button data-page="message"><i class="fa-regular fa-envelope"></i>Message</button>
-<button data-page="tutorial"><i class="fa-solid fa-book"></i>Tutorial</button>
-</div>
-<button class="secondary-btn full" id="logout-btn">Logout</button>
-</section>
-
-<section id="page-service" class="page">
-<div class="section-title"><h3>Service</h3></div>
-<div class="panel"><h3>Customer support</h3><p class="muted">Official support contact can be added here.</p></div>
-</section>
-
-<section id="page-message" class="page">
-<div class="section-title"><h3>Message</h3></div>
-<div class="empty-state large"><p>No message available</p></div>
-</section>
-
-<section id="page-tutorial" class="page">
-<div class="section-title"><h3>Tutorial</h3></div>
-<div class="empty-state large"><p>No tutorial available</p></div>
-</section>
-
-<nav class="bottom-nav">
-<button class="nav-item active" data-page="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
-<button class="nav-item" data-page="payment"><i class="fa-solid fa-credit-card"></i><span>Payment</span></button>
-<button class="nav-wallet" data-page="wallet"><i class="fa-solid fa-wallet"></i></button>
-<button class="nav-item" data-page="statistics"><i class="fa-solid fa-chart-pie"></i><span>Statistics</span></button>
-<button class="nav-item" data-page="my"><i class="fa-solid fa-user"></i><span>My</span></button>
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav hidden" id="bottomNav">
+  <button class="active" onclick="openPage('homePage',this)">
+    <span>🏠</span>Home
+  </button>
+  <button onclick="openPage('usdtPage',this)">
+    <span>💰</span>USDT
+  </button>
+  <button onclick="openPage('taskPage',this)">
+    <span>📋</span>Task
+  </button>
+  <button onclick="openPage('teamPage',this)">
+    <span>👥</span>Team
+  </button>
+  <button onclick="openPage('profilePage',this)">
+    <span>👤</span>Profile
+  </button>
 </nav>
-</section>
-</main>
 
-<div id="toast" class="toast"></div>
-<script src="app.js"></script>
+<div id="toast" style="
+  position:fixed;
+  bottom:85px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#17233c;
+  color:white;
+  padding:12px 20px;
+  border-radius:10px;
+  display:none;
+  z-index:200;
+  font-size:14px;
+"></div>
+
+<script>
+const authBox = document.getElementById("authBox");
+const mainApp = document.getElementById("mainApp");
+const bottomNav = document.getElementById("bottomNav");
+
+function showAuth(type) {
+  const loginForm = document.getElementById("loginForm");
+  const registerForm = document.getElementById("registerForm");
+
+  loginForm.classList.toggle("hidden", type !== "login");
+  registerForm.classList.toggle("hidden", type !== "register");
+
+  document.getElementById("loginTab").classList.toggle("active", type === "login");
+  document.getElementById("registerTab").classList.toggle("active", type === "register");
+}
+
+function showApp(name) {
+  authBox.classList.add("hidden");
+  mainApp.classList.remove("hidden");
+  bottomNav.classList.remove("hidden");
+
+  document.getElementById("userName").textContent = name;
+  document.getElementById("profileName").textContent = name;
+
+  openPage("homePage");
+}
+
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("regName").value.trim();
+  const mobile = document.getElementById("regMobile").value.trim();
+  const password = document.getElementById("regPassword").value;
+
+  if (!name || !mobile || !password) {
+    showToast("Please fill all fields");
+    return;
+  }
+
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    showToast("Enter a valid 10-digit mobile number");
+    return;
+  }
+
+  if (password.length < 6) {
+    showToast("Password must be at least 6 characters");
+    return;
+  }
+
+  showToast("Demo registration successful");
+  showApp(name);
+});
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const mobile = document.getElementById("loginMobile").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  if (!/^[0-9]{10}$/.test(mobile) || !password) {
+    showToast("Enter valid demo details");
+    return;
+  }
+
+  showToast("Demo login successful");
+  showApp("Demo User");
+});
+
+function openPage(pageId, button) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  const selectedPage = document.getElementById(pageId);
+
+  if (selectedPage) {
+    selectedPage.classList.add("active");
+  }
+
+  document.querySelectorAll(".bottom-nav button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  if (button) {
+    button.classList.add("active");
+  } else {
+    document.querySelector(".bottom-nav button").classList.add("active");
+  }
+
+  window.scrollTo(0, 0);
+}
+
+function calculateUSDT() {
+  const amount = Number(document.getElementById("usdtAmount").value);
+
+  if (!Number.isFinite(amount) || amount < 0) {
+    showToast("Enter a valid amount");
+    return;
+  }
+
+  const result = amount * 114;
+
+  document.getElementById("usdtResult").textContent =
+    "₹" + result.toFixed(2);
+}
+
+function copyReferral() {
+  const code = document.getElementById("referralCode").textContent;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(code)
+      .then(() => showToast("Referral code copied"))
+      .catch(() => showToast("Copy not available"));
+  } else {
+    showToast("Copy not available in this browser");
+  }
+}
+
+function demoMessage() {
+  showToast("This is a demo task");
+}
+
+function logout() {
+  mainApp.classList.add("hidden");
+  bottomNav.classList.add("hidden");
+  authBox.classList.remove("hidden");
+  showAuth("login");
+  showToast("Logged out");
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.style.display = "block";
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(() => {
+    toast.style.display = "none";
+  }, 2500);
+}
+</script>
+
 </body>
-    </html>
-                        
+</html>
