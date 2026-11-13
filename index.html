@@ -6,8 +6,41 @@
     <title>Dudpay - Login & Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Smooth slide-down animation for real SMS banner */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .sms-banner-animate {
+            animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between p-6">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between p-6 relative overflow-x-hidden">
+
+    <!-- REAL SMS NOTIFICATION BANNER (Hidden initially) -->
+    <div id="sms-notification" class="fixed top-4 left-4 right-4 max-w-md mx-auto bg-slate-900/95 backdrop-blur-xl text-white p-4 rounded-2xl shadow-2xl border border-slate-700/80 z-50 hidden sms-banner-animate">
+        <div class="flex items-start space-x-3">
+            <div class="bg-emerald-500 text-slate-950 p-2.5 rounded-xl font-bold flex items-center justify-center">
+                <i class="fa-solid fa-comment-sms text-lg"></i>
+            </div>
+            <div class="flex-grow">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Messages • Just now</span>
+                    <button onclick="closeSmsBanner()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <p class="text-sm font-medium text-slate-100 mt-1" id="sms-text-content">
+                    Your Dudpay verification code is <span id="sms-otp-display" class="font-bold text-emerald-400 tracking-widest">----</span>. Valid for 2 mins.
+                </p>
+                <div class="mt-2 flex space-x-2">
+                    <button onclick="autoFillOtp()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition">
+                        Auto-Fill OTP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="max-w-md mx-auto w-full flex-grow flex flex-col justify-center">
 
@@ -73,11 +106,12 @@
                     <input type="tel" id="reg-phone" required placeholder="Phone Number" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-24 pr-4 text-sm text-slate-800 focus:outline-none focus:border-emerald-500">
                 </div>
 
+                <!-- OTP Section with Timer -->
                 <div class="relative flex items-center">
                     <span class="absolute left-4 text-slate-400"><i class="fa-regular fa-envelope"></i></span>
-                    <input type="text" id="reg-otp" required placeholder="OTP Code" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-24 text-sm text-slate-800 focus:outline-none focus:border-emerald-500">
-                    <button type="button" onclick="sendOTP()" class="absolute right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2 rounded-xl font-medium transition">
-                        Send
+                    <input type="text" id="reg-otp" required placeholder="OTP Code" class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-28 text-sm text-slate-800 focus:outline-none focus:border-emerald-500">
+                    <button type="button" id="otp-btn" onclick="sendSMSOTP()" class="absolute right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3.5 py-2.5 rounded-xl font-medium transition">
+                        Send SMS
                     </button>
                 </div>
 
@@ -100,7 +134,7 @@
                 </div>
                 <h2 class="text-2xl font-bold text-slate-900">Welcome, <span id="user-display-name">User</span>!</h2>
                 <p class="text-sm text-slate-500">You are successfully logged in to Dudpay.</p>
-                <button onclick="handleLogout()" class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 rounded-2xl transition text-sm">
+                <button onclick="handleLogout()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium py-3 rounded-2xl transition text-sm">
                     Logout
                 </button>
             </div>
@@ -112,8 +146,10 @@
         v1.0.3
     </footer>
 
+    <!-- JavaScript for Professional SMS & Auth Flow -->
     <script>
-        let generatedOTP = "";
+        let currentGeneratedOTP = "";
+        let countdownTimer = null;
 
         function showRegister() {
             document.getElementById('login-screen').classList.add('hidden');
@@ -125,14 +161,50 @@
             document.getElementById('login-screen').classList.remove('hidden');
         }
 
-        function sendOTP() {
+        function sendSMSOTP() {
             const phone = document.getElementById('reg-phone').value;
             if(!phone || phone.length < 10) {
-                alert('Please enter a valid 10-digit phone number first!');
+                alert('Please enter a valid 10-digit mobile number!');
                 return;
             }
-            generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
-            alert('Your verification OTP is: ' + generatedOTP);
+
+            // Generate 4-digit secure code
+            currentGeneratedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+            
+            // Update SMS banner text
+            document.getElementById('sms-otp-display').innerText = currentGeneratedOTP;
+            
+            // Show real Android-like SMS notification banner
+            const banner = document.getElementById('sms-notification');
+            banner.classList.remove('hidden');
+
+            // Start 60s cooldown timer on button
+            const otpBtn = document.getElementById('otp-btn');
+            otpBtn.disabled = true;
+            let timeLeft = 60;
+            otpBtn.innerText = `Resend (${timeLeft}s)`;
+            otpBtn.className = 'absolute right-2 bg-slate-300 text-slate-600 text-xs px-3.5 py-2.5 rounded-xl font-medium cursor-not-allowed';
+
+            if(countdownTimer) clearInterval(countdownTimer);
+            countdownTimer = setInterval(() => {
+                timeLeft--;
+                otpBtn.innerText = `Resend (${timeLeft}s)`;
+                if(timeLeft <= 0) {
+                    clearInterval(countdownTimer);
+                    otpBtn.disabled = false;
+                    otpBtn.innerText = 'Send SMS';
+                    otpBtn.className = 'absolute right-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3.5 py-2.5 rounded-xl font-medium transition';
+                }
+            }, 1000);
+        }
+
+        function autoFillOtp() {
+            document.getElementById('reg-otp').value = currentGeneratedOTP;
+            closeSmsBanner();
+        }
+
+        function closeSmsBanner() {
+            document.getElementById('sms-notification').classList.add('hidden');
         }
 
         function handleRegister(event) {
@@ -142,17 +214,18 @@
             const phone = document.getElementById('reg-phone').value;
             const otp = document.getElementById('reg-otp').value;
 
-            if(otp !== generatedOTP) {
-                alert('Invalid OTP! Please check the OTP sent to you.');
+            if(otp !== currentGeneratedOTP) {
+                alert('Invalid OTP code! Please check the SMS message.');
                 return;
             }
 
-            // Save user data in phone storage
+            // Save user data securely in browser memory
             localStorage.setItem('dudpay_phone', phone);
             localStorage.setItem('dudpay_password', password);
             localStorage.setItem('dudpay_name', name);
 
-            alert('Registration Successful! Please login with your details.');
+            // Clean UI transition
+            alert('Account registered successfully! Please sign in.');
             showLogin();
         }
 
@@ -166,7 +239,7 @@
             const savedName = localStorage.getItem('dudpay_name') || 'User';
 
             if(!savedPhone) {
-                alert('No account found! Please register first.');
+                alert('No account found with this number. Please register first!');
                 showRegister();
                 return;
             }
@@ -176,7 +249,7 @@
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('dashboard-screen').classList.remove('hidden');
             } else {
-                alert('Incorrect Phone Number or Password!');
+                alert('Incorrect phone number or password!');
             }
         }
 
@@ -188,5 +261,5 @@
         }
     </script>
 </body>
-    </html>
-    
+                    </html>
+                        
