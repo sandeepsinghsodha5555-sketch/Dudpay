@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dudpay - Earning & Wallet</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -16,38 +16,72 @@
             DUDPAY
         </div>
         <div class="flex items-center space-x-2 text-sm text-slate-400">
-            <span id="user-status" class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full text-xs font-medium">Online</span>
+            <span class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full text-xs font-medium">Online</span>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="flex-grow p-4 max-w-md mx-auto w-full pb-20">
+    <main class="flex-grow p-4 max-w-md mx-auto w-full pb-24">
 
-        <!-- TAB 1: HOME / LOGIN SECTION -->
+        <!-- TAB 1: HOME / AUTH SECTION -->
         <div id="tab-home" class="space-y-6">
             <div class="text-center space-y-2 mt-4">
                 <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Welcome to Dudpay</h1>
-                <p class="text-sm text-slate-400">Login or Register to start earning & depositing</p>
+                <p class="text-sm text-slate-400">Manage your earnings & wallet securely</p>
             </div>
 
-            <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 rounded-2xl shadow-2xl space-y-4">
-                <form id="auth-form" onsubmit="handleAuth(event)" class="space-y-4">
+            <!-- Toggle Buttons for Login / Register -->
+            <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-800">
+                <button onclick="switchAuthMode('login')" id="btn-mode-login" class="flex-1 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white transition">Login</button>
+                <button onclick="switchAuthMode('register')" id="btn-mode-register" class="flex-1 py-2 text-sm font-medium rounded-lg text-slate-400 transition">Register</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <div id="form-login" class="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 rounded-2xl shadow-2xl space-y-4">
+                <form onsubmit="handleLogin(event)" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
-                        <input type="email" id="email" required placeholder="name@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Mobile Number or Username</label>
+                        <input type="text" required placeholder="Enter mobile or username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500">
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
-                        <input type="password" id="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+                        <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500">
                     </div>
-                    <div class="flex space-x-3 pt-2">
-                        <button type="submit" onclick="setAuthAction('login')" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm">
-                            Login
-                        </button>
-                        <button type="submit" onclick="setAuthAction('register')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium py-3 rounded-xl transition text-sm border border-slate-700">
-                            Register
-                        </button>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm">
+                        Login Now
+                    </button>
+                </form>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div id="form-register" class="hidden bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 rounded-2xl shadow-2xl space-y-4">
+                <form onsubmit="handleRegister(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Username</label>
+                        <input type="text" required placeholder="Choose a username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
                     </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Mobile Number</label>
+                        <input type="tel" required placeholder="10-digit mobile number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
+                        <input type="password" required placeholder="Create a strong password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Invite Code (Optional)</label>
+                        <input type="text" placeholder="Enter invite code" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">OTP Verification</label>
+                        <div class="flex space-x-2">
+                            <input type="text" placeholder="Enter 4-digit OTP" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                            <button type="button" onclick="alert('OTP sent successfully!')" class="bg-slate-800 hover:bg-slate-700 text-xs px-4 py-2.5 rounded-xl border border-slate-700 text-indigo-400 font-medium">Get OTP</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm">
+                        Register Account
+                    </button>
                 </form>
             </div>
         </div>
@@ -113,22 +147,36 @@
         </button>
     </nav>
 
-    <!-- JavaScript for Interactivity -->
+    <!-- JavaScript -->
     <script>
-        let currentAction = 'login';
+        function switchAuthMode(mode) {
+            const loginForm = document.getElementById('form-login');
+            const regForm = document.getElementById('form-register');
+            const btnLogin = document.getElementById('btn-mode-login');
+            const btnReg = document.getElementById('btn-mode-register');
 
-        function setAuthAction(action) {
-            currentAction = action;
+            if(mode === 'login') {
+                loginForm.classList.remove('hidden');
+                regForm.classList.add('hidden');
+                btnLogin.className = 'flex-1 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white transition';
+                btnReg.className = 'flex-1 py-2 text-sm font-medium rounded-lg text-slate-400 transition';
+            } else {
+                loginForm.classList.add('hidden');
+                regForm.classList.remove('hidden');
+                btnReg.className = 'flex-1 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white transition';
+                btnLogin.className = 'flex-1 py-2 text-sm font-medium rounded-lg text-slate-400 transition';
+            }
         }
 
-        function handleAuth(event) {
+        function handleLogin(event) {
             event.preventDefault();
-            const email = document.getElementById('email').value;
-            if (currentAction === 'login') {
-                alert('Login Successful for: ' + email);
-            } else {
-                alert('Registration Successful for: ' + email);
-            }
+            alert('Login Successful!');
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            alert('Registration Successful! Please login now.');
+            switchAuthMode('login');
         }
 
         function processDeposit() {
@@ -141,23 +189,20 @@
         }
 
         function switchTab(tabName) {
-            // Hide all tabs
             document.getElementById('tab-home').classList.add('hidden');
             document.getElementById('tab-deposit').classList.add('hidden');
             document.getElementById('tab-wallet').classList.add('hidden');
             document.getElementById('tab-admin').classList.add('hidden');
 
-            // Reset nav colors
             document.getElementById('nav-home').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
             document.getElementById('nav-deposit').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
             document.getElementById('nav-wallet').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
             document.getElementById('nav-admin').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
 
-            // Show selected tab & highlight nav
             document.getElementById('tab-' + tabName).classList.remove('hidden');
             document.getElementById('nav-' + tabName).className = 'flex flex-col items-center text-indigo-400 transition';
         }
     </script>
 </body>
-                        </html>
-    
+                            </html>
+                                
