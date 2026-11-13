@@ -3,340 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dudpay - Earning & Wallet App</title>
+    <title>Dudpay - Earning & Wallet</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
 
-    <!-- App Container -->
-    <div id="app" class="max-w-md mx-auto min-h-screen bg-slate-900 shadow-2xl relative flex flex-col justify-between">
-        
-        <!-- HEADER -->
-        <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="bg-indigo-600 text-white font-black px-3 py-1 rounded-lg text-lg tracking-wider">DUDPAY</div>
+    <!-- Header -->
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 p-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-1.5 rounded-xl font-bold text-white tracking-wider shadow-lg">
+            DUDPAY
+        </div>
+        <div class="flex items-center space-x-2 text-sm text-slate-400">
+            <span id="user-status" class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full text-xs font-medium">Online</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow p-4 max-w-md mx-auto w-full pb-20">
+
+        <!-- TAB 1: HOME / LOGIN SECTION -->
+        <div id="tab-home" class="space-y-6">
+            <div class="text-center space-y-2 mt-4">
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Welcome to Dudpay</h1>
+                <p class="text-sm text-slate-400">Login or Register to start earning & depositing</p>
             </div>
-            <div id="user-info" class="text-xs text-slate-400 hidden">
-                <span id="nav-email"></span> | <button onclick="logout()" class="text-red-400 underline">Logout</button>
-            </div>
-        </header>
 
-        <!-- MAIN CONTENT AREA -->
-        <main class="p-4 flex-grow pb-24">
-
-            <!-- 1. AUTH SCREEN -->
-            <div id="auth-screen" class="space-y-6 pt-10">
-                <div class="text-center space-y-2">
-                    <h1 class="text-3xl font-extrabold text-indigo-400">Welcome to Dudpay</h1>
-                    <p class="text-sm text-slate-400">Login or Register to start earning & depositing</p>
-                </div>
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 space-y-4 shadow-xl">
+            <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-6 rounded-2xl shadow-2xl space-y-4">
+                <form id="auth-form" onsubmit="handleAuth(event)" class="space-y-4">
                     <div>
-                        <label class="text-xs text-slate-400 font-medium">Email Address</label>
-                        <input type="email" id="auth-email" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" placeholder="user@gmail.com">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
+                        <input type="email" id="email" required placeholder="name@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
                     </div>
                     <div>
-                        <label class="text-xs text-slate-400 font-medium">Password</label>
-                        <input type="password" id="auth-password" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" placeholder="******">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
+                        <input type="password" id="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
                     </div>
                     <div class="flex space-x-3 pt-2">
-                        <button onclick="handleLogin()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition text-sm">Login</button>
-                        <button onclick="handleSignup()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition text-sm">Register</button>
+                        <button type="submit" onclick="setAuthAction('login')" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm">
+                            Login
+                        </button>
+                        <button type="submit" onclick="setAuthAction('register')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium py-3 rounded-xl transition text-sm border border-slate-700">
+                            Register
+                        </button>
                     </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 2: DEPOSIT SECTION -->
+        <div id="tab-deposit" class="hidden space-y-6">
+            <div class="text-center mt-4">
+                <h2 class="text-xl font-bold text-white">Deposit Funds</h2>
+                <p class="text-xs text-slate-400">Add money securely to your wallet</p>
+            </div>
+            <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Enter Amount (₹)</label>
+                    <input type="number" id="deposit-amount" placeholder="500" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500">
+                </div>
+                <button onclick="processDeposit()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-emerald-600/20 text-sm">
+                    Proceed to Pay
+                </button>
+            </div>
+        </div>
+
+        <!-- TAB 3: WALLET SECTION -->
+        <div id="tab-wallet" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-indigo-900/50 to-purple-900/50 border border-indigo-500/30 p-6 rounded-2xl shadow-xl">
+                <p class="text-xs text-indigo-300 uppercase tracking-wider font-medium">Total Balance</p>
+                <h2 class="text-3xl font-extrabold text-white mt-1">₹ 0.00</h2>
+                <div class="mt-4 flex space-x-2">
+                    <span class="bg-indigo-500/20 text-indigo-300 text-xs px-3 py-1 rounded-full">Active Wallet</span>
                 </div>
             </div>
+        </div>
 
-            <!-- 2. DASHBOARD SCREEN -->
-            <div id="dashboard-screen" class="space-y-6 hidden">
-                <!-- Wallet Balance Card -->
-                <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 p-6 rounded-3xl border border-indigo-700/50 shadow-xl space-y-3">
-                    <div class="text-xs text-indigo-200 uppercase tracking-widest font-semibold">Available Balance</div>
-                    <div class="text-3xl font-black text-white" id="wallet-balance">₹0.00</div>
-                    <div class="flex justify-between pt-2 border-t border-indigo-700/40 text-xs text-indigo-200">
-                        <span>Deposit Commission: <strong>5%</strong></span>
-                        <span>Referral Bonus: <strong>1%</strong></span>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="grid grid-cols-3 gap-3">
-                    <button onclick="switchTab('deposit')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-2xl border border-slate-700 text-center space-y-2 transition">
-                        <i class="fa-solid fa-wallet text-indigo-400 text-xl"></i>
-                        <div class="text-xs font-semibold">Deposit</div>
-                    </button>
-                    <button onclick="switchTab('wallet-bind')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-2xl border border-slate-700 text-center space-y-2 transition">
-                        <i class="fa-solid fa-link text-emerald-400 text-xl"></i>
-                        <div class="text-xs font-semibold">Bind Wallet</div>
-                    </button>
-                    <button onclick="switchTab('admin')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-2xl border border-slate-700 text-center space-y-2 transition">
-                        <i class="fa-solid fa-shield-halved text-amber-400 text-xl"></i>
-                        <div class="text-xs font-semibold">Admin Panel</div>
-                    </button>
-                </div>
-
-                <!-- Recent Activity / Info -->
-                <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-800 space-y-2">
-                    <div class="text-xs font-bold text-slate-400 uppercase">Refer & Earn</div>
-                    <div class="text-xs text-slate-300">Share your referral link and get 1% commission on every deposit made by your friends.</div>
-                    <div class="flex items-center space-x-2 pt-1">
-                        <input type="text" readonly value="https://dudpay.app/ref?id=user" class="bg-slate-900 border border-slate-700 text-xs p-2 rounded-lg flex-grow text-slate-400">
-                        <button onclick="alert('Referral link copied!')" class="bg-indigo-600 text-xs px-3 py-2 rounded-lg font-bold">Copy</button>
-                    </div>
-                </div>
+        <!-- TAB 4: ADMIN SECTION -->
+        <div id="tab-admin" class="hidden space-y-6">
+            <div class="text-center mt-4">
+                <h2 class="text-xl font-bold text-white">Admin Panel</h2>
+                <p class="text-xs text-slate-400">Manage system settings & requests</p>
             </div>
-
-            <!-- 3. WALLET BINDING SCREEN -->
-            <div id="wallet-bind-screen" class="space-y-6 hidden">
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchTab('dashboard')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h2 class="text-xl font-bold">Bind Your Wallet</h2>
-                </div>
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 space-y-4">
-                    <div>
-                        <label class="text-xs text-slate-400 font-medium">Select Wallet Type</label>
-                        <select id="wallet-type" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none">
-                            <option value="Paytm">Paytm</option>
-                            <option value="Mobikwik">Mobikwik</option>
-                            <option value="PhonePe">PhonePe</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs text-slate-400 font-medium">Wallet Number / UPI</label>
-                        <input type="text" id="wallet-number" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none" placeholder="Enter mobile number">
-                    </div>
-                    <button onclick="saveWallet()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-sm">Save & Bind Wallet</button>
-                </div>
-                <div id="bound-wallet-status" class="text-xs text-slate-400 text-center"></div>
+            <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl text-center space-y-3">
+                <p class="text-sm text-slate-300">No pending requests found.</p>
             </div>
+        </div>
 
-            <!-- 4. DEPOSIT SCREEN -->
-            <div id="deposit-screen" class="space-y-6 hidden">
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchTab('dashboard')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h2 class="text-xl font-bold">Deposit Funds (+5% Bonus)</h2>
-                </div>
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 space-y-4">
-                    <div>
-                        <label class="text-xs text-slate-400 font-medium">Enter Amount (₹)</label>
-                        <input type="number" id="deposit-amount" oninput="calculateBonus()" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none" placeholder="e.g. 200">
-                    </div>
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs space-y-1">
-                        <div class="flex justify-between text-slate-400"><span>Deposit Amount:</span><span id="calc-base">₹0</span></div>
-                        <div class="flex justify-between text-emerald-400"><span>5% Commission Added:</span><span id="calc-bonus">₹0</span></div>
-                        <div class="flex justify-between font-bold text-white pt-2 border-t border-slate-800"><span>Total Credited:</span><span id="calc-total">₹0</span></div>
-                    </div>
-                    <div class="bg-indigo-950/40 p-4 rounded-xl border border-indigo-900/50 space-y-2 text-center">
-                        <div class="text-xs text-indigo-300">Scan or Pay via UPI ID:</div>
-                        <div class="text-sm font-bold text-white bg-indigo-900/60 py-2 rounded-lg select-all">singhborn@fam</div>
-                    </div>
-                    <div>
-                        <label class="text-xs text-slate-400 font-medium">Enter UTR / Transaction ID</label>
-                        <input type="text" id="deposit-utr" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none" placeholder="12-digit UTR number">
-                    </div>
-                    <button onclick="submitDeposit()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition text-sm">Submit Payment for Approval</button>
-                </div>
-            </div>
+    </main>
 
-            <!-- 5. ADMIN PANEL SCREEN -->
-            <div id="admin-screen" class="space-y-6 hidden">
-                <div class="flex items-center space-x-3">
-                    <button onclick="switchTab('dashboard')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-arrow-left"></i></button>
-                    <h2 class="text-xl font-bold">Admin Verification Panel</h2>
-                </div>
-                <div class="space-y-3" id="admin-orders-list">
-                    <div class="text-xs text-slate-400 text-center py-4">Loading pending deposits...</div>
-                </div>
-            </div>
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-lg border-t border-slate-800 py-3 px-6 flex justify-around items-center z-50">
+        <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-indigo-400 transition">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] mt-1 font-medium">Home</span>
+        </button>
+        <button onclick="switchTab('deposit')" id="nav-deposit" class="flex flex-col items-center text-slate-400 hover:text-indigo-400 transition">
+            <i class="fa-solid fa-wallet text-lg"></i>
+            <span class="text-[10px] mt-1 font-medium">Deposit</span>
+        </button>
+        <button onclick="switchTab('wallet')" id="nav-wallet" class="flex flex-col items-center text-slate-400 hover:text-indigo-400 transition">
+            <i class="fa-solid fa-chart-pie text-lg"></i>
+            <span class="text-[10px] mt-1 font-medium">Wallet</span>
+        </button>
+        <button onclick="switchTab('admin')" id="nav-admin" class="flex flex-col items-center text-slate-400 hover:text-indigo-400 transition">
+            <i class="fa-solid fa-shield-halved text-lg"></i>
+            <span class="text-[10px] mt-1 font-medium">Admin</span>
+        </button>
+    </nav>
 
-        </main>
+    <!-- JavaScript for Interactivity -->
+    <script>
+        let currentAction = 'login';
 
-        <!-- BOTTOM NAV BAR -->
-        <nav class="bg-slate-900 border-t border-slate-800 py-3 px-6 flex justify-around items-center sticky bottom-0 z-50">
-            <button onclick="switchTab('dashboard')" class="text-indigo-400 flex flex-col items-center space-y-1">
-                <i class="fa-solid fa-house text-lg"></i>
-                <span class="text-[10px]">Home</span>
-            </button>
-            <button onclick="switchTab('deposit')" class="text-slate-400 hover:text-indigo-400 flex flex-col items-center space-y-1">
-                <i class="fa-solid fa-wallet text-lg"></i>
-                <span class="text-[10px]">Deposit</span>
-            </button>
-            <button onclick="switchTab('wallet-bind')" class="text-slate-400 hover:text-indigo-400 flex flex-col items-center space-y-1">
-                <i class="fa-solid fa-user-gear text-lg"></i>
-                <span class="text-[10px]">Wallet</span>
-            </button>
-            <button onclick="switchTab('admin')" class="text-slate-400 hover:text-indigo-400 flex flex-col items-center space-y-1">
-                <i class="fa-solid fa-shield text-lg"></i>
-                <span class="text-[10px]">Admin</span>
-            </button>
-        </nav>
-
-    </div>
-
-    <!-- FIREBASE SDK & APP LOGIC -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyCgYn1Dc8YJMklCn-OVUdzt1b2YrJOXWwE",
-          authDomain: "dudpay.firebaseapp.com",
-          projectId: "dudpay",
-          storageBucket: "dudpay.firebasestorage.app",
-          messagingSenderId: "789440439552",
-          appId: "1:789440439552:web:5bbd6215f5a00736553fe5",
-          measurementId: "G-5P2M6HWYB8"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let currentUser = null;
-
-        window.switchTab = function(tabName) {
-            ['auth-screen', 'dashboard-screen', 'wallet-bind-screen', 'deposit-screen', 'admin-screen'].forEach(s => {
-                document.getElementById(s).classList.add('hidden');
-            });
-            if(tabName === 'dashboard') document.getElementById('dashboard-screen').classList.remove('hidden');
-            if(tabName === 'wallet-bind') document.getElementById('wallet-bind-screen').classList.remove('hidden');
-            if(tabName === 'deposit') document.getElementById('deposit-screen').classList.remove('hidden');
-            if(tabName === 'admin') {
-                document.getElementById('admin-screen').classList.remove('hidden');
-                loadAdminOrders();
-            }
+        function setAuthAction(action) {
+            currentAction = action;
         }
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUser = user;
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('dashboard-screen').classList.remove('hidden');
-                document.getElementById('user-info').classList.remove('hidden');
-                document.getElementById('nav-email').innerText = user.email;
-                await ensureUserDocument(user);
-                loadUserData(user.uid);
+        function handleAuth(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            if (currentAction === 'login') {
+                alert('Login Successful for: ' + email);
             } else {
-                currentUser = null;
-                document.getElementById('auth-screen').classList.remove('hidden');
-                document.getElementById('dashboard-screen').classList.add('hidden');
-                document.getElementById('user-info').classList.add('hidden');
-            }
-        });
-
-        window.handleSignup = async function() {
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-password').value;
-            if(!email || !pass) { alert("Please fill email and password"); return; }
-            try {
-                await createUserWithEmailAndPassword(auth, email, pass);
-                alert("Account created successfully!");
-            } catch (e) { alert(e.message); }
-        }
-
-        window.handleLogin = async function() {
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-password').value;
-            if(!email || !pass) { alert("Please fill email and password"); return; }
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-            } catch (e) { alert(e.message); }
-        }
-
-        window.logout = function() { signOut(auth); }
-
-        async function ensureUserDocument(user) {
-            const userRef = doc(db, "users", user.uid);
-            const snap = await getDoc(userRef);
-            if (!snap.exists()) {
-                await setDoc(userRef, {
-                    email: user.email,
-                    balance: 0,
-                    walletType: "",
-                    walletNumber: "",
-                    createdAt: new Date().toISOString()
-                });
+                alert('Registration Successful for: ' + email);
             }
         }
 
-        async function loadUserData(uid) {
-            const userRef = doc(db, "users", uid);
-            const snap = await getDoc(userRef);
-            if(snap.exists()) {
-                const data = snap.data();
-                document.getElementById('wallet-balance').innerText = `₹${data.balance || 0}`;
-                if(data.walletNumber) {
-                    document.getElementById('bound-wallet-status').innerHTML = `<span class="text-emerald-400">Bound: ${data.walletType} (${data.walletNumber})</span>`;
-                }
+        function processDeposit() {
+            const amount = document.getElementById('deposit-amount').value;
+            if(!amount || amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
             }
+            alert('Redirecting to payment gateway for ₹' + amount);
         }
 
-        window.saveWallet = async function() {
-            if(!currentUser) return;
-            const type = document.getElementById('wallet-type').value;
-            const number = document.getElementById('wallet-number').value;
-            if(!number) { alert("Please enter wallet number"); return; }
-            
-            try {
-                const userRef = doc(db, "users", currentUser.uid);
-                await updateDoc(userRef, { walletType: type, walletNumber: number });
-                alert("Wallet bound successfully!");
-                loadUserData(currentUser.uid);
-            } catch(e) { alert(e.message); }
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.getElementById('tab-home').classList.add('hidden');
+            document.getElementById('tab-deposit').classList.add('hidden');
+            document.getElementById('tab-wallet').classList.add('hidden');
+            document.getElementById('tab-admin').classList.add('hidden');
+
+            // Reset nav colors
+            document.getElementById('nav-home').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
+            document.getElementById('nav-deposit').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
+            document.getElementById('nav-wallet').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
+            document.getElementById('nav-admin').className = 'flex flex-col items-center text-slate-400 hover:text-indigo-400 transition';
+
+            // Show selected tab & highlight nav
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            document.getElementById('nav-' + tabName).className = 'flex flex-col items-center text-indigo-400 transition';
         }
-
-        window.calculateBonus = function() {
-            const amt = parseFloat(document.getElementById('deposit-amount').value) || 0;
-            const bonus = amt * 0.05; 
-            const total = amt + bonus;
-            document.getElementById('calc-base').innerText = `₹${amt}`;
-            document.getElementById('calc-bonus').innerText = `₹${bonus.toFixed(2)}`;
-            document.getElementById('calc-total').innerText = `₹${total.toFixed(2)}`;
-        }
-
-        window.submitDeposit = async function() {
-            if(!currentUser) return;
-            const amt = parseFloat(document.getElementById('deposit-amount').value) || 0;
-            const utr = document.getElementById('deposit-utr').value;
-            if(amt <= 0 || !utr) { alert("Enter valid amount and UTR number"); return; }
-
-            const totalCrediting = amt + (amt * 0.05);
-
-            try {
-                await setDoc(doc(db, "deposits", utr), {
-                    uid: currentUser.uid,
-                    email: currentUser.email,
-                    amount: amt,
-                    totalCrediting: totalCrediting,
-                    utr: utr,
-                    status: "Pending",
-                    timestamp: new Date().toISOString()
-                });
-                alert("Deposit submitted successfully! Awaiting Admin approval.");
-                switchTab('dashboard');
-            } catch(e) { alert(e.message); }
-        }
-
-        async function loadAdminOrders() {
-            const listEl = document.getElementById('admin-orders-list');
-            listEl.innerHTML = '<div class="text-xs text-slate-400 text-center py-4">Loading...</div>';
-            try {
-                const q = query(collection(db, "deposits"), where("status", "==", "Pending"));
-                const querySnapshot = await getDocs(q);
-                if(querySnapshot.empty) {
-                    listEl.innerHTML = '<div class="text-xs text-slate-400 text-center py-4">No pending deposits found.</div>';
-                    return;
-                }
-                let html = "";
-                querySnapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    html += `
-                        <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
-                            <div class="flex justify-between text-xs text-slate-400">
-                                <span>User: ${data.email}</span>
-                                <span class="text-amber-400 font-bold">Pending</span>
-                            </div>
-                            <div class="text-sm font-bold text-white">Amount: ₹${data.amount} (Crediting: ₹${data.totalCrediting})</div>
-                            <div class="text-xs text-indigo-300 font-mono">UTR: ${data.utr}</div>
- 
+    </script>
+</body>
+                        </html>
+    
