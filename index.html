@@ -975,22 +975,20 @@ document.addEventListener("click", function(event) {
     showPage(target.dataset.page);
   }
 });
-
 /* INITIAL SETUP */
 document.addEventListener("DOMContentLoaded", function() {
   renderAmounts();
 
-  const pages = document.querySelectorAll(".page");
+  const authPage = document.getElementById("authPage");
+  const mainSite = document.getElementById("mainSite");
 
-  pages.forEach(page => {
-    page.style.display = "none";
-  });
+  if (authPage) {
+    authPage.style.display = "block";
+    authPage.classList.add("active");
+  }
 
-  const home = document.getElementById("home");
-
-  if (home) {
-    home.style.display = "block";
-    home.classList.add("active");
+  if (mainSite) {
+    mainSite.style.display = "none";
   }
 });
 </script>
