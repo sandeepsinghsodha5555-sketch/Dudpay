@@ -2,1131 +2,436 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#1769d2">
 <title>DUDPAY</title>
-
 <style>
-:root{
- --blue:#1769d2;
- --blue2:#0d55b5;
- --light:#eaf3ff;
- --white:#ffffff;
- --navy:#17345c;
- --orange:#f4a62a;
- --green:#16865b;
- --red:#d64b4b;
- --muted:#7b899d;
- --bg:#f5f8fd;
- --border:#e3ebf5;
- --shadow:0 7px 25px rgba(30,75,130,.09);
-}
+:root{--blue:#1769d2;--navy:#17345c;--bg:#f4f7fc;--muted:#7b899d;--border:#e3ebf5;--orange:#f4a62a}
 *{box-sizing:border-box}
-body{
- margin:0;
- background:var(--bg);
- color:var(--navy);
- font-family:Arial,Helvetica,sans-serif;
-}
-button,input,select{font:inherit}
+body{margin:0;background:var(--bg);color:var(--navy);font-family:Arial,sans-serif}
+button,input{font:inherit}
 button{cursor:pointer}
-.app{
- max-width:480px;
- min-height:100vh;
- margin:auto;
- background:#f9fbff;
- padding-bottom:85px;
- box-shadow:0 0 30px #183c6610;
-}
-.page{display:none;animation:fade .22s ease}
-.page.active{display:block}
-@keyframes fade{
- from{opacity:0;transform:translateY(7px)}
- to{opacity:1;transform:translateY(0)}
-}
-.topbar{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:18px;
- background:linear-gradient(120deg,#fff,#eaf3ff);
-}
-.logo{
- font-size:24px;
- font-weight:900;
- letter-spacing:1px;
- color:var(--blue);
-}
-.muted{font-size:12px;color:var(--muted)}
-.title{
- font-size:19px;
- font-weight:800;
- margin:8px 0 14px;
-}
-.card{
- background:#fff;
- border:1px solid var(--border);
- border-radius:17px;
- padding:16px;
- margin-bottom:13px;
- box-shadow:var(--shadow);
-}
-.row{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:10px;
-}
-.grid2{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:11px;
-}
-.metric{
- background:#fff;
- border:1px solid var(--border);
- border-radius:15px;
- padding:14px;
- box-shadow:var(--shadow);
-}
-.metric b{
- display:block;
- font-size:21px;
- margin-top:5px;
-}
-.orange{border-top:3px solid var(--orange)}
-.btn{
- border:0;
- border-radius:12px;
- padding:13px 16px;
- background:var(--blue);
- color:#fff;
- font-weight:750;
- transition:transform .15s,opacity .15s;
-}
-.btn:active{transform:scale(.97)}
-.btn.light{background:var(--light);color:var(--blue)}
-.btn.outline{
- background:#fff;
- border:1px solid var(--blue);
- color:var(--blue);
-}
-.btn.full{width:100%}
-.field{
- display:block;
- width:100%;
- padding:14px;
- margin:7px 0 14px;
- border:1px solid #d8e5f5;
- border-radius:12px;
- background:#fbfdff;
- outline:none;
-}
-.field:focus{
- border-color:var(--blue);
- box-shadow:0 0 0 3px #1769d21a;
-}
-.label{
- display:block;
- font-size:12px;
- font-weight:700;
- color:var(--navy);
-}
-.auth{
- min-height:90vh;
- padding:30px 20px;
- display:flex;
- flex-direction:column;
- justify-content:center;
-}
-.auth-logo{
- text-align:center;
- font-size:34px;
- font-weight:950;
- color:var(--blue);
- letter-spacing:1px;
- margin-bottom:8px;
-}
-.auth-sub{
- text-align:center;
- color:var(--muted);
- font-size:13px;
- margin-bottom:25px;
-}
-.auth-card{
- background:#fff;
- border:1px solid var(--border);
- border-radius:22px;
- padding:22px;
- box-shadow:var(--shadow);
-}
-.auth-tabs{
- display:flex;
- gap:8px;
- margin-bottom:20px;
-}
-.auth-tabs button{
- flex:1;
- padding:12px;
- border:0;
- border-radius:11px;
- color:var(--blue);
- background:var(--light);
- font-weight:750;
-}
-.auth-tabs button.active{
- background:var(--blue);
- color:#fff;
-}
-.checkrow{
- display:flex;
- align-items:center;
- gap:8px;
- font-size:12px;
- margin:8px 0 15px;
-}
-.checkrow input{accent-color:var(--blue)}
-.link{
- color:var(--blue);
- font-weight:700;
- cursor:pointer;
-}
-.error{
- color:var(--red);
- font-size:12px;
- margin:0 0 10px;
-}
-.nav{
- position:fixed;
- bottom:0;
- left:50%;
- transform:translateX(-50%);
- width:min(480px,100%);
- display:grid;
- grid-template-columns:repeat(5,1fr);
- background:#fff;
- border-top:1px solid var(--border);
- padding:8px 4px calc(8px + env(safe-area-inset-bottom));
- z-index:5;
-}
-.nav button{
- border:0;
- background:none;
- color:#8291a6;
- font-size:10px;
- padding:4px 0;
-}
-.nav button span{
- display:block;
- font-size:20px;
- margin-bottom:3px;
-}
-.nav button.active{
- color:var(--blue);
- font-weight:850;
-}
-.balance{
- background:linear-gradient(120deg,#1769d2,#3989ee);
- color:#fff;
- border:0;
- padding:21px;
-}
-.balance .muted{color:#e1efff}
-.big{
- font-size:32px;
- font-weight:850;
- margin:7px 0;
-}
-.quick{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:9px;
-}
-.quick button{
- border:1px solid var(--border);
- background:#fff;
- border-radius:15px;
- padding:13px 3px;
- color:var(--blue);
- font-weight:800;
- box-shadow:var(--shadow);
-}
-.quick small{
- display:block;
- color:var(--navy);
- margin-top:5px;
-}
-.banner{
- padding:16px;
- border-radius:16px;
- background:linear-gradient(110deg,#e6f1ff,#fff);
- border:1px solid #d7e8ff;
- margin:14px 0;
-}
-.notice{
- padding:12px;
- background:#fff6e6;
- border:1px solid #ffe2ad;
- color:#775000;
- border-radius:11px;
- font-size:12px;
- margin:12px 0;
-}
-.pill{
- background:#fff1d8;
- color:#946000;
- padding:5px 10px;
- border-radius:20px;
- font-size:11px;
- font-weight:800;
-}
-.amount{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:8px;
- padding:13px 0;
- border-bottom:1px solid var(--border);
-}
-.amount:last-child{border:0}
-.tabs{
- display:flex;
- gap:8px;
- margin-bottom:13px;
-}
-.tabs button{
- flex:1;
- border:0;
- border-radius:10px;
- padding:11px;
- background:var(--light);
- color:var(--blue);
- font-weight:750;
-}
-.tabs button.active{
- background:var(--blue);
- color:white;
-}
-.empty{
- text-align:center;
- padding:30px 10px;
- color:var(--muted);
-}
-.item{
- padding:13px 0;
- border-bottom:1px solid var(--border);
-}
-.item:last-child{border:0}
-.progress{
- height:9px;
- background:#e9eff7;
- border-radius:10px;
- overflow:hidden;
-}
-.progress i{
- display:block;
- height:100%;
- background:var(--blue);
- width:0;
-}
-.modal-bg{
- display:none;
- position:fixed;
- inset:0;
- z-index:10;
- background:#07182c99;
- align-items:flex-end;
- justify-content:center;
-}
-.modal-bg.show{display:flex}
-.modal{
- width:min(480px,100%);
- background:#fff;
- border-radius:22px 22px 0 0;
- padding:22px 18px 28px;
- animation:rise .2s ease;
-}
-@keyframes rise{
- from{transform:translateY(30px)}
- to{transform:translateY(0)}
-}
-.toast{
- position:fixed;
- z-index:20;
- bottom:95px;
- left:50%;
- transform:translate(-50%,12px);
- opacity:0;
- background:var(--navy);
- color:#fff;
- padding:11px 16px;
- border-radius:11px;
- transition:.2s;
- max-width:90%;
- font-size:13px;
-}
-.toast.show{
- opacity:1;
- transform:translate(-50%,0);
-}
+.app{max-width:480px;min-height:100vh;margin:auto;padding-bottom:85px}
 .hidden{display:none!important}
+.topbar{background:white;padding:15px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px #17345c10;position:sticky;top:0;z-index:5}
+.logo{font-size:23px;font-weight:900;color:var(--blue);letter-spacing:1px}
+.muted{font-size:13px;color:var(--muted)}
+main{padding:14px}
+.page{display:none;animation:fade .2s}
+.page.active{display:block}
+@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+.title{font-size:21px;font-weight:800;margin:12px 0}
+.card,.metric{background:white;border:1px solid var(--border);border-radius:17px;padding:16px;margin-bottom:12px;box-shadow:0 5px 20px #17345c08}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{margin:0}
+.metric b{display:block;font-size:21px;margin-top:8px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.balance{background:linear-gradient(120deg,#1769d2,#3989ed);color:white;border-radius:22px;padding:23px;margin:15px 0}
+.balance strong{display:block;font-size:37px;margin:12px 0}
+.balance .muted{color:#e5f0ff}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.quick button{background:white;border:1px solid var(--border);border-radius:14px;padding:13px 3px;color:var(--navy);font-weight:bold}
+.quick span{display:block;font-size:22px;color:var(--blue);margin-bottom:7px}
+.btn{border:0;background:var(--blue);color:white;border-radius:11px;padding:12px 16px;font-weight:bold}
+.btn.light{background:#edf4ff;color:var(--blue)}
+.btn.full{width:100%;margin-top:12px}
+.btn:disabled{opacity:.5}
+.field{width:100%;padding:13px;border:1px solid var(--border);border-radius:10px;margin:6px 0 13px;background:white}
+.label{font-size:13px;font-weight:bold}
+.error{font-size:13px;color:#c0392b;min-height:18px}
 .center{text-align:center}
+.empty{text-align:center;color:var(--muted);padding:30px}
+.pill{background:#edf4ff;color:var(--blue);border-radius:20px;padding:6px 10px;font-size:12px}
+.banner{background:#eaf3ff;border-radius:17px;padding:18px;margin:14px 0}
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(145deg,#eaf3ff,#f8fbff)}
+.auth-card{width:100%;max-width:420px;background:white;border:1px solid var(--border);border-radius:22px;padding:22px;box-shadow:0 12px 35px #17345c12}
+.auth-tabs{display:flex;gap:8px;margin:18px 0}
+.auth-tabs button{flex:1;border:0;border-radius:10px;padding:12px;background:#edf2f8}
+.auth-tabs button.active{background:var(--blue);color:white}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:70px;background:white;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:20;box-shadow:0 -4px 18px #17345c12}
+.nav button{border:0;background:transparent;color:var(--muted);font-size:11px;min-width:18%;padding:7px 2px}
+.nav button span{display:block;font-size:21px;margin-bottom:3px}
+.nav button.active{color:var(--blue);font-weight:bold}
+.listrow{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.avatar{width:48px;height:48px;border-radius:50%;background:#e7f1ff;color:var(--blue);display:grid;place-items:center;font-size:22px;font-weight:bold}
+.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:#17345c;color:white;padding:12px 18px;border-radius:12px;z-index:50;display:none;max-width:90%;text-align:center}
+.amount{border:1px solid var(--border);padding:12px;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;background:white}
+.progress{height:9px;background:#e9eff7;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress i{display:block;width:0;height:100%;background:var(--blue)}
+@media(max-width:360px){.quick{grid-template-columns:repeat(2,1fr)}.balance strong{font-size:31px}}
 </style>
 </head>
-
 <body>
-<div class="app">
 
-<!-- LOGIN / REGISTER -->
-<section id="authPage" class="page active">
- <div class="auth">
-  <div class="auth-logo">DUDPAY</div>
-  <div class="auth-sub">Welcome to your account</div>
+<div id="authScreen" class="auth-wrap">
+ <div class="auth-card">
+  <div class="center">
+   <div class="logo">DUDPAY</div>
+   <p class="muted">Welcome to your account</p>
+  </div>
+  <div class="auth-tabs">
+   <button id="loginTab" class="active" type="button" onclick="showAuth('login')">Login</button>
+   <button id="registerTab" type="button" onclick="showAuth('register')">Register</button>
+  </div>
+  <form id="loginForm">
+   <h2>Welcome Back</h2>
+   <p class="muted">Login to continue</p>
+   <label class="label">Mobile Number</label>
+   <input class="field" id="loginMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number" required>
+   <label class="label">Password</label>
+   <input class="field" id="loginPassword" type="password" placeholder="Enter password" required>
+   <p id="loginError" class="error"></p>
+   <button class="btn full" type="submit">Login</button>
+   <p class="center muted">New user? <a href="#" onclick="showAuth('register');return false">Create Account</a></p>
+  </form>
+  <form id="registerForm" class="hidden">
+   <h2>Create Account</h2>
+   <label class="label">Username</label>
+   <input class="field" id="regName" maxlength="30" placeholder="Enter username" required>
+   <label class="label">Mobile Number</label>
+   <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number" required>
+   <label class="label">Password</label>
+   <input class="field" id="regPassword" type="password" minlength="6" placeholder="Minimum 6 characters" required>
+   <label class="label">Confirm Password</label>
+   <input class="field" id="regConfirm" type="password" placeholder="Confirm password" required>
+   <label><input id="privacy" type="checkbox" required> I agree to the demo notice</label>
+   <p id="registerError" class="error"></p>
+   <button class="btn full" type="submit">Create Account</button>
+   <p class="center muted">Already registered? <a href="#" onclick="showAuth('login');return false">Login</a></p>
+  </form>
+  <p class="center muted">Demo prototype only</p>
+ </div>
+</div>
 
-  <div class="auth-card">
-   <div class="auth-tabs">
-    <button id="loginTab" class="active" onclick="showAuth('login')">Login</button>
-    <button id="registerTab" onclick="showAuth('register')">Register</button>
+<div id="mainSite" class="app hidden">
+ <header class="topbar">
+  <div><div class="logo">DUDPAY</div><div class="muted">Account Dashboard</div></div>
+  <button class="btn light" onclick="toast('No new notifications')">♧</button>
+ </header>
+ <main>
+  <section id="home" class="page active">
+   <div class="row">
+    <div><b id="displayName">Hello, User</b><div class="muted">User ID: <span id="displayId">DP0000</span></div></div>
+    <span class="pill">Account</span>
    </div>
-
-   <form id="loginForm">
-    <h2>Welcome Back</h2>
-    <p class="muted">Login to continue to DUDPAY</p>
-
-    <label class="label">Mobile Number</label>
-    <input class="field" id="loginMobile"
-     type="tel" maxlength="10"
-     inputmode="numeric"
-     placeholder="Enter mobile number" required>
-
-    <label class="label">Password</label>
-    <input class="field" id="loginPassword"
-     type="password" placeholder="Enter password" required>
-
-    <div class="checkrow">
-     <input type="checkbox" id="remember">
-     <label for="remember">Remember Me</label>
-    </div>
-
-    <p id="loginError" class="error"></p>
-    <button class="btn full" type="submit">Login</button>
-    <p class="center muted" style="margin-top:15px">
-     New user?
-     <a class="link" onclick="showAuth('register')">Create Account</a>
-    </p>
-   </form>
-
-   <form id="registerForm" class="hidden">
-    <h2>Create Account</h2>
-    <p class="muted">Register your DUDPAY account</p>
-
-    <label class="label">Username</label>
-    <input class="field" id="regName"
-     placeholder="Enter username" required>
-
-    <label class="label">Mobile Number</label>
-    <input class="field" id="regMobile"
-     type="tel" maxlength="10"
-     inputmode="numeric"
-     placeholder="10-digit mobile number" required>
-
-    <label class="label">Password</label>
-    <input class="field" id="regPassword"
-     type="password" minlength="6"
-     placeholder="Minimum 6 characters" required>
-
-    <label class="label">Confirm Password</label>
-    <input class="field" id="regConfirm"
-     type="password"
-     placeholder="Confirm password" required>
-
-    <label class="label">Invite Code (Optional)</label>
-    <input class="field" id="regInvite"
-     placeholder="Enter invite code">
-
-    <div class="checkrow">
-     <input type="checkbox" id="privacy">
-     <label for="privacy">I agree to the Privacy Policy</label>
-    </div>
-
-    <p id="registerError" class="error"></p>
-    <button class="btn full" type="submit">Create Account</button>
-
-    <p class="center muted" style="margin-top:15px">
-     Already registered?
-     <a class="link" onclick="showAuth('login')">Login</a>
-    </p>
-   </form>
-  </div>
-
-  <p class="center muted" style="margin-top:18px">
-   DUDPAY · Account access
-  </p>
- </div>
-</section>
-
-<!-- MAIN WEBSITE LAYOUT -->
-<div id="mainSite" class="hidden">
-
-<header class="topbar">
- <div>
-  <div class="logo">DUDPAY</div>
-  <div class="muted">Your account dashboard</div>
- </div>
- <button class="btn light" onclick="toast('No new notifications')">♧</button>
-</header>
-
-<main>
-
-<section id="home" class="page active">
- <div class="row">
-  <div>
-   <b id="displayName">Hello, User</b>
-   <div class="muted">
-    User ID: <span id="displayId">DP102938</span>
-    <a class="link" onclick="copyText('DP102938')">Copy</a>
+   <div class="balance">
+    <div class="muted">Available Balance · Demo</div>
+    <strong>₹77.00</strong>
+    <div class="row"><span>Deposit ₹0</span><span>Withdrawal ₹0</span></div>
    </div>
-  </div>
-  <span class="pill">Account</span>
- </div>
-
- <div class="card balance" style="margin-top:14px">
-  <div class="muted">Available Balance</div>
-  <div class="big">₹77.00</div>
-  <div class="row muted">
-   <span>Deposit ₹0</span>
-   <span>Withdrawal ₹0</span>
-  </div>
- </div>
-
- <div class="grid2">
-  <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Withdrawal</span><b>₹0</b></div>
- </div>
-
- <div class="title">Quick Access</div>
- <div class="quick">
-  <button onclick="go('usdt')">₮<small>USDT</small></button>
-  <button onclick="go('task')">✓<small>Task</small></button>
-  <button onclick="go('team')">♧<small>Team</small></button>
-  <button onclick="go('order')">▤<small>Order</small></button>
- </div>
-
- <div class="banner">
-  <b style="color:var(--blue)">Newcomer Rewards</b>
-  <div class="muted">Check your newcomer task progress.</div>
-  <button class="btn light" style="margin-top:9px"
-   onclick="go('task')">View Task</button>
- </div>
-
- <div class="row">
-  <b class="title">Transactions</b>
-  <a class="link" onclick="go('order')">See All</a>
- </div>
- <div class="card empty">
-  ▤<br><b>No Transactions</b>
-  <div class="muted">Your activity will appear here.</div>
- </div>
-</section>
+   <div class="grid2">
+    <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
+    <div class="metric"><span class="muted">Withdrawal</span><b>₹0</b></div>
+   </div>
+   <div class="title">Quick Access</div>
+   <div class="quick">
+    <button onclick="showPage('usdt')"><span>₮</span>USDT</button>
+    <button onclick="showPage('task')"><span>✓</span>Task</button>
+    <button onclick="showPage('team')"><span>♧</span>Team</button>
+    <button onclick="showPage('order')"><span>▤</span>Order</button>
+   </div>
+   <div class="banner"><b>Newcomer Rewards</b><p class="muted">Check your demo task page.</p><button class="btn light" onclick="showPage('task')">View Task</button></div>
+   <div class="title">Transactions</div>
+   <div class="card empty">▤<br><b>No Transactions</b></div>
+  </section>
 
 <!-- PART 2 CONTINUES HERE -->
-  <!-- PAYMENT PAGE -->
-<section id="payment" class="page">
+  <section id="payment" class="page">
  <div class="title">Payment</div>
-
  <div class="grid2">
   <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
   <div class="metric"><span class="muted">Reward</span><b>₹0</b></div>
   <div class="metric"><span class="muted">Pending</span><b>₹0</b></div>
-  <div class="metric orange"><span class="muted">Cashback Rate</span><b style="color:#ad7100">5.5%</b></div>
+  <div class="metric"><span class="muted">Cashback Rate</span><b>5.5%</b></div>
  </div>
-
- <div class="title">Select Amount</div>
- <div class="card" id="amountList"></div>
+ <div class="card" style="margin-top:14px">
+  <b>Demo Amount Options</b>
+  <p class="muted">Illustrative amounts only. No payment is created.</p>
+  <div id="amountList"></div>
+ </div>
 </section>
 
-<!-- USDT PAGE -->
-<section id="usdt" class="page">
- <div class="title">USDT</div>
+<section id="wallet" class="page">
+ <div class="title">Wallet</div>
  <div class="card">
-  <div class="row">
-   <span class="muted">Exchange Rate</span>
-   <b>1 USDT = ₹114</b>
-  </div>
-
-  <label class="label">Amount (Minimum 10 USDT)</label>
-  <input class="field" id="usdtInput" type="number"
-   min="10" placeholder="Enter USDT"
-   oninput="calculateUSDT()">
-
-  <div class="row">
-   <span class="muted">Estimated INR</span>
-   <b id="usdtResult">₹0</b>
-  </div>
-
-  <label class="label">Network</label>
-  <select class="field" id="network">
-   <option>TRC20</option>
-   <option>BSC (BEP20)</option>
-  </select>
-
-  <button class="btn full" onclick="toast('USDT service is not connected')">
-   Continue
-  </button>
+  <b>Saved Payment Apps</b>
+  <p class="muted">Demo display only. No account linking or payment verification.</p>
+  <div class="listrow">Paytm <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
+  <div class="listrow">PhonePe <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
+  <div class="listrow">MobiKwik <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
+  <div class="listrow">Navi <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
+  <div class="listrow">BharatPe <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
  </div>
 </section>
 
-<!-- TASK PAGE -->
-<section id="task" class="page">
- <div class="title">Newbie Task</div>
- <div class="card">
-  <div class="row">
-   <b>Newbie Task</b>
-   <span class="pill">Reward ₹300</span>
-  </div>
-
-  <p class="muted">Eligible deposit / transaction volume target</p>
-  <div class="big" style="font-size:26px">₹0 / ₹2,000</div>
-
-  <div class="progress"><i></i></div>
-
-  <p class="muted">
-   Progress is updated after eligible activity is verified.
-  </p>
- </div>
-</section>
-
-<!-- TEAM PAGE -->
-<section id="team" class="page">
- <div class="title">Team</div>
-
- <div class="grid2">
-  <div class="metric"><span class="muted">Total Commission</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Yesterday Commission</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Today's Commission</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Total Team Members</span><b>0</b></div>
-  <div class="metric"><span class="muted">Total Team Deposit</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Level B Commission</span><b>1%</b></div>
- </div>
-
- <div class="card">
-  <b>Invitation Link</b>
-  <div class="row" style="margin-top:12px">
-   <span class="muted">Referral link</span>
-   <button class="btn light" onclick="copyText('DUDPAY referral link')">Copy</button>
-  </div>
-  <p class="muted">Level B: Direct referrals · 1%</p>
-  <p class="muted">Level C: Indirect referrals · 0.3%</p>
- </div>
-
- <div class="card">
-  <b>Share Invitation</b>
-  <div class="grid2" style="margin-top:12px">
-   <button class="btn light" onclick="toast('Telegram sharing')">Telegram</button>
-   <button class="btn light" onclick="toast('WhatsApp sharing')">WhatsApp</button>
-   <button class="btn light" onclick="toast('Facebook sharing')">Facebook</button>
-   <button class="btn light" onclick="copyText('DUDPAY referral link')">Copy Link</button>
-  </div>
- </div>
-</section>
-
-<!-- ORDER PAGE -->
-<section id="order" class="page">
- <div class="title">Order</div>
-
- <div class="tabs">
-  <button class="active" onclick="switchOrder('receive',this)">Receive</button>
-  <button onclick="switchOrder('purchase',this)">Purchase</button>
- </div>
-
- <div id="receiveOrders" class="card empty">
-  <div style="font-size:30px">▤</div>
-  <b>No Data</b>
- </div>
-
- <div id="purchaseOrders" class="card hidden">
-  <div class="grid2">
-   <div><span class="muted">Balance</span><b>₹77</b></div>
-   <div><span class="muted">Reward</span><b>₹0</b></div>
-   <div><span class="muted">Pending</span><b>₹0</b></div>
-  </div>
-  <div class="empty">No Data</div>
- </div>
-</section>
-
-<!-- PART 3 CONTINUES HERE -->
-  <!-- STATISTICS PAGE -->
 <section id="statistics" class="page">
  <div class="title">Statistics</div>
-
  <div class="grid2">
   <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
   <div class="metric"><span class="muted">Sell</span><b>₹0</b></div>
   <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
   <div class="metric"><span class="muted">Commission</span><b>₹0</b></div>
  </div>
-
- <div class="title">Payment Details</div>
- <div class="card">
-  <div class="row"><span class="muted">Exchange Rate</span><b>₹114</b></div>
-  <div class="row"><span class="muted">In Process Amount</span><b>₹0</b></div>
-  <div class="row"><span class="muted">In Process Orders</span><b>0</b></div>
-  <div class="row"><span class="muted">Commission Rate</span><b>5.5%</b></div>
-  <div class="row"><span class="muted">Estimated Income</span><b>₹0</b></div>
-  <button class="btn full orangeBtn" disabled>Closed Selling</button>
+ <div class="card" style="margin-top:14px">
+  <b>Payment Details · Demo</b>
+  <div class="listrow">Exchange Rate <b>₹114</b></div>
+  <div class="listrow">In Process Amount <b>₹0</b></div>
+  <div class="listrow">In Process Orders <b>0</b></div>
+  <div class="listrow">Commission Rate <b>5.5%</b></div>
+  <div class="listrow">Estimated Income <b>₹0</b></div>
+  <button class="btn full" disabled>Closed Selling</button>
  </div>
 </section>
 
-<!-- MY PAGE -->
 <section id="my" class="page">
  <div class="title">My Account</div>
-
- <div class="profile card">
-  <div class="avatar">D</div>
-  <div>
-   <b id="profileUsername">User</b>
-   <p class="muted" id="profileUserId">ID: —</p>
-  </div>
+ <div class="card row">
+  <div class="row"><div class="avatar">D</div><div><b id="profileUsername">User</b><div class="muted" id="profileUserId">ID: DP0000</div></div></div>
  </div>
-
  <div class="grid2">
   <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
   <div class="metric"><span class="muted">Withdraw</span><b>₹0</b></div>
   <div class="metric"><span class="muted">Commission</span><b>₹0</b></div>
   <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
  </div>
-
- <div class="card menuList">
-  <button onclick="showPage('wallet')"><span>▣</span> Wallet <span>›</span></button>
-  <button onclick="showPage('service')"><span>♧</span> Customer Service <span>›</span></button>
-  <button onclick="showPage('message')"><span>✉</span> Message <span>›</span></button>
-  <button onclick="showPage('tutorial')"><span>▤</span> Tutorial <span>›</span></button>
-  <button onclick="logout()"><span>↪</span> Logout <span>›</span></button>
+ <div class="card" style="margin-top:14px">
+  <div class="listrow" onclick="showPage('wallet')">Wallet <b>›</b></div>
+  <div class="listrow" onclick="showPage('service')">Customer Service <b>›</b></div>
+  <div class="listrow" onclick="showPage('message')">Message <b>›</b></div>
+  <div class="listrow" onclick="showPage('tutorial')">Tutorial <b>›</b></div>
+  <div class="listrow" onclick="logout()">Logout <b>›</b></div>
  </div>
-
  <p class="muted center">DUDPAY · Version 1.0.0</p>
 </section>
 
-<!-- WALLET PAGE -->
-<section id="wallet" class="page">
- <div class="title">Wallet</div>
+<section id="usdt" class="page">
+ <div class="title">USDT Calculator</div>
  <div class="card">
-  <div class="row">
-   <b>Saved Payment Apps</b>
-   <span class="pill">Demo</span>
-  </div>
-  <p class="muted">Choose an app to try opening it. This page cannot verify account ownership or payment-app installation.</p>
-
-  <div class="walletItem">
-   <div class="walletLogo paytm">P</div>
-   <div class="walletInfo"><b>Paytm</b><small>Personal / Business</small></div>
-   <button class="btn light" onclick="openWallet('paytm')">Open</button>
-  </div>
-
-  <div class="walletItem">
-   <div class="walletLogo phonepe">पे</div>
-   <div class="walletInfo"><b>PhonePe</b><small>Personal</small></div>
-   <button class="btn light" onclick="openWallet('phonepe')">Open</button>
-  </div>
-
-  <div class="walletItem">
-   <div class="walletLogo mobikwik">M</div>
-   <div class="walletInfo"><b>MobiKwik</b><small>Personal</small></div>
-   <button class="btn light" onclick="openWallet('mobikwik')">Open</button>
-  </div>
-
-  <div class="walletItem">
-   <div class="walletLogo navi">N</div>
-   <div class="walletInfo"><b>Navi</b><small>Personal</small></div>
-   <button class="btn light" onclick="openWallet('navi')">Open</button>
-  </div>
-
-  <div class="walletItem">
-   <div class="walletLogo bharatpe">B</div>
-   <div class="walletInfo"><b>BharatPe</b><small>Business</small></div>
-   <button class="btn light" onclick="openWallet('bharatpe')">Open</button>
-  </div>
+  <p class="muted">Indicative calculator only. No crypto purchase or transfer is available.</p>
+  <label class="label">USDT Amount</label>
+  <input id="usdtInput" class="field" type="number" min="0" placeholder="Enter amount" oninput="calculateUSDT()">
+  <div class="row"><span class="muted">Indicative value at ₹114</span><b id="usdtResult">₹0</b></div>
  </div>
 </section>
 
-<!-- CUSTOMER SERVICE PAGE -->
+<section id="task" class="page">
+ <div class="title">Newbie Task</div>
+ <div class="card">
+  <div class="row"><b>Newbie Task</b><span class="pill">Demo reward ₹300</span></div>
+  <p class="muted">Progress display is illustrative only.</p>
+  <b>₹0 / ₹2,000</b>
+  <div class="progress"><i></i></div>
+  <p class="muted">No deposit or transaction is requested or processed.</p>
+ </div>
+</section>
+
+<section id="team" class="page">
+ <div class="title">Team</div>
+ <div class="grid2">
+  <div class="metric"><span class="muted">Total Commission</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Yesterday</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Today</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Team Members</span><b>0</b></div>
+  <div class="metric"><span class="muted">Team Deposit</span><b>₹0</b></div>
+  <div class="metric"><span class="muted">Level B</span><b>1%</b></div>
+ </div>
+ <div class="card"><b>Referral Demo</b><p class="muted">Referral service is not connected.</p><button class="btn light" onclick="toast('Referral service is not connected')">Copy Referral Link</button></div>
+</section>
+
+<section id="order" class="page">
+ <div class="title">Order</div>
+ <div class="card">
+  <div class="row">
+   <button class="btn light" onclick="switchOrder('receive')">Receive</button>
+   <button class="btn light" onclick="switchOrder('purchase')">Purchase</button>
+  </div>
+  <div id="orderContent" class="empty">No Data</div>
+ </div>
+</section>
+
 <section id="service" class="page">
  <div class="title">Customer Service</div>
  <div class="card center">
-  <div class="serviceIcon">客服</div>
-  <h3>Official Customer Service</h3>
-  <p class="muted">Telegram Username</p>
-  <h2>@OFFICALSERVICE06</h2>
-  <button class="btn full" onclick="copyText('@OFFICALSERVICE06')">
-   Copy Username
-  </button>
-  <p class="muted">Use the username to find customer support on Telegram.</p>
+  <div class="avatar" style="margin:auto">?</div>
+  <h3>Customer Support</h3>
+  <p class="muted">Support contact has not been connected.</p>
+  <b>@OFFICALSERVICE06</b>
+  <button class="btn light full" onclick="copyText('@OFFICALSERVICE06')">Copy Username</button>
  </div>
 </section>
 
-<!-- MESSAGE PAGE -->
 <section id="message" class="page">
  <div class="title">Message</div>
- <div class="card empty">
-  <div style="font-size:30px">✉</div>
-  <b>No Message</b>
- </div>
+ <div class="card empty">No Message</div>
 </section>
 
-<!-- TUTORIAL PAGE -->
 <section id="tutorial" class="page">
  <div class="title">Tutorial</div>
- <div class="card empty">
-  <div style="font-size:30px">▤</div>
-  <b>No Tutorial</b>
- </div>
+ <div class="card empty">No Tutorial</div>
 </section>
 
-<!-- ORDER DETAILS PAGE -->
-<section id="orderDetails" class="page">
- <div class="title">Order Details</div>
- <div class="card empty">
-  <div style="font-size:30px">▤</div>
-  <b>No Order Selected</b>
- </div>
-</section>
+ </main>
 
-<!-- PART 4 CONTINUES HERE -->
-  <script>
-/* DUDPAY FRONT-END DEMO
-   Login, wallet and payment actions are prototype-only.
-   No real payments, deposits, withdrawals or cashback are processed.
-*/
+<!-- PART 3 CONTINUES HERE -->
+ <nav class="nav" aria-label="Main navigation">
+ <button data-page="home" class="active" onclick="showPage('home')"><span>⌂</span>Home</button>
+ <button data-page="payment" onclick="showPage('payment')"><span>₹</span>Payment</button>
+ <button data-page="wallet" onclick="showPage('wallet')"><span>▣</span>Wallet</button>
+ <button data-page="statistics" onclick="showPage('statistics')"><span>▤</span>Statistics</button>
+ <button data-page="my" onclick="showPage('my')"><span>♙</span>My</button>
+</nav>
+</div>
 
-const cashbackRate = 0.055;
-const receiveAmounts = [200,300,500,700,1000,1200,1500,2000,3000,4000,5000];
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+let account = null;
 
 function toast(message) {
-  let box = document.getElementById("toastMessage");
+ const t = $("toast");
+ t.textContent = message;
+ t.style.display = "block";
+ clearTimeout(window.toastTimer);
+ window.toastTimer = setTimeout(() => t.style.display = "none", 2400);
+}
 
-  if (!box) {
-    box = document.createElement("div");
-    box.id = "toastMessage";
-    box.style.cssText =
-      "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);" +
-      "background:#172b4d;color:white;padding:12px 20px;border-radius:12px;" +
-      "z-index:9999;font-size:14px;box-shadow:0 5px 20px #0002;" +
-      "max-width:85%;text-align:center";
-    document.body.appendChild(box);
-  }
+function showAuth(mode) {
+ $("loginForm").classList.toggle("hidden", mode !== "login");
+ $("registerForm").classList.toggle("hidden", mode !== "register");
+ $("loginTab").classList.toggle("active", mode === "login");
+ $("registerTab").classList.toggle("active", mode === "register");
+ $("loginError").textContent = "";
+ $("registerError").textContent = "";
+}
 
-  box.textContent = message;
-  box.style.display = "block";
+function showPage(id) {
+ document.querySelectorAll(".page").forEach(page => {
+  page.classList.toggle("active", page.id === id);
+ });
+ document.querySelectorAll(".nav button").forEach(button => {
+  button.classList.toggle("active", button.dataset.page === id);
+ });
+ window.scrollTo({top:0, behavior:"smooth"});
+}
 
-  clearTimeout(window.toastTimer);
-  window.toastTimer = setTimeout(() => {
-    box.style.display = "none";
-  }, 2600);
+function enterApp(user) {
+ $("authScreen").classList.add("hidden");
+ $("mainSite").classList.remove("hidden");
+ $("displayName").textContent = "Hello, " + user.name;
+ $("profileUsername").textContent = user.name;
+ const uid = "DP" + user.mobile.slice(-4);
+ $("displayId").textContent = uid;
+ $("profileUserId").textContent = "ID: " + uid;
+ showPage("home");
+}
+
+$("registerForm").addEventListener("submit", function(event) {
+ event.preventDefault();
+
+ const name = $("regName").value.trim();
+ const mobile = $("regMobile").value.trim();
+ const password = $("regPassword").value;
+ const confirm = $("regConfirm").value;
+
+ if (!name) {
+  $("registerError").textContent = "Enter a username.";
+  return;
+ }
+ if (!/^\d{10}$/.test(mobile)) {
+  $("registerError").textContent = "Enter a valid 10-digit mobile number.";
+  return;
+ }
+ if (password.length < 6) {
+  $("registerError").textContent = "Password must be at least 6 characters.";
+  return;
+ }
+ if (password !== confirm) {
+  $("registerError").textContent = "Passwords do not match.";
+  return;
+ }
+ if (!$("privacy").checked) {
+  $("registerError").textContent = "Please accept the demo notice.";
+  return;
+ }
+
+ account = {name, mobile, password};
+ $("loginMobile").value = mobile;
+ $("loginPassword").value = "";
+ showAuth("login");
+ toast("Demo account created. Please login.");
+});
+
+$("loginForm").addEventListener("submit", function(event) {
+ event.preventDefault();
+
+ const mobile = $("loginMobile").value.trim();
+ const password = $("loginPassword").value;
+
+ if (!account || account.mobile !== mobile || account.password !== password) {
+  $("loginError").textContent = "Demo account not found. Register first.";
+  return;
+ }
+
+ enterApp(account);
+ toast("Demo login successful");
+});
+
+function logout() {
+ $("mainSite").classList.add("hidden");
+ $("authScreen").classList.remove("hidden");
+ $("loginPassword").value = "";
+ showAuth("login");
+}
+
+function calculateUSDT() {
+ const amount = Number($("usdtInput").value);
+ const value = Number.isFinite(amount) && amount > 0 ? amount * 114 : 0;
+ $("usdtResult").textContent = "₹" + value.toLocaleString("en-IN", {maximumFractionDigits:2});
+}
+
+function switchOrder(type) {
+ $("orderContent").textContent = type === "receive" ? "No Receive Orders" : "No Purchase Orders";
 }
 
 function copyText(value) {
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(value)
-      .then(() => toast("Copied"))
-      .catch(() => toast("Copy is not available"));
-  } else {
-    const field = document.createElement("textarea");
-    field.value = value;
-    document.body.appendChild(field);
-    field.select();
-
-    try {
-      document.execCommand("copy");
-      toast("Copied");
-    } catch (error) {
-      toast("Copy is not available");
-    }
-
-    field.remove();
-  }
+ if (navigator.clipboard && window.isSecureContext) {
+  navigator.clipboard.writeText(value)
+   .then(() => toast("Copied"))
+   .catch(() => toast("Copy not available"));
+ } else {
+  toast(value);
+ }
 }
+ [200,300,500,700,1000,1200,1500,2000,3000,4000,5000].forEach(amount => {
+ const item = document.createElement("div");
+ item.className = "amount";
+ const cashback = (amount * 0.055).toFixed(2);
 
-/* PAGE NAVIGATION */
-function showPage(pageId) {
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.remove("active");
-    page.style.display = "none";
-  });
+ const details = document.createElement("div");
+ const title = document.createElement("b");
+ title.textContent = "₹" + amount.toLocaleString("en-IN");
 
-  const selected = document.getElementById(pageId);
+ const note = document.createElement("div");
+ note.className = "muted";
+ note.textContent = "Illustrative 5.5% calculation: ₹" + cashback;
 
-  if (selected) {
-    selected.classList.add("active");
-    selected.style.display = "block";
-  }
+ details.append(title, note);
 
-  document.querySelectorAll("[data-page]").forEach(item => {
-    item.classList.toggle("active", item.dataset.page === pageId);
-  });
+ const button = document.createElement("button");
+ button.className = "btn light";
+ button.type = "button";
+ button.textContent = "Select";
+ button.addEventListener("click", () => {
+  toast("Demo only: no payment or order is created.");
+ });
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-/* PAYMENT AMOUNT LIST — DEMO DISPLAY ONLY */
-function renderAmounts() {
-  const container = document.getElementById("amountList");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  receiveAmounts.forEach(amount => {
-    const cashback = (amount * cashbackRate).toFixed(2);
-
-    const item = document.createElement("div");
-    item.className = "amountItem";
-    item.innerHTML = `
-      <div>
-        <b>₹${amount.toLocaleString("en-IN")}</b>
-        <small>Demo cashback: ₹${Number(cashback).toLocaleString("en-IN")}</small>
-      </div>
-      <button class="btn light" type="button">Select</button>
-    `;
-
-    item.querySelector("button").addEventListener("click", () => {
-      toast("Demo only — no payment or deposit is created.");
-    });
-
-    container.appendChild(item);
-  });
-}
-
-/* USDT CALCULATOR */
-function calculateUSDT() {
-  const input = document.getElementById("usdtInput");
-  const output = document.getElementById("usdtResult");
-
-  if (!input || !output) return;
-
-  const amount = Number(input.value);
-
-  if (!Number.isFinite(amount) || amount <= 0) {
-    output.textContent = "₹0";
-    return;
-  }
-
-  output.textContent = "₹" + (amount * 114).toLocaleString("en-IN", {
-    maximumFractionDigits: 2
-  });
-}
-
-/* ORDER TABS */
-function switchOrder(type, button) {
-  const receive = document.getElementById("receiveOrders");
-  const purchase = document.getElementById("purchaseOrders");
-
-  if (!receive || !purchase) return;
-
-  receive.classList.toggle("hidden", type !== "receive");
-  purchase.classList.toggle("hidden", type !== "purchase");
-
-  document.querySelectorAll("#order .tabs button").forEach(tab => {
-    tab.classList.remove("active");
-  });
-
-  if (button) button.classList.add("active");
-}
-
-/* WALLET APP OPEN — BEST-EFFORT ONLY */
-function openWallet(app) {
-  const links = {
-    paytm: "paytmmp://",
-    phonepe: "phonepe://",
-    mobikwik: "mobikwik://",
-    navi: "navi://",
-    bharatpe: "bharatpe://"
-  };
-
-  if (!links[app]) {
-    toast("App link is not available");
-    return;
-  }
-
-  toast("Trying to open app…");
-
-  window.location.href = links[app];
-
-  setTimeout(() => {
-    toast("If the app did not open, it may not support this link.");
-  }, 1600);
-}
-
-/* DEMO LOGIN / LOGOUT */
-function logout() {
-  const auth = document.getElementById("authScreen");
-  const site = document.getElementById("mainSite");
-
-  if (site) site.style.display = "none";
-  if (auth) auth.style.display = "block";
-
-  toast("Logged out");
-}
-
-/* NAVIGATION BUTTON SUPPORT */
-document.addEventListener("click", function(event) {
-  const target = event.target.closest("[data-page]");
-
-  if (target) {
-    event.preventDefault();
-    showPage(target.dataset.page);
-  }
-});
-   
-/* LOGIN AND REGISTER FUNCTIONS */
-
-let demoAccount = null;
-
-function showAuth(mode) {
-  const loginForm = document.getElementById("loginForm");
-  const registerForm = document.getElementById("registerForm");
-  const loginTab = document.getElementById("loginTab");
-  const registerTab = document.getElementById("registerTab");
-
-  if (!loginForm || !registerForm) return;
-
-  loginForm.classList.toggle("hidden", mode !== "login");
-  registerForm.classList.toggle("hidden", mode !== "register");
-
-  loginTab?.classList.toggle("active", mode === "login");
-  registerTab?.classList.toggle("active", mode === "register");
-
-  document.getElementById("loginError").textContent = "";
-  document.getElementById("registerError").textContent = "";
-}
-
-function enterDemoAccount(account) {
-  const authPage = document.getElementById("authPage");
-  const mainSite = document.getElementById("mainSite");
-
-  authPage.classList.add("hidden");
-  authPage.style.display = "none";
-
-  mainSite.classList.remove("hidden");
-  mainSite.style.display = "block";
-
-  document.getElementById("displayName").textContent =
-    account.name;
-
-  document.getElementById("profileUsername").textContent =
-    account.name;
-
-  document.getElementById("displayId").textContent =
-    "DP" + account.mobile.slice(-4);
-
-  document.getElementById("profileUserId").textContent =
-    "ID: DP" + account.mobile.slice(-4);
-
-  showPage("home");
-}
-
-document.getElementById("registerForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById("regName").value.trim();
-  const mobile = document.getElementById("regMobile").value.trim();
-  const password = document.getElementById("regPassword").value;
-  const confirm = document.getElementById("regConfirm").value;
-  const privacy = document.getElementById("privacy").checked;
-  const error = document.getElementById("registerError");
-
-  error.textContent = "";
-
-  if (!name || !/^[0-9]{10}$/.test(mobile)) {
-    error.textContent = "Enter a valid 10-digit mobile number.";
-    return;
-  }
-
-  if (password.length < 6) {
-    error.textContent = "Password must be at least 6 characters.";
-    return;
-  }
-
-  if (password !== confirm) {
-    error.textContent = "Passwords do not match.";
-    return;
-  }
-
-  if (!privacy) {
-    error.textContent = "Please accept the Privacy Policy.";
-    return;
-  }
-
-  if (demoAccount && demoAccount.mobile === mobile) {
-    error.textContent = "This mobile number is already registered.";
-    return;
-  }
-
-  demoAccount = { name, mobile, password };
-
-  toast("Demo account created. Please login.");
-
-  document.getElementById("loginMobile").value = mobile;
-  showAuth("login");
+ item.append(details, button);
+ $("amountList").appendChild(item);
 });
 
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const mobile = document.getElementById("loginMobile").value.trim();
-  const password = document.getElementById("loginPassword").value;
-  const error = document.getElementById("loginError");
-
-  error.textContent = "";
-
-  if (!/^[0-9]{10}$/.test(mobile) || !password) {
-    error.textContent = "Enter your mobile number and password.";
-    return;
-  }
-
-  if (!demoAccount ||
-      demoAccount.mobile !== mobile ||
-      demoAccount.password !== password) {
-    error.textContent = "Account not found or incorrect password. Register first.";
-    return;
-  }
-
-  enterDemoAccount(demoAccount);
-  toast("Login successful");
-});
-
-function logout() {
-  const authPage = document.getElementById("authPage");
-  const mainSite = document.getElementById("mainSite");
-
-  mainSite.classList.add("hidden");
-  mainSite.style.display = "none";
-
-  authPage.classList.remove("hidden");
-  authPage.style.display = "block";
-
-  document.getElementById("loginPassword").value = "";
-  showAuth("login");
-  toast("Logged out");
-   }
-   
-/* INITIAL SETUP */
-document.addEventListener("DOMContentLoaded", function() {
-  renderAmounts();
-
-  const authPage = document.getElementById("authPage");
-  const mainSite = document.getElementById("mainSite");
-
-  if (authPage) {
-    authPage.style.display = "block";
-    authPage.classList.add("active");
-  }
-
-  if (mainSite) {
-    mainSite.style.display = "none";
-  }
-});
 </script>
-
-</main>
-</div>
 </body>
 </html>
