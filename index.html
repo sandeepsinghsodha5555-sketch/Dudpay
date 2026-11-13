@@ -4,409 +4,380 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#119b70">
-<title>DUDPAY - Wallet</title>
+<meta name="theme-color" content="#1769d2">
+<title>DUDPAY</title>
 
 <style>
 :root {
-  --green: #119b70;
-  --dark: #087b56;
-  --light: #e9f8f1;
-  --bg: #f4f7f6;
-  --white: #ffffff;
-  --text: #202b28;
-  --muted: #84918c;
-  --border: #e8eeeb;
-  --red: #e45d5d;
-  --orange: #f2a43a;
+  --blue:#1769d2;
+  --blue2:#3989f5;
+  --pale:#eaf3ff;
+  --bg:#f3f7fd;
+  --white:#fff;
+  --text:#17263c;
+  --muted:#8290a3;
+  --border:#e4ebf4;
+  --green:#159c72;
 }
-
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
 }
-
 body {
-  background: var(--bg);
-  color: var(--text);
-  padding-bottom: 85px;
+  background:var(--bg);
+  color:var(--text);
 }
-
-button, input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-}
-
+button,input {font:inherit}
+button {cursor:pointer;border:0}
 #app {
-  max-width: 600px;
-  min-height: 100vh;
-  margin: auto;
-  background: var(--bg);
-  position: relative;
+  max-width:600px;
+  min-height:100vh;
+  margin:auto;
+  background:var(--bg);
+  padding-bottom:85px;
 }
-
-.hidden {
-  display: none !important;
+.hidden {display:none!important}
+.demo-note {
+  background:#fff3d9;
+  color:#805700;
+  text-align:center;
+  padding:9px;
+  font-size:11px;
+  font-weight:bold;
 }
-
-.demo-banner {
-  background: #fff1d9;
-  color: #805300;
-  text-align: center;
-  padding: 9px;
-  font-size: 12px;
-  font-weight: bold;
+.topbar {
+  background:var(--blue);
+  color:white;
+  padding:20px 18px 23px;
+  border-radius:0 0 23px 23px;
 }
-
-.header {
-  background: var(--green);
-  color: white;
-  padding: 19px 17px 24px;
-  border-radius: 0 0 22px 22px;
+.topline {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
-.header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.brand {
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:1.5px;
 }
-
-.logo {
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: 1px;
+.tagline {
+  font-size:12px;
+  opacity:.85;
+  margin-top:5px;
 }
-
-.header-sub {
-  font-size: 12px;
-  opacity: .85;
-  margin-top: 4px;
+.round-icon {
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#ffffff25;
+  color:white;
+  font-size:20px;
 }
-
-.icon-button {
-  background: #ffffff25;
-  color: white;
-  width: 39px;
-  height: 39px;
-  border-radius: 50%;
-  font-size: 19px;
+.content {padding:16px}
+.page {display:none}
+.page.active {display:block}
+.heading {
+  font-size:21px;
+  font-weight:750;
+  margin:8px 0 16px;
 }
-
-.container {
-  padding: 15px;
+.subheading {
+  font-size:16px;
+  font-weight:700;
+  margin:20px 0 12px;
 }
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 20px 0 13px;
-}
-
 .card {
-  background: white;
-  padding: 16px;
-  border-radius: 15px;
-  margin-bottom: 13px;
-  border: 1px solid var(--border);
-  box-shadow: 0 3px 12px #153b2b08;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:16px;
+  margin-bottom:13px;
+  box-shadow:0 7px 24px #1d4f910d;
 }
-
-.card-title {
-  font-size: 15px;
-  font-weight: bold;
-}
-
 .muted {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.55;
 }
-
+.row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
 .balance-card {
-  background: linear-gradient(135deg, #119b70, #21b886);
-  color: white;
-  padding: 21px;
-  border-radius: 18px;
-  margin-top: 15px;
-  box-shadow: 0 7px 18px #119b7030;
+  background:linear-gradient(125deg,#1559b9,#2787ef);
+  color:white;
+  border-radius:19px;
+  padding:21px;
+  margin:16px 0;
+  box-shadow:0 9px 22px #1769d22b;
 }
-
-.balance-label {
-  font-size: 13px;
-  opacity: .9;
+.balance-label {font-size:14px;opacity:.9}
+.balance-number {
+  font-size:37px;
+  font-weight:800;
+  margin:12px 0 19px;
 }
-
-.balance-value {
-  font-size: 35px;
-  font-weight: 800;
-  margin: 10px 0 20px;
-}
-
 .balance-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
-
-.balance-item {
-  background: #ffffff22;
-  padding: 12px;
-  border-radius: 11px;
+.balance-cell {
+  background:#ffffff20;
+  border:1px solid #ffffff20;
+  border-radius:12px;
+  padding:12px;
 }
-
-.balance-item small {
-  display: block;
-  opacity: .85;
-  margin-bottom: 6px;
+.balance-cell small {
+  display:block;
+  font-size:12px;
+  opacity:.85;
+  margin-bottom:7px;
 }
-
-.balance-item strong {
-  font-size: 16px;
-}
-
+.balance-cell strong {font-size:17px}
 .quick-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 9px;
-  margin: 16px 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin:17px 0;
 }
-
-.quick-button {
-  background: white;
-  padding: 14px 3px;
-  border-radius: 13px;
-  color: var(--text);
-  border: 1px solid var(--border);
-  text-align: center;
+.quick {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px 3px;
+  text-align:center;
+  color:var(--text);
 }
-
-.quick-button .emoji {
-  display: block;
-  font-size: 25px;
-  margin-bottom: 7px;
+.quick .emoji {
+  font-size:25px;
+  display:block;
+  margin-bottom:7px;
 }
-
-.quick-button strong {
-  font-size: 12px;
-}
-
+.quick strong {font-size:12px}
 .reward-banner {
-  background: linear-gradient(110deg, #e7fff3, #c8f3dd);
-  padding: 18px;
-  border-radius: 15px;
-  border: 1px solid #b7e9d0;
-  margin: 15px 0;
-  color: #087b56;
+  background:linear-gradient(115deg,#086acb,#42a4f8);
+  color:white;
+  padding:19px;
+  border-radius:17px;
+  margin:16px 0;
 }
-
 .reward-banner h3 {
-  font-size: 17px;
-  margin-bottom: 7px;
+  font-size:18px;
+  margin:10px 0;
 }
-
 .reward-banner p {
-  font-size: 12px;
-  line-height: 1.5;
+  font-size:13px;
+  line-height:1.5;
 }
-
-.primary-btn {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  background: var(--green);
-  color: white;
-  border-radius: 10px;
-  font-weight: bold;
-  margin-top: 12px;
+.pill {
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#ffffff25;
+  font-size:11px;
 }
-
-.secondary-btn {
-  padding: 11px 15px;
-  border-radius: 10px;
-  background: var(--light);
-  color: var(--dark);
-  font-weight: bold;
+.white-btn {
+  background:white;
+  color:var(--blue);
+  padding:11px 16px;
+  border-radius:30px;
+  font-weight:bold;
+  margin-top:13px;
 }
-
+.primary {
+  background:var(--blue);
+  color:white;
+  border-radius:12px;
+  padding:14px;
+  width:100%;
+  font-weight:700;
+  margin-top:12px;
+}
+.primary:disabled {opacity:.45}
+.secondary {
+  background:var(--pale);
+  color:var(--blue);
+  padding:11px 14px;
+  border-radius:10px;
+  font-weight:bold;
+}
 .input {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  outline: none;
-  background: white;
-  margin-top: 10px;
+  display:block;
+  width:100%;
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  margin-top:10px;
+  outline:none;
+  background:white;
+  color:var(--text);
 }
-
-.input:focus {
-  border-color: var(--green);
-}
-
+.input:focus {border-color:var(--blue)}
 .amount-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
-
-.amount-button {
-  background: white;
-  padding: 15px;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  color: var(--text);
-  font-weight: bold;
+.amount {
+  padding:15px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--text);
+  font-weight:bold;
 }
-
-.amount-button.selected {
-  border: 2px solid var(--green);
-  background: var(--light);
-  color: var(--dark);
+.amount.selected {
+  border:2px solid var(--blue);
+  background:var(--pale);
+  color:var(--blue);
 }
-
-.row-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.status {
-  display: inline-block;
-  padding: 5px 9px;
-  border-radius: 20px;
-  font-size: 11px;
-  background: #fff1d9;
-  color: #926000;
-}
-
 .no-data {
-  text-align: center;
-  padding: 35px 10px;
-  color: var(--muted);
-  font-size: 13px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  padding:27px 8px;
 }
-
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 600px;
-  background: white;
-  border-top: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  padding: 9px 3px 7px;
-  z-index: 100;
+.status {
+  font-size:11px;
+  background:#fff2d7;
+  color:#8a6500;
+  border-radius:20px;
+  padding:6px 9px;
 }
-
-.nav-button {
-  background: transparent;
-  color: var(--muted);
-  font-size: 10px;
-  padding: 3px;
+.nav {
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:600px;
+  background:white;
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:9px 2px 7px;
+  z-index:20;
 }
-
-.nav-button span {
-  display: block;
-  font-size: 21px;
-  margin-bottom: 4px;
+.nav button {
+  background:none;
+  color:#98a4b3;
+  font-size:11px;
+  padding:3px;
 }
-
-.nav-button.active {
-  color: var(--green);
-  font-weight: bold;
+.nav button span {
+  display:block;
+  font-size:23px;
+  margin-bottom:5px;
 }
-
-.auth-screen {
-  min-height: 100vh;
-  padding: 25px 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.nav button.active {
+  color:var(--blue);
+  font-weight:bold;
 }
-
-.auth-logo {
-  text-align: center;
-  color: var(--green);
-  font-size: 34px;
-  font-weight: 900;
-  margin-bottom: 8px;
+.auth {
+  min-height:calc(100vh - 30px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:22px;
 }
-
-.auth-subtitle {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 22px;
+.authbox {
+  width:100%;
+  max-width:430px;
+  background:white;
+  padding:24px;
+  border-radius:20px;
+  box-shadow:0 7px 24px #1d4f9110;
 }
-
-.auth-card {
-  background: white;
-  padding: 22px;
-  border-radius: 18px;
-  box-shadow: 0 5px 25px #153b2b0c;
+.authbrand {
+  text-align:center;
+  color:var(--blue);
+  font-size:35px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:6px;
 }
-
-.auth-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 18px;
+.authdesc {
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:23px;
 }
-
-.auth-tab {
-  padding: 12px;
-  background: var(--light);
-  color: var(--dark);
-  border-radius: 9px;
-  font-weight: bold;
+.tabs {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:var(--pale);
+  padding:4px;
+  border-radius:12px;
+  margin-bottom:20px;
 }
-
-.auth-tab.active {
-  background: var(--green);
-  color: white;
+.tabs button {
+  padding:11px;
+  border-radius:9px;
+  background:transparent;
+  color:var(--blue);
+  font-weight:bold;
 }
-
+.tabs button.active {
+  background:var(--blue);
+  color:white;
+}
 .toast {
-  position: fixed;
-  left: 50%;
-  bottom: 95px;
-  transform: translateX(-50%);
-  background: #24332d;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-size: 13px;
-  z-index: 200;
-  display: none;
-  max-width: 90%;
-  text-align: center;
+  display:none;
+  position:fixed;
+  z-index:50;
+  bottom:100px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#17263c;
+  color:white;
+  padding:13px 18px;
+  border-radius:12px;
+  font-size:13px;
+  text-align:center;
+  max-width:90%;
 }
-
-@media (min-width: 601px) {
-  body {
-    background: #e8eeeb;
-  }
-  #app {
-    box-shadow: 0 0 25px #0000000b;
-  }
+.app-item {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+  gap:8px;
+}
+.app-item:last-child {border-bottom:0}
+.progress {
+  height:9px;
+  background:#e7edf5;
+  border-radius:20px;
+  overflow:hidden;
+  margin:14px 0;
+}
+.progress div {
+  height:100%;
+  background:var(--blue);
+  width:0;
+}
+.order-card {
+  border:1px solid var(--border);
+  background:white;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:12px;
+}
+.order-amount {
+  font-size:22px;
+  font-weight:800;
+  color:var(--blue);
+}
+@media(min-width:601px) {
+  body {background:#e5edf8}
+  #app {box-shadow:0 0 25px #102f570c}
 }
 </style>
 </head>
@@ -414,84 +385,102 @@ button {
 <body>
 <div id="app">
 
-<div class="demo-banner">
-  DEMO VERSION — NO REAL MONEY TRANSACTIONS
+<div class="demo-note">
+ DEMO VERSION — NO REAL MONEY TRANSACTIONS
 </div>
 
-<div id="authScreen" class="auth-screen">
-  <div class="auth-logo">DUDPAY</div>
-  <div class="auth-subtitle">Your Wallet Dashboard</div>
+<!-- LOGIN AND REGISTER -->
+<section id="authScreen" class="auth">
+ <div class="authbox">
 
-  <div class="auth-card">
-    <div class="auth-tabs">
-      <button class="auth-tab active" id="loginTab">Login</button>
-      <button class="auth-tab" id="registerTab">Register</button>
-    </div>
+  <div class="authbrand">DUDPAY</div>
+  <div class="authdesc">Your Digital Wallet Dashboard</div>
 
-    <div id="loginForm">
-      <h2>Welcome Back</h2>
-      <input class="input" id="loginMobile"
-        type="tel" maxlength="10"
-        placeholder="10 digit mobile number">
-      <input class="input" id="loginPassword"
-        type="password" inputmode="numeric"
-        maxlength="6" placeholder="6 digit password">
-      <button class="primary-btn" id="loginBtn">Sign In</button>
-      <p class="muted" style="margin-top:12px">
-        Demo account: any valid 10-digit number and 6-digit password.
-      </p>
-    </div>
-
-    <div id="registerForm" class="hidden">
-      <h2>Create Account</h2>
-      <input class="input" id="regUsername"
-        placeholder="Username">
-      <input class="input" id="regMobile"
-        type="tel" maxlength="10"
-        placeholder="10 digit mobile number">
-      <input class="input" id="regPassword"
-        type="password" inputmode="numeric"
-        maxlength="6" placeholder="6 digit password">
-      <input class="input" id="regInvite"
-        placeholder="Invite code (optional)">
-      <button class="primary-btn" id="registerBtn">Create Account</button>
-    </div>
+  <div class="tabs">
+   <button id="loginTab" class="active">Login</button>
+   <button id="registerTab">Register</button>
   </div>
-</div>
+
+  <div id="loginForm">
+   <h2>Welcome Back</h2>
+
+   <input class="input" id="loginMobile"
+    type="tel" maxlength="10"
+    placeholder="10 digit mobile number">
+
+   <input class="input" id="loginPassword"
+    type="password" inputmode="numeric"
+    maxlength="6" placeholder="6 digit password">
+
+   <button class="primary" id="loginBtn">Sign In</button>
+
+   <p class="muted" style="margin-top:12px">
+    Demo login only. Do not use a real password.
+   </p>
+  </div>
+
+  <div id="registerForm" class="hidden">
+   <h2>Create Account</h2>
+
+   <input class="input" id="regName"
+    placeholder="Username">
+
+   <input class="input" id="regMobile"
+    type="tel" maxlength="10"
+    placeholder="10 digit mobile number">
+
+   <input class="input" id="regPassword"
+    type="password" inputmode="numeric"
+    maxlength="6" placeholder="6 digit password">
+
+   <input class="input" id="regInvite"
+    placeholder="Invite code (optional)">
+
+   <button class="primary" id="registerBtn">Sign Up</button>
+
+   <p class="muted" style="margin-top:12px">
+    Demo registration only. No real account is created.
+   </p>
+  </div>
+
+ </div>
+</section>
 
 <div id="mainScreen" class="hidden">
 
-<header class="header">
-  <div class="header-row">
-    <div>
-      <div class="logo">DUDPAY</div>
-      <div class="header-sub">Wallet & Payment Platform</div>
-    </div>
-    <button class="icon-button" id="notificationBtn">♧</button>
+<header class="topbar">
+ <div class="topline">
+  <div>
+   <div class="brand">DUDPAY</div>
+   <div class="tagline">Digital Wallet Platform</div>
   </div>
+  <button class="round-icon" id="noticeBtn">♧</button>
+ </div>
 </header>
 
-<div class="container" id="pageContainer">
-<!-- PART 2 WILL CONTINUE HERE -->
+<main class="content">
 
-</div>
+<!-- PART 2 WILL BE PASTED HERE -->
 
-<nav class="bottom-nav hidden" id="bottomNav">
-  <button class="nav-button active" data-page="home">
-    <span>⌂</span>Home
-  </button>
-  <button class="nav-button" data-page="payment">
-    <span>▣</span>Payment
-  </button>
-  <button class="nav-button" data-page="wallet">
-    <span>▱</span>Wallet
-  </button>
-  <button class="nav-button" data-page="statistics">
-    <span>▥</span>Statistics
-  </button>
-  <button class="nav-button" data-page="my">
-    <span>♙</span>My
-  </button>
+</main>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="nav">
+ <button class="active" data-page="home">
+  <span>⌂</span>Home
+ </button>
+ <button data-page="payment">
+  <span>▣</span>Payment
+ </button>
+ <button data-page="wallet">
+  <span>▱</span>Wallet
+ </button>
+ <button data-page="statistics">
+  <span>▥</span>Statistics
+ </button>
+ <button data-page="my">
+  <span>♙</span>My
+ </button>
 </nav>
 
 </div>
@@ -500,980 +489,782 @@ button {
 <div class="toast" id="toast"></div>
 </body>
   </html>
-  
+     
 <!-- HOME PAGE -->
 <section class="page active" id="homePage">
-
-  <div class="row-between">
+  <div class="welcome-card">
     <div>
-      <strong id="homeUsername">Welcome User</strong>
-      <p class="muted">User ID: <span id="userId">DP100001</span></p>
+      <p class="muted">Welcome back,</p>
+      <h2 id="homeUsername">User</h2>
+      <p class="small">User ID: <span id="homeUserId">DP100001</span>
+        <button class="text-btn" onclick="copyUserId()">Copy</button>
+      </p>
     </div>
-    <button class="secondary-btn" onclick="copyUserId()">Copy ID</button>
+    <div class="avatar">D</div>
   </div>
 
   <div class="balance-card">
-    <div class="balance-label">Available Balance</div>
-    <div class="balance-value">₹77.00</div>
-    <div class="balance-grid">
-      <div class="balance-item">
-        <small>Deposit</small>
-        <strong>₹0.00</strong>
-      </div>
-      <div class="balance-item">
-        <small>Withdrawal</small>
-        <strong>₹0.00</strong>
-      </div>
+    <p>Total Balance</p>
+    <h1>₹77.00</h1>
+    <div class="balance-row">
+      <div><span>Deposit</span><b>₹0.00</b></div>
+      <div><span>Withdrawal</span><b>₹0.00</b></div>
     </div>
   </div>
 
   <div class="quick-grid">
-    <button class="quick-button" onclick="openSubPage('usdtPage')">
-      <span class="emoji">💵</span><strong>USDT</strong>
+    <button class="quick-item" onclick="showPage('usdtPage')">
+      <span>₮</span><b>USDT</b>
     </button>
-    <button class="quick-button" onclick="openSubPage('taskPage')">
-      <span class="emoji">📋</span><strong>Task</strong>
+    <button class="quick-item" onclick="showPage('taskPage')">
+      <span>✓</span><b>Task</b>
     </button>
-    <button class="quick-button" onclick="openSubPage('teamPage')">
-      <span class="emoji">👥</span><strong>Team</strong>
+    <button class="quick-item" onclick="showPage('teamPage')">
+      <span>♧</span><b>Team</b>
     </button>
-    <button class="quick-button" onclick="openSubPage('orderPage')">
-      <span class="emoji">🧾</span><strong>Order</strong>
+    <button class="quick-item" onclick="showPage('orderPage')">
+      <span>▤</span><b>Order</b>
     </button>
   </div>
 
-  <div class="reward-banner" onclick="openSubPage('taskPage')">
-    <h3>🎁 Newcomer Rewards</h3>
-    <p>Complete eligible demo transaction volume of ₹2,000 to see the ₹300 reward preview.</p>
-    <button class="secondary-btn">View Reward</button>
+  <div class="section-heading">
+    <h3>Newcomer Rewards</h3>
+    <span class="tag">New</span>
+  </div>
+  <div class="reward-banner">
+    <h2>Welcome Reward</h2>
+    <p>Complete eligible transaction volume of ₹2,000 to view the demo reward progress.</p>
+    <button class="light-btn" onclick="showPage('taskPage')">View Task</button>
   </div>
 
-  <div class="section-title">Transactions</div>
-  <div class="card">
-    <div class="no-data">No Data</div>
+  <div class="section-heading">
+    <h3>Recent Transactions</h3>
+    <span class="muted small">View all</span>
+  </div>
+  <div class="empty-card">
+    <div class="empty-icon">▤</div>
+    <b>No Data</b>
+    <p>Your transactions will appear here.</p>
   </div>
 </section>
 
-
-<!-- USDT PAGE -->
-<section class="page" id="usdtPage">
-
-  <div class="section-title">USDT Deposit</div>
-
-  <div class="card">
-    <div class="card-title">Deposit Instructions</div>
-    <p class="muted">
-      Demo deposit order only. No real crypto transfer is accepted.
-    </p>
+<!-- PAYMENT PAGE -->
+<section class="page" id="paymentPage">
+  <div class="page-heading">
+    <h2>Payment</h2>
+    <p>Choose an amount to preview a demo order.</p>
   </div>
 
-  <div class="card">
-    <div class="card-title">Enter USDT Amount</div>
-    <input class="input" id="usdtAmount" type="number"
-      min="0" step="0.01" placeholder="Enter USDT">
-
-    <p class="muted" style="margin-top:12px">
-      Exchange Rate: 1 USDT = ₹114
-    </p>
-
-    <div style="margin-top:16px">
-      <div class="row-between">
-        <span class="muted">Estimated Bonus</span>
-        <strong id="usdtBonus">₹0.00</strong>
-      </div>
-      <div class="row-between" style="margin-top:12px">
-        <span class="muted">You Will Receive</span>
-        <strong id="usdtReceive">₹0.00</strong>
-      </div>
-    </div>
+  <div class="balance-strip">
+    <span>Available Balance</span>
+    <b>₹77.00</b>
   </div>
 
-  <div class="card">
-    <div class="card-title">Select Chain Type</div>
-
-    <label style="display:block;margin-top:15px">
-      <input type="radio" name="chain" value="TRC20" checked>
-      TRC20 — USDT TRON Network
-    </label>
-
-    <label style="display:block;margin-top:15px">
-      <input type="radio" name="chain" value="BSC">
-      BSC (BEP20) — USDT BNB Smart Chain
-    </label>
+  <div class="section-heading"><h3>Select Amount</h3></div>
+  <div class="amount-grid">
+    <button class="amount-btn" onclick="selectAmount(200)">₹200</button>
+    <button class="amount-btn" onclick="selectAmount(300)">₹300</button>
+    <button class="amount-btn" onclick="selectAmount(500)">₹500</button>
+    <button class="amount-btn" onclick="selectAmount(700)">₹700</button>
+    <button class="amount-btn" onclick="selectAmount(1000)">₹1,000</button>
+    <button class="amount-btn" onclick="selectAmount(1500)">₹1,500</button>
+    <button class="amount-btn" onclick="selectAmount(2000)">₹2,000</button>
+    <button class="amount-btn" onclick="selectAmount(5000)">₹5,000</button>
   </div>
 
-  <div class="card">
-    <p class="muted">
-      Demo mode: This action creates a simulated pending order.
-      It does not transfer cryptocurrency or change your balance.
-    </p>
-    <button class="primary-btn" onclick="createUSDTOrder()">
-      Create Demo Deposit Order
-    </button>
+  <div class="summary-card">
+    <div class="summary-row"><span>Selected Amount</span><b id="selectedAmount">₹0.00</b></div>
+    <div class="summary-row"><span>Demo Reward (5.5%)</span><b id="paymentReward">₹0.00</b></div>
+    <div class="summary-row total-row"><span>Preview Total</span><b id="paymentTotal">₹0.00</b></div>
+    <p class="notice">Illustrative preview only. No real payment or reward is processed.</p>
   </div>
 
+  <button class="primary-btn" onclick="openCheckout()">Continue</button>
+
+  <div class="section-heading"><h3>Payment History</h3></div>
+  <div class="empty-card">
+    <div class="empty-icon">▤</div>
+    <b>No Data</b>
+    <p>No payment history yet.</p>
+  </div>
 </section>
 
-
-<!-- TASK PAGE -->
-<section class="page" id="taskPage">
-
-  <div class="section-title">Task Rewards</div>
-
-  <div class="card">
-    <div class="row-between">
-      <strong>🎁 Newbie Reward</strong>
-      <span class="status">New User</span>
-    </div>
-
-    <h1 style="color:var(--green);margin:18px 0">₹300</h1>
-
-    <p class="muted">
-      Required eligible transaction volume: ₹2,000
-    </p>
-
-    <div style="background:#e8eeeb;height:9px;border-radius:20px;margin:15px 0;overflow:hidden">
-      <div id="rewardProgress" style="width:0%;height:9px;background:var(--green)"></div>
-    </div>
-
-    <div class="row-between">
-      <span class="muted">Progress</span>
-      <strong id="rewardVolume">₹0 / ₹2,000</strong>
-    </div>
-
-    <div style="margin-top:15px">
-      <span class="status" id="rewardStatus">In Progress</span>
-    </div>
-
-    <p class="muted" style="margin-top:15px">
-      Demo reward preview only. No real money or guaranteed payout.
-    </p>
+<!-- CHECKOUT PAGE -->
+<section class="page" id="checkoutPage">
+  <button class="back-btn" onclick="showPage('paymentPage')">← Back</button>
+  <div class="page-heading">
+    <h2>Demo Checkout</h2>
+    <p>Review your selected amount.</p>
   </div>
 
+  <div class="summary-card">
+    <div class="summary-row"><span>Payment Amount</span><b id="checkoutAmount">₹0.00</b></div>
+    <div class="summary-row"><span>Demo Reward</span><b id="checkoutReward">₹0.00</b></div>
+    <div class="summary-row total-row"><span>Preview Total</span><b id="checkoutTotal">₹0.00</b></div>
+  </div>
+
+  <div class="section-heading"><h3>Select Wallet App</h3></div>
+  <div class="wallet-choice-list">
+    <label class="choice-row"><input type="radio" name="checkoutWallet" value="Paytm"> Paytm</label>
+    <label class="choice-row"><input type="radio" name="checkoutWallet" value="PhonePe"> PhonePe</label>
+    <label class="choice-row"><input type="radio" name="checkoutWallet" value="MobiKwik"> MobiKwik</label>
+    <label class="choice-row"><input type="radio" name="checkoutWallet" value="Navi"> Navi</label>
+    <label class="choice-row"><input type="radio" name="checkoutWallet" value="BharatPe"> BharatPe</label>
+    <label class="choice-row"><input type="radio" name="checkoutWallet" value="Paytm Business"> Paytm Business</label>
+  </div>
+
+  <button class="primary-btn" onclick="createDemoOrder()">Create Demo Pending Order</button>
+  <p class="notice">Demo only: this page does not initiate a UPI payment or verify a transaction.</p>
 </section>
 
-
-<!-- TEAM PAGE -->
-<section class="page" id="teamPage">
-
-  <div class="section-title">My Team</div>
-
-  <div class="card">
-    <div class="row-between">
-      <div>
-        <p class="muted">My Total Commissions</p>
-        <h2>₹0.00</h2>
-      </div>
-      <div style="font-size:30px">💰</div>
-    </div>
-    <div class="balance-grid" style="margin-top:15px">
-      <div style="background:var(--light);padding:12px;border-radius:10px">
-        <small>Yesterday</small>
-        <strong>₹0.00</strong>
-      </div>
-      <div style="background:var(--light);padding:12px;border-radius:10px">
-        <small>Today</small>
-        <strong>₹0.00</strong>
-      </div>
-    </div>
+<!-- ORDER DETAIL PAGE -->
+<section class="page" id="orderDetailPage">
+  <button class="back-btn" onclick="showPage('orderPage')">← Back to Orders</button>
+  <div class="page-heading">
+    <h2>Order Details</h2>
+    <p>Demo order information</p>
   </div>
 
-  <div class="card">
-    <div class="row-between">
-      <span>Total Team Members</span>
-      <strong>0</strong>
-    </div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Total Team Deposit</span>
-      <strong>₹0.00</strong>
-    </div>
+  <div class="summary-card">
+    <div class="summary-row"><span>Order ID</span><b id="detailOrderId">—</b></div>
+    <div class="summary-row"><span>Amount</span><b id="detailOrderAmount">₹0.00</b></div>
+    <div class="summary-row"><span>Wallet App</span><b id="detailOrderWallet">—</b></div>
+    <div class="summary-row"><span>Status</span><b class="status-pending">Pending Demo</b></div>
   </div>
 
-  <div class="card">
-    <div class="card-title">My Referral Link</div>
-    <input class="input" id="referralLink"
-      value="https://example.com/register?ref=DP100001"
-      readonly>
-    <button class="primary-btn" onclick="copyReferral()">
-      Copy Referral Link
-    </button>
+  <div class="section-heading"><h3>Voucher Preview</h3></div>
+  <div class="upload-card">
+    <p>Optional image selection for local demo display only.</p>
+    <input type="file" id="voucherFile" accept="image/*">
+    <p class="notice">Do not upload sensitive banking details, OTPs, or UPI PINs.</p>
   </div>
 
-  <div class="card">
-    <div class="card-title">Commission Rates</div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level B — Direct Members</span>
-      <strong style="color:var(--green)">1%</strong>
-    </div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level C — Indirect Members</span>
-      <strong style="color:var(--green)">0.3%</strong>
-    </div>
-    <p class="muted" style="margin-top:12px">
-      Demo commission preview. No actual commission is paid.
-    </p>
+  <button class="primary-btn" onclick="showToast('Demo only — no payment was made.')">Go Pay (Demo)</button>
+      </section>
+      
+<!-- WALLET PAGE -->
+<section class="page" id="walletPage">
+  <div class="page-heading">
+    <h2>My Wallet</h2>
+    <p>Manage your demo wallet entries.</p>
   </div>
 
-  <div class="card">
-    <div class="card-title">Team Details</div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level B Members</span>
-      <strong>0</strong>
-    </div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level C Members</span>
-      <strong>0</strong>
-    </div>
-    <div class="no-data">No Data</div>
+  <div class="balance-card compact">
+    <p>Total Balance</p>
+    <h1>₹77.00</h1>
   </div>
 
+  <div class="section-heading">
+    <h3>Saved Wallet Apps</h3>
+    <button class="text-btn" onclick="showPage('addWalletPage')">+ Add</button>
+  </div>
+
+  <div id="walletList" class="wallet-list">
+    <div class="empty-card">
+      <div class="empty-icon">▣</div>
+      <b>No Wallet Added</b>
+      <p>Add a demo wallet entry to see it here.</p>
+    </div>
+  </div>
 </section>
 
+<!-- ADD WALLET PAGE -->
+<section class="page" id="addWalletPage">
+  <button class="back-btn" onclick="showPage('walletPage')">← Back</button>
+  <div class="page-heading">
+    <h2>Add Wallet</h2>
+    <p>Select an app and enter its mobile number.</p>
+  </div>
 
-<!-- HOME PAGE -->
-<section class="page active" id="homePage">
+  <div class="form-card">
+    <label for="walletApp">Select Wallet App</label>
+    <select id="walletApp" class="field">
+      <option value="">Choose app</option>
+      <option>Paytm</option>
+      <option>PhonePe</option>
+      <option>MobiKwik</option>
+      <option>Navi</option>
+      <option>BharatPe</option>
+      <option>Paytm Business</option>
+    </select>
 
-  <div class="row-between">
-    <div>
-      <strong id="homeUsername">Welcome User</strong>
-      <p class="muted">User ID: <span id="userId">DP100001</span></p>
-    </div>
-    <button class="secondary-btn" onclick="copyUserId()">Copy ID</button>
+    <label for="walletPhone">Mobile Number</label>
+    <input id="walletPhone" class="field" type="tel" inputmode="numeric" maxlength="10" placeholder="Enter 10-digit mobile number">
+
+    <button class="primary-btn" onclick="addDemoWallet()">Save Demo Wallet</button>
+    <p class="notice">This only saves a local demo entry. It does not detect installed apps or connect a bank account. Never enter your UPI PIN or OTP here.</p>
+  </div>
+</section>
+
+<!-- STATISTICS PAGE -->
+<section class="page" id="statisticsPage">
+  <div class="page-heading">
+    <h2>Statistics</h2>
+    <p>Your account overview</p>
   </div>
 
   <div class="balance-card">
-    <div class="balance-label">Available Balance</div>
-    <div class="balance-value">₹77.00</div>
-    <div class="balance-grid">
-      <div class="balance-item">
-        <small>Deposit</small>
-        <strong>₹0.00</strong>
-      </div>
-      <div class="balance-item">
-        <small>Withdrawal</small>
-        <strong>₹0.00</strong>
-      </div>
+    <p>Total Balance</p>
+    <h1>₹77.00</h1>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><span>Sell</span><b>₹0.00</b></div>
+    <div class="stat-card"><span>Deposit</span><b>₹0.00</b></div>
+    <div class="stat-card"><span>Commission</span><b>₹0.00</b></div>
+    <div class="stat-card"><span>Exchange Rate</span><b>₹114</b></div>
+    <div class="stat-card"><span>In Process Amount</span><b>₹0.00</b></div>
+    <div class="stat-card"><span>In Process Orders</span><b>0</b></div>
+    <div class="stat-card"><span>Commission Rate</span><b>5.5%</b></div>
+    <div class="stat-card"><span>Estimated Income</span><b>₹0.00</b></div>
+  </div>
+
+  <button class="primary-btn disabled-btn" disabled>Closed Selling</button>
+  <p class="notice">Statistics are illustrative demo values, not financial records.</p>
+</section>
+
+<!-- MY PAGE -->
+<section class="page" id="myPage">
+  <div class="profile-card">
+    <div class="avatar large">D</div>
+    <div>
+      <h2 id="profileUsername">User</h2>
+      <p class="small">ID: <span id="profileUserId">DP100001</span></p>
     </div>
   </div>
 
-  <div class="quick-grid">
-    <button class="quick-button" onclick="openSubPage('usdtPage')">
-      <span class="emoji">💵</span><strong>USDT</strong>
-    </button>
-    <button class="quick-button" onclick="openSubPage('taskPage')">
-      <span class="emoji">📋</span><strong>Task</strong>
-    </button>
-    <button class="quick-button" onclick="openSubPage('teamPage')">
-      <span class="emoji">👥</span><strong>Team</strong>
-    </button>
-    <button class="quick-button" onclick="openSubPage('orderPage')">
-      <span class="emoji">🧾</span><strong>Order</strong>
-    </button>
+  <div class="balance-card">
+    <p>Account Balance</p>
+    <h1>₹77.00</h1>
   </div>
 
-  <div class="reward-banner" onclick="openSubPage('taskPage')">
-    <h3>🎁 Newcomer Rewards</h3>
-    <p>Complete eligible demo transaction volume of ₹2,000 to see the ₹300 reward preview.</p>
-    <button class="secondary-btn">View Reward</button>
+  <div class="stats-grid">
+    <div class="stat-card"><span>Deposit</span><b>₹0.00</b></div>
+    <div class="stat-card"><span>Withdraw</span><b>₹0.00</b></div>
+    <div class="stat-card"><span>Commission</span><b>₹0.00</b></div>
+    <div class="stat-card"><span>Balance</span><b>₹77.00</b></div>
   </div>
 
-  <div class="section-title">Transactions</div>
-  <div class="card">
-    <div class="no-data">No Data</div>
+  <div class="menu-list">
+    <button class="menu-row" onclick="showPage('messagePage')"><span>✉</span> Message <b>›</b></button>
+    <button class="menu-row" onclick="showPage('tutorialPage')"><span>▣</span> Tutorial <b>›</b></button>
+    <div class="menu-row"><span>☏</span> Service <b>Officalservice06</b></div>
+    <button class="menu-row" onclick="logoutDemo()"><span>↪</span> Log Out <b>›</b></button>
   </div>
 </section>
-
 
 <!-- USDT PAGE -->
 <section class="page" id="usdtPage">
-
-  <div class="section-title">USDT Deposit</div>
-
-  <div class="card">
-    <div class="card-title">Deposit Instructions</div>
-    <p class="muted">
-      Demo deposit order only. No real crypto transfer is accepted.
-    </p>
+  <button class="back-btn" onclick="showPage('homePage')">← Back</button>
+  <div class="page-heading">
+    <h2>USDT Exchange</h2>
+    <p>Demo calculator</p>
   </div>
 
-  <div class="card">
-    <div class="card-title">Enter USDT Amount</div>
-    <input class="input" id="usdtAmount" type="number"
-      min="0" step="0.01" placeholder="Enter USDT">
+  <div class="balance-strip">
+    <span>Exchange Rate</span>
+    <b>1 USDT = ₹114</b>
+  </div>
 
-    <p class="muted" style="margin-top:12px">
-      Exchange Rate: 1 USDT = ₹114
-    </p>
+  <div class="form-card">
+    <label for="usdtAmount">Enter USDT Amount</label>
+    <input id="usdtAmount" class="field" type="number" min="0" step="0.01" placeholder="Enter amount" oninput="calculateUsdt()">
 
-    <div style="margin-top:16px">
-      <div class="row-between">
-        <span class="muted">Estimated Bonus</span>
-        <strong id="usdtBonus">₹0.00</strong>
-      </div>
-      <div class="row-between" style="margin-top:12px">
-        <span class="muted">You Will Receive</span>
-        <strong id="usdtReceive">₹0.00</strong>
-      </div>
+    <label for="usdtNetwork">Select Network</label>
+    <select id="usdtNetwork" class="field">
+      <option value="TRC20">TRC20</option>
+      <option value="BEP20">BSC (BEP20)</option>
+    </select>
+
+    <div class="summary-card">
+      <div class="summary-row"><span>INR Value</span><b id="usdtInr">₹0.00</b></div>
+      <div class="summary-row"><span>Demo Bonus</span><b>₹0.00</b></div>
+      <div class="summary-row total-row"><span>You Will Receive</span><b id="usdtReceive">₹0.00</b></div>
     </div>
+
+    <button class="primary-btn" onclick="createUsdtDemoOrder()">Create Demo Pending Order</button>
+    <p class="notice">No cryptocurrency is sent, received, or exchanged. This is only a calculator and demo order preview.</p>
   </div>
-
-  <div class="card">
-    <div class="card-title">Select Chain Type</div>
-
-    <label style="display:block;margin-top:15px">
-      <input type="radio" name="chain" value="TRC20" checked>
-      TRC20 — USDT TRON Network
-    </label>
-
-    <label style="display:block;margin-top:15px">
-      <input type="radio" name="chain" value="BSC">
-      BSC (BEP20) — USDT BNB Smart Chain
-    </label>
-  </div>
-
-  <div class="card">
-    <p class="muted">
-      Demo mode: This action creates a simulated pending order.
-      It does not transfer cryptocurrency or change your balance.
-    </p>
-    <button class="primary-btn" onclick="createUSDTOrder()">
-      Create Demo Deposit Order
-    </button>
-  </div>
-
 </section>
-
 
 <!-- TASK PAGE -->
 <section class="page" id="taskPage">
-
-  <div class="section-title">Task Rewards</div>
-
-  <div class="card">
-    <div class="row-between">
-      <strong>🎁 Newbie Reward</strong>
-      <span class="status">New User</span>
-    </div>
-
-    <h1 style="color:var(--green);margin:18px 0">₹300</h1>
-
-    <p class="muted">
-      Required eligible transaction volume: ₹2,000
-    </p>
-
-    <div style="background:#e8eeeb;height:9px;border-radius:20px;margin:15px 0;overflow:hidden">
-      <div id="rewardProgress" style="width:0%;height:9px;background:var(--green)"></div>
-    </div>
-
-    <div class="row-between">
-      <span class="muted">Progress</span>
-      <strong id="rewardVolume">₹0 / ₹2,000</strong>
-    </div>
-
-    <div style="margin-top:15px">
-      <span class="status" id="rewardStatus">In Progress</span>
-    </div>
-
-    <p class="muted" style="margin-top:15px">
-      Demo reward preview only. No real money or guaranteed payout.
-    </p>
+  <button class="back-btn" onclick="showPage('homePage')">← Back</button>
+  <div class="page-heading">
+    <h2>Newbie Reward</h2>
+    <p>Demo task details</p>
   </div>
 
-</section>
+  <div class="reward-banner">
+    <h2>₹300 Reward</h2>
+    <p>Eligible transaction volume target: ₹2,000</p>
+  </div>
 
+  <div class="summary-card">
+    <div class="summary-row"><span>Target Volume</span><b>₹2,000</b></div>
+    <div class="summary-row"><span>Demo Progress</span><b>₹0</b></div>
+    <div class="summary-row total-row"><span>Reward Preview</span><b>₹300</b></div>
+  </div>
+  <p class="notice">Progress and reward are not tracked or paid. No real earning is available in this demo.</p>
+</section>
 
 <!-- TEAM PAGE -->
 <section class="page" id="teamPage">
-
-  <div class="section-title">My Team</div>
-
-  <div class="card">
-    <div class="row-between">
-      <div>
-        <p class="muted">My Total Commissions</p>
-        <h2>₹0.00</h2>
-      </div>
-      <div style="font-size:30px">💰</div>
-    </div>
-    <div class="balance-grid" style="margin-top:15px">
-      <div style="background:var(--light);padding:12px;border-radius:10px">
-        <small>Yesterday</small>
-        <strong>₹0.00</strong>
-      </div>
-      <div style="background:var(--light);padding:12px;border-radius:10px">
-        <small>Today</small>
-        <strong>₹0.00</strong>
-      </div>
-    </div>
+  <button class="back-btn" onclick="showPage('homePage')">← Back</button>
+  <div class="page-heading">
+    <h2>My Team</h2>
+    <p>Referral overview</p>
   </div>
 
-  <div class="card">
-    <div class="row-between">
-      <span>Total Team Members</span>
-      <strong>0</strong>
-    </div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Total Team Deposit</span>
-      <strong>₹0.00</strong>
-    </div>
+  <div class="summary-card">
+    <div class="summary-row"><span>Level B — Direct Referrals</span><b>0</b></div>
+    <div class="summary-row"><span>Level B Commission Rate</span><b>1%</b></div>
+    <div class="summary-row"><span>Level C — Indirect Referrals</span><b>0</b></div>
+    <div class="summary-row"><span>Level C Commission Rate</span><b>0.3%</b></div>
+    <div class="summary-row total-row"><span>Total Demo Commission</span><b>₹0.00</b></div>
   </div>
 
-  <div class="card">
-    <div class="card-title">My Referral Link</div>
-    <input class="input" id="referralLink"
-      value="https://example.com/register?ref=DP100001"
-      readonly>
-    <button class="primary-btn" onclick="copyReferral()">
-      Copy Referral Link
-    </button>
+  <div class="form-card">
+    <label>Your Referral Link</label>
+    <div class="copy-row">
+      <input id="referralLink" class="field" value="DUDPAY-DEMO-REFERRAL" readonly>
+      <button class="secondary-btn" onclick="copyReferral()">Copy</button>
+    </div>
   </div>
-
-  <div class="card">
-    <div class="card-title">Commission Rates</div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level B — Direct Members</span>
-      <strong style="color:var(--green)">1%</strong>
-    </div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level C — Indirect Members</span>
-      <strong style="color:var(--green)">0.3%</strong>
-    </div>
-    <p class="muted" style="margin-top:12px">
-      Demo commission preview. No actual commission is paid.
-    </p>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Team Details</div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level B Members</span>
-      <strong>0</strong>
-    </div>
-    <div class="row-between" style="margin-top:15px">
-      <span>Level C Members</span>
-      <strong>0</strong>
-    </div>
-    <div class="no-data">No Data</div>
-  </div>
-
+  <p class="notice">Referral counts and commissions are demo-only. No commission is earned or paid.</p>
 </section>
-
 
 <!-- ORDER PAGE -->
 <section class="page" id="orderPage">
-
-  <div class="section-title">My Orders</div>
-
-  <div class="card">
-    <div class="card-title">Order History</div>
-    <div class="no-data">No Data</div>
+  <button class="back-btn" onclick="showPage('homePage')">← Back</button>
+  <div class="page-heading">
+    <h2>My Orders</h2>
+    <p>Demo order history</p>
   </div>
+  <div id="orderList" class="order-list">
+    <div class="empty-card">
+      <div class="empty-icon">▤</div>
+      <b>No Data</b>
+      <p>Your demo orders will appear here.</p>
+    </div>
+  </div>
+</section>
 
-                                               </section>
+<!-- MESSAGE PAGE -->
+<section class="page" id="messagePage">
+  <button class="back-btn" onclick="showPage('myPage')">← Back</button>
+  <div class="page-heading"><h2>Message</h2></div>
+  <div class="empty-card">
+    <div class="empty-icon">✉</div>
+    <b>No Message</b>
+    <p>You have no messages.</p>
+  </div>
+</section>
 
+<!-- TUTORIAL PAGE -->
+<section class="page" id="tutorialPage">
+  <button class="back-btn" onclick="showPage('myPage')">← Back</button>
+  <div class="page-heading"><h2>Tutorial</h2></div>
+  <div class="empty-card">
+    <div class="empty-icon">▣</div>
+    <b>No Tutorial</b>
+    <p>No tutorial available.</p>
+  </div>
+  </section>
+      
 <script>
-/* =========================
-   DUDPAY APPLICATION
-========================= */
+/* DUDPAY DEMO APP */
 
-const $ = id => document.getElementById(id);
-
-let selectedAmount = 0;
-let selectedWalletApp = "";
-let connectedWallets = [];
+let selectedPaymentAmount = 0;
 let demoOrders = [];
-let orderCounter = 1;
-let currentUser = "Demo User";
-let rewardVolume = 0;
-
-/* TOAST */
+let demoWallets = [];
+let currentUser = {
+  username: "User",
+  mobile: "",
+  id: "DP100001"
+};
 
 function showToast(message) {
-  const toast = $("toast");
+  const toast = document.getElementById("toast");
+  if (!toast) {
+    alert(message);
+    return;
+  }
   toast.textContent = message;
-  toast.style.display = "block";
-
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer = setTimeout(() => {
-    toast.style.display = "none";
+  toast.classList.add("show");
+  clearTimeout(window.demoToastTimer);
+  window.demoToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
   }, 2500);
 }
 
-/* AUTH TABS */
-
-function showAuth(type) {
-  $("loginForm").classList.toggle("hidden", type !== "login");
-  $("registerForm").classList.toggle("hidden", type !== "register");
-
-  $("loginTab").classList.toggle("active", type === "login");
-  $("registerTab").classList.toggle("active", type === "register");
-}
-
-$("loginTab").addEventListener("click", () => showAuth("login"));
-$("registerTab").addEventListener("click", () => showAuth("register"));
-
-/* LOGIN */
-
-$("loginBtn").addEventListener("click", () => {
-  const mobile = $("loginMobile").value.trim();
-  const password = $("loginPassword").value;
-
-  if (!/^[0-9]{10}$/.test(mobile)) {
-    showToast("Enter valid 10 digit mobile number");
-    return;
-  }
-
-  if (!/^[0-9]{6}$/.test(password)) {
-    showToast("Password must contain 6 digits");
-    return;
-  }
-
-  currentUser = "Demo User";
-  showDashboard();
-  showToast("Demo login successful");
-});
-
-/* REGISTER */
-
-$("registerBtn").addEventListener("click", () => {
-  const username = $("regUsername").value.trim();
-  const mobile = $("regMobile").value.trim();
-  const password = $("regPassword").value;
-  const invite = $("regInvite").value.trim();
-
-  if (username.length < 3) {
-    showToast("Username must be at least 3 characters");
-    return;
-  }
-
-  if (!/^[0-9]{10}$/.test(mobile)) {
-    showToast("Enter valid 10 digit mobile number");
-    return;
-  }
-
-  if (!/^[0-9]{6}$/.test(password)) {
-    showToast("Password must contain 6 digits");
-    return;
-  }
-
-  currentUser = username;
-  showDashboard();
-  showToast("Demo account created");
-
-  // Invite code is optional in this demo.
-});
-
-/* DASHBOARD */
-
-function showDashboard() {
-  $("authScreen").classList.add("hidden");
-  $("mainScreen").classList.remove("hidden");
-  $("bottomNav").classList.remove("hidden");
-
-  if ($("homeUsername")) {
-    $("homeUsername").textContent = "Welcome " + currentUser;
-  }
-
-  openPage("home");
-}
-
-/* NAVIGATION */
-
-const navPages = {
-  home: "homePage",
-  payment: "paymentPage",
-  wallet: "walletPage",
-  statistics: "statisticsPage",
-  my: "myPage"
-};
-
-function openPage(name) {
-  const pageId = navPages[name] || name;
-
+function showPage(pageId) {
   document.querySelectorAll(".page").forEach(page => {
     page.classList.remove("active");
   });
 
-  const page = $(pageId);
-
-  if (!page) {
-    showToast("Page not available");
-    return;
+  const target = document.getElementById(pageId);
+  if (target) {
+    target.classList.add("active");
   }
 
-  page.classList.add("active");
-
-  document.querySelectorAll(".nav-button").forEach(button => {
-    button.classList.toggle("active", button.dataset.page === name);
+  document.querySelectorAll(".bottom-nav button").forEach(button => {
+    button.classList.remove("active");
   });
 
-  window.scrollTo(0, 0);
+  const navMap = {
+    homePage: 0,
+    paymentPage: 1,
+    walletPage: 2,
+    statisticsPage: 3,
+    myPage: 4
+  };
+
+  if (navMap[pageId] !== undefined) {
+    const navButtons = document.querySelectorAll(".bottom-nav button");
+    if (navButtons[navMap[pageId]]) {
+      navButtons[navMap[pageId]].classList.add("active");
+    }
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function openSubPage(pageId) {
-  openPage(pageId);
-}
-
-document.querySelectorAll(".nav-button").forEach(button => {
-  button.addEventListener("click", () => {
-    openPage(button.dataset.page);
+function setUserDetails() {
+  const ids = ["homeUsername", "profileUsername"];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = currentUser.username;
   });
-});
 
-/* USER ID */
-
-function copyUserId() {
-  copyText("DP100001", "User ID copied");
+  ["homeUserId", "profileUserId"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = currentUser.id;
+  });
 }
 
-/* CLIPBOARD */
-
-function copyText(value, message) {
+function copyText(value) {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(value)
-      .then(() => showToast(message))
-      .catch(() => showToast("Copy unavailable"));
+      .then(() => showToast("Copied"))
+      .catch(() => showToast("Copy not available here"));
   } else {
-    showToast("Copy requires a secure browser connection");
+    const input = document.createElement("textarea");
+    input.value = value;
+    document.body.appendChild(input);
+    input.select();
+    try {
+      document.execCommand("copy");
+      showToast("Copied");
+    } catch (error) {
+      showToast("Copy not available");
+    }
+    input.remove();
   }
+}
+
+function copyUserId() {
+  copyText(currentUser.id);
 }
 
 function copyReferral() {
-  const link = $("referralLink").value;
-  copyText(link, "Referral link copied");
+  const field = document.getElementById("referralLink");
+  if (field) copyText(field.value);
+}
+
+/* AMOUNT SELECTION */
+
+function selectAmount(amount) {
+  selectedPaymentAmount = Number(amount);
+  const reward = selectedPaymentAmount * 0.055;
+  const total = selectedPaymentAmount + reward;
+
+  document.getElementById("selectedAmount").textContent =
+    "₹" + selectedPaymentAmount.toFixed(2);
+  document.getElementById("paymentReward").textContent =
+    "₹" + reward.toFixed(2);
+  document.getElementById("paymentTotal").textContent =
+    "₹" + total.toFixed(2);
+
+  document.querySelectorAll(".amount-btn").forEach(button => {
+    button.classList.remove("selected");
+  });
+
+  const clicked = [...document.querySelectorAll(".amount-btn")]
+    .find(button => Number(button.textContent.replace(/[₹,]/g, "")) === amount);
+
+  if (clicked) clicked.classList.add("selected");
+}
+
+function openCheckout() {
+  if (!selectedPaymentAmount) {
+    showToast("Please select an amount first");
+    return;
+  }
+
+  const reward = selectedPaymentAmount * 0.055;
+  const total = selectedPaymentAmount + reward;
+
+  document.getElementById("checkoutAmount").textContent =
+    "₹" + selectedPaymentAmount.toFixed(2);
+  document.getElementById("checkoutReward").textContent =
+    "₹" + reward.toFixed(2);
+  document.getElementById("checkoutTotal").textContent =
+    "₹" + total.toFixed(2);
+
+  document.querySelectorAll('input[name="checkoutWallet"]').forEach(input => {
+    input.checked = false;
+  });
+
+  showPage("checkoutPage");
+}
+
+function createDemoOrder() {
+  if (!selectedPaymentAmount) {
+    showToast("Select an amount first");
+    return;
+  }
+
+  const selectedWallet = document.querySelector(
+    'input[name="checkoutWallet"]:checked'
+  );
+
+  if (!selectedWallet) {
+    showToast("Please select a wallet app");
+    return;
+  }
+
+  const order = {
+    id: "DP" + Date.now(),
+    amount: selectedPaymentAmount,
+    wallet: selectedWallet.value,
+    status: "Pending Demo"
+  };
+
+  demoOrders.unshift(order);
+  renderOrders();
+  showOrderDetails(order);
+  showToast("Demo pending order created");
+}
+
+function showOrderDetails(order) {
+  document.getElementById("detailOrderId").textContent = order.id;
+  document.getElementById("detailOrderAmount").textContent =
+    "₹" + order.amount.toFixed(2);
+  document.getElementById("detailOrderWallet").textContent = order.wallet;
+  showPage("orderDetailPage");
+}
+
+function renderOrders() {
+  const container = document.getElementById("orderList");
+  if (!container) return;
+
+  if (!demoOrders.length) {
+    container.innerHTML = `
+      <div class="empty-card">
+        <div class="empty-icon">▤</div>
+        <b>No Data</b>
+        <p>Your demo orders will appear here.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = "";
+  demoOrders.forEach(order => {
+    const card = document.createElement("button");
+    card.className = "order-card";
+    card.type = "button";
+
+    const title = document.createElement("b");
+    title.textContent = order.id;
+
+    const amount = document.createElement("span");
+    amount.textContent = "₹" + order.amount.toFixed(2);
+
+    const status = document.createElement("small");
+    status.textContent = order.status + " · " + order.wallet;
+
+    card.append(title, amount, status);
+    card.addEventListener("click", () => showOrderDetails(order));
+    container.appendChild(card);
+  });
+}
+
+/* WALLET DEMO ENTRIES */
+
+function addDemoWallet() {
+  const app = document.getElementById("walletApp").value;
+  const phone = document.getElementById("walletPhone").value.trim();
+
+  if (!app) {
+    showToast("Please select a wallet app");
+    return;
+  }
+
+  if (!/^[0-9]{10}$/.test(phone)) {
+    showToast("Enter a valid 10-digit mobile number");
+    return;
+  }
+
+  demoWallets.push({ app, phone });
+  renderWallets();
+
+  document.getElementById("walletApp").value = "";
+  document.getElementById("walletPhone").value = "";
+
+  showToast("Demo wallet entry saved");
+  showPage("walletPage");
+}
+
+function renderWallets() {
+  const container = document.getElementById("walletList");
+  if (!container) return;
+
+  if (!demoWallets.length) {
+    container.innerHTML = `
+      <div class="empty-card">
+        <div class="empty-icon">▣</div>
+        <b>No Wallet Added</b>
+        <p>Add a demo wallet entry to see it here.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = "";
+  demoWallets.forEach(wallet => {
+    const card = document.createElement("div");
+    card.className = "wallet-card";
+
+    const name = document.createElement("b");
+    name.textContent = wallet.app;
+
+    const number = document.createElement("p");
+    number.textContent = "Mobile: " + wallet.phone;
+
+    const note = document.createElement("small");
+    note.textContent = "Saved locally · Not connected";
+
+    card.append(name, number, note);
+    container.appendChild(card);
+  });
 }
 
 /* USDT CALCULATOR */
 
-$("usdtAmount").addEventListener("input", updateUSDT);
+function calculateUsdt() {
+  const amount = Number(document.getElementById("usdtAmount").value) || 0;
+  const inr = amount * 114;
 
-function updateUSDT() {
-  const amount = Number($("usdtAmount").value);
-
-  if (!Number.isFinite(amount) || amount <= 0) {
-    $("usdtBonus").textContent = "₹0.00";
-    $("usdtReceive").textContent = "₹0.00";
-    return;
-  }
-
-  const value = amount * 114;
-
-  $("usdtBonus").textContent = "₹0.00";
-  $("usdtReceive").textContent = "₹" + value.toFixed(2);
+  document.getElementById("usdtInr").textContent =
+    "₹" + inr.toFixed(2);
+  document.getElementById("usdtReceive").textContent =
+    "₹" + inr.toFixed(2);
 }
 
-/* USDT DEMO ORDER */
+function createUsdtDemoOrder() {
+  const amount = Number(document.getElementById("usdtAmount").value);
+  const network = document.getElementById("usdtNetwork").value;
 
-function createUSDTOrder() {
-  const amount = Number($("usdtAmount").value);
-
-  if (!Number.isFinite(amount) || amount <= 0) {
+  if (!amount || amount <= 0) {
     showToast("Enter a valid USDT amount");
     return;
   }
 
-  const chain = document.querySelector(
-    'input[name="chain"]:checked'
-  ).value;
-
-  const order = {
-    id: "DP-USDT-" + orderCounter++,
-    amount: amount,
-    chain: chain,
-    status: "Pending Demo"
-  };
-
-  demoOrders.push(order);
-
-  showToast("Demo deposit order created: " + order.id);
-}
-
-/* PAYMENT AMOUNTS */
-
-document.querySelectorAll(".amount-button").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".amount-button").forEach(item => {
-      item.classList.remove("selected");
-    });
-
-    button.classList.add("selected");
-
-    selectedAmount = Number(button.dataset.amount);
-
-    updatePaymentPreview();
-
-    $("receiveBtn").disabled = false;
-  });
-});
-
-/* PAYMENT REWARD */
-
-function updatePaymentPreview() {
-  const reward = selectedAmount * 0.055;
-  const total = selectedAmount + reward;
-
-  $("paymentReward").textContent = "₹" + reward.toFixed(2);
-  $("paymentTotal").textContent = "₹" + total.toFixed(2);
-}
-
-/* PAYMENT HISTORY TABS */
-
-$("receiveHistoryTab").addEventListener("click", () => {
-  $("receiveHistory").classList.remove("hidden");
-  $("purchaseHistory").classList.add("hidden");
-
-  $("receiveHistoryTab").classList.add("active");
-  $("purchaseHistoryTab").classList.remove("active");
-});
-
-$("purchaseHistoryTab").addEventListener("click", () => {
-  $("purchaseHistory").classList.remove("hidden");
-  $("receiveHistory").classList.add("hidden");
-
-  $("purchaseHistoryTab").classList.add("active");
-  $("receiveHistoryTab").classList.remove("active");
-});
-
-/* PAYMENT CHECKOUT */
-
-$("receiveBtn").addEventListener("click", () => {
-  if (!selectedAmount) {
-    showToast("Select payment amount first");
-    return;
-  }
-
-  const reward = selectedAmount * 0.055;
-
-  $("checkoutAmount").textContent = "₹" + selectedAmount.toFixed(2);
-  $("checkoutReward").textContent = "₹" + reward.toFixed(2);
-  $("checkoutTotal").textContent =
-    "₹" + (selectedAmount + reward).toFixed(2);
-
-  renderCheckoutApps();
-  openPage("checkoutPage");
-});
-
-/* CONNECTED APP LIST */
-
-function renderCheckoutApps() {
-  const container = $("checkoutApps");
-  container.innerHTML = "";
-
-  if (connectedWallets.length === 0) {
-    container.textContent = "No connected apps";
-    $("confirmPaymentBtn").disabled = true;
-    return;
-  }
-
-  connectedWallets.forEach((wallet, index) => {
-    const label = document.createElement("label");
-    label.style.display = "block";
-    label.style.padding = "12px";
-    label.style.borderBottom = "1px solid var(--border)";
-
-    const radio = document.createElement("input");
-    radio.type = "radio";
-    radio.name = "checkoutWallet";
-    radio.value = String(index);
-
-    radio.addEventListener("change", () => {
-      $("confirmPaymentBtn").disabled = false;
-    });
-
-    label.appendChild(radio);
-    label.appendChild(
-      document.createTextNode(" " + wallet.name + " — " + wallet.mobile)
-    );
-
-    container.appendChild(label);
-  });
-
-  $("confirmPaymentBtn").disabled = true;
-}
-
-/* CREATE DEMO PAYMENT ORDER */
-
-$("confirmPaymentBtn").addEventListener("click", () => {
-  const chosen = document.querySelector(
-    'input[name="checkoutWallet"]:checked'
+  showToast(
+    "Demo order preview: " + amount.toFixed(2) + " USDT · " + network
   );
+}
 
-  if (!chosen) {
-    showToast("Select a wallet app");
-    return;
-  }
+/* LOGIN AND REGISTRATION DEMO */
 
-  const wallet = connectedWallets[Number(chosen.value)];
+function showMainScreen() {
+  const auth = document.getElementById("authScreen");
+  const main = document.getElementById("mainScreen");
 
-  const order = {
-    id: "DP-PAY-" + orderCounter++,
-    amount: selectedAmount,
-    reward: selectedAmount * 0.055,
-    app: wallet.name,
-    status: "Pending Demo"
-  };
+  if (auth) auth.style.display = "none";
+  if (main) main.style.display = "block";
 
-  demoOrders.push(order);
+  setUserDetails();
+  showPage("homePage");
+}
 
-  $("orderAmount").textContent =
-    "₹" + order.amount.toFixed(2);
+function showAuthScreen() {
+  const auth = document.getElementById("authScreen");
+  const main = document.getElementById("mainScreen");
 
-  $("paymentOrderId").textContent = order.id;
+  if (auth) auth.style.display = "block";
+  if (main) main.style.display = "none";
+}
 
-  $("voucherUpload").value = "";
+function logoutDemo() {
+  showAuthScreen();
+  showToast("Logged out of demo session");
+}
 
-  openPage("paymentOrderPage");
+/* Connect common form IDs if present */
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+  const registerForm = document.getElementById("registerForm");
 
-  showToast("Demo order created — Pending");
-});
+  if (loginForm) {
+    loginForm.addEventListener("submit", event => {
+      event.preventDefault();
 
-/* WALLET APP SELECTION */
+      const mobile = document.getElementById("loginMobile")?.value.trim() || "";
+      const password = document.getElementById("loginPassword")?.value || "";
 
-document.querySelectorAll(".wallet-choice").forEach(button => {
-  button.addEventListener("click", () => {
-    selectedWalletApp = button.dataset.app;
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showToast("Enter a valid 10-digit mobile number");
+        return;
+      }
 
-    $("selectedAppName").textContent = selectedWalletApp;
+      if (!/^[0-9]{6}$/.test(password)) {
+        showToast("Password must be exactly 6 digits");
+        return;
+      }
 
-    $("walletMobile").value = "";
-
-    openPage("addWalletPage");
-  });
-});
-
-/* ADD WALLET BUTTON */
-
-$("addWalletBtn").addEventListener("click", () => {
-  openPage("walletPage");
-  showToast("Select an app below to add a demo entry");
-});
-
-/* CONNECT DEMO WALLET */
-
-$("connectWalletBtn").addEventListener("click", () => {
-  const mobile = $("walletMobile").value.trim();
-
-  if (!/^[0-9]{10}$/.test(mobile)) {
-    showToast("Enter valid 10 digit mobile number");
-    return;
-  }
-
-  const exists = connectedWallets.some(wallet =>
-    wallet.name === selectedWalletApp &&
-    wallet.mobile === mobile
-  );
-
-  if (exists) {
-    showToast("This demo wallet is already added");
-    return;
-  }
-
-  connectedWallets.push({
-    name: selectedWalletApp,
-    mobile: mobile,
-    status: "Demo Entry"
-  });
-
-  renderWallets();
-
-  openPage("walletPage");
-
-  showToast(selectedWalletApp + " added as demo entry");
-});
-
-/* RENDER WALLET ENTRIES */
-
-function renderWallets() {
-  const container = $("connectedApps");
-  container.innerHTML = "";
-
-  if (connectedWallets.length === 0) {
-    const empty = document.createElement("div");
-    empty.className = "no-data";
-    empty.textContent = "No Connected Apps";
-    container.appendChild(empty);
-    return;
-  }
-
-  connectedWallets.forEach((wallet, index) => {
-    const item = document.createElement("div");
-    item.className = "row-between";
-    item.style.padding = "12px 0";
-    item.style.borderBottom = "1px solid var(--border)";
-
-    const info = document.createElement("div");
-
-    const name = document.createElement("strong");
-    name.textContent = wallet.name;
-
-    const detail = document.createElement("p");
-    detail.className = "muted";
-    detail.textContent = wallet.mobile + " • Demo entry";
-
-    info.appendChild(name);
-    info.appendChild(detail);
-
-    const remove = document.createElement("button");
-    remove.className = "secondary-btn";
-    remove.textContent = "Remove";
-
-    remove.addEventListener("click", () => {
-      connectedWallets.splice(index, 1);
-      renderWallets();
-      showToast("Demo wallet entry removed");
+      currentUser.mobile = mobile;
+      currentUser.username = "User";
+      currentUser.id = "DP" + mobile.slice(-6);
+      showMainScreen();
     });
+  }
 
-    item.appendChild(info);
-    item.appendChild(remove);
+  if (registerForm) {
+    registerForm.addEventListener("submit", event => {
+      event.preventDefault();
 
-    container.appendChild(item);
-  });
-}
+      const username = document.getElementById("registerUsername")?.value.trim() || "";
+      const mobile = document.getElementById("registerMobile")?.value.trim() || "";
+      const password = document.getElementById("registerPassword")?.value || "";
 
-/* SERVICE */
+      if (!username) {
+        showToast("Enter a username");
+        return;
+      }
 
-function openService() {
-  showToast("Service contact: Officalservice06");
-}
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showToast("Enter a valid 10-digit mobile number");
+        return;
+      }
 
-/* LOGOUT */
+      if (!/^[0-9]{6}$/.test(password)) {
+        showToast("Password must be exactly 6 digits");
+        return;
+      }
 
-function logout() {
-  $("mainScreen").classList.add("hidden");
-  $("bottomNav").classList.add("hidden");
-  $("authScreen").classList.remove("hidden");
+      currentUser.username = username;
+      currentUser.mobile = mobile;
+      currentUser.id = "DP" + mobile.slice(-6);
+      showMainScreen();
+      showToast("Demo account created");
+    });
+  }
 
-  $("loginMobile").value = "";
-  $("loginPassword").value = "";
-
-  showAuth("login");
-
-  showToast("Logged out");
-}
-
-/* NOTIFICATIONS */
-
-$("notificationBtn").addEventListener("click", () => {
-  showToast("No new notifications");
+  /* Start on the authentication screen */
+  showAuthScreen();
 });
-
-/* INITIAL STATE */
-
-showAuth("login");
-renderWallets();
-
-  </script>
-
-<!-- ORDER PAGE -->
-<section class="page" id="orderPage">
-
-  <div class="section-title">My Orders</div>
-
-  <div class="card">
-    <div class="card-title">Order History</div>
-    <div class="no-data">No Data</div>
-  </div>
-
-                                               </section>
+</script>
+</body>
+  </html>
   
