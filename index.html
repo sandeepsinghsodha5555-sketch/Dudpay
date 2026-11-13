@@ -2,436 +2,2113 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#1769d2">
 <title>DUDPAY</title>
 <style>
-:root{--blue:#1769d2;--navy:#17345c;--bg:#f4f7fc;--muted:#7b899d;--border:#e3ebf5;--orange:#f4a62a}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--navy);font-family:Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer}
-.app{max-width:480px;min-height:100vh;margin:auto;padding-bottom:85px}
-.hidden{display:none!important}
-.topbar{background:white;padding:15px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px #17345c10;position:sticky;top:0;z-index:5}
-.logo{font-size:23px;font-weight:900;color:var(--blue);letter-spacing:1px}
-.muted{font-size:13px;color:var(--muted)}
-main{padding:14px}
-.page{display:none;animation:fade .2s}
-.page.active{display:block}
-@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
-.title{font-size:21px;font-weight:800;margin:12px 0}
-.card,.metric{background:white;border:1px solid var(--border);border-radius:17px;padding:16px;margin-bottom:12px;box-shadow:0 5px 20px #17345c08}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.metric{margin:0}
-.metric b{display:block;font-size:21px;margin-top:8px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.balance{background:linear-gradient(120deg,#1769d2,#3989ed);color:white;border-radius:22px;padding:23px;margin:15px 0}
-.balance strong{display:block;font-size:37px;margin:12px 0}
-.balance .muted{color:#e5f0ff}
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.quick button{background:white;border:1px solid var(--border);border-radius:14px;padding:13px 3px;color:var(--navy);font-weight:bold}
-.quick span{display:block;font-size:22px;color:var(--blue);margin-bottom:7px}
-.btn{border:0;background:var(--blue);color:white;border-radius:11px;padding:12px 16px;font-weight:bold}
-.btn.light{background:#edf4ff;color:var(--blue)}
-.btn.full{width:100%;margin-top:12px}
-.btn:disabled{opacity:.5}
-.field{width:100%;padding:13px;border:1px solid var(--border);border-radius:10px;margin:6px 0 13px;background:white}
-.label{font-size:13px;font-weight:bold}
-.error{font-size:13px;color:#c0392b;min-height:18px}
-.center{text-align:center}
-.empty{text-align:center;color:var(--muted);padding:30px}
-.pill{background:#edf4ff;color:var(--blue);border-radius:20px;padding:6px 10px;font-size:12px}
-.banner{background:#eaf3ff;border-radius:17px;padding:18px;margin:14px 0}
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(145deg,#eaf3ff,#f8fbff)}
-.auth-card{width:100%;max-width:420px;background:white;border:1px solid var(--border);border-radius:22px;padding:22px;box-shadow:0 12px 35px #17345c12}
-.auth-tabs{display:flex;gap:8px;margin:18px 0}
-.auth-tabs button{flex:1;border:0;border-radius:10px;padding:12px;background:#edf2f8}
-.auth-tabs button.active{background:var(--blue);color:white}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:70px;background:white;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:20;box-shadow:0 -4px 18px #17345c12}
-.nav button{border:0;background:transparent;color:var(--muted);font-size:11px;min-width:18%;padding:7px 2px}
-.nav button span{display:block;font-size:21px;margin-bottom:3px}
-.nav button.active{color:var(--blue);font-weight:bold}
-.listrow{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
-.avatar{width:48px;height:48px;border-radius:50%;background:#e7f1ff;color:var(--blue);display:grid;place-items:center;font-size:22px;font-weight:bold}
-.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:#17345c;color:white;padding:12px 18px;border-radius:12px;z-index:50;display:none;max-width:90%;text-align:center}
-.amount{border:1px solid var(--border);padding:12px;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;background:white}
-.progress{height:9px;background:#e9eff7;border-radius:20px;overflow:hidden;margin:12px 0}
-.progress i{display:block;width:0;height:100%;background:var(--blue)}
-@media(max-width:360px){.quick{grid-template-columns:repeat(2,1fr)}.balance strong{font-size:31px}}
+  :root {
+    --blue: #1769d2;
+    --blue-dark: #0e4fa3;
+    --blue-light: #eaf2ff;
+    --navy: #142b4d;
+    --bg: #f3f7fc;
+    --white: #ffffff;
+    --muted: #70829a;
+    --border: #dfe8f3;
+    --orange: #f59e0b;
+    --orange-light: #fef3c7;
+    --green: #10b981;
+    --green-light: #d1fae5;
+    --red: #ef4444;
+    --red-light: #fee2e2;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #e6eef8;
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  button, input, select {
+    font: inherit;
+    outline: none;
+  }
+
+  button {
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.15s ease, background-color 0.15s ease;
+  }
+
+  button:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+
+  .app-shell {
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: var(--bg);
+    position: relative;
+    box-shadow: 0 0 30px rgba(20, 43, 77, 0.08);
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .muted {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--white);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    color: var(--blue);
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .logo-badge {
+    background: var(--blue);
+    color: var(--white);
+    font-size: 12px;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-weight: 800;
+  }
+
+  .icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--navy);
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+
+  .notif-dot {
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    width: 7px;
+    height: 7px;
+    background: var(--orange);
+    border-radius: 50%;
+  }
+
+  .sub-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .back-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--navy);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 18px;
+  }
+
+  .page-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  main {
+    padding: 16px;
+  }
+
+  .page {
+    display: none;
+    animation: slideFade 0.2s ease;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  @keyframes slideFade {
+    from { opacity: 0.4; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(20, 43, 77, 0.04);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .metric-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 4px 14px rgba(20, 43, 77, 0.03);
+  }
+
+  .metric-card .val {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    margin-top: 6px;
+    color: var(--navy);
+  }
+
+  .metric-card .val.orange {
+    color: var(--orange);
+  }
+
+  .metric-card .val.blue {
+    color: var(--blue);
+  }
+   .balance-card {
+    background: linear-gradient(135deg, #1769d2 0%, #2b82f2 100%);
+    color: var(--white);
+    border-radius: 22px;
+    padding: 20px;
+    margin: 14px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(23, 105, 210, 0.25);
+  }
+
+  .balance-card::after {
+    content: "";
+    position: absolute;
+    right: -25px;
+    top: -25px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: rgba(245, 158, 11, 0.25);
+  }
+
+  .balance-card .lbl {
+    font-size: 13px;
+    color: #dbeafe;
+    font-weight: 600;
+  }
+
+  .balance-card .big-amt {
+    display: block;
+    font-size: 36px;
+    font-weight: 900;
+    margin: 10px 0 14px;
+    letter-spacing: -0.5px;
+  }
+
+  .balance-sub {
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .quick-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 12px;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(20, 43, 77, 0.03);
+  }
+
+  .quick-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--blue-light);
+    color: var(--blue);
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  .rate-tag {
+    position: absolute;
+    top: -6px;
+    right: 4px;
+    background: var(--orange);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 8px;
+  }
+
+  .reward-banner {
+    background: linear-gradient(135deg, #1769d2 0%, #3b82f6 100%);
+    color: var(--white);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .reward-banner h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+  }
+
+  .reward-banner p {
+    margin: 0;
+    font-size: 12px;
+    color: #e0edff;
+  }
+
+  .btn {
+    border: 0;
+    border-radius: 12px;
+    background: var(--blue);
+    color: var(--white);
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn.light {
+    background: var(--blue-light);
+    color: var(--blue);
+  }
+
+  .btn.white {
+    background: var(--white);
+    color: var(--blue);
+  }
+
+  .btn.orange {
+    background: var(--orange);
+    color: var(--white);
+  }
+
+  .btn.sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .btn.full {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--navy);
+  }
+
+  .field {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 14px;
+    background: var(--white);
+    color: var(--navy);
+    font-size: 14px;
+  }
+
+  .field:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(23, 105, 210, 0.12);
+  }
+
+  .error-text {
+    font-size: 13px;
+    color: var(--red);
+    min-height: 18px;
+    margin: 4px 0 8px;
+    font-weight: 600;
+  }
+
+  .auth-wrap {
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(160deg, #dceafe 0%, #f5f9ff 100%);
+  }
+
+  .auth-card {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 14px 36px rgba(20, 43, 77, 0.1);
+  }
+
+  .auth-tabs {
+    display: flex;
+    background: var(--bg);
+    padding: 4px;
+    border-radius: 12px;
+    margin: 18px 0;
+    border: 1px solid var(--border);
+  }
+
+  .auth-tabs button {
+    flex: 1;
+    border: 0;
+    border-radius: 9px;
+    padding: 10px;
+    background: transparent;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .auth-tabs button.active {
+    background: var(--blue);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(23, 105, 210, 0.25);
+  }
+
+  .pay-summary {
+    background: linear-gradient(135deg, #1769d2, #0d4fa6);
+    color: var(--white);
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+
+  .pay-rate {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--orange);
+    margin: 4px 0 12px;
+  }
+
+  .pay-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .pay-box {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  .pay-box small {
+    display: block;
+    font-size: 11px;
+    color: #dbeafe;
+  }
+
+  .pay-box b {
+    font-size: 15px;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .notice-bar {
+    background: var(--orange-light);
+    color: #92400e;
+    border: 1px solid #fde68a;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .amount-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgba(20, 43, 77, 0.03);
+  }
+
+  .amount-card .amt {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+
+  .amount-card .rew {
+    font-size: 12px;
+    color: var(--orange);
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  .seg-tabs {
+    display: flex;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 14px;
+  }
+
+  .seg-tabs button {
+    flex: 1;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px;
+    background: transparent;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .seg-tabs button.active {
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .wallet-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .wallet-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .w-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 16px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge.orange {
+    background: var(--orange-light);
+    color: #b45309;
+  }
+
+  .badge.green {
+    background: var(--green-light);
+    color: #065f46;
+  }
+
+  .badge.red {
+    background: var(--red-light);
+    color: #991b1b;
+  }
+
+  .badge.blue {
+    background: var(--blue-light);
+    color: var(--blue);
+  }
+
+  .listrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .listrow:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .listrow:first-child {
+    padding-top: 0;
+  }
+
+  .progress-wrap {
+    height: 10px;
+    background: var(--blue-light);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 12px 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+    border-radius: 20px;
+    transition: width 0.3s ease;
+  }
+
+  .share-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .share-btn {
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 10px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .profile-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), #4f9cf9);
+    color: var(--white);
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    height: calc(68px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 30;
+    box-shadow: 0 -4px 18px rgba(20, 43, 77, 0.06);
+  }
+
+  .nav-item {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    width: 20%;
+    padding: 6px 0;
+  }
+
+  .nav-item svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .nav-item.active {
+    color: var(--blue);
+    font-weight: 800;
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .modal-card {
+    width: 100%;
+    max-width: 456px;
+    background: var(--white);
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: popUp 0.2s ease;
+  }
+
+  @keyframes popUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    color: var(--white);
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 60;
+    display: none;
+    max-width: 88%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 34px 16px;
+    color: var(--muted);
+  }
+
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--blue-light);
+    color: var(--blue);
+    display: grid;
+    place-items: center;
+    margin: 0 auto 10px;
+    font-size: 22px;
+    font-weight: 800;
+  }
 </style>
 </head>
 <body>
 
 <div id="authScreen" class="auth-wrap">
- <div class="auth-card">
-  <div class="center">
-   <div class="logo">DUDPAY</div>
-   <p class="muted">Welcome to your account</p>
+  <div class="auth-card">
+    <div class="center">
+      <div class="logo" style="justify-content:center;font-size:26px;">
+        <span class="logo-badge">DP</span> DUDPAY
+      </div>
+      <p class="muted" style="margin-top:6px;">Fast & Secure Fintech Dashboard</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button type="button" id="tabLogin" class="active">Login</button>
+      <button type="button" id="tabRegister">Register</button>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <label class="label" for="loginMobile">Mobile Number</label>
+      <input class="field" id="loginMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter 10-digit mobile number" required>
+
+      <label class="label" for="loginPassword">Password</label>
+      <input class="field" id="loginPassword" type="password" placeholder="Enter your password" required>
+
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;">
+        <input type="checkbox" id="rememberMe" checked>
+        <span>Remember Me on this device</span>
+      </label>
+
+      <div id="loginError" class="error-text" aria-live="polite"></div>
+
+      <button type="submit" id="loginSubmitBtn" class="btn full">Login</button>
+
+      <p class="center muted" style="margin-top:16px;">
+        Don't have an account? <a href="#" id="linkToRegister" style="color:var(--blue);font-weight:700;text-decoration:none;">Create Account</a>
+      </p>
+    </form>
+
+    <form id="registerForm" class="hidden" novalidate>
+      <label class="label" for="regUsername">Username</label>
+      <input class="field" id="regUsername" type="text" maxlength="25" placeholder="Choose a username" required>
+
+      <label class="label" for="regMobile">Mobile Number</label>
+      <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter 10-digit mobile number" required>
+
+      <label class="label" for="regPassword">Password (min 6 characters)</label>
+      <input class="field" id="regPassword" type="password" minlength="6" placeholder="Create password" required>
+
+      <label class="label" for="regConfirm">Confirm Password</label>
+      <input class="field" id="regConfirm" type="password" placeholder="Re-enter password" required>
+
+      <label class="label" for="regInvite">Invite / Referral Code (Optional)</label>
+      <input class="field" id="regInvite" type="text" maxlength="12" placeholder="e.g. DP8842">
+
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;">
+        <input type="checkbox" id="regPrivacy" required>
+        <span>I agree to the Privacy Policy & Terms</span>
+      </label>
+
+      <div id="registerError" class="error-text" aria-live="polite"></div>
+
+      <button type="submit" id="regSubmitBtn" class="btn full">Create Account</button>
+
+      <p class="center muted" style="margin-top:16px;">
+        Already have an account? <a href="#" id="linkToLogin" style="color:var(--blue);font-weight:700;text-decoration:none;">Login</a>
+      </p>
+    </form>
   </div>
-  <div class="auth-tabs">
-   <button id="loginTab" class="active" type="button" onclick="showAuth('login')">Login</button>
-   <button id="registerTab" type="button" onclick="showAuth('register')">Register</button>
-  </div>
-  <form id="loginForm">
-   <h2>Welcome Back</h2>
-   <p class="muted">Login to continue</p>
-   <label class="label">Mobile Number</label>
-   <input class="field" id="loginMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number" required>
-   <label class="label">Password</label>
-   <input class="field" id="loginPassword" type="password" placeholder="Enter password" required>
-   <p id="loginError" class="error"></p>
-   <button class="btn full" type="submit">Login</button>
-   <p class="center muted">New user? <a href="#" onclick="showAuth('register');return false">Create Account</a></p>
-  </form>
-  <form id="registerForm" class="hidden">
-   <h2>Create Account</h2>
-   <label class="label">Username</label>
-   <input class="field" id="regName" maxlength="30" placeholder="Enter username" required>
-   <label class="label">Mobile Number</label>
-   <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number" required>
-   <label class="label">Password</label>
-   <input class="field" id="regPassword" type="password" minlength="6" placeholder="Minimum 6 characters" required>
-   <label class="label">Confirm Password</label>
-   <input class="field" id="regConfirm" type="password" placeholder="Confirm password" required>
-   <label><input id="privacy" type="checkbox" required> I agree to the demo notice</label>
-   <p id="registerError" class="error"></p>
-   <button class="btn full" type="submit">Create Account</button>
-   <p class="center muted">Already registered? <a href="#" onclick="showAuth('login');return false">Login</a></p>
-  </form>
-  <p class="center muted">Demo prototype only</p>
- </div>
+</div>
+ <div id="mainApp" class="app-shell hidden">
+  <header class="topbar">
+    <div class="logo"><span class="logo-badge">DP</span> DUDPAY</div>
+    <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+      <span class="notif-dot"></span>
+    </button>
+  </header>
+
+  <main>
+    <section id="page-home" class="page active">
+      <div class="row">
+        <div>
+          <div style="font-size:18px;font-weight:800;" id="homeGreeting">Hello, User</div>
+          <div class="muted" style="margin-top:3px;display:flex;align-items:center;gap:6px;">
+            <span>ID: <b id="homeUserId" style="color:var(--navy);">DP000000</b></span>
+            <button type="button" class="btn light sm" id="copyUidBtn" style="padding:3px 8px;">Copy</button>
+          </div>
+        </div>
+        <span class="badge blue">Active</span>
+      </div>
+
+      <div class="balance-card">
+        <div class="row">
+          <span class="lbl">Available Balance</span>
+          <button type="button" class="btn white sm" data-nav="statistics">Detail</button>
+        </div>
+        <strong class="big-amt" id="homeBalance">₹77.00</strong>
+        <div class="balance-sub">
+          <span>Deposit: <b id="homeSubDeposit">₹0</b></span>
+          <span>Withdrawal: <b id="homeSubWithdraw">₹0</b></span>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="metric-card">
+          <span class="muted">Deposit</span>
+          <span class="val blue" id="cardDeposit">₹0</span>
+        </div>
+        <div class="metric-card">
+          <span class="muted">Withdrawal</span>
+          <span class="val orange" id="cardWithdraw">₹0</span>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <button type="button" class="quick-item" data-nav="usdt">
+          <span class="rate-tag">114 INR</span>
+          <div class="quick-icon">₮</div>
+          <span>USDT</span>
+        </button>
+        <button type="button" class="quick-item" data-nav="task">
+          <div class="quick-icon">✓</div>
+          <span>Task</span>
+        </button>
+        <button type="button" class="quick-item" data-nav="team">
+          <div class="quick-icon">👥</div>
+          <span>Team</span>
+        </button>
+        <button type="button" class="quick-item" data-nav="order">
+          <div class="quick-icon">⚡</div>
+          <span>Order</span>
+        </button>
+      </div>
+
+      <div class="reward-banner">
+        <div>
+          <h3>Newcomer Rewards</h3>
+          <p>Check your newcomer task progress.</p>
+        </div>
+        <button type="button" class="btn white sm" data-nav="task" style="white-space:nowrap;">View Task</button>
+      </div>
+
+      <div class="row" style="margin-bottom:10px;">
+        <b style="font-size:17px;">Transactions</b>
+        <button type="button" class="btn light sm" data-nav="order">See All</button>
+      </div>
+
+      <div class="card" id="homeTxContainer">
+        <div class="empty-state">
+          <div class="empty-icon">▤</div>
+          <b>No Transactions</b>
+          <div class="muted" style="margin-top:4px;">Your activity will appear here.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-payment" class="page">
+      <div class="pay-summary">
+        <div class="row">
+          <span style="font-size:13px;font-weight:700;color:#dbeafe;">Cashback Rate</span>
+          <span class="badge orange">Active</span>
+        </div>
+        <div class="pay-rate">5.5%</div>
+        <div class="pay-boxes">
+          <div class="pay-box">
+            <small>Balance</small>
+            <b id="payBalance">₹77</b>
+          </div>
+          <div class="pay-box">
+            <small>Reward</small>
+            <b id="payReward" style="color:#fde68a;">₹0</b>
+          </div>
+          <div class="pay-box">
+            <small>Pending</small>
+            <b id="payPending">₹0</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice-bar">
+        ⚠ Please bind and use Paytm, PhonePe, MobiKwik, Navi or BharatPe wallet for payment!
+      </div>
+
+      <div id="paymentAmountList"></div>
+    </section>
+
+    <section id="page-wallet" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Wallet</h2>
+      </div>
+
+      <div class="seg-tabs">
+        <button type="button" id="wTabPersonal" class="active">Personal</button>
+        <button type="button" id="wTabBusiness">Business (Receive Only)</button>
+      </div>
+
+      <div id="walletListContainer"></div>
+
+      <div class="card" style="background:var(--blue-light);border-color:#c7defc;">
+        <b style="font-size:13px;color:var(--blue);">Wallet Binding Info</b>
+        <p class="muted" style="margin:6px 0 0;font-size:12px;">
+          Save your UPI ID / mobile number for quick selection. App launch attempts use official supported links; external app installation is not automatically verified.
+        </p>
+      </div>
+    </section>
+
+    <section id="page-statistics" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Statistics</h2>
+      </div>
+
+      <div class="grid2">
+        <div class="metric-card">
+          <span class="muted">Balance</span>
+          <span class="val orange" id="statBalance">₹77</span>
+        </div>
+        <div class="metric-card">
+          <span class="muted">Sell</span>
+          <span class="val" id="statSell">₹0</span>
+        </div>
+        <div class="metric-card">
+          <span class="muted">Deposit</span>
+          <span class="val blue" id="statDeposit">₹0</span>
+        </div>
+        <div class="metric-card">
+          <span class="muted">Commission</span>
+          <span class="val orange" id="statCommission">₹0</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <b style="font-size:16px;display:block;margin-bottom:12px;">Payment Details</b>
+        <div class="listrow">
+          <span class="muted">Exchange Rate</span>
+          <b style="color:var(--blue);">₹114</b>
+        </div>
+        <div class="listrow">
+          <span class="muted">In Process Amount</span>
+          <b id="statProcessAmt">₹0</b>
+        </div>
+        <div class="listrow">
+          <span class="muted">In Process Orders</span>
+          <b id="statProcessOrders">0</b>
+        </div>
+        <div class="listrow">
+          <span class="muted">Commission Rate</span>
+          <b style="color:var(--orange);">5.5%</b>
+        </div>
+        <div class="listrow">
+          <span class="muted">Estimated Income</span>
+          <b style="color:var(--orange);" id="statEstIncome">₹0</b>
+        </div>
+      </div>
+
+      <button type="button" class="btn orange full" disabled>Closed Selling</button>
+    </section>
+
+    <section id="page-my" class="page">
+      <div class="card profile-box">
+        <div class="avatar" id="myAvatar">U</div>
+        <div>
+          <div style="font-size:18px;font-weight:800;" id="myUsername">User</div>
+          <div class="muted" style="margin-top:4px;">User ID: <b id="myUserId">DP000000</b></div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="metric-card">
+          <span class="muted">Deposit</span>
+          <span class="val" id="myDeposit">₹0</span>
+        </div>
+        <div class="metric-card">
+          <span class="muted">Withdraw</span>
+          <span class="val" id="myWithdraw">₹0</span>
+        </div>
+        <div class="metric-card">
+          <span class="muted">Commission</span>
+          <span class="val orange" id="myCommission">₹0</span>
+        </div>
+        <div class="metric-card">
+          <span class="muted">Balance</span>
+          <span class="val blue" id="myBalance">₹77</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="listrow" data-nav="wallet" style="cursor:pointer;">
+          <b>Wallet</b>
+          <span class="muted">›</span>
+        </div>
+        <div class="listrow" data-nav="service" style="cursor:pointer;">
+          <b>Customer Service</b>
+          <span class="muted">›</span>
+        </div>
+        <div class="listrow" data-nav="message" style="cursor:pointer;">
+          <b>Message</b>
+          <span class="muted">›</span>
+        </div>
+        <div class="listrow" data-nav="tutorial" style="cursor:pointer;">
+          <b>Tutorial</b>
+          <span class="muted">›</span>
+        </div>
+        <div class="listrow" id="logoutBtn" style="cursor:pointer;color:var(--red);">
+          <b>Logout</b>
+          <span>›</span>
+        </div>
+      </div>
+
+      <p class="center muted">DUDPAY Version 1.0.0</p>
+       </section>
+         <section id="page-usdt" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">USDT Calculator</h2>
+      </div>
+
+      <div class="card" style="background:var(--blue-light);border-color:#c7defc;">
+        <div class="row">
+          <b style="color:var(--blue);">Exchange Rate</b>
+          <span class="badge orange">1 USDT = ₹114</span>
+        </div>
+        <p class="muted" style="margin:8px 0 0;font-size:12px;">
+          Minimum illustrative amount: <b>10 USDT</b>. Enter USDT amount below to calculate equivalent INR value.
+        </p>
+      </div>
+
+      <div class="card">
+        <label class="label" for="usdtInput">USDT Amount (Min 10 USDT)</label>
+        <input class="field" id="usdtInput" type="number" min="0" step="any" placeholder="Enter USDT amount (e.g. 10)">
+
+        <div id="usdtHint" class="error-text" style="margin-top:-8px;"></div>
+
+        <div class="listrow">
+          <span class="muted">You will receive (INR)</span>
+          <b style="font-size:20px;color:var(--orange);" id="usdtInrOutput">₹0.00</b>
+        </div>
+      </div>
+
+      <div class="card">
+        <b style="font-size:14px;display:block;margin-bottom:10px;">Supported Network Labels (Informational)</b>
+        <div class="listrow">
+          <div>
+            <b>TRC20</b>
+            <div class="muted" style="font-size:12px;">USDT - TRON Network</div>
+          </div>
+          <span class="badge blue">Network Info</span>
+        </div>
+        <div class="listrow">
+          <div>
+            <b>BSC (BEP20)</b>
+            <div class="muted" style="font-size:12px;">USDT - BNB Smart Chain</div>
+          </div>
+          <span class="badge blue">Network Info</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-task" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Task Rewards</h2>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <span class="badge blue">NEWBIE</span>
+          <span class="badge orange">Illustrative Reward: ₹300</span>
+        </div>
+
+        <h3 style="margin:12px 0 6px;font-size:18px;">Newbie Task</h3>
+        <p class="muted" style="margin:0 0 14px;">
+          Complete your trading target of ₹2,000 to unlock the ₹300 newcomer reward.
+        </p>
+
+        <div class="row" style="font-size:13px;">
+          <span>Current Progress</span>
+          <b><span style="color:var(--blue);" id="taskCurrentAmt">₹0</span> / ₹2,000</b>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-fill" id="taskProgressBar" style="width:0%;"></div>
+        </div>
+
+        <div class="row" style="margin-top:14px;">
+          <span class="muted">Target: <b>₹2,000</b></span>
+          <button type="button" class="btn sm" data-nav="payment">Go to Payment</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-team" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Team</h2>
+      </div>
+
+      <div class="balance-card" style="margin-top:0;">
+        <div class="center">
+          <span class="lbl">Total Commission</span>
+          <strong class="big-amt" style="margin:6px 0 14px;">₹0</strong>
+        </div>
+        <div class="grid2" style="margin-bottom:0;">
+          <div class="pay-box center">
+            <small>Yesterday Commission</small>
+            <b>₹0</b>
+          </div>
+          <div class="pay-box center">
+            <small>Today's Commission</small>
+            <b>₹0</b>
+          </div>
+          <div class="pay-box center">
+            <small>Total Team Members</small>
+            <b>0</b>
+          </div>
+          <div class="pay-box center">
+            <small>Total Team Deposit</small>
+            <b>₹0</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <b style="font-size:16px;">Invitation Link</b>
+        <p class="muted" style="margin:4px 0 10px;">Share your referral link with friends to earn commissions.</p>
+
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <span id="refLinkDisplay" style="font-size:12px;color:var(--blue);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">https://dudpay.app/invite/DP0000</span>
+          <button type="button" class="btn sm" id="copyRefBtn">Copy</button>
+        </div>
+
+        <div class="share-grid">
+          <button type="button" class="share-btn" data-share="telegram">
+            <span style="color:#0088cc;font-size:18px;">✈</span>
+            <span>Telegram</span>
+          </button>
+          <button type="button" class="share-btn" data-share="facebook">
+            <span style="color:#1877f2;font-size:18px;">f</span>
+            <span>Facebook</span>
+          </button>
+          <button type="button" class="share-btn" data-share="whatsapp">
+            <span style="color:#25d366;font-size:18px;">💬</span>
+            <span>WhatsApp</span>
+          </button>
+          <button type="button" class="share-btn" data-share="copy">
+            <span style="color:var(--blue);font-size:18px;">🔗</span>
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <b style="font-size:15px;display:block;margin-bottom:8px;">Commission Information</b>
+        <div class="listrow">
+          <span>Level B Commission</span>
+          <b style="color:var(--orange);">1%</b>
+        </div>
+        <div class="listrow">
+          <span>Level C Commission</span>
+          <b style="color:var(--orange);">0.3%</b>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-order" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Order</h2>
+      </div>
+
+      <div class="seg-tabs">
+        <button type="button" id="orderTabReceive" class="active">Receive</button>
+        <button type="button" id="orderTabPurchase">Purchase</button>
+      </div>
+
+      <div id="purchaseSummaryBox" class="pay-summary hidden" style="padding:14px;">
+        <div class="pay-boxes">
+          <div class="pay-box">
+            <small>Balance</small>
+            <b id="ordBalance">₹77</b>
+          </div>
+          <div class="pay-box">
+            <small>Reward</small>
+            <b id="ordReward" style="color:#fde68a;">₹0</b>
+          </div>
+          <div class="pay-box">
+            <small>Pending</small>
+            <b id="ordPending">₹0</b>
+          </div>
+        </div>
+      </div>
+
+      <div id="orderListContainer" class="card"></div>
+    </section>
+
+    <section id="page-service" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Customer Service</h2>
+      </div>
+
+      <div class="card center" style="padding:28px 20px;">
+        <div class="avatar" style="margin:0 auto 14px;width:64px;height:64px;font-size:26px;">🎧</div>
+        <h3 style="margin:0 0 6px;">Official Support</h3>
+        <p class="muted" style="margin:0 0 16px;">Contact our customer support team on Telegram using the username below.</p>
+        <div style="background:var(--blue-light);color:var(--blue);font-weight:800;padding:12px;border-radius:12px;font-size:16px;margin-bottom:14px;">
+          @OFFICALSERVICE06
+        </div>
+        <button type="button" class="btn full" id="copyServiceBtn">Copy Username</button>
+      </div>
+    </section>
+
+    <section id="page-message" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Message</h2>
+      </div>
+
+      <div class="card empty-state">
+        <div class="empty-icon">✉</div>
+        <b>No Message</b>
+        <div class="muted" style="margin-top:4px;">You have no new messages at the moment.</div>
+      </div>
+    </section>
+
+    <section id="page-tutorial" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Tutorial</h2>
+      </div>
+
+      <div class="card empty-state">
+        <div class="empty-icon">📖</div>
+        <b>No Tutorial</b>
+        <div class="muted" style="margin-top:4px;">Guides and tutorials will be updated soon.</div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom Navigation">
+    <button type="button" class="nav-item active" data-nav="home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Home</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="payment">
+      <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+      <span>Payment</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="wallet">
+      <svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"></path></svg>
+      <span>Wallet</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="statistics">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span>Statistics</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="my">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>My</span>
+    </button>
+  </nav>
 </div>
 
-<div id="mainSite" class="app hidden">
- <header class="topbar">
-  <div><div class="logo">DUDPAY</div><div class="muted">Account Dashboard</div></div>
-  <button class="btn light" onclick="toast('No new notifications')">♧</button>
- </header>
- <main>
-  <section id="home" class="page active">
-   <div class="row">
-    <div><b id="displayName">Hello, User</b><div class="muted">User ID: <span id="displayId">DP0000</span></div></div>
-    <span class="pill">Account</span>
-   </div>
-   <div class="balance">
-    <div class="muted">Available Balance · Demo</div>
-    <strong>₹77.00</strong>
-    <div class="row"><span>Deposit ₹0</span><span>Withdrawal ₹0</span></div>
-   </div>
-   <div class="grid2">
-    <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
-    <div class="metric"><span class="muted">Withdrawal</span><b>₹0</b></div>
-   </div>
-   <div class="title">Quick Access</div>
-   <div class="quick">
-    <button onclick="showPage('usdt')"><span>₮</span>USDT</button>
-    <button onclick="showPage('task')"><span>✓</span>Task</button>
-    <button onclick="showPage('team')"><span>♧</span>Team</button>
-    <button onclick="showPage('order')"><span>▤</span>Order</button>
-   </div>
-   <div class="banner"><b>Newcomer Rewards</b><p class="muted">Check your demo task page.</p><button class="btn light" onclick="showPage('task')">View Task</button></div>
-   <div class="title">Transactions</div>
-   <div class="card empty">▤<br><b>No Transactions</b></div>
-  </section>
-
-<!-- PART 2 CONTINUES HERE -->
-  <section id="payment" class="page">
- <div class="title">Payment</div>
- <div class="grid2">
-  <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
-  <div class="metric"><span class="muted">Reward</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Pending</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Cashback Rate</span><b>5.5%</b></div>
- </div>
- <div class="card" style="margin-top:14px">
-  <b>Demo Amount Options</b>
-  <p class="muted">Illustrative amounts only. No payment is created.</p>
-  <div id="amountList"></div>
- </div>
-</section>
-
-<section id="wallet" class="page">
- <div class="title">Wallet</div>
- <div class="card">
-  <b>Saved Payment Apps</b>
-  <p class="muted">Demo display only. No account linking or payment verification.</p>
-  <div class="listrow">Paytm <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
-  <div class="listrow">PhonePe <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
-  <div class="listrow">MobiKwik <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
-  <div class="listrow">Navi <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
-  <div class="listrow">BharatPe <button class="btn light" onclick="toast('Demo only: app not connected')">Select</button></div>
- </div>
-</section>
-
-<section id="statistics" class="page">
- <div class="title">Statistics</div>
- <div class="grid2">
-  <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
-  <div class="metric"><span class="muted">Sell</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Commission</span><b>₹0</b></div>
- </div>
- <div class="card" style="margin-top:14px">
-  <b>Payment Details · Demo</b>
-  <div class="listrow">Exchange Rate <b>₹114</b></div>
-  <div class="listrow">In Process Amount <b>₹0</b></div>
-  <div class="listrow">In Process Orders <b>0</b></div>
-  <div class="listrow">Commission Rate <b>5.5%</b></div>
-  <div class="listrow">Estimated Income <b>₹0</b></div>
-  <button class="btn full" disabled>Closed Selling</button>
- </div>
-</section>
-
-<section id="my" class="page">
- <div class="title">My Account</div>
- <div class="card row">
-  <div class="row"><div class="avatar">D</div><div><b id="profileUsername">User</b><div class="muted" id="profileUserId">ID: DP0000</div></div></div>
- </div>
- <div class="grid2">
-  <div class="metric"><span class="muted">Deposit</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Withdraw</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Commission</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Balance</span><b>₹77</b></div>
- </div>
- <div class="card" style="margin-top:14px">
-  <div class="listrow" onclick="showPage('wallet')">Wallet <b>›</b></div>
-  <div class="listrow" onclick="showPage('service')">Customer Service <b>›</b></div>
-  <div class="listrow" onclick="showPage('message')">Message <b>›</b></div>
-  <div class="listrow" onclick="showPage('tutorial')">Tutorial <b>›</b></div>
-  <div class="listrow" onclick="logout()">Logout <b>›</b></div>
- </div>
- <p class="muted center">DUDPAY · Version 1.0.0</p>
-</section>
-
-<section id="usdt" class="page">
- <div class="title">USDT Calculator</div>
- <div class="card">
-  <p class="muted">Indicative calculator only. No crypto purchase or transfer is available.</p>
-  <label class="label">USDT Amount</label>
-  <input id="usdtInput" class="field" type="number" min="0" placeholder="Enter amount" oninput="calculateUSDT()">
-  <div class="row"><span class="muted">Indicative value at ₹114</span><b id="usdtResult">₹0</b></div>
- </div>
-</section>
-
-<section id="task" class="page">
- <div class="title">Newbie Task</div>
- <div class="card">
-  <div class="row"><b>Newbie Task</b><span class="pill">Demo reward ₹300</span></div>
-  <p class="muted">Progress display is illustrative only.</p>
-  <b>₹0 / ₹2,000</b>
-  <div class="progress"><i></i></div>
-  <p class="muted">No deposit or transaction is requested or processed.</p>
- </div>
-</section>
-
-<section id="team" class="page">
- <div class="title">Team</div>
- <div class="grid2">
-  <div class="metric"><span class="muted">Total Commission</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Yesterday</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Today</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Team Members</span><b>0</b></div>
-  <div class="metric"><span class="muted">Team Deposit</span><b>₹0</b></div>
-  <div class="metric"><span class="muted">Level B</span><b>1%</b></div>
- </div>
- <div class="card"><b>Referral Demo</b><p class="muted">Referral service is not connected.</p><button class="btn light" onclick="toast('Referral service is not connected')">Copy Referral Link</button></div>
-</section>
-
-<section id="order" class="page">
- <div class="title">Order</div>
- <div class="card">
-  <div class="row">
-   <button class="btn light" onclick="switchOrder('receive')">Receive</button>
-   <button class="btn light" onclick="switchOrder('purchase')">Purchase</button>
+<div id="bindModal" class="modal-backdrop hidden">
+  <div class="modal-card">
+    <div class="row" style="margin-bottom:12px;">
+      <b style="font-size:17px;" id="bindModalTitle">Bind Wallet</b>
+      <button type="button" class="btn light sm" id="closeBindModal">✕</button>
+    </div>
+    <p class="muted" id="bindModalDesc" style="margin-top:0;">Enter your UPI ID or registered mobile number to save this wallet.</p>
+    <label class="label" for="bindInput">UPI ID / Mobile Number</label>
+    <input class="field" id="bindInput" type="text" placeholder="e.g. 9876543210@ybl">
+    <div id="bindError" class="error-text"></div>
+    <div class="row">
+      <button type="button" class="btn light" id="launchAppBtn" style="flex:1;">Open App</button>
+      <button type="button" class="btn" id="saveBindBtn" style="flex:1;">Save Wallet</button>
+    </div>
   </div>
-  <div id="orderContent" class="empty">No Data</div>
- </div>
-</section>
-
-<section id="service" class="page">
- <div class="title">Customer Service</div>
- <div class="card center">
-  <div class="avatar" style="margin:auto">?</div>
-  <h3>Customer Support</h3>
-  <p class="muted">Support contact has not been connected.</p>
-  <b>@OFFICALSERVICE06</b>
-  <button class="btn light full" onclick="copyText('@OFFICALSERVICE06')">Copy Username</button>
- </div>
-</section>
-
-<section id="message" class="page">
- <div class="title">Message</div>
- <div class="card empty">No Message</div>
-</section>
-
-<section id="tutorial" class="page">
- <div class="title">Tutorial</div>
- <div class="card empty">No Tutorial</div>
-</section>
-
- </main>
-
-<!-- PART 3 CONTINUES HERE -->
- <nav class="nav" aria-label="Main navigation">
- <button data-page="home" class="active" onclick="showPage('home')"><span>⌂</span>Home</button>
- <button data-page="payment" onclick="showPage('payment')"><span>₹</span>Payment</button>
- <button data-page="wallet" onclick="showPage('wallet')"><span>▣</span>Wallet</button>
- <button data-page="statistics" onclick="showPage('statistics')"><span>▤</span>Statistics</button>
- <button data-page="my" onclick="showPage('my')"><span>♙</span>My</button>
-</nav>
 </div>
 
-<div id="toast" class="toast" role="status"></div>
+<div id="orderModal" class="modal-backdrop hidden">
+  <div class="modal-card">
+    <div class="row" style="margin-bottom:10px;">
+      <b style="font-size:17px;">Confirm Payment Order</b>
+      <button type="button" class="btn light sm" id="closeOrderModal">✕</button>
+    </div>
 
+    <div style="background:var(--blue-light);border-radius:14px;padding:12px;margin-bottom:12px;">
+      <div class="row">
+        <span class="muted">Order Amount</span>
+        <b style="font-size:18px;color:var(--blue);" id="modalOrderAmt">₹200</b>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <span class="muted">Estimated Reward (5.5%)</span>
+        <b style="color:var(--orange);" id="modalOrderRew">+₹11.00</b>
+      </div>
+    </div>
+
+    <label class="label" for="modalWalletSelect">Select Payment Tool</label>
+    <select class="field" id="modalWalletSelect"></select>
+
+    <div style="border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:12px;">
+      <div class="row" style="margin-bottom:6px;">
+        <span class="muted">Order Code:</span>
+        <b id="modalOrderCode">DP2026991</b>
+      </div>
+      <div class="row">
+        <span class="muted">Payee UPI (Demo):</span>
+        <span><b>dudpay.merchant@upi</b> <button type="button" class="btn light sm" id="copyPayeeBtn" style="padding:2px 6px;">Copy</button></span>
+      </div>
+    </div>
+
+    <label class="label" for="modalUtrInput">12-Digit UTR / Reference No. (Optional)</label>
+    <input class="field" id="modalUtrInput" type="text" maxlength="12" inputmode="numeric" placeholder="Enter UTR after payment">
+
+    <button type="button" class="btn full" id="submitOrderBtn">Submit Order</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 "use strict";
 
-const $ = id => document.getElementById(id);
-let account = null;
+const STORAGE_KEYS = {
+  USERS: "dudpay_users_v1",
+  SESSION: "dudpay_session_v1",
+  WALLETS: "dudpay_wallets_v1",
+  ORDERS: "dudpay_orders_v1"
+};
 
-function toast(message) {
- const t = $("toast");
- t.textContent = message;
- t.style.display = "block";
- clearTimeout(window.toastTimer);
- window.toastTimer = setTimeout(() => t.style.display = "none", 2400);
+const PAYMENT_AMOUNTS = [
+  { amount: 200, reward: "11" },
+  { amount: 300, reward: "16.50" },
+  { amount: 500, reward: "27.50" },
+  { amount: 700, reward: "38.50" },
+  { amount: 1000, reward: "55" },
+  { amount: 1200, reward: "66" },
+  { amount: 1500, reward: "82.50" },
+  { amount: 2000, reward: "110" },
+  { amount: 3000, reward: "165" },
+  { amount: 4000, reward: "220" },
+  { amount: 5000, reward: "275" }
+];
+
+const WALLETS_DATA = [
+  { id: "paytm", name: "Paytm", category: "personal", color: "#00baf2", short: "PT", bonus: true, url: "https://paytm.com/" },
+  { id: "phonepe", name: "PhonePe", category: "personal", color: "#5f259f", short: "पे", bonus: true, url: "https://www.phonepe.com/" },
+  { id: "mobikwik", name: "MobiKwik", category: "personal", color: "#1d4ed8", short: "MK", bonus: true, url: "https://www.mobikwik.com/" },
+  { id: "navi", name: "Navi", category: "personal", color: "#059669", short: "NV", bonus: true, url: "https://navi.com/" },
+  { id: "bharatpe", name: "BharatPe", category: "personal", color: "#0f172a", short: "BP", bonus: false, url: "https://bharatpe.com/" },
+  { id: "paytm_biz", name: "Paytm Business", category: "business", color: "#002970", short: "PB", bonus: true, url: "https://business.paytm.com/" }
+];
+
+let currentUser = null;
+let currentWalletCategory = "personal";
+let currentOrderTab = "receive";
+let activeBindWallet = null;
+let activeOrderDraft = null;
+
+const $ = (id) => document.getElementById(id);
+
+function getStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (e) {
+    return fallback;
+  }
 }
 
-function showAuth(mode) {
- $("loginForm").classList.toggle("hidden", mode !== "login");
- $("registerForm").classList.toggle("hidden", mode !== "register");
- $("loginTab").classList.toggle("active", mode === "login");
- $("registerTab").classList.toggle("active", mode === "register");
- $("loginError").textContent = "";
- $("registerError").textContent = "";
+function setStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {}
 }
 
-function showPage(id) {
- document.querySelectorAll(".page").forEach(page => {
-  page.classList.toggle("active", page.id === id);
- });
- document.querySelectorAll(".nav button").forEach(button => {
-  button.classList.toggle("active", button.dataset.page === id);
- });
- window.scrollTo({top:0, behavior:"smooth"});
+let toastTimer = null;
+function showToast(msg) {
+  const el = $("toast");
+  el.textContent = msg;
+  el.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    el.style.display = "none";
+  }, 2500);
 }
 
-function enterApp(user) {
- $("authScreen").classList.add("hidden");
- $("mainSite").classList.remove("hidden");
- $("displayName").textContent = "Hello, " + user.name;
- $("profileUsername").textContent = user.name;
- const uid = "DP" + user.mobile.slice(-4);
- $("displayId").textContent = uid;
- $("profileUserId").textContent = "ID: " + uid;
- showPage("home");
+function copyText(text, successMsg = "Copied to clipboard") {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast(successMsg))
+      .catch(() => fallbackCopy(text, successMsg));
+  } else {
+    fallbackCopy(text, successMsg);
+  }
 }
 
-$("registerForm").addEventListener("submit", function(event) {
- event.preventDefault();
+function fallbackCopy(text, successMsg) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand("copy");
+    showToast(successMsg);
+  } catch (e) {
+    showToast("Copy: " + text);
+  }
+  document.body.removeChild(ta);
+}
 
- const name = $("regName").value.trim();
- const mobile = $("regMobile").value.trim();
- const password = $("regPassword").value;
- const confirm = $("regConfirm").value;
+function switchAuthTab(mode) {
+  const isLogin = mode === "login";
+  $("loginForm").classList.toggle("hidden", !isLogin);
+  $("registerForm").classList.toggle("hidden", isLogin);
+  $("tabLogin").classList.toggle("active", isLogin);
+  $("tabRegister").classList.toggle("active", !isLogin);
+  $("loginError").textContent = "";
+  $("registerError").textContent = "";
+}
 
- if (!name) {
-  $("registerError").textContent = "Enter a username.";
-  return;
- }
- if (!/^\d{10}$/.test(mobile)) {
-  $("registerError").textContent = "Enter a valid 10-digit mobile number.";
-  return;
- }
- if (password.length < 6) {
-  $("registerError").textContent = "Password must be at least 6 characters.";
-  return;
- }
- if (password !== confirm) {
-  $("registerError").textContent = "Passwords do not match.";
-  return;
- }
- if (!$("privacy").checked) {
-  $("registerError").textContent = "Please accept the demo notice.";
-  return;
- }
+$("tabLogin").addEventListener("click", () => switchAuthTab("login"));
+$("tabRegister").addEventListener("click", () => switchAuthTab("register"));
+$("linkToRegister").addEventListener("click", (e) => { e.preventDefault(); switchAuthTab("register"); });
+$("linkToLogin").addEventListener("click", (e) => { e.preventDefault(); switchAuthTab("login"); });
 
- account = {name, mobile, password};
- $("loginMobile").value = mobile;
- $("loginPassword").value = "";
- showAuth("login");
- toast("Demo account created. Please login.");
+$("registerForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const username = $("regUsername").value.trim();
+  const mobile = $("regMobile").value.trim();
+  const password = $("regPassword").value;
+  const confirm = $("regConfirm").value;
+  const invite = $("regInvite").value.trim();
+  const privacy = $("regPrivacy").checked;
+  const errEl = $("registerError");
+
+  errEl.textContent = "";
+
+  if (username.length < 2) {
+    errEl.textContent = "Please enter a valid username (min 2 characters).";
+    return;
+  }
+  if (!/^\d{10}$/.test(mobile)) {
+    errEl.textContent = "Please enter a valid 10-digit mobile number.";
+    return;
+  }
+  if (password.length < 6) {
+    errEl.textContent = "Password must be at least 6 characters long.";
+    return;
+  }
+  if (password !== confirm) {
+    errEl.textContent = "Passwords do not match.";
+    return;
+  }
+  if (!privacy) {
+    errEl.textContent = "Please agree to the Privacy Policy.";
+    return;
+  }
+
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  if (users.some(u => u.mobile === mobile)) {
+    errEl.textContent = "This mobile number is already registered.";
+    return;
+  }
+
+  const btn = $("regSubmitBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Creating...';
+
+  setTimeout(() => {
+    const newUser = {
+      id: "DP" + mobile.slice(-6),
+      username,
+      mobile,
+      password,
+      inviteCode: invite || "",
+      balance: 77
+    };
+    users.push(newUser);
+    setStorage(STORAGE_KEYS.USERS, users);
+
+    btn.disabled = false;
+    btn.textContent = "Create Account";
+
+    $("registerForm").reset();
+    $("loginMobile").value = mobile;
+    $("loginPassword").value = "";
+    switchAuthTab("login");
+    showToast("Account created! Please login.");
+  }, 450);
 });
 
-$("loginForm").addEventListener("submit", function(event) {
- event.preventDefault();
+$("loginForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const mobile = $("loginMobile").value.trim();
+  const password = $("loginPassword").value;
+  const remember = $("rememberMe").checked;
+  const errEl = $("loginError");
 
- const mobile = $("loginMobile").value.trim();
- const password = $("loginPassword").value;
+  errEl.textContent = "";
 
- if (!account || account.mobile !== mobile || account.password !== password) {
-  $("loginError").textContent = "Demo account not found. Register first.";
-  return;
- }
+  if (!/^\d{10}$/.test(mobile)) {
+    errEl.textContent = "Please enter a valid 10-digit mobile number.";
+    return;
+  }
+  if (!password) {
+    errEl.textContent = "Please enter your password.";
+    return;
+  }
 
- enterApp(account);
- toast("Demo login successful");
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  const foundUser = users.find(u => u.mobile === mobile);
+
+  if (!foundUser) {
+    errEl.textContent = "Account not found. Please register first.";
+    return;
+  }
+  if (foundUser.password !== password) {
+    errEl.textContent = "Incorrect password. Please try again.";
+    return;
+  }
+
+  const btn = $("loginSubmitBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Logging in...';
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = "Login";
+
+    if (remember) {
+      setStorage(STORAGE_KEYS.SESSION, { mobile: foundUser.mobile, savedPassword: foundUser.password });
+    } else {
+      localStorage.removeItem(STORAGE_KEYS.SESSION);
+    }
+
+    openDashboard(foundUser);
+    showToast("Welcome back, " + foundUser.username + "!");
+  }, 450);
 });
 
-function logout() {
- $("mainSite").classList.add("hidden");
- $("authScreen").classList.remove("hidden");
- $("loginPassword").value = "";
- showAuth("login");
+function openDashboard(user) {
+  currentUser = user;
+  $("authScreen").classList.add("hidden");
+  $("mainApp").classList.remove("hidden");
+  updateAllUserUI();
+  navigateTo("home");
 }
 
-function calculateUSDT() {
- const amount = Number($("usdtInput").value);
- const value = Number.isFinite(amount) && amount > 0 ? amount * 114 : 0;
- $("usdtResult").textContent = "₹" + value.toLocaleString("en-IN", {maximumFractionDigits:2});
-}
-
-function switchOrder(type) {
- $("orderContent").textContent = type === "receive" ? "No Receive Orders" : "No Purchase Orders";
-}
-
-function copyText(value) {
- if (navigator.clipboard && window.isSecureContext) {
-  navigator.clipboard.writeText(value)
-   .then(() => toast("Copied"))
-   .catch(() => toast("Copy not available"));
- } else {
-  toast(value);
- }
-}
- [200,300,500,700,1000,1200,1500,2000,3000,4000,5000].forEach(amount => {
- const item = document.createElement("div");
- item.className = "amount";
- const cashback = (amount * 0.055).toFixed(2);
-
- const details = document.createElement("div");
- const title = document.createElement("b");
- title.textContent = "₹" + amount.toLocaleString("en-IN");
-
- const note = document.createElement("div");
- note.className = "muted";
- note.textContent = "Illustrative 5.5% calculation: ₹" + cashback;
-
- details.append(title, note);
-
- const button = document.createElement("button");
- button.className = "btn light";
- button.type = "button";
- button.textContent = "Select";
- button.addEventListener("click", () => {
-  toast("Demo only: no payment or order is created.");
- });
-
- item.append(details, button);
- $("amountList").appendChild(item);
+$("logoutBtn").addEventListener("click", () => {
+  currentUser = null;
+  const saved = getStorage(STORAGE_KEYS.SESSION, null);
+  localStorage.removeItem(STORAGE_KEYS.SESSION);
+  $("mainApp").classList.add("hidden");
+  $("authScreen").classList.remove("hidden");
+  if (saved && saved.mobile) {
+    $("loginMobile").value = saved.mobile;
+    $("loginPassword").value = saved.savedPassword || "";
+  } else {
+    $("loginPassword").value = "";
+  }
+  switchAuthTab("login");
+  showToast("Logged out successfully");
 });
 
+function navigateTo(pageKey) {
+  const targetId = "page-" + pageKey;
+  const targetPage = $(targetId);
+  if (!targetPage) return;
+
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  targetPage.classList.add("active");
+
+  const mainTabs = ["home", "payment", "wallet", "statistics", "my"];
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.classList.toggle("active", mainTabs.includes(pageKey) && btn.dataset.nav === pageKey);
+  });
+
+  if (pageKey === "wallet") renderWallets();
+  if (pageKey === "order") renderOrders();
+  if (pageKey === "home") renderHomeTransactions();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener("click", (e) => {
+  const navTrigger = e.target.closest("[data-nav]");
+  if (navTrigger) {
+    e.preventDefault();
+    navigateTo(navTrigger.dataset.nav);
+  }
+});
+
+function getUserOrders() {
+  if (!currentUser) return [];
+  const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
+  return allOrders[currentUser.mobile] || [];
+}
+
+function getUserWallets() {
+  if (!currentUser) return {};
+  const allWallets = getStorage(STORAGE_KEYS.WALLETS, {});
+  return allWallets[currentUser.mobile] || {};
+}
+
+function updateAllUserUI() {
+  if (!currentUser) return;
+  const orders = getUserOrders();
+  const pendingAmt = orders.filter(o => o.status === "Pending").reduce((sum, o) => sum + o.amount, 0);
+  const pendingCount = orders.filter(o => o.status === "Pending").length;
+  const estReward = orders.filter(o => o.status === "Pending").reduce((sum, o) => sum + parseFloat(o.reward), 0);
+
+  $("homeGreeting").textContent = "Hello, " + currentUser.username;
+  $("homeUserId").textContent = currentUser.id;
+  $("homeBalance").textContent = "₹" + currentUser.balance.toFixed(2);
+  $("homeSubDeposit").textContent = "₹0";
+  $("homeSubWithdraw").textContent = "₹0";
+  $("cardDeposit").textContent = "₹0";
+  $("cardWithdraw").textContent = "₹0";
+
+  $("payBalance").textContent = "₹" + currentUser.balance;
+  $("payReward").textContent = "₹0";
+  $("payPending").textContent = "₹" + pendingAmt;
+
+  $("statBalance").textContent = "₹" + currentUser.balance;
+  $("statSell").textContent = "₹0";
+  $("statDeposit").textContent = "₹0";
+  $("statCommission").textContent = "₹0";
+  $("statProcessAmt").textContent = "₹" + pendingAmt;
+  $("statProcessOrders").textContent = pendingCount;
+  $("statEstIncome").textContent = "₹" + estReward.toFixed(2).replace(/\.00$/, "");
+
+  $("myAvatar").textContent = currentUser.username.charAt(0).toUpperCase();
+  $("myUsername").textContent = currentUser.username;
+  $("myUserId").textContent = currentUser.id;
+  $("myDeposit").textContent = "₹0";
+  $("myWithdraw").textContent = "₹0";
+  $("myCommission").textContent = "₹0";
+  $("myBalance").textContent = "₹" + currentUser.balance;
+
+  $("ordBalance").textContent = "₹" + currentUser.balance;
+  $("ordReward").textContent = "₹0";
+  $("ordPending").textContent = "₹" + pendingAmt;
+
+  $("refLinkDisplay").textContent = "https://dudpay.app/invite/" + currentUser.id;
+  $("taskCurrentAmt").textContent = "₹0";
+  $("taskProgressBar").style.width = "0%";
+
+  renderHomeTransactions();
+}
+
+function renderPaymentAmounts() {
+  const container = $("paymentAmountList");
+  container.innerHTML = "";
+
+  PAYMENT_AMOUNTS.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "amount-card";
+    card.innerHTML = `
+      <div>
+        <div class="amt">₹${item.amount.toLocaleString("en-IN")}</div>
+        <div class="rew">Illustrative 5.5% Reward: +₹${item.reward}</div>
+      </div>
+      <button type="button" class="btn sm">Receive</button>
+    `;
+    card.querySelector("button").addEventListener("click", () => openOrderModal(item));
+    container.appendChild(card);
+  });
+}
+
+function openOrderModal(item) {
+  const bound = getUserWallets();
+  const select = $("modalWalletSelect");
+  select.innerHTML = "";
+
+  WALLETS_DATA.forEach(w => {
+    const opt = document.createElement("option");
+    opt.value = w.id;
+    const savedVal = bound[w.id] ? ` (${bound[w.id]})` : " (Not bound)";
+    opt.textContent = w.name + savedVal;
+    select.appendChild(opt);
+  });
+
+  const code = "DP" + Date.now().toString().slice(-7);
+  activeOrderDraft = {
+    code,
+    amount: item.amount,
+    reward: item.reward
+  };
+
+  $("modalOrderAmt").textContent = "₹" + item.amount.toLocaleString("en-IN");
+  $("modalOrderRew").textContent = "+₹" + item.reward;
+  $("modalOrderCode").textContent = code;
+  $("modalUtrInput").value = "";
+  $("orderModal").classList.remove("hidden");
+}
+
+$("closeOrderModal").addEventListener("click", () => {
+  $("orderModal").classList.add("hidden");
+});
+
+$("copyPayeeBtn").addEventListener("click", () => {
+  copyText("dudpay.merchant@upi", "Payee UPI copied");
+});
+
+$("submitOrderBtn").addEventListener("click", () => {
+  if (!currentUser || !activeOrderDraft) return;
+  const walletId = $("modalWalletSelect").value;
+  const walletObj = WALLETS_DATA.find(w => w.id === walletId);
+  const utr = $("modalUtrInput").value.trim();
+
+  if (utr && !/^\d{6,12}$/.test(utr)) {
+    showToast("Please enter a valid numeric UTR (6-12 digits)");
+    return;
+  }
+
+  const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
+  const list = allOrders[currentUser.mobile] || [];
+
+  const now = new Date();
+  const dateStr = now.toISOString().slice(0, 10) + " " + now.toTimeString().slice(0, 5);
+
+  list.unshift({
+    code: activeOrderDraft.code,
+    amount: activeOrderDraft.amount,
+    reward: activeOrderDraft.reward,
+    wallet: walletObj ? walletObj.name : "UPI",
+    utr: utr || "Pending UTR",
+    status: "Pending",
+    time: dateStr
+  });
+
+  allOrders[currentUser.mobile] = list;
+  setStorage(STORAGE_KEYS.ORDERS, allOrders);
+
+  $("orderModal").classList.add("hidden");
+  updateAllUserUI();
+  showToast("Order created! Check Order history.");
+});
+
+$("wTabPersonal").addEventListener("click", () => {
+  currentWalletCategory = "personal";
+  $("wTabPersonal").classList.add("active");
+  $("wTabBusiness").classList.remove("active");
+  renderWallets();
+});
+
+$("wTabBusiness").addEventListener("click", () => {
+  currentWalletCategory = "business";
+  $("wTabBusiness").classList.add("active");
+  $("wTabPersonal").classList.remove("active");
+  renderWallets();
+});
+
+function renderWallets() {
+  const container = $("walletListContainer");
+  const bound = getUserWallets();
+  const filtered = WALLETS_DATA.filter(w => w.category === currentWalletCategory);
+
+  container.innerHTML = "";
+  filtered.forEach(w => {
+    const savedAccount = bound[w.id];
+    const div = document.createElement("div");
+    div.className = "wallet-item";
+    div.innerHTML = `
+      <div class="wallet-left">
+        <div class="w-logo" style="background:${w.color};">${w.short}</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <b>${w.name}</b>
+            ${w.bonus ? '<span class="badge orange">Binding Bonus</span>' : ''}
+            ${w.category === 'business' ? '<span class="badge blue">Receive Only</span>' : ''}
+          </div>
+          <div class="muted" style="font-size:12px;margin-top:4px;">
+            ${savedAccount ? 'Saved: <b style="color:var(--green);">' + savedAccount + '</b>' : 'Not configured yet'}
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn ${savedAccount ? 'light' : ''} sm">${savedAccount ? 'Edit' : 'Select'}</button>
+    `;
+    div.querySelector("button").addEventListener("click", () => openBindModal(w));
+    container.appendChild(div);
+  });
+}
+
+function openBindModal(wallet) {
+  activeBindWallet = wallet;
+  const bound = getUserWallets();
+  $("bindModalTitle").textContent = wallet.name + (wallet.category === "business" ? " (Receive Only)" : "");
+  $("bindInput").value = bound[wallet.id] || "";
+  $("bindError").textContent = "";
+  $("bindModal").classList.remove("hidden");
+}
+
+$("closeBindModal").addEventListener("click", () => {
+  $("bindModal").classList.add("hidden");
+});
+
+$("saveBindBtn").addEventListener("click", () => {
+  if (!currentUser || !activeBindWallet) return;
+  const val = $("bindInput").value.trim();
+  if (val.length < 5) {
+    $("bindError").textContent = "Please enter a valid UPI ID or 10-digit mobile number.";
+    return;
+  }
+
+  const allWallets = getStorage(STORAGE_KEYS.WALLETS, {});
+  if (!allWallets[currentUser.mobile]) allWallets[currentUser.mobile] = {};
+  allWallets[currentUser.mobile][activeBindWallet.id] = val;
+  setStorage(STORAGE_KEYS.WALLETS, allWallets);
+
+  $("bindModal").classList.add("hidden");
+  renderWallets();
+  showToast(activeBindWallet.name + " details saved!");
+});
+
+$("launchAppBtn").addEventListener("click", () => {
+  if (!activeBindWallet) return;
+  showToast("Opening supported official link for " + activeBindWallet.name + "...");
+  const win = window.open(activeBindWallet.url, "_blank", "noopener,noreferrer");
+  if (!win) {
+    showToast("Unable to launch external app. Please open " + activeBindWallet.name + " manually.");
+  }
+});
+
+$("orderTabReceive").addEventListener("click", () => {
+  currentOrderTab = "receive";
+  $("orderTabReceive").classList.add("active");
+  $("orderTabPurchase").classList.remove("active");
+  renderOrders();
+});
+
+$("orderTabPurchase").addEventListener("click", () => {
+  currentOrderTab = "purchase";
+  $("orderTabPurchase").classList.add("active");
+  $("orderTabReceive").classList.remove("active");
+  renderOrders();
+});
+
+function renderOrders() {
+  const container = $("orderListContainer");
+  const summaryBox = $("purchaseSummaryBox");
+
+  if (currentOrderTab === "receive") {
+    summaryBox.classList.add("hidden");
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">↓</div>
+        <b>No Data</b>
+        <div class="muted" style="margin-top:4px;">No receive orders available.</div>
+      </div>
+    `;
+    return;
+  }
+
+  summaryBox.classList.remove("hidden");
+  const orders = getUserOrders();
+
+  if (orders.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">▤</div>
+        <b>No Data</b>
+        <div class="muted" style="margin-top:4px;">No purchase orders recorded yet.</div>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = "";
+  orders.forEach(o => {
+    const row = document.createElement("div");
+    row.className = "listrow";
+    row.innerHTML = `
+      <div>
+        <b style="font-size:16px;color:var(--navy);">+₹${o.amount.toLocaleString("en-IN")}</b>
+        <div style="font-size:12px;color:var(--orange);font-weight:700;margin-top:2px;">Reward: +₹${o.reward}</div>
+        <div class="muted" style="font-size:11px;margin-top:3px;">Order Code: ${o.code} (${o.wallet})</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge orange">${o.status}</span>
+        <div class="muted" style="font-size:11px;margin-top:6px;">${o.time}</div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function renderHomeTransactions() {
+  const container = $("homeTxContainer");
+  const orders = getUserOrders();
+
+  if (orders.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">▤</div>
+        <b>No Transactions</b>
+        <div class="muted" style="margin-top:4px;">Your activity will appear here.</div>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = "";
+  orders.slice(0, 3).forEach(o => {
+    const row = document.createElement("div");
+    row.className = "listrow";
+    row.innerHTML = `
+      <div>
+        <b>Payment Order (${o.wallet})</b>
+        <div class="muted" style="font-size:12px;margin-top:2px;">${o.time}</div>
+      </div>
+      <div style="text-align:right;">
+        <b style="color:var(--blue);">₹${o.amount.toFixed(2)}</b>
+        <div style="margin-top:3px;"><span class="badge orange">${o.status}</span></div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+$("usdtInput").addEventListener("input", () => {
+  const val = parseFloat($("usdtInput").value);
+  const hint = $("usdtHint");
+  const out = $("usdtInrOutput");
+
+  if (isNaN(val) || val <= 0) {
+    hint.textContent = "";
+    out.textContent = "₹0.00";
+    return;
+  }
+
+  if (val < 10) {
+    hint.textContent = "Minimum illustrative amount is 10 USDT.";
+  } else {
+    hint.textContent = "";
+  }
+
+  const inr = val * 114;
+  out.textContent = "₹" + inr.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+});
+
+$("notifBtn").addEventListener("click", () => {
+  showToast("No new notifications");
+});
+
+$("copyUidBtn").addEventListener("click", () => {
+  if (currentUser) copyText(currentUser.id
+                            , "User ID copied: " + currentUser.id);
+});
+
+$("copyRefBtn").addEventListener("click", () => {
+  copyText($("refLinkDisplay").textContent, "Referral link copied!");
+});
+
+$("copyServiceBtn").addEventListener("click", () => {
+  copyText("@OFFICALSERVICE06", "Support username copied: @OFFICALSERVICE06");
+});
+
+document.querySelectorAll("[data-share]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const type = btn.dataset.share;
+    const link = $("refLinkDisplay").textContent;
+    const text = encodeURIComponent("Join DUDPAY using my referral link: " + link);
+
+    if (type === "copy") {
+      copyText(link, "Referral link copied!");
+    } else if (type === "whatsapp") {
+      window.open("https://wa.me/?text=" + text, "_blank", "noopener,noreferrer");
+    } else if (type === "telegram") {
+      window.open("https://t.me/share/url?url=" + encodeURIComponent(link) + "&text=" + encodeURIComponent("Join DUDPAY"), "_blank", "noopener,noreferrer");
+    } else if (type === "facebook") {
+      window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link), "_blank", "noopener,noreferrer");
+    }
+  });
+});
+
+(function init() {
+  renderPaymentAmounts();
+
+  const savedSession = getStorage(STORAGE_KEYS.SESSION, null);
+  if (savedSession && savedSession.mobile) {
+    const users = getStorage(STORAGE_KEYS.USERS, []);
+    const user = users.find(u => u.mobile === savedSession.mobile);
+    if (user) {
+      $("loginMobile").value = user.mobile;
+      $("loginPassword").value = savedSession.savedPassword || "";
+      openDashboard(user);
+    }
+  }
+})();
 </script>
 </body>
 </html>
