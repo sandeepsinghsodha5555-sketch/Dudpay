@@ -38,7 +38,7 @@
     overflow-x: hidden;
   }
 
-  button, input, select {
+  button, input, select, textarea {
     font: inherit;
     outline: none;
   }
@@ -48,9 +48,7 @@
     transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.15s ease, background-color 0.2s ease;
   }
 
-  button:active:not(:disabled) {
-    transform: scale(0.95);
-  }
+  button:active:not(:disabled) { transform: scale(0.95); }
 
   .app-shell {
     max-width: 480px;
@@ -330,10 +328,10 @@
 
   .field {
     width: 100%;
-    padding: 13px 14px;
+    padding: 12px 14px;
     border: 1px solid var(--border);
     border-radius: 12px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     background: var(--white);
     color: var(--navy);
     font-size: 14px;
@@ -391,10 +389,7 @@
     font-weight: 700;
   }
 
-  .auth-tabs button.active {
-    background: var(--blue);
-    color: var(--white);
-  }
+  .auth-tabs button.active { background: var(--blue); color: var(--white); }
 
   .pay-summary {
     background: linear-gradient(135deg, #1769d2, #0d4fa6);
@@ -434,7 +429,17 @@
 
   .amount-card .amt { font-size: 17px; font-weight: 800; color: var(--navy); }
   .amount-card .qty { font-size: 12px; color: var(--muted); margin-top: 3px; }
-  .amount-card .rew { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 2px; }
+  .amount-card .rew { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 3px; }
+
+  .special-pill {
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 8px;
+    margin-left: 4px;
+  }
 
   .seg-tabs {
     display: flex;
@@ -443,17 +448,19 @@
     border-radius: 14px;
     padding: 4px;
     margin-bottom: 14px;
+    overflow-x: auto;
   }
 
   .seg-tabs button {
     flex: 1;
     border: 0;
     border-radius: 10px;
-    padding: 10px;
+    padding: 9px 6px;
     background: transparent;
     color: var(--muted);
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
+    white-space: nowrap;
   }
 
   .seg-tabs button.active { background: var(--blue); color: var(--white); }
@@ -478,13 +485,14 @@
   .wallet-left { display: flex; align-items: center; gap: 12px; }
 
   .w-logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
     display: grid;
     place-items: center;
     flex-shrink: 0;
     overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   }
 
   .stepper {
@@ -602,7 +610,7 @@
   .nav-item.active { color: var(--blue); font-weight: 800; }
 
   .modal-backdrop {
-    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); z-index: 50;
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); z-index: 50;
     display: flex; align-items: center; justify-content: center; padding: 16px;
   }
 
@@ -640,6 +648,15 @@
 </style>
 </head>
 <body>
+
+<div id="maintenanceOverlay" class="modal-backdrop hidden" style="z-index:60;">
+  <div class="modal-card center" style="padding:32px 22px;">
+    <div class="avatar" style="margin:0 auto 14px;background:var(--orange);">🛠</div>
+    <h3 style="margin:0 0 8px;">System Maintenance</h3>
+    <p class="muted" style="margin:0 0 18px;">DUDPAY is undergoing scheduled upgrades. Please check back shortly.</p>
+    <button type="button" class="btn light sm" id="maintAdminTrigger">Admin Access</button>
+  </div>
+</div>
 
 <div id="authScreen" class="auth-wrap">
   <div class="auth-card">
@@ -705,7 +722,7 @@
     </form>
   </div>
 </div>
-  <div id="mainApp" class="app-shell hidden">
+<div id="mainApp" class="app-shell hidden">
   <header class="topbar">
     <div class="logo"><span class="logo-badge">DP</span> DUDPAY</div>
     <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications">
@@ -727,7 +744,7 @@
             <button type="button" class="btn light sm" id="copyUidBtn" style="padding:3px 8px;">Copy</button>
           </div>
         </div>
-        <span class="badge blue" id="cloudSyncBadge">Cloud Active</span>
+        <span class="badge blue">Cloud Active</span>
       </div>
 
       <div class="balance-card">
@@ -752,7 +769,7 @@
 
       <div class="quick-grid">
         <button type="button" class="quick-item" data-nav="usdt">
-          <span class="rate-tag">114 INR</span>
+          <span class="rate-tag" id="homeUsdtTag">114 INR</span>
           <div class="quick-icon">₮</div>
           <span>USDT</span>
         </button>
@@ -798,7 +815,7 @@
           <span style="font-size:13px;font-weight:700;color:#dbeafe;">Cashback Rate</span>
           <span class="badge orange">Live Market</span>
         </div>
-        <div class="pay-rate">5.5%</div>
+        <div class="pay-rate" id="payRateDisplay">5.5%</div>
         <div class="pay-boxes">
           <div class="pay-box"><small>Balance</small><b id="payBalance">₹77</b></div>
           <div class="pay-box"><small>Reward</small><b id="payReward" style="color:#fde68a;">₹0</b></div>
@@ -807,7 +824,7 @@
       </div>
 
       <div class="notice-bar">
-        ⚠ Please bind and verify your wallet first. Payment opens directly in your selected bound app only!
+        ⚠ Bind your wallet first. Orders ₹1,000–₹4,000 earn <b>+₹20 Extra</b> and ₹5,000 earns <b>+₹35 Extra</b>!
       </div>
 
       <div id="paymentAmountList"></div>
@@ -865,10 +882,10 @@
           <b style="font-size:16px;">Payment Details</b>
           <span id="sellingStatusBadge" class="badge orange">Closed Selling</span>
         </div>
-        <div class="listrow"><span class="muted">Exchange Rate</span><b style="color:var(--blue);">₹114</b></div>
+        <div class="listrow"><span class="muted">Exchange Rate</span><b style="color:var(--blue);" id="statExRate">₹114</b></div>
         <div class="listrow"><span class="muted">In Process Amount</span><b id="statProcessAmt">₹0</b></div>
         <div class="listrow"><span class="muted">In Process Orders</span><b id="statProcessOrders">0</b></div>
-        <div class="listrow"><span class="muted">Commission Rate</span><b style="color:var(--orange);">5.5%</b></div>
+        <div class="listrow"><span class="muted">Commission Rate</span><b style="color:var(--orange);" id="statCommRate">5.5%</b></div>
         <div class="listrow"><span class="muted">Estimated Income</span><b style="color:var(--orange);" id="statEstIncome">₹0</b></div>
       </div>
 
@@ -900,8 +917,8 @@
       </div>
 
       <p class="center muted" id="secretVersionTap" style="user-select:none;cursor:pointer;padding:8px;">DUDPAY Version 1.0.0</p>
-            </section>
-          <section id="page-usdt" class="page">
+          </section>
+              <section id="page-usdt" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">USDT Deposit</h2>
@@ -917,7 +934,7 @@
       <div class="card">
         <div class="row" style="margin-bottom:8px;">
           <b>Calculator</b>
-          <span class="badge orange">Ratio: 1 USDT = 114 INR</span>
+          <span class="badge orange" id="usdtRatioBadge">Ratio: 1 USDT = 114 INR</span>
         </div>
 
         <label class="label" for="usdtInput">USDT Amount (Min 10 USDT)</label>
@@ -1058,7 +1075,7 @@
           Expire in: <b id="aoTimer">29:59</b>
         </div>
         <p style="font-size:11px;color:#b45309;margin:10px 0 0;">
-          Notice: Pay only via your selected bound app. Upload payment screenshot & 12-digit UTR before timer expires, otherwise order will fail automatically.
+          Notice: Upload either your payment screenshot OR enter your 12-digit UTR number (any 1 is enough to submit) before timer expires.
         </p>
       </div>
 
@@ -1105,16 +1122,17 @@
       </button>
 
       <div class="card">
-        <b style="font-size:15px;display:block;margin-bottom:8px;">Upload Transaction Proof (Required)</b>
+        <b style="font-size:15px;display:block;margin-bottom:4px;">Submit Proof (Screenshot OR UTR)</b>
+        <p class="muted" style="margin:0 0 10px;font-size:12px;">Upload payment screenshot OR enter 12-digit UTR — any 1 is enough to submit.</p>
         <label class="upload-box" for="aoVoucherFile">
-          <div style="font-weight:700;color:var(--blue);font-size:13px;" id="aoUploadLabel">+ Tap to Upload Payment Screenshot</div>
+          <div style="font-weight:700;color:var(--blue);font-size:13px;" id="aoUploadLabel">+ Tap to Upload Payment Screenshot (Optional if UTR entered)</div>
           <div class="muted" style="font-size:11px;margin-top:3px;">JPG, PNG supported</div>
           <img id="aoVoucherPreview" class="upload-preview" alt="Receipt Preview">
         </label>
         <input type="file" id="aoVoucherFile" accept="image/*" class="hidden">
 
-        <label class="label" for="aoUtrInput">12-Digit UTR / Reference Number *</label>
-        <input class="field" id="aoUtrInput" type="tel" maxlength="12" inputmode="numeric" placeholder="Enter exact 12-digit UTR number">
+        <label class="label" for="aoUtrInput">12-Digit UTR / Reference Number (Optional if Screenshot uploaded)</label>
+        <input class="field" id="aoUtrInput" type="tel" maxlength="12" inputmode="numeric" placeholder="Enter 12-digit UTR number">
 
         <button type="button" class="btn full" id="aoSubmitProofBtn" disabled>Submit Payment Proof</button>
       </div>
@@ -1126,15 +1144,13 @@
         <h2 class="page-title">Customer Service</h2>
       </div>
 
-      <div class="card center" style="padding:36px 22px;">
+      <div class="card center" style="padding:34px 22px;">
         <div class="avatar" style="margin:0 auto 16px;width:72px;height:72px;font-size:30px;">🎧</div>
         <h3 style="margin:0 0 8px;font-size:20px;">24/7 Live Support</h3>
-        <p class="muted" style="margin:0 0 22px;line-height:1.5;">
+        <p class="muted" style="margin:0 0 20px;line-height:1.5;">
           Need help with deposits, orders, or wallet verification? Connect directly with our official support desk in one click.
         </p>
-        <a href="https://t.me/OFFICALSERVICE06" target="_blank" rel="noopener noreferrer" class="btn full" style="text-decoration:none;padding:14px;font-size:15px;">
-          Contact Support Now
-        </a>
+        <div id="serviceButtonsContainer"></div>
       </div>
     </section>
 
@@ -1143,11 +1159,7 @@
         <button type="button" class="back-btn" data-nav="my">←</button>
         <h2 class="page-title">Message</h2>
       </div>
-      <div class="card empty-state">
-        <div class="empty-icon">✉</div>
-        <b>No Message</b>
-        <div class="muted" style="margin-top:4px;">You have no new messages at the moment.</div>
-      </div>
+      <div id="userMessagesContainer"></div>
     </section>
 
     <section id="page-tutorial" class="page">
@@ -1155,33 +1167,32 @@
         <button type="button" class="back-btn" data-nav="my">←</button>
         <h2 class="page-title">Tutorial</h2>
       </div>
-      <div class="card empty-state">
-        <div class="empty-icon">📖</div>
-        <b>No Tutorial</b>
-        <div class="muted" style="margin-top:4px;">Guides and tutorials will be updated soon.</div>
-      </div>
+      <div id="userTutorialsContainer"></div>
     </section>
 
+    <!-- FULL MASTER ADMIN CONTROL PANEL (PIN: 9079) -->
     <section id="page-admin" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="my">←</button>
-        <h2 class="page-title">Live Cloud Admin</h2>
+        <h2 class="page-title">Master Admin Panel</h2>
       </div>
 
       <div class="row" style="margin-bottom:10px;">
-        <span class="badge green" id="adminCloudStatus">● Firebase Connected</span>
-        <button type="button" class="btn light sm" id="refreshAdminCloudBtn">↻ Refresh Live Data</button>
+        <span class="badge green">● Live Firebase Control</span>
+        <button type="button" class="btn light sm" id="refreshAdminCloudBtn">↻ Sync Now</button>
       </div>
 
       <div class="seg-tabs">
         <button type="button" id="admTabUsers" class="active">Users</button>
         <button type="button" id="admTabOrders">Orders</button>
         <button type="button" id="admTabOwners">Owners</button>
+        <button type="button" id="admTabSettings">Controls</button>
       </div>
 
       <div id="adminUsersSection"></div>
       <div id="adminOrdersSection" class="hidden"></div>
       <div id="adminOwnersSection" class="hidden"></div>
+      <div id="adminSettingsSection" class="hidden"></div>
     </section>
   </main>
 
@@ -1209,6 +1220,7 @@
   </nav>
 </div>
 
+<!-- MODALS -->
 <div id="bindModal" class="modal-backdrop hidden">
   <div class="modal-card">
     <div class="row" style="margin-bottom:8px;">
@@ -1298,10 +1310,9 @@
 </div>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script>
+   <script>
 "use strict";
 
-/* Your Live Firebase Realtime Database Endpoint */
 const FIREBASE_DB_URL = "https://dudpay-default-rtdb.asia-southeast1.firebasedatabase.app";
 const ADMIN_PIN = "9079";
 
@@ -1309,40 +1320,55 @@ const DEFAULT_OWNERS = [
   { id: 1, name: "Sandeep", acc: "06342311224492", ifsc: "UCBA0000634", upi: "sandeep06936@ptyes", active: true }
 ];
 
-const STORAGE_KEYS = {
-  USERS: "dudpay_users_v4",
-  SESSION: "dudpay_session_v4",
-  WALLETS: "dudpay_wallets_v4",
-  ORDERS: "dudpay_orders_v4",
-  OWNERS: "dudpay_owners_v4"
+const DEFAULT_CONFIG = {
+  commRate: 5.5,
+  usdtRate: 114,
+  welcomeBonus: 77,
+  maintenance: false,
+  telegramLinks: [
+    { label: "Official Support Desk", url: "https://t.me/OFFICALSERVICE06" }
+  ],
+  messages: [],
+  tutorials: []
 };
 
-const PAYMENT_AMOUNTS = [
-  { amount: 200, reward: "11.00", qty: 14 },
-  { amount: 300, reward: "16.50", qty: 23 },
-  { amount: 500, reward: "27.50", qty: 9 },
-  { amount: 700, reward: "38.50", qty: 31 },
-  { amount: 1000, reward: "55.00", qty: 17 },
-  { amount: 1200, reward: "66.00", qty: 8 },
-  { amount: 1500, reward: "82.50", qty: 19 },
-  { amount: 2000, reward: "110.00", qty: 6 },
-  { amount: 3000, reward: "165.00", qty: 11 },
-  { amount: 4000, reward: "220.00", qty: 4 },
-  { amount: 5000, reward: "275.00", qty: 7 }
+const STORAGE_KEYS = {
+  USERS: "dudpay_users_v5",
+  SESSION: "dudpay_session_v5",
+  WALLETS: "dudpay_wallets_v5",
+  ORDERS: "dudpay_orders_v5",
+  OWNERS: "dudpay_owners_v5",
+  CONFIG: "dudpay_config_v5",
+  ROT_IDX: "dudpay_rot_idx_v5"
+};
+
+const BASE_AMOUNTS = [
+  { amount: 200, extra: 0, qty: 14 },
+  { amount: 300, extra: 0, qty: 23 },
+  { amount: 500, extra: 0, qty: 9 },
+  { amount: 700, extra: 0, qty: 31 },
+  { amount: 1000, extra: 20, qty: 17 },
+  { amount: 1200, extra: 20, qty: 8 },
+  { amount: 1500, extra: 20, qty: 19 },
+  { amount: 2000, extra: 20, qty: 6 },
+  { amount: 3000, extra: 20, qty: 11 },
+  { amount: 4000, extra: 20, qty: 4 },
+  { amount: 5000, extra: 35, qty: 7 }
 ];
 
+/* Authentic Brand Logos (Company Colors & Emblems) */
 const BRAND_LOGOS = {
-  mobikwik: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#0073cf"/><path d="M10 30V14l7 9 7-9v16h-4v-9l-3 4-3-4v9h-4zm18-16h6v16h-6V14z" fill="#fff"/></svg>`,
-  freecharge: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#e5632f"/><path d="M25 10L14 24h8l-3 10 11-14h-8l3-10z" fill="#fff"/></svg>`,
-  phonepe: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#5f259f"/><text x="22" y="29" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold">पे</text></svg>`,
-  paytm: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#00baf2"/><rect x="6" y="15" width="32" height="14" rx="4" fill="#002970"/><text x="22" y="25" text-anchor="middle" fill="#fff" font-size="9" font-weight="900">Paytm</text></svg>`,
-  bharatpe: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#111827"/><circle cx="22" cy="22" r="11" stroke="#38bdf8" stroke-width="3" fill="none"/><path d="M19 17h5a3 3 0 010 6h-5v-6zm0 6h6a3 3 0 010 6h-6v-6z" fill="#fff"/></svg>`,
-  navi: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#065f46"/><path d="M14 29V15l10 14V15" stroke="#34d399" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="16" r="2.5" fill="#fff"/></svg>`,
-  moneyview: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#14532d"/><path d="M11 28V16l11 8 11-8v12" stroke="#4ade80" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  paytm_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#002970"/><text x="22" y="20" text-anchor="middle" fill="#00baf2" font-size="9" font-weight="900">Paytm</text><text x="22" y="31" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">BUSINESS</text></svg>`,
-  gpay_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#1a73e8"/><text x="22" y="21" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">G Pay</text><text x="22" y="32" text-anchor="middle" fill="#fde047" font-size="7" font-weight="700">MERCHANT</text></svg>`,
-  phonepe_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#3b0764"/><text x="22" y="22" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">पे</text><text x="22" y="33" text-anchor="middle" fill="#e9d5ff" font-size="7" font-weight="700">BUSINESS</text></svg>`,
-  bharatpe_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#1e293b"/><text x="22" y="21" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="900">BharatPe</text><text x="22" y="32" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">MERCHANT</text></svg>`
+  mobikwik: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#0066CC"/><path d="M11 33V15l7.5 10L26 15v18h-4.2v-9.5l-3.3 4.3-3.3-4.3V33H11z" fill="#fff"/><path d="M29.5 15h6.5v18h-6.5V15z" fill="#38BDF8"/></svg>`,
+  freecharge: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#E25A2B"/><path d="M27.5 11L15 26h8.5l-3 11L33 22h-8.5l3-11z" fill="#fff"/></svg>`,
+  phonepe: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#5F259F"/><text x="24" y="32" text-anchor="middle" fill="#fff" font-size="25" font-weight="bold">पे</text></svg>`,
+  paytm: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#00BAF2"/><rect x="5" y="16" width="38" height="16" rx="4" fill="#002970"/><text x="24" y="27" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="900" letter-spacing="0.3">Paytm</text></svg>`,
+  bharatpe: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#0F172A"/><path d="M16 14h9.5a5.5 5.5 0 010 11H16V14zm0 11h10.5a5.5 5.5 0 010 11H16V25z" fill="#00B5B8"/><circle cx="33" cy="16" r="3" fill="#FF6B00"/></svg>`,
+  navi: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#052E16"/><path d="M14 33V15l13 18V15" stroke="#22C55E" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="16" r="3" fill="#4ADE80"/></svg>`,
+  moneyview: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#064E3B"/><path d="M11 31V17l13 9 13-9v14" stroke="#34D399" stroke-width="3.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  paytm_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#002970"/><text x="24" y="21" text-anchor="middle" fill="#00BAF2" font-size="10" font-weight="900">Paytm</text><rect x="8" y="25" width="32" height="11" rx="3" fill="#00BAF2"/><text x="24" y="33" text-anchor="middle" fill="#002970" font-size="6.8" font-weight="900">BUSINESS</text></svg>`,
+  gpay_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#1A73E8"/><text x="24" y="22" text-anchor="middle" fill="#fff" font-size="12" font-weight="900">G Pay</text><rect x="7" y="26" width="34" height="11" rx="3" fill="#FACC15"/><text x="24" y="34" text-anchor="middle" fill="#1E293B" font-size="6.5" font-weight="900">FOR BUSINESS</text></svg>`,
+  phonepe_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#3B0764"/><text x="24" y="23" text-anchor="middle" fill="#fff" font-size="17" font-weight="bold">पे</text><rect x="8" y="27" width="32" height="10" rx="3" fill="#A855F7"/><text x="24" y="34.5" text-anchor="middle" fill="#fff" font-size="6.5" font-weight="900">BUSINESS</text></svg>`,
+  bharatpe_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#1E293B"/><text x="24" y="21" text-anchor="middle" fill="#00B5B8" font-size="9.5" font-weight="900">BharatPe</text><rect x="7" y="25" width="34" height="11" rx="3" fill="#FF6B00"/><text x="24" y="33" text-anchor="middle" fill="#fff" font-size="6.5" font-weight="900">MERCHANT</text></svg>`
 };
 
 const WALLETS_DATA = [
@@ -1386,12 +1412,15 @@ function setStorage(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
 }
 
-/* ==================== FIREBASE REALTIME CLOUD SYNC ==================== */
+function getAppConfig() {
+  return { ...DEFAULT_CONFIG, ...getStorage(STORAGE_KEYS.CONFIG, DEFAULT_CONFIG) };
+}
+
+/* ==================== FIREBASE CLOUD SYNC ==================== */
 async function cloudGet(path) {
   try {
     const res = await fetch(`${FIREBASE_DB_URL}/${path}.json`);
-    if (!res.ok) return null;
-    return await res.json();
+    return res.ok ? await res.json() : null;
   } catch (e) { return null; }
 }
 
@@ -1406,22 +1435,94 @@ async function cloudPut(path, data) {
 }
 
 async function syncAllFromCloud() {
-  const [cUsers, cOrders, cOwners] = await Promise.all([
+  const [cUsers, cOrders, cOwners, cConfig, cWallets, cRot] = await Promise.all([
     cloudGet("users"),
     cloudGet("orders"),
-    cloudGet("owners")
+    cloudGet("owners"),
+    cloudGet("config"),
+    cloudGet("wallets"),
+    cloudGet("rotationIndex")
   ]);
+
   if (cUsers && typeof cUsers === "object") {
     const arr = Array.isArray(cUsers) ? cUsers.filter(Boolean) : Object.values(cUsers);
     if (arr.length > 0) setStorage(STORAGE_KEYS.USERS, arr);
   }
-  if (cOrders && typeof cOrders === "object") {
-    setStorage(STORAGE_KEYS.ORDERS, cOrders);
+  if (cOrders && typeof cOrders === "object") setStorage(STORAGE_KEYS.ORDERS, cOrders);
+  if (cWallets && typeof cWallets === "object") setStorage(STORAGE_KEYS.WALLETS, cWallets);
+  if (cOwners && Array.isArray(cOwners) && cOwners.length > 0) setStorage(STORAGE_KEYS.OWNERS, cOwners);
+  if (typeof cRot === "number") setStorage(STORAGE_KEYS.ROT_IDX, cRot);
+  if (cConfig && typeof cConfig === "object") setStorage(STORAGE_KEYS.CONFIG, { ...DEFAULT_CONFIG, ...cConfig });
+
+  applyLiveConfigUI();
+  if (currentUser) {
+    const fresh = getStorage(STORAGE_KEYS.USERS, []).find(u => u.mobile === currentUser.mobile);
+    if (fresh && fresh.blocked) {
+      showToast("Your account has been suspended by Admin.");
+      $("logoutBtn").click();
+      return;
+    }
+    updateAllUserUI();
   }
-  if (cOwners && Array.isArray(cOwners) && cOwners.length > 0) {
-    setStorage(STORAGE_KEYS.OWNERS, cOwners);
+}
+
+function applyLiveConfigUI() {
+  const cfg = getAppConfig();
+  $("payRateDisplay").textContent = cfg.commRate + "%";
+  $("statCommRate").textContent = cfg.commRate + "%";
+  $("statExRate").textContent = "₹" + cfg.usdtRate;
+  $("homeUsdtTag").textContent = cfg.usdtRate + " INR";
+  $("usdtRatioBadge").textContent = `Ratio: 1 USDT = ${cfg.usdtRate} INR`;
+
+  /* Maintenance Gate */
+  const onAdminPage = $("page-admin").classList.contains("active");
+  $("maintenanceOverlay").classList.toggle("hidden", !cfg.maintenance || onAdminPage);
+
+  /* Service Telegram Links */
+  const srvBox = $("serviceButtonsContainer");
+  srvBox.innerHTML = "";
+  const links = (cfg.telegramLinks && cfg.telegramLinks.length > 0) ? cfg.telegramLinks : DEFAULT_CONFIG.telegramLinks;
+  links.forEach(item => {
+    const a = document.createElement("a");
+    a.href = item.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.className = "btn full";
+    a.style.textDecoration = "none";
+    a.style.marginBottom = "10px";
+    a.textContent = item.label || "Contact Support";
+    srvBox.appendChild(a);
+  });
+
+  /* User Messages */
+  const msgBox = $("userMessagesContainer");
+  const msgs = cfg.messages || [];
+  if (msgs.length === 0) {
+    msgBox.innerHTML = `<div class="card empty-state"><div class="empty-icon">✉</div><b>No Message</b><div class="muted" style="margin-top:4px;">You have no new messages at the moment.</div></div>`;
+  } else {
+    msgBox.innerHTML = "";
+    msgs.forEach(m => {
+      const c = document.createElement("div");
+      c.className = "card";
+      c.innerHTML = `<b>${m.title}</b><p class="muted" style="margin:6px 0 0;">${m.body}</p><div class="muted" style="font-size:11px;margin-top:6px;">${m.time || ""}</div>`;
+      msgBox.appendChild(c);
+    });
   }
-  if (currentUser) updateAllUserUI();
+
+  /* User Tutorials */
+  const tutBox = $("userTutorialsContainer");
+  const tuts = cfg.tutorials || [];
+  if (tuts.length === 0) {
+    tutBox.innerHTML = `<div class="card empty-state"><div class="empty-icon">📖</div><b>No Tutorial</b><div class="muted" style="margin-top:4px;">Guides and tutorials will be updated soon.</div></div>`;
+  } else {
+    tutBox.innerHTML = "";
+    tuts.forEach(t => {
+      const c = document.createElement("div");
+      c.className = "card";
+      c.innerHTML = `<b>${t.title}</b><p class="muted" style="margin:6px 0 0;">${t.body}</p>`;
+      tutBox.appendChild(c);
+    });
+  }
 }
 
 function isValidMobile(num) {
@@ -1502,13 +1603,15 @@ $("registerForm").addEventListener("submit", async (e) => {
     return;
   }
 
+  const cfg = getAppConfig();
   const newUser = {
     id: "DP" + mobile.slice(-6),
     username,
     mobile,
     password,
     inviteCode: invite || "",
-    balance: 77
+    balance: Number(cfg.welcomeBonus) || 77,
+    blocked: false
   };
   users.push(newUser);
   setStorage(STORAGE_KEYS.USERS, users);
@@ -1548,13 +1651,12 @@ $("loginForm").addEventListener("submit", async (e) => {
   btn.textContent = "Login";
 
   if (!foundUser) { errEl.textContent = "Account not found. Please register first."; return; }
+  if (foundUser.blocked) { errEl.textContent = "This account has been blocked by Admin."; return; }
   if (foundUser.password !== password) { errEl.textContent = "Incorrect password."; return; }
 
   if (remember) {
     setStorage(STORAGE_KEYS.SESSION, { mobile: foundUser.mobile, savedPassword: foundUser.password });
-  } else {
-    localStorage.removeItem(STORAGE_KEYS.SESSION);
-  }
+  } else { localStorage.removeItem(STORAGE_KEYS.SESSION); }
   openDashboard(foundUser);
   showToast("Login successful!");
 });
@@ -1689,8 +1791,8 @@ function renderAllWalletsSelector() {
     div.querySelector("button").addEventListener("click", () => openBindStepper(w));
     container.appendChild(div);
   });
-}
-  function setStepperUI(step) {
+     }    
+     function setStepperUI(step) {
   [1, 2, 3].forEach(n => {
     $("bindStep" + n).classList.toggle("hidden", n !== step);
     const node = $("stepNode" + n);
@@ -1743,7 +1845,7 @@ $("toStep3Btn").addEventListener("click", () => {
   const btn = $("toStep3Btn");
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Authorizing...';
-  setTimeout(() => {
+  setTimeout(async () => {
     btn.disabled = false;
     btn.textContent = "Authorize";
     const phone = $("bindPhoneInput").value.trim();
@@ -1757,9 +1859,10 @@ $("toStep3Btn").addEventListener("click", () => {
       scheme: activeBindWallet.scheme
     };
     setStorage(STORAGE_KEYS.WALLETS, allWallets);
+    await cloudPut(`wallets/${currentUser.mobile}`, allWallets[currentUser.mobile]);
     $("bindSuccessSummary").textContent = activeBindWallet.name + " (" + phone + ") is now linked.";
     setStepperUI(3);
-  }, 550);
+  }, 500);
 });
 
 $("finishBindBtn").addEventListener("click", () => {
@@ -1825,22 +1928,34 @@ $("toggleSellingBtn").addEventListener("click", () => {
   }
 });
 
+/* Payment Cards with Dynamic Commission + ₹20 / ₹35 Extra Rewards */
 function renderPaymentAmounts() {
   const container = $("paymentAmountList");
+  const cfg = getAppConfig();
+  const rate = Number(cfg.commRate) || 5.5;
   container.innerHTML = "";
-  PAYMENT_AMOUNTS.forEach(item => {
+
+  BASE_AMOUNTS.forEach(item => {
+    const baseRew = (item.amount * rate) / 100;
+    const totalRew = (baseRew + item.extra).toFixed(2);
+    const finalAmt = (item.amount + parseFloat(totalRew)).toFixed(2);
     const liveQty = Math.max(2, item.qty + Math.floor(Math.random() * 7) - 3);
-    const finalAmt = (item.amount + parseFloat(item.reward)).toFixed(2);
+    const cardItem = { amount: item.amount, reward: totalRew, extra: item.extra };
+
     const card = document.createElement("div");
     card.className = "amount-card";
     card.innerHTML = `
       <div>
         <div class="amt">Order amount: ₹${item.amount.toLocaleString("en-IN")}</div>
         <div class="qty">Order quantity: <b>${liveQty}</b></div>
-        <div class="rew">Reward: ₹${item.reward} · Final: ₹${finalAmt}</div>
+        <div class="rew">
+          Reward: ₹${baseRew.toFixed(2)}
+          ${item.extra > 0 ? `<span class="special-pill">Special +₹${item.extra}</span>` : ""}
+          · Final: ₹${finalAmt}
+        </div>
       </div>
       <button type="button" class="btn sm">Receive</button>`;
-    card.querySelector("button").addEventListener("click", () => handleReceiveClick(item));
+    card.querySelector("button").addEventListener("click", () => handleReceiveClick(cardItem));
     container.appendChild(card);
   });
 }
@@ -1883,14 +1998,21 @@ $("confirmToolSelectBtn").addEventListener("click", () => {
   startActiveOrder(pendingAmountItem, boundWallet);
 });
 
-function getActiveOwner() {
+/* Sequential Round-Robin Owner Rotation (Owner 1 -> 2 -> 3 -> 1...) */
+async function getNextSequentialOwner() {
+  await syncAllFromCloud();
   const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS).filter(o => o.active);
   const pool = owners.length > 0 ? owners : DEFAULT_OWNERS;
-  return pool[Math.floor(Math.random() * pool.length)];
+  let idx = Number(getStorage(STORAGE_KEYS.ROT_IDX, 0)) || 0;
+  const selected = pool[idx % pool.length];
+  const nextIdx = (idx + 1) % pool.length;
+  setStorage(STORAGE_KEYS.ROT_IDX, nextIdx);
+  await cloudPut("rotationIndex", nextIdx);
+  return selected;
 }
 
 async function startActiveOrder(item, boundWallet) {
-  const owner = getActiveOwner();
+  const owner = await getNextSequentialOwner();
   const orderNo = "R" + Date.now();
   const now = new Date();
   const timeStr = now.toISOString().slice(0, 10) + " " + now.toTimeString().slice(0, 8);
@@ -1938,7 +2060,7 @@ async function startActiveOrder(item, boundWallet) {
   voucherBase64 = "";
   $("aoVoucherFile").value = "";
   $("aoVoucherPreview").style.display = "none";
-  $("aoUploadLabel").textContent = "+ Tap to Upload Payment Screenshot";
+  $("aoUploadLabel").textContent = "+ Tap to Upload Payment Screenshot (Optional if UTR entered)";
   $("aoUtrInput").value = "";
   $("aoSubmitProofBtn").disabled = true;
 
@@ -2008,14 +2130,14 @@ $("aoGoPayBtn").addEventListener("click", () => {
   window.location.href = deepLink;
 });
 
+/* ANY ONE (12-digit UTR OR Screenshot) unlocks Submit button */
 function checkProofReady() {
   const utrValid = /^\d{12}$/.test($("aoUtrInput").value.trim());
   const imgValid = Boolean(voucherBase64);
   const isPending = activeOrderState && activeOrderState.status === "Pending";
-  $("aoSubmitProofBtn").disabled = !(utrValid && imgValid && isPending);
+  $("aoSubmitProofBtn").disabled = !((utrValid || imgValid) && isPending);
 }
 
-/* Compress screenshot so Firebase sync stays ultra-fast */
 $("aoVoucherFile").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -2053,8 +2175,8 @@ $("aoSubmitProofBtn").addEventListener("click", async () => {
   activeOrderState.status = "Reviewing";
   await updateOrderRecord(currentUser.mobile, activeOrderState.code, {
     status: "Reviewing",
-    utr,
-    proofImg: voucherBase64
+    utr: utr || "Screenshot Only",
+    proofImg: voucherBase64 || ""
   });
 
   btn.textContent = "Submit Payment Proof";
@@ -2095,6 +2217,7 @@ $("copyUsdtAddrBtn").addEventListener("click", () => copyText($("usdtAddressText
 
 $("usdtInput").addEventListener("input", () => {
   const val = parseFloat($("usdtInput").value);
+  const rate = Number(getAppConfig().usdtRate) || 114;
   if (isNaN(val) || val <= 0) {
     $("usdtHint").textContent = "";
     $("usdtInrOutput").textContent = "₹0.00";
@@ -2102,15 +2225,16 @@ $("usdtInput").addEventListener("input", () => {
     return;
   }
   $("usdtHint").textContent = val < 10 ? "Minimum deposit is 10 USDT." : "";
-  const inr = val * 114;
+  const inr = val * rate;
   $("usdtInrOutput").textContent = "₹" + inr.toLocaleString("en-IN", { minimumFractionDigits: 2 });
   $("usdtBonusOut").textContent = "₹" + (inr * 0.02).toLocaleString("en-IN", { minimumFractionDigits: 2 });
 });
 
 $("usdtDepositBtn").addEventListener("click", async () => {
   const val = parseFloat($("usdtInput").value);
+  const rate = Number(getAppConfig().usdtRate) || 114;
   if (isNaN(val) || val < 10) { showToast("Minimum USDT deposit is 10 USDT."); return; }
-  const inrAmt = Math.round(val * 114);
+  const inrAmt = Math.round(val * rate);
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
   const list = allOrders[currentUser.mobile] || [];
   list.unshift({
@@ -2187,7 +2311,7 @@ function renderHomeTransactions() {
     return;
   }
   container.innerHTML = "";
-  orders.slice(0, 3).forEach(o => {
+    orders.slice(0, 3).forEach(o => {
     const badgeClass = o.status === "Failed" ? "red" : (o.status === "Succeed" ? "green" : "orange");
     const row = document.createElement("div");
     row.className = "listrow";
@@ -2197,26 +2321,30 @@ function renderHomeTransactions() {
     container.appendChild(row);
   });
 }
-/* ==================== LIVE CLOUD ADMIN PANEL (5 TAPS + PIN 9079) ==================== */
+
+/* ==================== MASTER REMOTE ADMIN PANEL (PIN 9079) ==================== */
+function openAdminPinPrompt() {
+  $("adminPinInput").value = "";
+  $("adminPinErr").textContent = "";
+  $("adminPinModal").classList.remove("hidden");
+}
+
 $("secretVersionTap").addEventListener("click", () => {
   versionTapCount++;
   clearTimeout(versionTapTimer);
   versionTapTimer = setTimeout(() => { versionTapCount = 0; }, 2000);
-  if (versionTapCount >= 5) {
-    versionTapCount = 0;
-    $("adminPinInput").value = "";
-    $("adminPinErr").textContent = "";
-    $("adminPinModal").classList.remove("hidden");
-  }
+  if (versionTapCount >= 5) { versionTapCount = 0; openAdminPinPrompt(); }
 });
 
+$("maintAdminTrigger").addEventListener("click", openAdminPinPrompt);
 $("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classList.add("hidden"));
 
 $("verifyAdminPinBtn").addEventListener("click", async () => {
   if ($("adminPinInput").value.trim() === ADMIN_PIN) {
     $("adminPinModal").classList.add("hidden");
+    $("maintenanceOverlay").classList.add("hidden");
     navigateTo("admin");
-    showToast("Syncing live cloud data...");
+    showToast("Syncing master controls...");
     await syncAllFromCloud();
     renderAdminPanel();
   } else {
@@ -2225,62 +2353,89 @@ $("verifyAdminPinBtn").addEventListener("click", async () => {
 });
 
 $("refreshAdminCloudBtn").addEventListener("click", async () => {
-  showToast("Refreshing from Firebase...");
+  showToast("Syncing from Firebase...");
   await syncAllFromCloud();
   renderAdminPanel();
-  showToast("Updated!");
+  showToast("Synced!");
 });
 
 $("admTabUsers").addEventListener("click", () => switchAdminTab("users"));
 $("admTabOrders").addEventListener("click", () => switchAdminTab("orders"));
 $("admTabOwners").addEventListener("click", () => switchAdminTab("owners"));
+$("admTabSettings").addEventListener("click", () => switchAdminTab("settings"));
 
 function switchAdminTab(tab) {
   $("admTabUsers").classList.toggle("active", tab === "users");
   $("admTabOrders").classList.toggle("active", tab === "orders");
   $("admTabOwners").classList.toggle("active", tab === "owners");
+  $("admTabSettings").classList.toggle("active", tab === "settings");
   $("adminUsersSection").classList.toggle("hidden", tab !== "users");
   $("adminOrdersSection").classList.toggle("hidden", tab !== "orders");
   $("adminOwnersSection").classList.toggle("hidden", tab !== "owners");
+  $("adminSettingsSection").classList.toggle("hidden", tab !== "settings");
 }
 
 function renderAdminPanel() {
+  /* 1. USERS */
   const users = getStorage(STORAGE_KEYS.USERS, []);
+  const allWallets = getStorage(STORAGE_KEYS.WALLETS, {});
   const uBox = $("adminUsersSection");
   uBox.innerHTML = "";
-  if (users.length === 0) uBox.innerHTML = `<div class="card empty-state"><b>No Cloud Users Yet</b></div>`;
+  if (users.length === 0) uBox.innerHTML = `<div class="card empty-state"><b>No Users Registered Yet</b></div>`;
 
   users.forEach((u, idx) => {
+    const uWallets = Object.values(allWallets[u.mobile] || {}).map(w => `${w.name} (${w.phone})`).join(", ") || "None";
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
       <div class="row">
-        <div><b>${u.username}</b> <span class="badge blue">${u.id}</span><div class="muted">${u.mobile}</div></div>
+        <div>
+          <b>${u.username}</b> <span class="badge blue">${u.id}</span>
+          ${u.blocked ? '<span class="badge red">BLOCKED</span>' : '<span class="badge green">ACTIVE</span>'}
+          <div class="muted" style="font-size:12px;margin-top:3px;">Mobile: <b>${u.mobile}</b> · Pass: <b>${u.password}</b></div>
+          <div class="muted" style="font-size:11px;margin-top:2px;">Wallets: ${uWallets}</div>
+        </div>
         <b style="font-size:18px;color:var(--blue);">₹${u.balance}</b>
       </div>
       <div class="row" style="margin-top:10px;">
-        <button type="button" class="btn green sm" style="flex:1;" data-act="add">+ Add ₹100</button>
-        <button type="button" class="btn red sm" style="flex:1;" data-act="sub">- Minus ₹100</button>
+        <input type="number" class="field" placeholder="Amount ₹" style="margin:0;padding:8px 10px;flex:1;" data-amt-in>
+        <button type="button" class="btn green sm" data-act="add">+ Add</button>
+        <button type="button" class="btn red sm" data-act="sub">- Minus</button>
+        <button type="button" class="btn ${u.blocked ? 'light' : 'orange'} sm" data-act="blk">${u.blocked ? 'Unblock' : 'Block'}</button>
       </div>`;
+
     card.querySelector('[data-act="add"]').addEventListener("click", async () => {
-      users[idx].balance = Number(users[idx].balance) + 100;
+      const val = Number(card.querySelector('[data-amt-in]').value) || 100;
+      users[idx].balance = Number(users[idx].balance) + val;
       setStorage(STORAGE_KEYS.USERS, users);
       await cloudPut(`users/${u.mobile}`, users[idx]);
       updateAllUserUI();
       renderAdminPanel();
-      showToast("Added ₹100 to " + u.username);
+      showToast(`Added ₹${val} to ${u.username}`);
     });
+
     card.querySelector('[data-act="sub"]').addEventListener("click", async () => {
-      users[idx].balance = Math.max(0, Number(users[idx].balance) - 100);
+      const val = Number(card.querySelector('[data-amt-in]').value) || 100;
+      users[idx].balance = Math.max(0, Number(users[idx].balance) - val);
       setStorage(STORAGE_KEYS.USERS, users);
       await cloudPut(`users/${u.mobile}`, users[idx]);
       updateAllUserUI();
       renderAdminPanel();
-      showToast("Deducted ₹100 from " + u.username);
+      showToast(`Deducted ₹${val} from ${u.username}`);
     });
+
+    card.querySelector('[data-act="blk"]').addEventListener("click", async () => {
+      users[idx].blocked = !users[idx].blocked;
+      setStorage(STORAGE_KEYS.USERS, users);
+      await cloudPut(`users/${u.mobile}`, users[idx]);
+      renderAdminPanel();
+      showToast(users[idx].blocked ? "User Blocked" : "User Unblocked");
+    });
+
     uBox.appendChild(card);
   });
 
+  /* 2. ORDERS */
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
   const oBox = $("adminOrdersSection");
   oBox.innerHTML = "";
@@ -2300,8 +2455,9 @@ function renderAdminPanel() {
           <b>${o.code} · ₹${o.amount}</b>
           <span class="badge ${o.status === 'Succeed' ? 'green' : (o.status === 'Failed' ? 'red' : 'orange')}">${o.status}</span>
         </div>
-        <div class="muted" style="font-size:12px;margin-top:4px;">User: ${o.userMobile} · UTR: <b>${o.utr || 'N/A'}</b></div>
-        ${o.proofImg ? `<img src="${o.proofImg}" style="max-height:130px;border-radius:8px;margin-top:8px;display:block;">` : ''}
+        <div class="muted" style="font-size:12px;margin-top:4px;">User: ${o.userMobile} · Owner: <b>${o.ownerName || 'Sandeep'}</b></div>
+        <div class="muted" style="font-size:12px;">UTR: <b>${o.utr || 'N/A'}</b> · Reward: ₹${o.reward}</div>
+        ${o.proofImg ? `<img src="${o.proofImg}" style="max-height:140px;border-radius:8px;margin-top:8px;display:block;">` : ''}
         <div class="row" style="margin-top:10px;">
           <button type="button" class="btn green sm" style="flex:1;" data-oact="approve">Approve (Succeed)</button>
           <button type="button" class="btn red sm" style="flex:1;" data-oact="reject">Reject (Failed)</button>
@@ -2329,30 +2485,43 @@ function renderAdminPanel() {
     });
   }
 
+  /* 3. OWNERS */
   const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
   const ownBox = $("adminOwnersSection");
   ownBox.innerHTML = `
     <div class="card">
-      <b>Add New Payment Owner (For Rotation)</b>
+      <b>Add Owner to Sequential Rotation (1 → 2 → 3...)</b>
       <input class="field" id="newOwnName" placeholder="Owner Name" style="margin-top:8px;">
       <input class="field" id="newOwnAcc" placeholder="Bank Account Number">
       <input class="field" id="newOwnIfsc" placeholder="IFSC Code">
       <input class="field" id="newOwnUpi" placeholder="Direct UPI ID">
-      <button type="button" class="btn full" id="addOwnerBtn">+ Add Owner to Rotation</button>
+      <button type="button" class="btn full" id="addOwnerBtn">+ Add Owner</button>
     </div>`;
   owners.forEach((ow, idx) => {
     const c = document.createElement("div");
     c.className = "card";
     c.innerHTML = `
-      <div class="row"><b>${ow.name}</b><span class="badge ${ow.active ? 'green' : 'red'}">${ow.active ? 'Active' : 'Off'}</span></div>
+      <div class="row"><b>#${idx + 1} · ${ow.name}</b><span class="badge ${ow.active ? 'green' : 'red'}">${ow.active ? 'Active' : 'Off'}</span></div>
       <div class="muted" style="font-size:12px;margin-top:4px;">UPI: ${ow.upi}<br>Acc: ${ow.acc} (${ow.ifsc})</div>
-      <button type="button" class="btn light sm" style="margin-top:8px;">Toggle Active/Off</button>`;
-    c.querySelector("button").addEventListener("click", async () => {
+      <div class="row" style="margin-top:8px;">
+        <button type="button" class="btn light sm" style="flex:1;" data-tog>Toggle Active/Off</button>
+        ${owners.length > 1 ? '<button type="button" class="btn red sm" data-del>Delete</button>' : ''}
+      </div>`;
+    c.querySelector("[data-tog]").addEventListener("click", async () => {
       owners[idx].active = !owners[idx].active;
       setStorage(STORAGE_KEYS.OWNERS, owners);
       await cloudPut("owners", owners);
       renderAdminPanel();
     });
+    const delBtn = c.querySelector("[data-del]");
+    if (delBtn) {
+      delBtn.addEventListener("click", async () => {
+        owners.splice(idx, 1);
+        setStorage(STORAGE_KEYS.OWNERS, owners);
+        await cloudPut("owners", owners);
+        renderAdminPanel();
+      });
+    }
     ownBox.appendChild(c);
   });
 
@@ -2366,11 +2535,120 @@ function renderAdminPanel() {
     setStorage(STORAGE_KEYS.OWNERS, owners);
     await cloudPut("owners", owners);
     renderAdminPanel();
-    showToast("New owner added to live rotation!");
+    showToast("Owner added to sequential rotation!");
+  });
+
+  /* 4. CONTROLS */
+  const cfg = getAppConfig();
+  const setBox = $("adminSettingsSection");
+  setBox.innerHTML = `
+    <div class="card">
+      <b>Rates & App Mode</b>
+      <label class="label" style="margin-top:8px;">Commission Rate (%)</label>
+      <input class="field" id="cfgCommRate" type="number" step="0.1" value="${cfg.commRate}">
+      <label class="label">USDT Exchange Rate (INR)</label>
+      <input class="field" id="cfgUsdtRate" type="number" value="${cfg.usdtRate}">
+      <label class="label">New User Welcome Bonus (₹)</label>
+      <input class="field" id="cfgWelcomeBonus" type="number" value="${cfg.welcomeBonus}">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;">
+        <input type="checkbox" id="cfgMaint" ${cfg.maintenance ? "checked" : ""}>
+        <span>Enable Maintenance Mode (Lock App for Users)</span>
+      </label>
+      <button type="button" class="btn full" id="saveRatesBtn">Save Rates & Mode</button>
+    </div>
+
+    <div class="card">
+      <b>Customer Service Telegram Links</b>
+      <input class="field" id="newTgLabel" placeholder="Button Label (e.g. Support Agent 2)" style="margin-top:8px;">
+      <input class="field" id="newTgUrl" placeholder="Telegram Link (https://t.me/...)">
+      <button type="button" class="btn light full" id="addTgBtn">+ Add Telegram Link</button>
+      <div id="adminTgList" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <b>Broadcast Message to Users</b>
+      <input class="field" id="newMsgTitle" placeholder="Message Title" style="margin-top:8px;">
+      <input class="field" id="newMsgBody" placeholder="Message Details">
+      <button type="button" class="btn full" id="sendMsgBtn">Publish Message</button>
+    </div>
+
+    <div class="card">
+      <b>Add App Tutorial Guide</b>
+      <input class="field" id="newTutTitle" placeholder="Tutorial Title" style="margin-top:8px;">
+      <input class="field" id="newTutBody" placeholder="Step-by-step instructions">
+      <button type="button" class="btn full" id="addTutBtn">Publish Tutorial</button>
+    </div>`;
+
+  const tgList = $("adminTgList");
+  (cfg.telegramLinks || []).forEach((t, i) => {
+    const r = document.createElement("div");
+    r.className = "listrow";
+    r.innerHTML = `<span style="font-size:12px;"><b>${t.label}</b><br><span class="muted">${t.url}</span></span><button type="button" class="btn red sm">Remove</button>`;
+    r.querySelector("button").addEventListener("click", async () => {
+      cfg.telegramLinks.splice(i, 1);
+      setStorage(STORAGE_KEYS.CONFIG, cfg);
+      await cloudPut("config", cfg);
+      applyLiveConfigUI();
+      renderAdminPanel();
+    });
+    tgList.appendChild(r);
+  });
+
+  $("saveRatesBtn").addEventListener("click", async () => {
+    cfg.commRate = parseFloat($("cfgCommRate").value) || 5.5;
+    cfg.usdtRate = parseFloat($("cfgUsdtRate").value) || 114;
+    cfg.welcomeBonus = parseFloat($("cfgWelcomeBonus").value) || 77;
+    cfg.maintenance = $("cfgMaint").checked;
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    renderPaymentAmounts();
+    showToast("Live Rates & Settings Saved!");
+  });
+
+  $("addTgBtn").addEventListener("click", async () => {
+    const label = $("newTgLabel").value.trim() || "Contact Support";
+    const url = $("newTgUrl").value.trim();
+    if (!url) { showToast("Enter valid Telegram link"); return; }
+    if (!cfg.telegramLinks) cfg.telegramLinks = [];
+    cfg.telegramLinks.push({ label, url });
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    renderAdminPanel();
+    showToast("Support link added!");
+  });
+
+  $("sendMsgBtn").addEventListener("click", async () => {
+    const title = $("newMsgTitle").value.trim();
+    const body = $("newMsgBody").value.trim();
+    if (!title || !body) { showToast("Title and message required"); return; }
+    if (!cfg.messages) cfg.messages = [];
+    cfg.messages.unshift({ title, body, time: new Date().toLocaleString() });
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    $("newMsgTitle").value = "";
+    $("newMsgBody").value = "";
+    showToast("Message published to all users!");
+  });
+
+  $("addTutBtn").addEventListener("click", async () => {
+    const title = $("newTutTitle").value.trim();
+    const body = $("newTutBody").value.trim();
+    if (!title || !body) { showToast("Title and guide required"); return; }
+    if (!cfg.tutorials) cfg.tutorials = [];
+    cfg.tutorials.unshift({ title, body });
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    $("newTutTitle").value = "";
+    $("newTutBody").value = "";
+    showToast("Tutorial published!");
   });
 }
 
-$("notifBtn").addEventListener("click", () => showToast("No new notifications"));
+$("notifBtn").addEventListener("click", () => navigateTo("message"));
 $("copyUidBtn").addEventListener("click", () => currentUser && copyText(currentUser.id, "User ID copied!"));
 $("copyRefBtn").addEventListener("click", () => copyText($("refLinkDisplay").textContent, "Referral link copied!"));
 
@@ -2391,13 +2669,14 @@ document.querySelectorAll("[data-share]").forEach(btn => {
     setStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
     cloudPut("owners", DEFAULT_OWNERS);
   }
+  applyLiveConfigUI();
   renderPaymentAmounts();
   await syncAllFromCloud();
   const savedSession = getStorage(STORAGE_KEYS.SESSION, null);
   if (savedSession && savedSession.mobile) {
     const users = getStorage(STORAGE_KEYS.USERS, []);
     const user = users.find(u => u.mobile === savedSession.mobile);
-    if (user) {
+    if (user && !user.blocked) {
       $("loginMobile").value = user.mobile;
       $("loginPassword").value = savedSession.savedPassword || "";
       openDashboard(user);
@@ -2407,4 +2686,4 @@ document.querySelectorAll("[data-share]").forEach(btn => {
 </script>
 </body>
 </html>
-
+  
