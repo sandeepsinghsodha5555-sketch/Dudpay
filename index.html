@@ -146,19 +146,13 @@
     font-size: 18px;
   }
 
-  .page-title {
-    font-size: 20px;
-    font-weight: 800;
-    margin: 0;
-  }
-
+  .page-title { font-size: 20px; font-weight: 800; margin: 0; }
   main { padding: 16px; }
 
   .page {
     display: none;
     animation: pageEnter 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
   .page.active { display: block; }
 
   @keyframes pageEnter {
@@ -194,7 +188,6 @@
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 14px;
-    box-shadow: 0 4px 14px rgba(20, 43, 77, 0.03);
   }
 
   .metric-card .val {
@@ -734,7 +727,7 @@
             <button type="button" class="btn light sm" id="copyUidBtn" style="padding:3px 8px;">Copy</button>
           </div>
         </div>
-        <span class="badge blue">Active</span>
+        <span class="badge blue" id="cloudSyncBadge">Cloud Active</span>
       </div>
 
       <div class="balance-card">
@@ -908,7 +901,7 @@
 
       <p class="center muted" id="secretVersionTap" style="user-select:none;cursor:pointer;padding:8px;">DUDPAY Version 1.0.0</p>
             </section>
-                <section id="page-usdt" class="page">
+          <section id="page-usdt" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">USDT Deposit</h2>
@@ -1127,7 +1120,6 @@
       </div>
     </section>
 
-    <!-- CLEAN 1-CLICK CUSTOMER SERVICE PAGE (No QR/Username clutter) -->
     <section id="page-service" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="my">←</button>
@@ -1170,11 +1162,15 @@
       </div>
     </section>
 
-    <!-- SECRET ADMIN PANEL (PIN: 9079) -->
     <section id="page-admin" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="my">←</button>
-        <h2 class="page-title">Admin Control Panel</h2>
+        <h2 class="page-title">Live Cloud Admin</h2>
+      </div>
+
+      <div class="row" style="margin-bottom:10px;">
+        <span class="badge green" id="adminCloudStatus">● Firebase Connected</span>
+        <button type="button" class="btn light sm" id="refreshAdminCloudBtn">↻ Refresh Live Data</button>
       </div>
 
       <div class="seg-tabs">
@@ -1213,7 +1209,6 @@
   </nav>
 </div>
 
-<!-- MODALS -->
 <div id="bindModal" class="modal-backdrop hidden">
   <div class="modal-card">
     <div class="row" style="margin-bottom:8px;">
@@ -1303,9 +1298,11 @@
 </div>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script>
+<script>
 "use strict";
 
+/* Your Live Firebase Realtime Database Endpoint */
+const FIREBASE_DB_URL = "https://dudpay-default-rtdb.asia-southeast1.firebasedatabase.app";
 const ADMIN_PIN = "9079";
 
 const DEFAULT_OWNERS = [
@@ -1313,12 +1310,11 @@ const DEFAULT_OWNERS = [
 ];
 
 const STORAGE_KEYS = {
-  USERS: "dudpay_users_v3",
-  SESSION: "dudpay_session_v3",
-  WALLETS: "dudpay_wallets_v3",
-  ORDERS: "dudpay_orders_v3",
-  OWNERS: "dudpay_owners_v3",
-  USDT_ADDR: "dudpay_usdt_v3"
+  USERS: "dudpay_users_v4",
+  SESSION: "dudpay_session_v4",
+  WALLETS: "dudpay_wallets_v4",
+  ORDERS: "dudpay_orders_v4",
+  OWNERS: "dudpay_owners_v4"
 };
 
 const PAYMENT_AMOUNTS = [
@@ -1335,7 +1331,6 @@ const PAYMENT_AMOUNTS = [
   { amount: 5000, reward: "275.00", qty: 7 }
 ];
 
-/* Real Brand SVG Logos */
 const BRAND_LOGOS = {
   mobikwik: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#0073cf"/><path d="M10 30V14l7 9 7-9v16h-4v-9l-3 4-3-4v9h-4zm18-16h6v16h-6V14z" fill="#fff"/></svg>`,
   freecharge: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#e5632f"/><path d="M25 10L14 24h8l-3 10 11-14h-8l3-10z" fill="#fff"/></svg>`,
@@ -1391,11 +1386,48 @@ function setStorage(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
 }
 
+/* ==================== FIREBASE REALTIME CLOUD SYNC ==================== */
+async function cloudGet(path) {
+  try {
+    const res = await fetch(`${FIREBASE_DB_URL}/${path}.json`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (e) { return null; }
+}
+
+async function cloudPut(path, data) {
+  try {
+    await fetch(`${FIREBASE_DB_URL}/${path}.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+  } catch (e) {}
+}
+
+async function syncAllFromCloud() {
+  const [cUsers, cOrders, cOwners] = await Promise.all([
+    cloudGet("users"),
+    cloudGet("orders"),
+    cloudGet("owners")
+  ]);
+  if (cUsers && typeof cUsers === "object") {
+    const arr = Array.isArray(cUsers) ? cUsers.filter(Boolean) : Object.values(cUsers);
+    if (arr.length > 0) setStorage(STORAGE_KEYS.USERS, arr);
+  }
+  if (cOrders && typeof cOrders === "object") {
+    setStorage(STORAGE_KEYS.ORDERS, cOrders);
+  }
+  if (cOwners && Array.isArray(cOwners) && cOwners.length > 0) {
+    setStorage(STORAGE_KEYS.OWNERS, cOwners);
+  }
+  if (currentUser) updateAllUserUI();
+}
+
 function isValidMobile(num) {
   if (!/^[6-9]\d{9}$/.test(num)) return false;
   if (/^(\d)\1{9}$/.test(num)) return false;
-  const blocked = ["9876543210", "9123456789"];
-  return !blocked.includes(num);
+  return !["9876543210", "9123456789"].includes(num);
 }
 
 let toastTimer = null;
@@ -1410,9 +1442,7 @@ function showToast(msg) {
 function copyText(text, successMsg = "Copied!") {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));
-  } else {
-    fallbackCopy(text, successMsg);
-  }
+  } else { fallbackCopy(text, successMsg); }
 }
 
 function fallbackCopy(text, successMsg) {
@@ -1442,7 +1472,7 @@ $("tabRegister").addEventListener("click", () => switchAuthTab("register"));
 $("linkToRegister").addEventListener("click", (e) => { e.preventDefault(); switchAuthTab("register"); });
 $("linkToLogin").addEventListener("click", (e) => { e.preventDefault(); switchAuthTab("login"); });
 
-$("registerForm").addEventListener("submit", (e) => {
+$("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const username = $("regUsername").value.trim();
   const mobile = $("regMobile").value.trim();
@@ -1453,61 +1483,49 @@ $("registerForm").addEventListener("submit", (e) => {
   const errEl = $("registerError");
   errEl.textContent = "";
 
-  if (!/^[a-zA-Z\s]{3,25}$/.test(username)) {
-    errEl.textContent = "Please enter a valid username (letters only).";
-    return;
-  }
-  if (!isValidMobile(mobile)) {
-    errEl.textContent = "Please enter a valid 10-digit mobile number.";
-    return;
-  }
-  if (password.length < 6) {
-    errEl.textContent = "Password must be at least 6 characters.";
-    return;
-  }
-  if (password !== confirm) {
-    errEl.textContent = "Passwords do not match.";
-    return;
-  }
-  if (!privacy) {
-    errEl.textContent = "Please accept the Privacy Policy.";
-    return;
-  }
-
-  const users = getStorage(STORAGE_KEYS.USERS, []);
-  if (users.some(u => u.mobile === mobile)) {
-    errEl.textContent = "This mobile number is already registered.";
-    return;
-  }
+  if (!/^[a-zA-Z\s]{3,25}$/.test(username)) { errEl.textContent = "Please enter a valid username (letters only)."; return; }
+  if (!isValidMobile(mobile)) { errEl.textContent = "Please enter a valid 10-digit mobile number."; return; }
+  if (password.length < 6) { errEl.textContent = "Password must be at least 6 characters."; return; }
+  if (password !== confirm) { errEl.textContent = "Passwords do not match."; return; }
+  if (!privacy) { errEl.textContent = "Please accept the Privacy Policy."; return; }
 
   const btn = $("regSubmitBtn");
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Creating...';
 
-  setTimeout(() => {
-    users.push({
-      id: "DP" + mobile.slice(-6),
-      username,
-      mobile,
-      password,
-      inviteCode: invite || "",
-      balance: 77
-    });
-    setStorage(STORAGE_KEYS.USERS, users);
+  await syncAllFromCloud();
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  if (users.some(u => u.mobile === mobile)) {
     btn.disabled = false;
     btn.textContent = "Create Account";
+    errEl.textContent = "This mobile number is already registered.";
+    return;
+  }
 
-    $("registerForm").reset();
-    $("loginMobile").value = mobile;
-    $("loginPassword").value = "";
-    switchAuthTab("login");
-    $("successAnimModal").classList.remove("hidden");
-  }, 550);
+  const newUser = {
+    id: "DP" + mobile.slice(-6),
+    username,
+    mobile,
+    password,
+    inviteCode: invite || "",
+    balance: 77
+  };
+  users.push(newUser);
+  setStorage(STORAGE_KEYS.USERS, users);
+  await cloudPut(`users/${mobile}`, newUser);
+
+  btn.disabled = false;
+  btn.textContent = "Create Account";
+  $("registerForm").reset();
+  $("loginMobile").value = mobile;
+  $("loginPassword").value = "";
+  switchAuthTab("login");
+  $("successAnimModal").classList.remove("hidden");
 });
 
 $("closeAnimModalBtn").addEventListener("click", () => $("successAnimModal").classList.add("hidden"));
 
-$("loginForm").addEventListener("submit", (e) => {
+$("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const mobile = $("loginMobile").value.trim();
   const password = $("loginPassword").value;
@@ -1515,42 +1533,30 @@ $("loginForm").addEventListener("submit", (e) => {
   const errEl = $("loginError");
   errEl.textContent = "";
 
-  if (!isValidMobile(mobile)) {
-    errEl.textContent = "Please enter a valid 10-digit mobile number.";
-    return;
-  }
-  if (!password) {
-    errEl.textContent = "Please enter your password.";
-    return;
-  }
-
-  const users = getStorage(STORAGE_KEYS.USERS, []);
-  const foundUser = users.find(u => u.mobile === mobile);
-
-  if (!foundUser) {
-    errEl.textContent = "Account not found. Please register first.";
-    return;
-  }
-  if (foundUser.password !== password) {
-    errEl.textContent = "Incorrect password.";
-    return;
-  }
+  if (!isValidMobile(mobile)) { errEl.textContent = "Please enter a valid 10-digit mobile number."; return; }
+  if (!password) { errEl.textContent = "Please enter your password."; return; }
 
   const btn = $("loginSubmitBtn");
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Logging in...';
 
-  setTimeout(() => {
-    btn.disabled = false;
-    btn.textContent = "Login";
-    if (remember) {
-      setStorage(STORAGE_KEYS.SESSION, { mobile: foundUser.mobile, savedPassword: foundUser.password });
-    } else {
-      localStorage.removeItem(STORAGE_KEYS.SESSION);
-    }
-    openDashboard(foundUser);
-    showToast("Login successful!");
-  }, 500);
+  await syncAllFromCloud();
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  const foundUser = users.find(u => u.mobile === mobile);
+
+  btn.disabled = false;
+  btn.textContent = "Login";
+
+  if (!foundUser) { errEl.textContent = "Account not found. Please register first."; return; }
+  if (foundUser.password !== password) { errEl.textContent = "Incorrect password."; return; }
+
+  if (remember) {
+    setStorage(STORAGE_KEYS.SESSION, { mobile: foundUser.mobile, savedPassword: foundUser.password });
+  } else {
+    localStorage.removeItem(STORAGE_KEYS.SESSION);
+  }
+  openDashboard(foundUser);
+  showToast("Login successful!");
 });
 
 function openDashboard(user) {
@@ -1571,14 +1577,11 @@ $("logoutBtn").addEventListener("click", () => {
   if (saved && saved.mobile) {
     $("loginMobile").value = saved.mobile;
     $("loginPassword").value = saved.savedPassword || "";
-  } else {
-    $("loginPassword").value = "";
-  }
+  } else { $("loginPassword").value = ""; }
   switchAuthTab("login");
   showToast("Logged out");
 });
 
-/* Navigation */
 function navigateTo(pageKey) {
   const targetPage = $("page-" + pageKey);
   if (!targetPage) return;
@@ -1594,7 +1597,7 @@ function navigateTo(pageKey) {
   if (pageKey === "wallet") renderBoundWalletsPage();
   if (pageKey === "add-wallet") renderAllWalletsSelector();
   if (pageKey === "order") renderOrders();
-  if (pageKey === "home") renderHomeTransactions();
+  if (pageKey === "home") { syncAllFromCloud(); renderHomeTransactions(); }
   if (pageKey === "payment") renderPaymentAmounts();
 
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1602,10 +1605,7 @@ function navigateTo(pageKey) {
 
 document.addEventListener("click", (e) => {
   const navTrigger = e.target.closest("[data-nav]");
-  if (navTrigger) {
-    e.preventDefault();
-    navigateTo(navTrigger.dataset.nav);
-  }
+  if (navTrigger) { e.preventDefault(); navigateTo(navTrigger.dataset.nav); }
   const copyTrigger = e.target.closest("[data-copy-el]");
   if (copyTrigger) {
     const el = $(copyTrigger.dataset.copyEl);
@@ -1613,16 +1613,13 @@ document.addEventListener("click", (e) => {
   }
 });
 
-/* Wallet Flow (Only Bound Shown First + Add Wallet Button) */
 $("openAddWalletSelectorBtn").addEventListener("click", () => navigateTo("add-wallet"));
-
 $("wTabPersonal").addEventListener("click", () => {
   currentWalletCategory = "personal";
   $("wTabPersonal").classList.add("active");
   $("wTabBusiness").classList.remove("active");
   renderAllWalletsSelector();
 });
-
 $("wTabBusiness").addEventListener("click", () => {
   currentWalletCategory = "business";
   $("wTabBusiness").classList.add("active");
@@ -1639,18 +1636,15 @@ function renderBoundWalletsPage() {
   const container = $("boundWalletsList");
   const boundList = Object.values(getUserWallets());
   container.innerHTML = "";
-
   if (boundList.length === 0) {
     container.innerHTML = `
       <div class="card empty-state">
         <div class="empty-icon">▣</div>
         <b>No Wallet Linked</b>
         <div class="muted" style="margin-top:4px;">Tap "+ Add Wallet" below to verify and link your payment app.</div>
-      </div>
-    `;
+      </div>`;
     return;
   }
-
   boundList.forEach(b => {
     const wMeta = WALLETS_DATA.find(x => x.id === b.id) || { payout: true };
     const div = document.createElement("div");
@@ -1666,8 +1660,7 @@ function renderBoundWalletsPage() {
           <div class="muted" style="font-size:12px;margin-top:4px;">Mobile: <b>${b.phone}</b></div>
         </div>
       </div>
-      <span class="badge ${wMeta.payout ? 'blue' : 'orange'}">${wMeta.payout ? 'Payout' : 'Payin Only'}</span>
-    `;
+      <span class="badge ${wMeta.payout ? 'blue' : 'orange'}">${wMeta.payout ? 'Payout' : 'Payin Only'}</span>`;
     container.appendChild(div);
   });
 }
@@ -1677,7 +1670,6 @@ function renderAllWalletsSelector() {
   const bound = getUserWallets();
   const filtered = WALLETS_DATA.filter(w => w.category === currentWalletCategory);
   container.innerHTML = "";
-
   filtered.forEach(w => {
     const isLinked = Boolean(bound[w.id]);
     const div = document.createElement("div");
@@ -1693,13 +1685,12 @@ function renderAllWalletsSelector() {
           <div class="muted" style="font-size:11px;margin-top:3px;">${w.range}</div>
         </div>
       </div>
-      <button type="button" class="btn ${isLinked ? 'light' : ''} sm">${isLinked ? 'Linked' : 'Select'}</button>
-    `;
+      <button type="button" class="btn ${isLinked ? 'light' : ''} sm">${isLinked ? 'Linked' : 'Select'}</button>`;
     div.querySelector("button").addEventListener("click", () => openBindStepper(w));
     container.appendChild(div);
   });
 }
-    function setStepperUI(step) {
+  function setStepperUI(step) {
   [1, 2, 3].forEach(n => {
     $("bindStep" + n).classList.toggle("hidden", n !== step);
     const node = $("stepNode" + n);
@@ -1728,15 +1719,8 @@ $("toStep2Btn").addEventListener("click", () => {
   const phone = $("bindPhoneInput").value.trim();
   const err = $("bindStep1Err");
   err.textContent = "";
-
-  if (!isValidMobile(phone)) {
-    err.textContent = "Please enter a valid 10-digit mobile number.";
-    return;
-  }
-  if (currentUser && phone !== currentUser.mobile) {
-    err.textContent = "Mobile number must match your DUDPAY login mobile number.";
-    return;
-  }
+  if (!isValidMobile(phone)) { err.textContent = "Please enter a valid 10-digit mobile number."; return; }
+  if (currentUser && phone !== currentUser.mobile) { err.textContent = "Mobile number must match your DUDPAY login mobile number."; return; }
   setStepperUI(2);
 });
 
@@ -1756,11 +1740,9 @@ $("toStep3Btn").addEventListener("click", () => {
     err.textContent = "App not detected. Please download and install " + activeBindWallet.name + " first before linking.";
     return;
   }
-
   const btn = $("toStep3Btn");
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Authorizing...';
-
   setTimeout(() => {
     btn.disabled = false;
     btn.textContent = "Authorize";
@@ -1777,7 +1759,7 @@ $("toStep3Btn").addEventListener("click", () => {
     setStorage(STORAGE_KEYS.WALLETS, allWallets);
     $("bindSuccessSummary").textContent = activeBindWallet.name + " (" + phone + ") is now linked.";
     setStepperUI(3);
-  }, 600);
+  }, 550);
 });
 
 $("finishBindBtn").addEventListener("click", () => {
@@ -1786,7 +1768,6 @@ $("finishBindBtn").addEventListener("click", () => {
   showToast("Wallet added!");
 });
 
-/* Data & UI Sync */
 function getUserOrders() {
   if (!currentUser) return [];
   return getStorage(STORAGE_KEYS.ORDERS, {})[currentUser.mobile] || [];
@@ -1822,11 +1803,9 @@ function updateAllUserUI() {
   $("ordBalance").textContent = "₹" + currentUser.balance;
   $("ordPending").textContent = "₹" + pendingAmt;
   $("refLinkDisplay").textContent = "https://dudpay.app/invite/" + currentUser.id;
-
   renderHomeTransactions();
 }
 
-/* Statistics Toggle */
 $("toggleSellingBtn").addEventListener("click", () => {
   isSellingActive = !isSellingActive;
   const btn = $("toggleSellingBtn");
@@ -1846,7 +1825,6 @@ $("toggleSellingBtn").addEventListener("click", () => {
   }
 });
 
-/* Payment Cards with Live Dynamic Quantities */
 function renderPaymentAmounts() {
   const container = $("paymentAmountList");
   container.innerHTML = "";
@@ -1861,8 +1839,7 @@ function renderPaymentAmounts() {
         <div class="qty">Order quantity: <b>${liveQty}</b></div>
         <div class="rew">Reward: ₹${item.reward} · Final: ₹${finalAmt}</div>
       </div>
-      <button type="button" class="btn sm">Receive</button>
-    `;
+      <button type="button" class="btn sm">Receive</button>`;
     card.querySelector("button").addEventListener("click", () => handleReceiveClick(item));
     container.appendChild(card);
   });
@@ -1875,12 +1852,10 @@ function handleReceiveClick(item) {
     navigateTo("wallet");
     return;
   }
-
   pendingAmountItem = item;
   selectedToolId = boundList[0].id;
   const listEl = $("boundToolsRadioList");
   listEl.innerHTML = "";
-
   boundList.forEach((b, idx) => {
     const row = document.createElement("label");
     row.className = "wallet-item bound";
@@ -1888,17 +1863,12 @@ function handleReceiveClick(item) {
     row.innerHTML = `
       <div class="wallet-left">
         <div class="w-logo">${BRAND_LOGOS[b.id] || ""}</div>
-        <div>
-          <b>${b.name}</b>
-          <div class="muted" style="font-size:12px;">${b.phone}</div>
-        </div>
+        <div><b>${b.name}</b><div class="muted" style="font-size:12px;">${b.phone}</div></div>
       </div>
-      <input type="radio" name="boundToolRadio" value="${b.id}" ${idx === 0 ? "checked" : ""}>
-    `;
+      <input type="radio" name="boundToolRadio" value="${b.id}" ${idx === 0 ? "checked" : ""}>`;
     row.querySelector("input").addEventListener("change", () => { selectedToolId = b.id; });
     listEl.appendChild(row);
   });
-
   $("selectToolModal").classList.remove("hidden");
 }
 
@@ -1913,15 +1883,13 @@ $("confirmToolSelectBtn").addEventListener("click", () => {
   startActiveOrder(pendingAmountItem, boundWallet);
 });
 
-/* Multi-Owner Rotation */
 function getActiveOwner() {
   const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS).filter(o => o.active);
   const pool = owners.length > 0 ? owners : DEFAULT_OWNERS;
-  const idx = Math.floor(Math.random() * pool.length);
-  return pool[idx];
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
-function startActiveOrder(item, boundWallet) {
+async function startActiveOrder(item, boundWallet) {
   const owner = getActiveOwner();
   const orderNo = "R" + Date.now();
   const now = new Date();
@@ -1953,6 +1921,7 @@ function startActiveOrder(item, boundWallet) {
   allOrders[currentUser.mobile] = list;
   setStorage(STORAGE_KEYS.ORDERS, allOrders);
   updateAllUserUI();
+  cloudPut(`orders/${currentUser.mobile}`, list);
 
   $("aoAmount").textContent = "INR " + item.amount.toFixed(2);
   $("aoPayeeAcc").textContent = owner.acc;
@@ -2001,7 +1970,7 @@ function startOrderCountdown() {
   }, 1000);
 }
 
-function updateOrderRecord(userMobile, code, patch) {
+async function updateOrderRecord(userMobile, code, patch) {
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
   const list = allOrders[userMobile] || [];
   const idx = list.findIndex(o => o.code === code);
@@ -2010,6 +1979,7 @@ function updateOrderRecord(userMobile, code, patch) {
     allOrders[userMobile] = list;
     setStorage(STORAGE_KEYS.ORDERS, allOrders);
     updateAllUserUI();
+    await cloudPut(`orders/${userMobile}`, list);
   }
 }
 
@@ -2028,14 +1998,12 @@ $("aoGoPayBtn").addEventListener("click", () => {
   if (!activeOrderState) return;
   const amt = activeOrderState.amount.toFixed(2);
   const upiParams = `pa=${encodeURIComponent(activeOrderState.ownerUpi)}&pn=${encodeURIComponent(activeOrderState.ownerName)}&am=${amt}&cu=INR&tn=${activeOrderState.code}`;
-
   let deepLink = `upi://pay?${upiParams}`;
   if (activeOrderState.walletId === "phonepe") deepLink = `phonepe://pay?${upiParams}`;
   else if (activeOrderState.walletId === "paytm") deepLink = `paytmmp://pay?${upiParams}`;
   else if (activeOrderState.walletId === "mobikwik") deepLink = `mobikwik://upi/pay?${upiParams}`;
   else if (activeOrderState.walletId === "freecharge") deepLink = `freecharge://upi/pay?${upiParams}`;
   else if (activeOrderState.walletId === "bharatpe") deepLink = `bharatpe://upi/pay?${upiParams}`;
-
   showToast("Opening " + activeOrderState.wallet + "...");
   window.location.href = deepLink;
 });
@@ -2047,33 +2015,49 @@ function checkProofReady() {
   $("aoSubmitProofBtn").disabled = !(utrValid && imgValid && isPending);
 }
 
+/* Compress screenshot so Firebase sync stays ultra-fast */
 $("aoVoucherFile").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = (ev) => {
-    voucherBase64 = ev.target.result;
-    $("aoVoucherPreview").src = voucherBase64;
-    $("aoVoucherPreview").style.display = "block";
-    $("aoUploadLabel").textContent = "✓ Screenshot Attached";
-    checkProofReady();
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const maxW = 480;
+      const scale = Math.min(1, maxW / img.width);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+      voucherBase64 = canvas.toDataURL("image/jpeg", 0.65);
+      $("aoVoucherPreview").src = voucherBase64;
+      $("aoVoucherPreview").style.display = "block";
+      $("aoUploadLabel").textContent = "✓ Screenshot Attached";
+      checkProofReady();
+    };
+    img.src = ev.target.result;
   };
   reader.readAsDataURL(file);
 });
 
 $("aoUtrInput").addEventListener("input", checkProofReady);
 
-$("aoSubmitProofBtn").addEventListener("click", () => {
+$("aoSubmitProofBtn").addEventListener("click", async () => {
   if (!activeOrderState) return;
+  const btn = $("aoSubmitProofBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
   const utr = $("aoUtrInput").value.trim();
   clearInterval(orderCountdownInterval);
   activeOrderState.status = "Reviewing";
-  updateOrderRecord(currentUser.mobile, activeOrderState.code, {
+  await updateOrderRecord(currentUser.mobile, activeOrderState.code, {
     status: "Reviewing",
     utr,
     proofImg: voucherBase64
   });
 
+  btn.textContent = "Submit Payment Proof";
   showToast("Proof submitted! Under review.");
   navigateTo("order");
   currentOrderTab = "purchase";
@@ -2123,12 +2107,9 @@ $("usdtInput").addEventListener("input", () => {
   $("usdtBonusOut").textContent = "₹" + (inr * 0.02).toLocaleString("en-IN", { minimumFractionDigits: 2 });
 });
 
-$("usdtDepositBtn").addEventListener("click", () => {
+$("usdtDepositBtn").addEventListener("click", async () => {
   const val = parseFloat($("usdtInput").value);
-  if (isNaN(val) || val < 10) {
-    showToast("Minimum USDT deposit is 10 USDT.");
-    return;
-  }
+  if (isNaN(val) || val < 10) { showToast("Minimum USDT deposit is 10 USDT."); return; }
   const inrAmt = Math.round(val * 114);
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
   const list = allOrders[currentUser.mobile] || [];
@@ -2145,6 +2126,7 @@ $("usdtDepositBtn").addEventListener("click", () => {
   allOrders[currentUser.mobile] = list;
   setStorage(STORAGE_KEYS.ORDERS, allOrders);
   updateAllUserUI();
+  await cloudPut(`orders/${currentUser.mobile}`, list);
   showToast("USDT deposit order created!");
   navigateTo("order");
 });
@@ -2192,8 +2174,7 @@ function renderOrders() {
       <div style="text-align:right;">
         <span class="badge ${badgeClass}">${o.status}</span>
         <div class="muted" style="font-size:11px;margin-top:5px;">${o.time}</div>
-      </div>
-    `;
+      </div>`;
     container.appendChild(row);
   });
 }
@@ -2212,13 +2193,12 @@ function renderHomeTransactions() {
     row.className = "listrow";
     row.innerHTML = `
       <div><b>Deposit INR (${o.wallet})</b><div class="muted" style="font-size:12px;">${o.time}</div></div>
-      <div style="text-align:right;"><b style="color:var(--blue);">₹${o.amount.toFixed(2)}</b><div><span class="badge ${badgeClass}">${o.status}</span></div></div>
-    `;
+      <div style="text-align:right;"><b style="color:var(--blue);">₹${o.amount.toFixed(2)}</b><div><span class="badge ${badgeClass}">${o.status}</span></div></div>`;
     container.appendChild(row);
   });
 }
 
-/* ==================== SECRET ADMIN PANEL (5 TAPS + PIN 9079) ==================== */
+/* ==================== LIVE CLOUD ADMIN PANEL (5 TAPS + PIN 9079) ==================== */
 $("secretVersionTap").addEventListener("click", () => {
   versionTapCount++;
   clearTimeout(versionTapTimer);
@@ -2231,17 +2211,24 @@ $("secretVersionTap").addEventListener("click", () => {
   }
 });
 
-$("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classList.add("hidden"));
-
-$("verifyAdminPinBtn").addEventListener("click", () => {
+$("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classL
+ $("verifyAdminPinBtn").addEventListener("click", async () => {
   if ($("adminPinInput").value.trim() === ADMIN_PIN) {
     $("adminPinModal").classList.add("hidden");
-    renderAdminPanel();
     navigateTo("admin");
-    showToast("Admin Mode Unlocked");
+    showToast("Syncing live cloud data...");
+    await syncAllFromCloud();
+    renderAdminPanel();
   } else {
     $("adminPinErr").textContent = "Invalid Admin PIN";
   }
+});
+
+$("refreshAdminCloudBtn").addEventListener("click", async () => {
+  showToast("Refreshing from Firebase...");
+  await syncAllFromCloud();
+  renderAdminPanel();
+  showToast("Updated!");
 });
 
 $("admTabUsers").addEventListener("click", () => switchAdminTab("users"));
@@ -2249,7 +2236,7 @@ $("admTabOrders").addEventListener("click", () => switchAdminTab("orders"));
 $("admTabOwners").addEventListener("click", () => switchAdminTab("owners"));
 
 function switchAdminTab(tab) {
-   $("admTabUsers").classList.toggle("active", tab === "users");
+  $("admTabUsers").classList.toggle("active", tab === "users");
   $("admTabOrders").classList.toggle("active", tab === "orders");
   $("admTabOwners").classList.toggle("active", tab === "owners");
   $("adminUsersSection").classList.toggle("hidden", tab !== "users");
@@ -2258,10 +2245,11 @@ function switchAdminTab(tab) {
 }
 
 function renderAdminPanel() {
-  /* 1. Users List with +Add / -Minus Balance */
   const users = getStorage(STORAGE_KEYS.USERS, []);
   const uBox = $("adminUsersSection");
   uBox.innerHTML = "";
+  if (users.length === 0) uBox.innerHTML = `<div class="card empty-state"><b>No Cloud Users Yet</b></div>`;
+
   users.forEach((u, idx) => {
     const card = document.createElement("div");
     card.className = "card";
@@ -2273,18 +2261,19 @@ function renderAdminPanel() {
       <div class="row" style="margin-top:10px;">
         <button type="button" class="btn green sm" style="flex:1;" data-act="add">+ Add ₹100</button>
         <button type="button" class="btn red sm" style="flex:1;" data-act="sub">- Minus ₹100</button>
-      </div>
-    `;
-    card.querySelector('[data-act="add"]').addEventListener("click", () => {
+      </div>`;
+    card.querySelector('[data-act="add"]').addEventListener("click", async () => {
       users[idx].balance = Number(users[idx].balance) + 100;
       setStorage(STORAGE_KEYS.USERS, users);
+      await cloudPut(`users/${u.mobile}`, users[idx]);
       updateAllUserUI();
       renderAdminPanel();
       showToast("Added ₹100 to " + u.username);
     });
-    card.querySelector('[data-act="sub"]').addEventListener("click", () => {
+    card.querySelector('[data-act="sub"]').addEventListener("click", async () => {
       users[idx].balance = Math.max(0, Number(users[idx].balance) - 100);
       setStorage(STORAGE_KEYS.USERS, users);
+      await cloudPut(`users/${u.mobile}`, users[idx]);
       updateAllUserUI();
       renderAdminPanel();
       showToast("Deducted ₹100 from " + u.username);
@@ -2292,7 +2281,6 @@ function renderAdminPanel() {
     uBox.appendChild(card);
   });
 
-  /* 2. Orders List with Approve (Succeed) / Reject (Failed) */
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
   const oBox = $("adminOrdersSection");
   oBox.innerHTML = "";
@@ -2313,27 +2301,27 @@ function renderAdminPanel() {
           <span class="badge ${o.status === 'Succeed' ? 'green' : (o.status === 'Failed' ? 'red' : 'orange')}">${o.status}</span>
         </div>
         <div class="muted" style="font-size:12px;margin-top:4px;">User: ${o.userMobile} · UTR: <b>${o.utr || 'N/A'}</b></div>
-        ${o.proofImg ? `<img src="${o.proofImg}" style="max-height:110px;border-radius:8px;margin-top:8px;display:block;">` : ''}
+        ${o.proofImg ? `<img src="${o.proofImg}" style="max-height:130px;border-radius:8px;margin-top:8px;display:block;">` : ''}
         <div class="row" style="margin-top:10px;">
           <button type="button" class="btn green sm" style="flex:1;" data-oact="approve">Approve (Succeed)</button>
           <button type="button" class="btn red sm" style="flex:1;" data-oact="reject">Reject (Failed)</button>
-        </div>
-      `;
-      card.querySelector('[data-oact="approve"]').addEventListener("click", () => {
+        </div>`;
+      card.querySelector('[data-oact="approve"]').addEventListener("click", async () => {
         if (o.status !== "Succeed") {
           const uList = getStorage(STORAGE_KEYS.USERS, []);
           const uIdx = uList.findIndex(x => x.mobile === o.userMobile);
           if (uIdx !== -1) {
             uList[uIdx].balance = Number(uList[uIdx].balance) + Number(o.amount) + Number(o.reward || 0);
             setStorage(STORAGE_KEYS.USERS, uList);
+            await cloudPut(`users/${o.userMobile}`, uList[uIdx]);
           }
         }
-        updateOrderRecord(o.userMobile, o.code, { status: "Succeed" });
+        await updateOrderRecord(o.userMobile, o.code, { status: "Succeed" });
         renderAdminPanel();
-        showToast("Order marked Succeed & Balance credited!");
+        showToast("Order Succeed & Balance credited!");
       });
-      card.querySelector('[data-oact="reject"]').addEventListener("click", () => {
-        updateOrderRecord(o.userMobile, o.code, { status: "Failed" });
+      card.querySelector('[data-oact="reject"]').addEventListener("click", async () => {
+        await updateOrderRecord(o.userMobile, o.code, { status: "Failed" });
         renderAdminPanel();
         showToast("Order marked Failed");
       });
@@ -2341,7 +2329,6 @@ function renderAdminPanel() {
     });
   }
 
-  /* 3. Multi-Owner Rotation Manager */
   const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
   const ownBox = $("adminOwnersSection");
   ownBox.innerHTML = `
@@ -2352,25 +2339,24 @@ function renderAdminPanel() {
       <input class="field" id="newOwnIfsc" placeholder="IFSC Code">
       <input class="field" id="newOwnUpi" placeholder="Direct UPI ID">
       <button type="button" class="btn full" id="addOwnerBtn">+ Add Owner to Rotation</button>
-    </div>
-  `;
+    </div>`;
   owners.forEach((ow, idx) => {
     const c = document.createElement("div");
     c.className = "card";
     c.innerHTML = `
       <div class="row"><b>${ow.name}</b><span class="badge ${ow.active ? 'green' : 'red'}">${ow.active ? 'Active' : 'Off'}</span></div>
       <div class="muted" style="font-size:12px;margin-top:4px;">UPI: ${ow.upi}<br>Acc: ${ow.acc} (${ow.ifsc})</div>
-      <button type="button" class="btn light sm" style="margin-top:8px;">Toggle Active/Off</button>
-    `;
-    c.querySelector("button").addEventListener("click", () => {
+      <button type="button" class="btn light sm" style="margin-top:8px;">Toggle Active/Off</button>`;
+    c.querySelector("button").addEventListener("click", async () => {
       owners[idx].active = !owners[idx].active;
       setStorage(STORAGE_KEYS.OWNERS, owners);
+      await cloudPut("owners", owners);
       renderAdminPanel();
     });
     ownBox.appendChild(c);
   });
 
-  $("addOwnerBtn").addEventListener("click", () => {
+  $("addOwnerBtn").addEventListener("click", async () => {
     const name = $("newOwnName").value.trim();
     const acc = $("newOwnAcc").value.trim();
     const ifsc = $("newOwnIfsc").value.trim().toUpperCase();
@@ -2378,12 +2364,12 @@ function renderAdminPanel() {
     if (!name || !upi) { showToast("Name and UPI ID required"); return; }
     owners.push({ id: Date.now(), name, acc: acc || "N/A", ifsc: ifsc || "N/A", upi, active: true });
     setStorage(STORAGE_KEYS.OWNERS, owners);
+    await cloudPut("owners", owners);
     renderAdminPanel();
-    showToast("New owner added to rotation!");
+    showToast("New owner added to live rotation!");
   });
 }
 
-/* Copy & Share */
 $("notifBtn").addEventListener("click", () => showToast("No new notifications"));
 $("copyUidBtn").addEventListener("click", () => currentUser && copyText(currentUser.id, "User ID copied!"));
 $("copyRefBtn").addEventListener("click", () => copyText($("refLinkDisplay").textContent, "Referral link copied!"));
@@ -2400,12 +2386,13 @@ document.querySelectorAll("[data-share]").forEach(btn => {
   });
 });
 
-/* Init */
-(function init() {
+(async function init() {
   if (!localStorage.getItem(STORAGE_KEYS.OWNERS)) {
     setStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
+    cloudPut("owners", DEFAULT_OWNERS);
   }
   renderPaymentAmounts();
+  await syncAllFromCloud();
   const savedSession = getStorage(STORAGE_KEYS.SESSION, null);
   if (savedSession && savedSession.mobile) {
     const users = getStorage(STORAGE_KEYS.USERS, []);
