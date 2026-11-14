@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Dudpay",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Dudpay",
+  "start_url": "/",
+  "theme_color": "#1769d2",
+  "id": "Dudpay"
+}
