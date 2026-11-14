@@ -2197,7 +2197,6 @@ function renderHomeTransactions() {
     container.appendChild(row);
   });
 }
-
 /* ==================== LIVE CLOUD ADMIN PANEL (5 TAPS + PIN 9079) ==================== */
 $("secretVersionTap").addEventListener("click", () => {
   versionTapCount++;
@@ -2211,8 +2210,9 @@ $("secretVersionTap").addEventListener("click", () => {
   }
 });
 
-$("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classL
- $("verifyAdminPinBtn").addEventListener("click", async () => {
+$("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classList.add("hidden"));
+
+$("verifyAdminPinBtn").addEventListener("click", async () => {
   if ($("adminPinInput").value.trim() === ADMIN_PIN) {
     $("adminPinModal").classList.add("hidden");
     navigateTo("admin");
@@ -2407,3 +2407,4 @@ document.querySelectorAll("[data-share]").forEach(btn => {
 </script>
 </body>
 </html>
+
