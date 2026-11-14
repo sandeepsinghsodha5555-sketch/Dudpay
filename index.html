@@ -45,7 +45,7 @@
 
   button {
     cursor: pointer;
-    transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.15s ease, background-color 0.2s ease;
   }
 
   button:active:not(:disabled) {
@@ -62,18 +62,9 @@
     padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
-  .hidden {
-    display: none !important;
-  }
-
-  .muted {
-    color: var(--muted);
-    font-size: 13px;
-  }
-
-  .center {
-    text-align: center;
-  }
+  .hidden { display: none !important; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .center { text-align: center; }
 
   .topbar {
     position: sticky;
@@ -105,7 +96,6 @@
     padding: 3px 8px;
     border-radius: 7px;
     font-weight: 800;
-    box-shadow: 0 3px 8px rgba(23, 105, 210, 0.28);
   }
 
   .icon-btn {
@@ -154,7 +144,6 @@
     place-items: center;
     font-weight: 800;
     font-size: 18px;
-    box-shadow: 0 2px 6px rgba(20, 43, 77, 0.04);
   }
 
   .page-title {
@@ -163,18 +152,14 @@
     margin: 0;
   }
 
-  main {
-    padding: 16px;
-  }
+  main { padding: 16px; }
 
   .page {
     display: none;
     animation: pageEnter 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .page.active {
-    display: block;
-  }
+  .page.active { display: block; }
 
   @keyframes pageEnter {
     from { opacity: 0; transform: translateY(10px); }
@@ -245,19 +230,8 @@
     background: rgba(245, 158, 11, 0.26);
   }
 
-  .balance-card .lbl {
-    font-size: 13px;
-    color: #dbeafe;
-    font-weight: 600;
-  }
-
-  .balance-card .big-amt {
-    display: block;
-    font-size: 36px;
-    font-weight: 900;
-    margin: 8px 0 14px;
-    letter-spacing: -0.5px;
-  }
+  .balance-card .lbl { font-size: 13px; color: #dbeafe; font-weight: 600; }
+  .balance-card .big-amt { display: block; font-size: 36px; font-weight: 900; margin: 8px 0 14px; }
 
   .balance-sub {
     background: rgba(255, 255, 255, 0.15);
@@ -289,7 +263,6 @@
     font-weight: 700;
     font-size: 12px;
     position: relative;
-    box-shadow: 0 3px 10px rgba(20, 43, 77, 0.03);
   }
 
   .quick-icon {
@@ -428,7 +401,6 @@
   .auth-tabs button.active {
     background: var(--blue);
     color: var(--white);
-    box-shadow: 0 2px 8px rgba(23, 105, 210, 0.25);
   }
 
   .pay-summary {
@@ -439,25 +411,9 @@
     margin-bottom: 14px;
   }
 
-  .pay-rate {
-    font-size: 32px;
-    font-weight: 900;
-    color: var(--orange);
-    margin: 4px 0 12px;
-  }
-
-  .pay-boxes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-
-  .pay-box {
-    background: rgba(255, 255, 255, 0.13);
-    border-radius: 12px;
-    padding: 10px;
-  }
-
+  .pay-rate { font-size: 32px; font-weight: 900; color: var(--orange); margin: 4px 0 12px; }
+  .pay-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pay-box { background: rgba(255, 255, 255, 0.13); border-radius: 12px; padding: 10px; }
   .pay-box small { display: block; font-size: 11px; color: #dbeafe; }
   .pay-box b { font-size: 15px; display: block; margin-top: 4px; }
 
@@ -481,11 +437,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 3px 10px rgba(20, 43, 77, 0.03);
   }
 
-  .amount-card .amt { font-size: 18px; font-weight: 800; color: var(--navy); }
-  .amount-card .rew { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 4px; }
+  .amount-card .amt { font-size: 17px; font-weight: 800; color: var(--navy); }
+  .amount-card .qty { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .amount-card .rew { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 2px; }
 
   .seg-tabs {
     display: flex;
@@ -507,10 +463,7 @@
     font-size: 13px;
   }
 
-  .seg-tabs button.active {
-    background: var(--blue);
-    color: var(--white);
-  }
+  .seg-tabs button.active { background: var(--blue); color: var(--white); }
 
   .wallet-item {
     background: var(--white);
@@ -522,7 +475,6 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .wallet-item.bound {
@@ -538,10 +490,8 @@
     border-radius: 12px;
     display: grid;
     place-items: center;
-    font-weight: 900;
-    font-size: 15px;
-    color: #fff;
     flex-shrink: 0;
+    overflow: hidden;
   }
 
   .stepper {
@@ -589,27 +539,11 @@
   }
 
   .step-node.active { color: var(--blue); }
-  .step-node.active .step-circle {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-    box-shadow: 0 0 0 4px rgba(23, 105, 210, 0.16);
-  }
+  .step-node.active .step-circle { background: var(--blue); border-color: var(--blue); color: #fff; }
   .step-node.done { color: var(--green); }
-  .step-node.done .step-circle {
-    background: var(--green);
-    border-color: var(--green);
-    color: #fff;
-  }
+  .step-node.done .step-circle { background: var(--green); border-color: var(--green); color: #fff; }
 
-  .badge {
-    font-size: 10px;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 20px;
-    display: inline-block;
-  }
-
+  .badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 20px; display: inline-block; }
   .badge.orange { background: var(--orange-light); color: #b45309; }
   .badge.green { background: var(--green-light); color: #065f46; }
   .badge.red { background: var(--red-light); color: #991b1b; }
@@ -628,216 +562,86 @@
   .listrow:last-child { border-bottom: 0; padding-bottom: 0; }
   .listrow:first-child { padding-top: 0; }
 
-  .progress-wrap {
-    height: 10px;
-    background: var(--blue-light);
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 12px 0;
-  }
+  .progress-wrap { height: 10px; background: var(--blue-light); border-radius: 20px; overflow: hidden; margin: 12px 0; }
+  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); border-radius: 20px; }
 
-  .progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--blue), var(--orange));
-    border-radius: 20px;
-    transition: width 0.3s ease;
-  }
-
-  .share-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-  }
-
+  .share-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
   .share-btn {
-    border: 1px solid var(--border);
-    background: var(--bg);
-    border-radius: 12px;
-    padding: 10px 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--navy);
+    border: 1px solid var(--border); background: var(--bg); border-radius: 12px;
+    padding: 10px 4px; display: flex; flex-direction: column; align-items: center;
+    gap: 6px; font-size: 11px; font-weight: 700; color: var(--navy);
   }
 
   .profile-box { display: flex; align-items: center; gap: 14px; }
-
   .avatar {
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
+    width: 54px; height: 54px; border-radius: 50%;
     background: linear-gradient(135deg, var(--blue), #4f9cf9);
-    color: var(--white);
-    display: grid;
-    place-items: center;
-    font-size: 22px;
-    font-weight: 900;
-    flex-shrink: 0;
+    color: var(--white); display: grid; place-items: center;
+    font-size: 22px; font-weight: 900; flex-shrink: 0;
   }
 
   .chain-card {
-    border: 1.5px solid var(--border);
-    border-radius: 14px;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+    border: 1.5px solid var(--border); border-radius: 14px; padding: 12px 14px;
+    margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;
   }
-  .chain-card.selected {
-    border-color: var(--blue);
-    background: var(--blue-light);
-  }
+  .chain-card.selected { border-color: var(--blue); background: var(--blue-light); }
 
   .upload-box {
-    border: 1.5px dashed var(--blue);
-    background: var(--blue-light);
-    border-radius: 14px;
-    padding: 14px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 12px;
-    display: block;
+    border: 1.5px dashed var(--blue); background: var(--blue-light); border-radius: 14px;
+    padding: 14px; text-align: center; cursor: pointer; margin-bottom: 12px; display: block;
   }
-  .upload-preview {
-    max-height: 110px;
-    border-radius: 10px;
-    margin-top: 8px;
-    display: none;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .upload-preview { max-height: 110px; border-radius: 10px; margin-top: 8px; display: none; margin-left: auto; margin-right: auto; }
 
   .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
-    height: calc(68px + env(safe-area-inset-bottom));
-    padding-bottom: env(safe-area-inset-bottom);
-    background: var(--white);
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    z-index: 30;
-    box-shadow: 0 -4px 18px rgba(20, 43, 77, 0.06);
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px; height: calc(68px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom); background: var(--white);
+    border-top: 1px solid var(--border); display: flex; align-items: center;
+    justify-content: space-around; z-index: 30;
   }
 
   .nav-item {
-    border: 0;
-    background: transparent;
-    color: var(--muted);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    width: 20%;
-    padding: 6px 0;
+    border: 0; background: transparent; color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; font-size: 11px; font-weight: 600; width: 20%; padding: 6px 0;
   }
-
-  .nav-item svg {
-    width: 22px;
-    height: 22px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-  }
-
-  .nav-item.active {
-    color: var(--blue);
-    font-weight: 800;
-  }
+  .nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .nav-item.active { color: var(--blue); font-weight: 800; }
 
   .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.6);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); z-index: 50;
+    display: flex; align-items: center; justify-content: center; padding: 16px;
   }
 
   .modal-card {
-    width: 100%;
-    max-width: 440px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: var(--white);
-    border-radius: 22px;
-    padding: 20px;
+    width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto;
+    background: var(--white); border-radius: 22px; padding: 20px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
-    animation: popScale 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  @keyframes popScale {
-    from { transform: scale(0.92); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
   }
 
   .success-check {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: var(--green);
-    color: #fff;
-    display: grid;
-    place-items: center;
-    font-size: 32px;
-    font-weight: 900;
-    margin: 0 auto 14px;
-    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.35);
-    animation: popScale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 64px; height: 64px; border-radius: 50%; background: var(--green);
+    color: #fff; display: grid; place-items: center; font-size: 32px;
+    font-weight: 900; margin: 0 auto 14px;
   }
 
   .toast {
-    position: fixed;
-    bottom: calc(84px + env(safe-area-inset-bottom));
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--navy);
-    color: var(--white);
-    padding: 11px 18px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    z-index: 70;
-    display: none;
-    max-width: 88%;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: fixed; bottom: calc(84px + env(safe-area-inset-bottom)); left: 50%;
+    transform: translateX(-50%); background: var(--navy); color: var(--white);
+    padding: 11px 18px; border-radius: 12px; font-size: 13px; font-weight: 600;
+    z-index: 70; display: none; max-width: 88%; text-align: center;
   }
 
   .spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    display: inline-block;
+    width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .empty-state { text-align: center; padding: 34px 16px; color: var(--muted); }
   .empty-icon {
-    width: 48px; height: 48px; border-radius: 14px;
-    background: var(--blue-light); color: var(--blue);
-    display: grid; place-items: center; margin: 0 auto 10px;
+    width: 48px; height: 48px; border-radius: 14px; background: var(--blue-light);
+    color: var(--blue); display: grid; place-items: center; margin: 0 auto 10px;
     font-size: 22px; font-weight: 800;
   }
 </style>
@@ -859,11 +663,11 @@
     </div>
 
     <form id="loginForm" novalidate>
-      <label class="label" for="loginMobile">Indian Mobile Number (+91)</label>
-      <input class="field" id="loginMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter 10-digit mobile (6-9 start)" required>
+      <label class="label" for="loginMobile">Mobile Number</label>
+      <input class="field" id="loginMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter mobile number" required>
 
       <label class="label" for="loginPassword">Password</label>
-      <input class="field" id="loginPassword" type="password" placeholder="Enter your password" required>
+      <input class="field" id="loginPassword" type="password" placeholder="Enter password" required>
 
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;">
         <input type="checkbox" id="rememberMe" checked>
@@ -871,7 +675,6 @@
       </label>
 
       <div id="loginError" class="error-text" aria-live="polite"></div>
-
       <button type="submit" id="loginSubmitBtn" class="btn full">Login</button>
 
       <p class="center muted" style="margin-top:16px;">
@@ -880,20 +683,20 @@
     </form>
 
     <form id="registerForm" class="hidden" novalidate>
-      <label class="label" for="regUsername">Full Name / Username</label>
-      <input class="field" id="regUsername" type="text" maxlength="25" placeholder="Enter your real name" required>
+      <label class="label" for="regUsername">Username</label>
+      <input class="field" id="regUsername" type="text" maxlength="25" placeholder="Enter username" required>
 
-      <label class="label" for="regMobile">Indian Mobile Number (+91)</label>
-      <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number" required>
+      <label class="label" for="regMobile">Mobile Number</label>
+      <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter mobile number" required>
 
       <label class="label" for="regPassword">Password (min 6 characters)</label>
-      <input class="field" id="regPassword" type="password" minlength="6" placeholder="Create strong password" required>
+      <input class="field" id="regPassword" type="password" minlength="6" placeholder="Create password" required>
 
       <label class="label" for="regConfirm">Confirm Password</label>
       <input class="field" id="regConfirm" type="password" placeholder="Re-enter password" required>
 
       <label class="label" for="regInvite">Invite / Referral Code (Optional)</label>
-      <input class="field" id="regInvite" type="text" maxlength="12" placeholder="e.g. DP8842">
+      <input class="field" id="regInvite" type="text" maxlength="12" placeholder="Optional invite code">
 
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;">
         <input type="checkbox" id="regPrivacy" required>
@@ -901,7 +704,6 @@
       </label>
 
       <div id="registerError" class="error-text" aria-live="polite"></div>
-
       <button type="submit" id="regSubmitBtn" class="btn full">Create Account</button>
 
       <p class="center muted" style="margin-top:16px;">
@@ -910,7 +712,7 @@
     </form>
   </div>
 </div>
-<div id="mainApp" class="app-shell hidden">
+  <div id="mainApp" class="app-shell hidden">
   <header class="topbar">
     <div class="logo"><span class="logo-badge">DP</span> DUDPAY</div>
     <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications">
@@ -1001,22 +803,13 @@
       <div class="pay-summary">
         <div class="row">
           <span style="font-size:13px;font-weight:700;color:#dbeafe;">Cashback Rate</span>
-          <span class="badge orange">Active</span>
+          <span class="badge orange">Live Market</span>
         </div>
         <div class="pay-rate">5.5%</div>
         <div class="pay-boxes">
-          <div class="pay-box">
-            <small>Balance</small>
-            <b id="payBalance">₹77</b>
-          </div>
-          <div class="pay-box">
-            <small>Reward</small>
-            <b id="payReward" style="color:#fde68a;">₹0</b>
-          </div>
-          <div class="pay-box">
-            <small>Pending</small>
-            <b id="payPending">₹0</b>
-          </div>
+          <div class="pay-box"><small>Balance</small><b id="payBalance">₹77</b></div>
+          <div class="pay-box"><small>Reward</small><b id="payReward" style="color:#fde68a;">₹0</b></div>
+          <div class="pay-box"><small>Pending</small><b id="payPending">₹0</b></div>
         </div>
       </div>
 
@@ -1030,7 +823,27 @@
     <section id="page-wallet" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="home">←</button>
-        <h2 class="page-title">Add Tool / Wallet</h2>
+        <h2 class="page-title">My Wallet</h2>
+      </div>
+
+      <div id="boundWalletsList"></div>
+
+      <button type="button" class="btn full" id="openAddWalletSelectorBtn" style="padding:14px;">
+        + Add Wallet
+      </button>
+
+      <div class="card" style="background:var(--blue-light);border-color:#c7defc;margin-top:14px;">
+        <b style="font-size:13px;color:var(--blue);">Wallet Binding Rules</b>
+        <p class="muted" style="margin:6px 0 0;font-size:12px;">
+          Only verified wallets linked with your registered login mobile number appear here. Tap "+ Add Wallet" to connect a new Personal or Business wallet.
+        </p>
+      </div>
+    </section>
+
+    <section id="page-add-wallet" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="wallet">←</button>
+        <h2 class="page-title">Choose Your Payment</h2>
       </div>
 
       <div class="seg-tabs">
@@ -1038,14 +851,7 @@
         <button type="button" id="wTabBusiness">Business (Payin Only)</button>
       </div>
 
-      <div id="walletListContainer"></div>
-
-      <div class="card" style="background:var(--blue-light);border-color:#c7defc;">
-        <b style="font-size:13px;color:var(--blue);">Wallet Verification Policy</b>
-        <p class="muted" style="margin:6px 0 0;font-size:12px;">
-          All wallets support Payin (Receive). Payout is supported on MobiKwik, Freecharge, PhonePe, Paytm, BharatPe & MoneyView. Apps must be installed and authorized in Step 2 before linking.
-        </p>
-      </div>
+      <div id="allWalletsSelectorList"></div>
     </section>
 
     <section id="page-statistics" class="page">
@@ -1055,22 +861,10 @@
       </div>
 
       <div class="grid2">
-        <div class="metric-card">
-          <span class="muted">Balance</span>
-          <span class="val orange" id="statBalance">₹77</span>
-        </div>
-        <div class="metric-card">
-          <span class="muted">Sell</span>
-          <span class="val" id="statSell">₹0</span>
-        </div>
-        <div class="metric-card">
-          <span class="muted">Deposit</span>
-          <span class="val blue" id="statDeposit">₹0</span>
-        </div>
-        <div class="metric-card">
-          <span class="muted">Commission</span>
-          <span class="val orange" id="statCommission">₹0</span>
-        </div>
+        <div class="metric-card"><span class="muted">Balance</span><span class="val orange" id="statBalance">₹77</span></div>
+        <div class="metric-card"><span class="muted">Sell</span><span class="val" id="statSell">₹0</span></div>
+        <div class="metric-card"><span class="muted">Deposit</span><span class="val blue" id="statDeposit">₹0</span></div>
+        <div class="metric-card"><span class="muted">Commission</span><span class="val orange" id="statCommission">₹0</span></div>
       </div>
 
       <div class="card">
@@ -1078,26 +872,11 @@
           <b style="font-size:16px;">Payment Details</b>
           <span id="sellingStatusBadge" class="badge orange">Closed Selling</span>
         </div>
-        <div class="listrow">
-          <span class="muted">Exchange Rate</span>
-          <b style="color:var(--blue);">₹114</b>
-        </div>
-        <div class="listrow">
-          <span class="muted">In Process Amount</span>
-          <b id="statProcessAmt">₹0</b>
-        </div>
-        <div class="listrow">
-          <span class="muted">In Process Orders</span>
-          <b id="statProcessOrders">0</b>
-        </div>
-        <div class="listrow">
-          <span class="muted">Commission Rate</span>
-          <b style="color:var(--orange);">5.5%</b>
-        </div>
-        <div class="listrow">
-          <span class="muted">Estimated Income</span>
-          <b style="color:var(--orange);" id="statEstIncome">₹0</b>
-        </div>
+        <div class="listrow"><span class="muted">Exchange Rate</span><b style="color:var(--blue);">₹114</b></div>
+        <div class="listrow"><span class="muted">In Process Amount</span><b id="statProcessAmt">₹0</b></div>
+        <div class="listrow"><span class="muted">In Process Orders</span><b id="statProcessOrders">0</b></div>
+        <div class="listrow"><span class="muted">Commission Rate</span><b style="color:var(--orange);">5.5%</b></div>
+        <div class="listrow"><span class="muted">Estimated Income</span><b style="color:var(--orange);" id="statEstIncome">₹0</b></div>
       </div>
 
       <button type="button" id="toggleSellingBtn" class="btn orange full">Start Selling</button>
@@ -1113,48 +892,21 @@
       </div>
 
       <div class="grid2">
-        <div class="metric-card">
-          <span class="muted">Deposit</span>
-          <span class="val" id="myDeposit">₹0</span>
-        </div>
-        <div class="metric-card">
-          <span class="muted">Withdraw</span>
-          <span class="val" id="myWithdraw">₹0</span>
-        </div>
-        <div class="metric-card">
-          <span class="muted">Commission</span>
-          <span class="val orange" id="myCommission">₹0</span>
-        </div>
-        <div class="metric-card">
-          <span class="muted">Balance</span>
-          <span class="val blue" id="myBalance">₹77</span>
-        </div>
+        <div class="metric-card"><span class="muted">Deposit</span><span class="val" id="myDeposit">₹0</span></div>
+        <div class="metric-card"><span class="muted">Withdraw</span><span class="val" id="myWithdraw">₹0</span></div>
+        <div class="metric-card"><span class="muted">Commission</span><span class="val orange" id="myCommission">₹0</span></div>
+        <div class="metric-card"><span class="muted">Balance</span><span class="val blue" id="myBalance">₹77</span></div>
       </div>
 
       <div class="card">
-        <div class="listrow" data-nav="wallet" style="cursor:pointer;">
-          <b>Wallet</b>
-          <span class="muted">›</span>
-        </div>
-        <div class="listrow" data-nav="service" style="cursor:pointer;">
-          <b>Customer Service</b>
-          <span class="muted">›</span>
-        </div>
-        <div class="listrow" data-nav="message" style="cursor:pointer;">
-          <b>Message</b>
-          <span class="muted">›</span>
-        </div>
-        <div class="listrow" data-nav="tutorial" style="cursor:pointer;">
-          <b>Tutorial</b>
-          <span class="muted">›</span>
-        </div>
-        <div class="listrow" id="logoutBtn" style="cursor:pointer;color:var(--red);">
-          <b>Logout</b>
-          <span>›</span>
-        </div>
+        <div class="listrow" data-nav="wallet" style="cursor:pointer;"><b>Wallet</b><span class="muted">›</span></div>
+        <div class="listrow" data-nav="service" style="cursor:pointer;"><b>Customer Service</b><span class="muted">›</span></div>
+        <div class="listrow" data-nav="message" style="cursor:pointer;"><b>Message</b><span class="muted">›</span></div>
+        <div class="listrow" data-nav="tutorial" style="cursor:pointer;"><b>Tutorial</b><span class="muted">›</span></div>
+        <div class="listrow" id="logoutBtn" style="cursor:pointer;color:var(--red);"><b>Logout</b><span>›</span></div>
       </div>
 
-      <p class="center muted">DUDPAY Version 1.0.0</p>
+      <p class="center muted" id="secretVersionTap" style="user-select:none;cursor:pointer;padding:8px;">DUDPAY Version 1.0.0</p>
             </section>
                 <section id="page-usdt" class="page">
       <div class="sub-header">
@@ -1192,17 +944,11 @@
 
         <label class="label">Select Chain Type</label>
         <div class="chain-card selected" id="chainTrc20">
-          <div>
-            <b>TRC20</b>
-            <div class="muted" style="font-size:11px;">USDT - TRON Network</div>
-          </div>
+          <div><b>TRC20</b><div class="muted" style="font-size:11px;">USDT - TRON Network</div></div>
           <input type="radio" name="usdtChain" value="TRC20" checked>
         </div>
         <div class="chain-card" id="chainBep20">
-          <div>
-            <b>BSC (BEP20)</b>
-            <div class="muted" style="font-size:11px;">USDT - BNB Smart Chain</div>
-          </div>
+          <div><b>BSC (BEP20)</b><div class="muted" style="font-size:11px;">USDT - BNB Smart Chain</div></div>
           <input type="radio" name="usdtChain" value="BEP20">
         </div>
 
@@ -1229,21 +975,13 @@
           <span class="badge blue">NEWBIE</span>
           <span class="badge orange">Illustrative Reward: ₹300</span>
         </div>
-
         <h3 style="margin:12px 0 6px;font-size:18px;">Newbie Task</h3>
-        <p class="muted" style="margin:0 0 14px;">
-          Complete your trading target of ₹2,000 to unlock the ₹300 newcomer reward.
-        </p>
-
+        <p class="muted" style="margin:0 0 14px;">Complete your trading target of ₹2,000 to unlock the ₹300 newcomer reward.</p>
         <div class="row" style="font-size:13px;">
           <span>Current Progress</span>
           <b><span style="color:var(--blue);" id="taskCurrentAmt">₹0</span> / ₹2,000</b>
         </div>
-
-        <div class="progress-wrap">
-          <div class="progress-fill" id="taskProgressBar" style="width:0%;"></div>
-        </div>
-
+        <div class="progress-wrap"><div class="progress-fill" id="taskProgressBar" style="width:0%;"></div></div>
         <div class="row" style="margin-top:14px;">
           <span class="muted">Target: <b>₹2,000</b></span>
           <button type="button" class="btn sm" data-nav="payment">Go to Payment</button>
@@ -1273,12 +1011,10 @@
       <div class="card">
         <b style="font-size:16px;">Invitation Link</b>
         <p class="muted" style="margin:4px 0 10px;">Share your referral link with friends to earn commissions.</p>
-
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
           <span id="refLinkDisplay" style="font-size:12px;color:var(--blue);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">https://dudpay.app/invite/DP0000</span>
           <button type="button" class="btn sm" id="copyRefBtn">Copy</button>
         </div>
-
         <div class="share-grid">
           <button type="button" class="share-btn" data-share="telegram"><span style="color:#0088cc;font-size:18px;">✈</span><span>Telegram</span></button>
           <button type="button" class="share-btn" data-share="facebook"><span style="color:#1877f2;font-size:18px;">f</span><span>Facebook</span></button>
@@ -1329,7 +1065,7 @@
           Expire in: <b id="aoTimer">29:59</b>
         </div>
         <p style="font-size:11px;color:#b45309;margin:10px 0 0;">
-          Notice: Pay only via your selected bound app. Upload payment screenshot & 12-digit UTR before timer expires.
+          Notice: Pay only via your selected bound app. Upload payment screenshot & 12-digit UTR before timer expires, otherwise order will fail automatically.
         </p>
       </div>
 
@@ -1351,12 +1087,12 @@
           <span><b id="aoPayeeUpi">sandeep06936@ptyes</b> <button type="button" class="btn light sm" data-copy-el="aoPayeeUpi" style="padding:2px 7px;">Copy</button></span>
         </div>
         <div class="listrow">
-          <span class="muted">Selected Payout Wallet</span>
+          <span class="muted">Selected Wallet</span>
           <b style="color:var(--blue);" id="aoWalletName">MobiKwik</b>
         </div>
         <div class="listrow">
-          <span class="muted">Your Bound Account</span>
-          <b id="aoUserBound">9876543210@mbk</b>
+          <span class="muted">Bound Mobile</span>
+          <b id="aoUserBound">9876543210</b>
         </div>
         <div class="listrow">
           <span class="muted">Order NO</span>
@@ -1377,7 +1113,6 @@
 
       <div class="card">
         <b style="font-size:15px;display:block;margin-bottom:8px;">Upload Transaction Proof (Required)</b>
-
         <label class="upload-box" for="aoVoucherFile">
           <div style="font-weight:700;color:var(--blue);font-size:13px;" id="aoUploadLabel">+ Tap to Upload Payment Screenshot</div>
           <div class="muted" style="font-size:11px;margin-top:3px;">JPG, PNG supported</div>
@@ -1392,25 +1127,22 @@
       </div>
     </section>
 
+    <!-- CLEAN 1-CLICK CUSTOMER SERVICE PAGE (No QR/Username clutter) -->
     <section id="page-service" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="my">←</button>
         <h2 class="page-title">Customer Service</h2>
       </div>
 
-      <div class="card center" style="padding:24px 20px;">
-        <div style="width:150px;height:150px;margin:0 auto 14px;padding:10px;border:1px solid var(--border);border-radius:16px;background:#fff;">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://t.me/OFFICALSERVICE06" alt="Telegram QR" style="width:100%;height:100%;display:block;">
-        </div>
-        <h3 style="margin:0 0 6px;">Official Telegram Support</h3>
-        <p class="muted" style="margin:0 0 14px;">Scan QR or click below to chat directly with our support team on Telegram.</p>
-        <div style="background:var(--blue-light);color:var(--blue);font-weight:800;padding:11px;border-radius:12px;font-size:15px;margin-bottom:12px;">
-          @OFFICALSERVICE06
-        </div>
-        <a href="https://t.me/OFFICALSERVICE06" target="_blank" rel="noopener noreferrer" class="btn full" style="text-decoration:none;">
-          Open Telegram Chat
+      <div class="card center" style="padding:36px 22px;">
+        <div class="avatar" style="margin:0 auto 16px;width:72px;height:72px;font-size:30px;">🎧</div>
+        <h3 style="margin:0 0 8px;font-size:20px;">24/7 Live Support</h3>
+        <p class="muted" style="margin:0 0 22px;line-height:1.5;">
+          Need help with deposits, orders, or wallet verification? Connect directly with our official support desk in one click.
+        </p>
+        <a href="https://t.me/OFFICALSERVICE06" target="_blank" rel="noopener noreferrer" class="btn full" style="text-decoration:none;padding:14px;font-size:15px;">
+          Contact Support Now
         </a>
-        <button type="button" class="btn light full" id="copyServiceBtn">Copy Username</button>
       </div>
     </section>
 
@@ -1436,6 +1168,24 @@
         <b>No Tutorial</b>
         <div class="muted" style="margin-top:4px;">Guides and tutorials will be updated soon.</div>
       </div>
+    </section>
+
+    <!-- SECRET ADMIN PANEL (PIN: 9079) -->
+    <section id="page-admin" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Admin Control Panel</h2>
+      </div>
+
+      <div class="seg-tabs">
+        <button type="button" id="admTabUsers" class="active">Users</button>
+        <button type="button" id="admTabOrders">Orders</button>
+        <button type="button" id="admTabOwners">Owners</button>
+      </div>
+
+      <div id="adminUsersSection"></div>
+      <div id="adminOrdersSection" class="hidden"></div>
+      <div id="adminOwnersSection" class="hidden"></div>
     </section>
   </main>
 
@@ -1463,10 +1213,11 @@
   </nav>
 </div>
 
+<!-- MODALS -->
 <div id="bindModal" class="modal-backdrop hidden">
   <div class="modal-card">
     <div class="row" style="margin-bottom:8px;">
-      <b style="font-size:17px;" id="bindModalTitle">Create Wallet</b>
+      <b style="font-size:17px;" id="bindModalTitle">Link Wallet</b>
       <button type="button" class="btn light sm" id="closeBindModal">✕</button>
     </div>
 
@@ -1477,27 +1228,25 @@
     </div>
 
     <div id="bindStep1">
-      <p class="muted" style="margin-top:0;">Enter the Indian mobile number & UPI ID registered on <b id="stepWalletName1">this app</b>.</p>
-      <label class="label" for="bindPhoneInput">Registered Mobile (+91)</label>
-      <input class="field" id="bindPhoneInput" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number">
-
-      <label class="label" for="bindUpiInput">UPI ID (<span id="expectedHandleHint">@upi</span>)</label>
-      <input class="field" id="bindUpiInput" type="text" placeholder="e.g. 9876543210@mbk">
-
+      <div style="background:var(--orange-light);color:#92400e;padding:10px 12px;border-radius:10px;font-size:12px;font-weight:600;margin-bottom:12px;">
+        Please enter the same mobile number used to login to this app.
+      </div>
+      <label class="label" for="bindPhoneInput">Mobile Number (+91)</label>
+      <input class="field" id="bindPhoneInput" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter your registered mobile number">
       <div id="bindStep1Err" class="error-text"></div>
       <button type="button" class="btn full" id="toStep2Btn">Next</button>
     </div>
 
     <div id="bindStep2" class="hidden">
       <div style="background:var(--blue-light);border-radius:14px;padding:12px;margin-bottom:12px;font-size:12px;">
-        <b>App Installation & Authorization Check:</b><br>
-        Tap <b>"Verify & Open App"</b> below. If <b id="stepWalletName2">the app</b> is installed on your phone, it will open to confirm binding.
+        <b>App Verification Check:</b><br>
+        Tap <b>"Verify & Open App"</b> below to check if <b id="stepWalletName2">the app</b> is installed on your device.
       </div>
       <button type="button" class="btn orange full" id="verifyOpenAppBtn" style="margin-bottom:12px;">Verify & Open App</button>
 
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;">
         <input type="checkbox" id="appInstalledConfirm">
-        <span>I confirm the app is installed & active on my phone</span>
+        <span>Yes, the app opened on my phone</span>
       </label>
 
       <div id="bindStep2Err" class="error-text"></div>
@@ -1509,8 +1258,8 @@
 
     <div id="bindStep3" class="hidden center">
       <div class="success-check">✓</div>
-      <h3 style="margin:0 0 6px;">Wallet Authorized!</h3>
-      <p class="muted" id="bindSuccessSummary" style="margin:0 0 14px;">Your wallet is verified and ready for payments.</p>
+      <h3 style="margin:0 0 6px;">Wallet Linked!</h3>
+      <p class="muted" id="bindSuccessSummary" style="margin:0 0 14px;">Your wallet is verified and active.</p>
       <button type="button" class="btn full" id="finishBindBtn">Finish</button>
     </div>
   </div>
@@ -1522,9 +1271,7 @@
       <b style="font-size:17px;">Select Bound Tool</b>
       <button type="button" class="btn light sm" id="closeSelectToolModal">✕</button>
     </div>
-    <p class="muted" style="margin-top:0;font-size:12px;">
-      Only your verified wallets are shown below. Payment will open directly in the selected app.
-    </p>
+    <p class="muted" style="margin-top:0;font-size:12px;">Only your linked wallets are shown below. Payment will open directly in the selected app.</p>
     <div id="boundToolsRadioList"></div>
     <div class="row" style="margin-top:14px;">
       <button type="button" class="btn light" id="cancelToolSelectBtn" style="flex:1;">Cancel</button>
@@ -1533,62 +1280,88 @@
   </div>
 </div>
 
+<div id="adminPinModal" class="modal-backdrop hidden">
+  <div class="modal-card center">
+    <div class="row" style="margin-bottom:8px;">
+      <b style="font-size:17px;">Admin Verification</b>
+      <button type="button" class="btn light sm" id="closeAdminPinModal">✕</button>
+    </div>
+    <p class="muted" style="margin-top:0;">Enter 4-digit Admin Security PIN</p>
+    <input class="field center" id="adminPinInput" type="password" maxlength="4" inputmode="numeric" placeholder="••••" style="font-size:22px;letter-spacing:8px;">
+    <div id="adminPinErr" class="error-text"></div>
+    <button type="button" class="btn full" id="verifyAdminPinBtn">Unlock Admin Panel</button>
+  </div>
+</div>
+
 <div id="successAnimModal" class="modal-backdrop hidden">
   <div class="modal-card center" style="padding:28px 20px;">
     <div class="success-check">✓</div>
-    <h3 style="margin:0 0 6px;" id="animModalTitle">Registration Successful!</h3>
-    <p class="muted" id="animModalDesc" style="margin:0 0 16px;">Your DUDPAY account has been created.</p>
+    <h3 style="margin:0 0 6px;">Registration Successful!</h3>
+    <p class="muted" style="margin:0 0 16px;">Your DUDPAY account has been created.</p>
     <button type="button" class="btn full" id="closeAnimModalBtn">Continue to Login</button>
   </div>
 </div>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-          <script>
+  <script>
 "use strict";
 
-const OWNER_CONFIG = {
-  payeeAcc: "06342311224492",
-  payeeIfsc: "UCBA0000634",
-  payeeUpi: "sandeep06936@ptyes",
-  payeeName: "Sandeep",
-  usdtTrc20: "TX8k9P2mN4vL7qR5wJ3cZ9yH6tB1nF8sA2",
-  usdtBep20: "0x71C956E4b2A89f1D3c04E9aB58F219dC4E8a10B3"
-};
+const ADMIN_PIN = "9079";
+
+const DEFAULT_OWNERS = [
+  { id: 1, name: "Sandeep", acc: "06342311224492", ifsc: "UCBA0000634", upi: "sandeep06936@ptyes", active: true }
+];
 
 const STORAGE_KEYS = {
-  USERS: "dudpay_users_v2",
-  SESSION: "dudpay_session_v2",
-  WALLETS: "dudpay_wallets_v2",
-  ORDERS: "dudpay_orders_v2"
+  USERS: "dudpay_users_v3",
+  SESSION: "dudpay_session_v3",
+  WALLETS: "dudpay_wallets_v3",
+  ORDERS: "dudpay_orders_v3",
+  OWNERS: "dudpay_owners_v3",
+  USDT_ADDR: "dudpay_usdt_v3"
 };
 
 const PAYMENT_AMOUNTS = [
-  { amount: 200, reward: "11" },
-  { amount: 300, reward: "16.50" },
-  { amount: 500, reward: "27.50" },
-  { amount: 700, reward: "38.50" },
-  { amount: 1000, reward: "55" },
-  { amount: 1200, reward: "66" },
-  { amount: 1500, reward: "82.50" },
-  { amount: 2000, reward: "110" },
-  { amount: 3000, reward: "165" },
-  { amount: 4000, reward: "220" },
-  { amount: 5000, reward: "275" }
+  { amount: 200, reward: "11.00", qty: 14 },
+  { amount: 300, reward: "16.50", qty: 23 },
+  { amount: 500, reward: "27.50", qty: 9 },
+  { amount: 700, reward: "38.50", qty: 31 },
+  { amount: 1000, reward: "55.00", qty: 17 },
+  { amount: 1200, reward: "66.00", qty: 8 },
+  { amount: 1500, reward: "82.50", qty: 19 },
+  { amount: 2000, reward: "110.00", qty: 6 },
+  { amount: 3000, reward: "165.00", qty: 11 },
+  { amount: 4000, reward: "220.00", qty: 4 },
+  { amount: 5000, reward: "275.00", qty: 7 }
 ];
 
-const WALLETS_DATA = [
-  { id: "mobikwik", name: "MobiKwik", category: "personal", color: "#1d4ed8", short: "MK", range: "Payin 100.00 - 50000.00", payout: true, handles: ["@mbk", "@ikwik"], scheme: "mobikwik://", fallbackUrl: "https://www.mobikwik.com/" },
-  { id: "freecharge", name: "Freecharge", category: "personal", color: "#ea580c", short: "FC", range: "Payin 50.00 - 5000.00", payout: true, handles: ["@freecharge", "@axisbank"], scheme: "freecharge://", fallbackUrl: "https://www.freecharge.in/" },
-  { id: "phonepe", name: "PhonePe", category: "personal", color: "#5f259f", short: "पे", range: "Payin 50.00 - 1000.00", payout: true, handles: ["@ybl", "@ibl", "@axl"], scheme: "phonepe://pay", fallbackUrl: "https://www.phonepe.com/" },
-  { id: "paytm", name: "Paytm", category: "personal", color: "#00baf2", short: "PT", range: "Payin 100.00 - 50000.00", payout: true, handles: ["@paytm", "@ptsbi", "@pthdfc", "@ptaxis", "@ptyes"], scheme: "paytmmp://pay", fallbackUrl: "https://paytm.com/" },
-  { id: "bharatpe", name: "BharatPe", category: "personal", color: "#0f172a", short: "BP", range: "Payin 100.00 - 10000.00", payout: true, handles: ["@bharatpe", "@yesbank"], scheme: "bharatpe://", fallbackUrl: "https://bharatpe.com/" },
-  { id: "navi", name: "Navi", category: "personal", color: "#059669", short: "NV", range: "Payin 50.00 - 5000.00", payout: false, handles: ["@naviaxis", "@navi"], scheme: "navi://", fallbackUrl: "https://navi.com/" },
-  { id: "moneyview", name: "MoneyView", category: "personal", color: "#14532d", short: "MV", range: "Payin 50.00 - 1000.00", payout: true, handles: ["@moneyview", "@okicici", "@ybl"], scheme: "moneyview://", fallbackUrl: "https://moneyview.in/" },
+/* Real Brand SVG Logos */
+const BRAND_LOGOS = {
+  mobikwik: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#0073cf"/><path d="M10 30V14l7 9 7-9v16h-4v-9l-3 4-3-4v9h-4zm18-16h6v16h-6V14z" fill="#fff"/></svg>`,
+  freecharge: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#e5632f"/><path d="M25 10L14 24h8l-3 10 11-14h-8l3-10z" fill="#fff"/></svg>`,
+  phonepe: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#5f259f"/><text x="22" y="29" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold">पे</text></svg>`,
+  paytm: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#00baf2"/><rect x="6" y="15" width="32" height="14" rx="4" fill="#002970"/><text x="22" y="25" text-anchor="middle" fill="#fff" font-size="9" font-weight="900">Paytm</text></svg>`,
+  bharatpe: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#111827"/><circle cx="22" cy="22" r="11" stroke="#38bdf8" stroke-width="3" fill="none"/><path d="M19 17h5a3 3 0 010 6h-5v-6zm0 6h6a3 3 0 010 6h-6v-6z" fill="#fff"/></svg>`,
+  navi: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#065f46"/><path d="M14 29V15l10 14V15" stroke="#34d399" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="16" r="2.5" fill="#fff"/></svg>`,
+  moneyview: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#14532d"/><path d="M11 28V16l11 8 11-8v12" stroke="#4ade80" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  paytm_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#002970"/><text x="22" y="20" text-anchor="middle" fill="#00baf2" font-size="9" font-weight="900">Paytm</text><text x="22" y="31" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">BUSINESS</text></svg>`,
+  gpay_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#1a73e8"/><text x="22" y="21" text-anchor="middle" fill="#fff" font-size="11" font-weight="900">G Pay</text><text x="22" y="32" text-anchor="middle" fill="#fde047" font-size="7" font-weight="700">MERCHANT</text></svg>`,
+  phonepe_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#3b0764"/><text x="22" y="22" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">पे</text><text x="22" y="33" text-anchor="middle" fill="#e9d5ff" font-size="7" font-weight="700">BUSINESS</text></svg>`,
+  bharatpe_biz: `<svg viewBox="0 0 44 44" width="44" height="44"><rect width="44" height="44" rx="12" fill="#1e293b"/><text x="22" y="21" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="900">BharatPe</text><text x="22" y="32" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">MERCHANT</text></svg>`
+};
 
-  { id: "paytm_biz", name: "Paytm Business", category: "business", color: "#002970", short: "PB", range: "Payin 100.00 - 100000.00", payout: false, handles: ["@paytm", "@ptm"], scheme: "paytmbusiness://", fallbackUrl: "https://business.paytm.com/" },
-  { id: "gpay_biz", name: "GPay Business", category: "business", color: "#1a73e8", short: "GB", range: "Payin 100.00 - 100000.00", payout: false, handles: ["@okaxis", "@okicici", "@oksbi", "@okhdfcbank"], scheme: "gpaybusiness://", fallbackUrl: "https://pay.google.com/intl/en_in/about/business/" },
-  { id: "phonepe_biz", name: "PhonePe Business", category: "business", color: "#4c1d95", short: "PeB", range: "Payin 100.00 - 100000.00", payout: false, handles: ["@ybl", "@ibl", "@axl"], scheme: "phonepebusiness://", fallbackUrl: "https://www.phonepe.com/business-solutions/" },
-  { id: "bharatpe_biz", name: "BharatPe Business", category: "business", color: "#1e293b", short: "BPB", range: "Payin 100.00 - 100000.00", payout: false, handles: ["@bharatpe"], scheme: "bharatpe://", fallbackUrl: "https://bharatpe.com/" }
+const WALLETS_DATA = [
+  { id: "mobikwik", name: "MobiKwik", category: "personal", range: "Payin 100.00 - 50000.00", payout: true, scheme: "mobikwik://" },
+  { id: "freecharge", name: "Freecharge", category: "personal", range: "Payin 50.00 - 5000.00", payout: true, scheme: "freecharge://" },
+  { id: "phonepe", name: "PhonePe", category: "personal", range: "Payin 50.00 - 1000.00", payout: true, scheme: "phonepe://pay" },
+  { id: "paytm", name: "Paytm", category: "personal", range: "Payin 100.00 - 50000.00", payout: true, scheme: "paytmmp://pay" },
+  { id: "bharatpe", name: "BharatPe", category: "personal", range: "Payin 100.00 - 10000.00", payout: true, scheme: "bharatpe://" },
+  { id: "navi", name: "Navi", category: "personal", range: "Payin 50.00 - 5000.00", payout: false, scheme: "navi://" },
+  { id: "moneyview", name: "MoneyView", category: "personal", range: "Payin 50.00 - 1000.00", payout: true, scheme: "moneyview://" },
+  { id: "paytm_biz", name: "Paytm Business", category: "business", range: "Payin 100.00 - 100000.00", payout: false, scheme: "paytmbusiness://" },
+  { id: "gpay_biz", name: "GPay Business", category: "business", range: "Payin 100.00 - 100000.00", payout: false, scheme: "gpaybusiness://" },
+  { id: "phonepe_biz", name: "PhonePe Business", category: "business", range: "Payin 100.00 - 100000.00", payout: false, scheme: "phonepebusiness://" },
+  { id: "bharatpe_biz", name: "BharatPe Business", category: "business", range: "Payin 100.00 - 100000.00", payout: false, scheme: "bharatpe://" }
 ];
 
 let currentUser = null;
@@ -1602,6 +1375,8 @@ let activeOrderState = null;
 let orderCountdownInterval = null;
 let voucherBase64 = "";
 let isSellingActive = false;
+let versionTapCount = 0;
+let versionTapTimer = null;
 
 const $ = (id) => document.getElementById(id);
 
@@ -1616,11 +1391,11 @@ function setStorage(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
 }
 
-function isValidIndianMobile(num) {
+function isValidMobile(num) {
   if (!/^[6-9]\d{9}$/.test(num)) return false;
   if (/^(\d)\1{9}$/.test(num)) return false;
-  const fakeList = ["9876543210", "9999999999", "8888888888", "7777777777", "6666666666", "9123456789"];
-  return !fakeList.includes(num);
+  const blocked = ["9876543210", "9123456789"];
+  return !blocked.includes(num);
 }
 
 let toastTimer = null;
@@ -1629,7 +1404,7 @@ function showToast(msg) {
   el.textContent = msg;
   el.style.display = "block";
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { el.style.display = "none"; }, 2600);
+  toastTimer = setTimeout(() => { el.style.display = "none"; }, 2700);
 }
 
 function copyText(text, successMsg = "Copied!") {
@@ -1651,6 +1426,7 @@ function fallbackCopy(text, successMsg) {
   document.body.removeChild(ta);
 }
 
+/* Auth */
 function switchAuthTab(mode) {
   const isLogin = mode === "login";
   $("loginForm").classList.toggle("hidden", !isLogin);
@@ -1678,11 +1454,11 @@ $("registerForm").addEventListener("submit", (e) => {
   errEl.textContent = "";
 
   if (!/^[a-zA-Z\s]{3,25}$/.test(username)) {
-    errEl.textContent = "Enter a valid name (3-25 letters only).";
+    errEl.textContent = "Please enter a valid username (letters only).";
     return;
   }
-  if (!isValidIndianMobile(mobile)) {
-    errEl.textContent = "Enter a real 10-digit Indian mobile number (starting with 6, 7, 8, or 9).";
+  if (!isValidMobile(mobile)) {
+    errEl.textContent = "Please enter a valid 10-digit mobile number.";
     return;
   }
   if (password.length < 6) {
@@ -1706,20 +1482,18 @@ $("registerForm").addEventListener("submit", (e) => {
 
   const btn = $("regSubmitBtn");
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Verifying & Creating...';
+  btn.innerHTML = '<span class="spinner"></span> Creating...';
 
   setTimeout(() => {
-    const newUser = {
+    users.push({
       id: "DP" + mobile.slice(-6),
       username,
       mobile,
       password,
       inviteCode: invite || "",
       balance: 77
-    };
-    users.push(newUser);
+    });
     setStorage(STORAGE_KEYS.USERS, users);
-
     btn.disabled = false;
     btn.textContent = "Create Account";
 
@@ -1728,12 +1502,10 @@ $("registerForm").addEventListener("submit", (e) => {
     $("loginPassword").value = "";
     switchAuthTab("login");
     $("successAnimModal").classList.remove("hidden");
-  }, 650);
+  }, 550);
 });
 
-$("closeAnimModalBtn").addEventListener("click", () => {
-  $("successAnimModal").classList.add("hidden");
-});
+$("closeAnimModalBtn").addEventListener("click", () => $("successAnimModal").classList.add("hidden"));
 
 $("loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -1743,8 +1515,8 @@ $("loginForm").addEventListener("submit", (e) => {
   const errEl = $("loginError");
   errEl.textContent = "";
 
-  if (!isValidIndianMobile(mobile)) {
-    errEl.textContent = "Enter a valid 10-digit Indian mobile number.";
+  if (!isValidMobile(mobile)) {
+    errEl.textContent = "Please enter a valid 10-digit mobile number.";
     return;
   }
   if (!password) {
@@ -1756,7 +1528,7 @@ $("loginForm").addEventListener("submit", (e) => {
   const foundUser = users.find(u => u.mobile === mobile);
 
   if (!foundUser) {
-    errEl.textContent = "Mobile number not registered. Create an account first.";
+    errEl.textContent = "Account not found. Please register first.";
     return;
   }
   if (foundUser.password !== password) {
@@ -1766,21 +1538,19 @@ $("loginForm").addEventListener("submit", (e) => {
 
   const btn = $("loginSubmitBtn");
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Authenticating...';
+  btn.innerHTML = '<span class="spinner"></span> Logging in...';
 
   setTimeout(() => {
     btn.disabled = false;
     btn.textContent = "Login";
-
     if (remember) {
       setStorage(STORAGE_KEYS.SESSION, { mobile: foundUser.mobile, savedPassword: foundUser.password });
     } else {
       localStorage.removeItem(STORAGE_KEYS.SESSION);
     }
-
     openDashboard(foundUser);
     showToast("Login successful!");
-  }, 550);
+  }, 500);
 });
 
 function openDashboard(user) {
@@ -1808,6 +1578,7 @@ $("logoutBtn").addEventListener("click", () => {
   showToast("Logged out");
 });
 
+/* Navigation */
 function navigateTo(pageKey) {
   const targetPage = $("page-" + pageKey);
   if (!targetPage) return;
@@ -1820,9 +1591,11 @@ function navigateTo(pageKey) {
     btn.classList.toggle("active", mainTabs.includes(pageKey) && btn.dataset.nav === pageKey);
   });
 
-  if (pageKey === "wallet") renderWallets();
+  if (pageKey === "wallet") renderBoundWalletsPage();
+  if (pageKey === "add-wallet") renderAllWalletsSelector();
   if (pageKey === "order") renderOrders();
   if (pageKey === "home") renderHomeTransactions();
+  if (pageKey === "payment") renderPaymentAmounts();
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1840,126 +1613,93 @@ document.addEventListener("click", (e) => {
   }
 });
 
-function getUserOrders() {
-  if (!currentUser) return [];
-  return getStorage(STORAGE_KEYS.ORDERS, {})[currentUser.mobile] || [];
-}
-
-function getUserWallets() {
-  if (!currentUser) return {};
-  return getStorage(STORAGE_KEYS.WALLETS, {})[currentUser.mobile] || {};
-}
-
-function updateAllUserUI() {
-  if (!currentUser) return;
-  const orders = getUserOrders();
-  const pendingOrders = orders.filter(o => o.status === "Pending" || o.status === "Reviewing");
-  const pendingAmt = pendingOrders.reduce((sum, o) => sum + o.amount, 0);
-  const estReward = pendingOrders.reduce((sum, o) => sum + parseFloat(o.reward), 0);
-
-  $("homeGreeting").textContent = "Hello, " + currentUser.username;
-  $("homeUserId").textContent = currentUser.id;
-  $("homeBalance").textContent = "₹" + currentUser.balance.toFixed(2);
-  $("homeSubDeposit").textContent = "₹0";
-  $("homeSubWithdraw").textContent = "₹0";
-  $("cardDeposit").textContent = "₹0";
-  $("cardWithdraw").textContent = "₹0";
-
-  $("payBalance").textContent = "₹" + currentUser.balance;
-  $("payReward").textContent = "₹0";
-  $("payPending").textContent = "₹" + pendingAmt;
-
-  $("statBalance").textContent = "₹" + currentUser.balance;
-  $("statSell").textContent = "₹0";
-  $("statDeposit").textContent = "₹0";
-  $("statCommission").textContent = "₹0";
-  $("statProcessAmt").textContent = "₹" + pendingAmt;
-  $("statProcessOrders").textContent = pendingOrders.length;
-  $("statEstIncome").textContent = "₹" + estReward.toFixed(2).replace(/\.00$/, "");
-
-  $("myAvatar").textContent = currentUser.username.charAt(0).toUpperCase();
-  $("myUsername").textContent = currentUser.username;
-  $("myUserId").textContent = currentUser.id;
-  $("myDeposit").textContent = "₹0";
-  $("myWithdraw").textContent = "₹0";
-  $("myCommission").textContent = "₹0";
-  $("myBalance").textContent = "₹" + currentUser.balance;
-
-  $("ordBalance").textContent = "₹" + currentUser.balance;
-  $("ordReward").textContent = "₹0";
-  $("ordPending").textContent = "₹" + pendingAmt;
-
-  $("refLinkDisplay").textContent = "https://dudpay.app/invite/" + currentUser.id;
-  renderHomeTransactions();
-}
-
-$("toggleSellingBtn").addEventListener("click", () => {
-  isSellingActive = !isSellingActive;
-  const btn = $("toggleSellingBtn");
-  const badge = $("sellingStatusBadge");
-  if (isSellingActive) {
-    btn.textContent = "Stop Selling";
-    btn.classList.remove("orange");
-    btn.classList.add("red");
-    badge.textContent = "Active Selling";
-    badge.className = "badge green";
-    showToast("Selling started!");
-  } else {
-    btn.textContent = "Start Selling";
-    btn.classList.remove("red");
-    btn.classList.add("orange");
-    badge.textContent = "Closed Selling";
-    badge.className = "badge orange";
-    showToast("Selling stopped");
-  }
-});
+/* Wallet Flow (Only Bound Shown First + Add Wallet Button) */
+$("openAddWalletSelectorBtn").addEventListener("click", () => navigateTo("add-wallet"));
 
 $("wTabPersonal").addEventListener("click", () => {
   currentWalletCategory = "personal";
   $("wTabPersonal").classList.add("active");
   $("wTabBusiness").classList.remove("active");
-  renderWallets();
+  renderAllWalletsSelector();
 });
 
 $("wTabBusiness").addEventListener("click", () => {
   currentWalletCategory = "business";
   $("wTabBusiness").classList.add("active");
   $("wTabPersonal").classList.remove("active");
-  renderWallets();
+  renderAllWalletsSelector();
 });
 
-function renderWallets() {
-  const container = $("walletListContainer");
-  const bound = getUserWallets();
-  const filtered = WALLETS_DATA.filter(w => w.category === currentWalletCategory);
+function getUserWallets() {
+  if (!currentUser) return {};
+  return getStorage(STORAGE_KEYS.WALLETS, {})[currentUser.mobile] || {};
+}
 
+function renderBoundWalletsPage() {
+  const container = $("boundWalletsList");
+  const boundList = Object.values(getUserWallets());
   container.innerHTML = "";
-  filtered.forEach(w => {
-    const record = bound[w.id];
+
+  if (boundList.length === 0) {
+    container.innerHTML = `
+      <div class="card empty-state">
+        <div class="empty-icon">▣</div>
+        <b>No Wallet Linked</b>
+        <div class="muted" style="margin-top:4px;">Tap "+ Add Wallet" below to verify and link your payment app.</div>
+      </div>
+    `;
+    return;
+  }
+
+  boundList.forEach(b => {
+    const wMeta = WALLETS_DATA.find(x => x.id === b.id) || { payout: true };
     const div = document.createElement("div");
-    div.className = "wallet-item" + (record ? " bound" : "");
+    div.className = "wallet-item bound";
     div.innerHTML = `
       <div class="wallet-left">
-        <div class="w-logo" style="background:${w.color};">${w.short}</div>
+        <div class="w-logo">${BRAND_LOGOS[b.id] || ""}</div>
         <div>
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <b>${b.name}</b>
+            <span class="badge green">Enabled</span>
+          </div>
+          <div class="muted" style="font-size:12px;margin-top:4px;">Mobile: <b>${b.phone}</b></div>
+        </div>
+      </div>
+      <span class="badge ${wMeta.payout ? 'blue' : 'orange'}">${wMeta.payout ? 'Payout' : 'Payin Only'}</span>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function renderAllWalletsSelector() {
+  const container = $("allWalletsSelectorList");
+  const bound = getUserWallets();
+  const filtered = WALLETS_DATA.filter(w => w.category === currentWalletCategory);
+  container.innerHTML = "";
+
+  filtered.forEach(w => {
+    const isLinked = Boolean(bound[w.id]);
+    const div = document.createElement("div");
+    div.className = "wallet-item" + (isLinked ? " bound" : "");
+    div.innerHTML = `
+      <div class="wallet-left">
+        <div class="w-logo">${BRAND_LOGOS[w.id] || ""}</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;">
             <b>${w.name}</b>
             ${w.payout ? '<span class="badge green">Payout</span>' : '<span class="badge blue">Payin Only</span>'}
           </div>
           <div class="muted" style="font-size:11px;margin-top:3px;">${w.range}</div>
-          <div style="font-size:12px;margin-top:4px;">
-            ${record ? '<span style="color:var(--green);font-weight:700;">✓ Verified: ' + record.upi + '</span>' : '<span class="muted">Not linked</span>'}
-          </div>
         </div>
       </div>
-      <button type="button" class="btn ${record ? 'light' : ''} sm">${record ? 'Edit' : 'Add'}</button>
+      <button type="button" class="btn ${isLinked ? 'light' : ''} sm">${isLinked ? 'Linked' : 'Select'}</button>
     `;
     div.querySelector("button").addEventListener("click", () => openBindStepper(w));
     container.appendChild(div);
   });
 }
-
-function setStepperUI(step) {
+    function setStepperUI(step) {
   [1, 2, 3].forEach(n => {
     $("bindStep" + n).classList.toggle("hidden", n !== step);
     const node = $("stepNode" + n);
@@ -1972,18 +1712,12 @@ function setStepperUI(step) {
 function openBindStepper(wallet) {
   activeBindWallet = wallet;
   appLaunchAttempted = false;
-  const bound = getUserWallets()[wallet.id];
-
   $("bindModalTitle").textContent = "Link " + wallet.name;
-  $("stepWalletName1").textContent = wallet.name;
   $("stepWalletName2").textContent = wallet.name;
-  $("expectedHandleHint").textContent = wallet.handles.join(", ");
-  $("bindPhoneInput").value = bound ? bound.phone : (currentUser ? currentUser.mobile : "");
-  $("bindUpiInput").value = bound ? bound.upi : "";
+  $("bindPhoneInput").value = "";
   $("appInstalledConfirm").checked = false;
   $("bindStep1Err").textContent = "";
   $("bindStep2Err").textContent = "";
-
   setStepperUI(1);
   $("bindModal").classList.remove("hidden");
 }
@@ -1992,21 +1726,15 @@ $("closeBindModal").addEventListener("click", () => $("bindModal").classList.add
 
 $("toStep2Btn").addEventListener("click", () => {
   const phone = $("bindPhoneInput").value.trim();
-  const upi = $("bindUpiInput").value.trim().toLowerCase();
   const err = $("bindStep1Err");
   err.textContent = "";
 
-  if (!isValidIndianMobile(phone)) {
-    err.textContent = "Enter a valid 10-digit Indian mobile number.";
+  if (!isValidMobile(phone)) {
+    err.textContent = "Please enter a valid 10-digit mobile number.";
     return;
   }
-  if (!/^[a-z0-9._-]{3,}@[a-z]{2,}$/.test(upi)) {
-    err.textContent = "Enter a valid UPI ID (e.g. " + phone + activeBindWallet.handles[0] + ").";
-    return;
-  }
-  const hasValidHandle = activeBindWallet.handles.some(h => upi.endsWith(h));
-  if (!hasValidHandle) {
-    err.textContent = activeBindWallet.name + " requires UPI ending with: " + activeBindWallet.handles.join(" or ");
+  if (currentUser && phone !== currentUser.mobile) {
+    err.textContent = "Mobile number must match your DUDPAY login mobile number.";
     return;
   }
   setStepperUI(2);
@@ -2017,19 +1745,15 @@ $("backToStep1Btn").addEventListener("click", () => setStepperUI(1));
 $("verifyOpenAppBtn").addEventListener("click", () => {
   if (!activeBindWallet) return;
   appLaunchAttempted = true;
-  showToast("Launching " + activeBindWallet.name + " to verify installation...");
+  showToast("Checking " + activeBindWallet.name + " on your device...");
   window.location.href = activeBindWallet.scheme;
 });
 
 $("toStep3Btn").addEventListener("click", () => {
   const err = $("bindStep2Err");
   err.textContent = "";
-  if (!appLaunchAttempted) {
-    err.textContent = "Please tap 'Verify & Open App' first to test app availability.";
-    return;
-  }
-  if (!$("appInstalledConfirm").checked) {
-    err.textContent = "Please confirm the app opened and is active on your device.";
+  if (!appLaunchAttempted || !$("appInstalledConfirm").checked) {
+    err.textContent = "App not detected. Please download and install " + activeBindWallet.name + " first before linking.";
     return;
   }
 
@@ -2040,42 +1764,102 @@ $("toStep3Btn").addEventListener("click", () => {
   setTimeout(() => {
     btn.disabled = false;
     btn.textContent = "Authorize";
-
     const phone = $("bindPhoneInput").value.trim();
-    const upi = $("bindUpiInput").value.trim().toLowerCase();
     const allWallets = getStorage(STORAGE_KEYS.WALLETS, {});
     if (!allWallets[currentUser.mobile]) allWallets[currentUser.mobile] = {};
     allWallets[currentUser.mobile][activeBindWallet.id] = {
       id: activeBindWallet.id,
       name: activeBindWallet.name,
       phone,
-      upi,
       payout: activeBindWallet.payout,
       scheme: activeBindWallet.scheme
     };
     setStorage(STORAGE_KEYS.WALLETS, allWallets);
-
-    $("bindSuccessSummary").textContent = activeBindWallet.name + " (" + upi + ") is now verified and linked.";
+    $("bindSuccessSummary").textContent = activeBindWallet.name + " (" + phone + ") is now linked.";
     setStepperUI(3);
-  }, 700);
+  }, 600);
 });
 
 $("finishBindBtn").addEventListener("click", () => {
   $("bindModal").classList.add("hidden");
-  renderWallets();
-  showToast("Wallet linked successfully!");
+  navigateTo("wallet");
+  showToast("Wallet added!");
 });
 
+/* Data & UI Sync */
+function getUserOrders() {
+  if (!currentUser) return [];
+  return getStorage(STORAGE_KEYS.ORDERS, {})[currentUser.mobile] || [];
+}
+
+function updateAllUserUI() {
+  if (!currentUser) return;
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  const freshUser = users.find(u => u.mobile === currentUser.mobile);
+  if (freshUser) currentUser = freshUser;
+
+  const orders = getUserOrders();
+  const pendingOrders = orders.filter(o => o.status === "Pending" || o.status === "Reviewing");
+  const pendingAmt = pendingOrders.reduce((sum, o) => sum + o.amount, 0);
+  const estReward = pendingOrders.reduce((sum, o) => sum + parseFloat(o.reward), 0);
+
+  $("homeGreeting").textContent = "Hello, " + currentUser.username;
+  $("homeUserId").textContent = currentUser.id;
+  $("homeBalance").textContent = "₹" + Number(currentUser.balance).toFixed(2);
+  $("payBalance").textContent = "₹" + currentUser.balance;
+  $("payPending").textContent = "₹" + pendingAmt;
+
+  $("statBalance").textContent = "₹" + currentUser.balance;
+  $("statProcessAmt").textContent = "₹" + pendingAmt;
+  $("statProcessOrders").textContent = pendingOrders.length;
+  $("statEstIncome").textContent = "₹" + estReward.toFixed(2);
+
+  $("myAvatar").textContent = currentUser.username.charAt(0).toUpperCase();
+  $("myUsername").textContent = currentUser.username;
+  $("myUserId").textContent = currentUser.id;
+  $("myBalance").textContent = "₹" + currentUser.balance;
+
+  $("ordBalance").textContent = "₹" + currentUser.balance;
+  $("ordPending").textContent = "₹" + pendingAmt;
+  $("refLinkDisplay").textContent = "https://dudpay.app/invite/" + currentUser.id;
+
+  renderHomeTransactions();
+}
+
+/* Statistics Toggle */
+$("toggleSellingBtn").addEventListener("click", () => {
+  isSellingActive = !isSellingActive;
+  const btn = $("toggleSellingBtn");
+  const badge = $("sellingStatusBadge");
+  if (isSellingActive) {
+    btn.textContent = "Stop Selling";
+    btn.className = "btn red full";
+    badge.textContent = "Active Selling";
+    badge.className = "badge green";
+    showToast("Selling started!");
+  } else {
+    btn.textContent = "Start Selling";
+    btn.className = "btn orange full";
+    badge.textContent = "Closed Selling";
+    badge.className = "badge orange";
+    showToast("Selling stopped");
+  }
+});
+
+/* Payment Cards with Live Dynamic Quantities */
 function renderPaymentAmounts() {
   const container = $("paymentAmountList");
   container.innerHTML = "";
   PAYMENT_AMOUNTS.forEach(item => {
+    const liveQty = Math.max(2, item.qty + Math.floor(Math.random() * 7) - 3);
+    const finalAmt = (item.amount + parseFloat(item.reward)).toFixed(2);
     const card = document.createElement("div");
     card.className = "amount-card";
     card.innerHTML = `
       <div>
-        <div class="amt">₹${item.amount.toLocaleString("en-IN")}</div>
-        <div class="rew">Illustrative 5.5% Reward: +₹${item.reward}</div>
+        <div class="amt">Order amount: ₹${item.amount.toLocaleString("en-IN")}</div>
+        <div class="qty">Order quantity: <b>${liveQty}</b></div>
+        <div class="rew">Reward: ₹${item.reward} · Final: ₹${finalAmt}</div>
       </div>
       <button type="button" class="btn sm">Receive</button>
     `;
@@ -2085,12 +1869,9 @@ function renderPaymentAmounts() {
 }
 
 function handleReceiveClick(item) {
-  const boundMap = getUserWallets();
-  const boundList   
- = Object.values(boundMap);
-
+  const boundList = Object.values(getUserWallets());
   if (boundList.length === 0) {
-    showToast("No verified wallet found! Please bind a wallet first.");
+    showToast("Please add a wallet first!");
     navigateTo("wallet");
     return;
   }
@@ -2101,16 +1882,15 @@ function handleReceiveClick(item) {
   listEl.innerHTML = "";
 
   boundList.forEach((b, idx) => {
-    const wMeta = WALLETS_DATA.find(x => x.id === b.id) || { color: "#1769d2", short: "UP" };
     const row = document.createElement("label");
     row.className = "wallet-item bound";
     row.style.cursor = "pointer";
     row.innerHTML = `
       <div class="wallet-left">
-        <div class="w-logo" style="background:${wMeta.color};">${wMeta.short}</div>
+        <div class="w-logo">${BRAND_LOGOS[b.id] || ""}</div>
         <div>
           <b>${b.name}</b>
-          <div class="muted" style="font-size:12px;">${b.upi}</div>
+          <div class="muted" style="font-size:12px;">${b.phone}</div>
         </div>
       </div>
       <input type="radio" name="boundToolRadio" value="${b.id}" ${idx === 0 ? "checked" : ""}>
@@ -2129,27 +1909,42 @@ $("confirmToolSelectBtn").addEventListener("click", () => {
   if (!pendingAmountItem || !selectedToolId) return;
   const boundWallet = getUserWallets()[selectedToolId];
   if (!boundWallet) return;
-
   $("selectToolModal").classList.add("hidden");
   startActiveOrder(pendingAmountItem, boundWallet);
 });
 
+/* Multi-Owner Rotation */
+function getActiveOwner() {
+  const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS).filter(o => o.active);
+  const pool = owners.length > 0 ? owners : DEFAULT_OWNERS;
+  const idx = Math.floor(Math.random() * pool.length);
+  return pool[idx];
+}
+
 function startActiveOrder(item, boundWallet) {
+  const owner = getActiveOwner();
   const orderNo = "R" + Date.now();
   const now = new Date();
   const timeStr = now.toISOString().slice(0, 10) + " " + now.toTimeString().slice(0, 8);
 
   activeOrderState = {
     code: orderNo,
+    userMobile: currentUser.mobile,
+    userName: currentUser.username,
     amount: item.amount,
     reward: item.reward,
     walletId: boundWallet.id,
     wallet: boundWallet.name,
-    userUpi: boundWallet.upi,
-    scheme: boundWallet.scheme,
+    userPhone: boundWallet.phone,
+    ownerName: owner.name,
+    ownerUpi: owner.upi,
+    ownerAcc: owner.acc,
+    ownerIfsc: owner.ifsc,
     status: "Pending",
     time: timeStr,
-    secondsLeft: 1800
+    secondsLeft: 1800,
+    utr: "",
+    proofImg: ""
   };
 
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
@@ -2160,12 +1955,12 @@ function startActiveOrder(item, boundWallet) {
   updateAllUserUI();
 
   $("aoAmount").textContent = "INR " + item.amount.toFixed(2);
-  $("aoPayeeAcc").textContent = OWNER_CONFIG.payeeAcc;
-  $("aoPayeeIfsc").textContent = OWNER_CONFIG.payeeIfsc;
-  $("aoPayeeUpi").textContent = OWNER_CONFIG.payeeUpi;
-  $("aoPayeeName").textContent = OWNER_CONFIG.payeeName;
+  $("aoPayeeAcc").textContent = owner.acc;
+  $("aoPayeeIfsc").textContent = owner.ifsc;
+  $("aoPayeeUpi").textContent = owner.upi;
+  $("aoPayeeName").textContent = owner.name;
   $("aoWalletName").textContent = boundWallet.name;
-  $("aoUserBound").textContent = boundWallet.upi;
+  $("aoUserBound").textContent = boundWallet.phone;
   $("aoOrderNo").textContent = orderNo;
   $("aoStatusBadge").textContent = "Pending";
   $("aoStatusBadge").className = "badge orange";
@@ -2196,25 +1991,23 @@ function startOrderCountdown() {
 
     if (activeOrderState.secondsLeft <= 0) {
       clearInterval(orderCountdownInterval);
-      updateStoredOrderStatus(activeOrderState.code, "Failed");
+      updateOrderRecord(currentUser.mobile, activeOrderState.code, { status: "Failed" });
       $("aoStatusBadge").textContent = "Failed";
       $("aoStatusBadge").className = "badge red";
       $("aoCancelBtn").classList.add("hidden");
       $("aoSubmitProofBtn").disabled = true;
-      showToast("Order expired (30 mins timeout). Marked as Failed.");
+      showToast("Order expired (30 mins). Marked as Failed.");
     }
   }, 1000);
 }
 
-function updateStoredOrderStatus(code, newStatus, utr = "") {
-  if (!currentUser) return;
+function updateOrderRecord(userMobile, code, patch) {
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
-  const list = allOrders[currentUser.mobile] || [];
+  const list = allOrders[userMobile] || [];
   const idx = list.findIndex(o => o.code === code);
   if (idx !== -1) {
-    list[idx].status = newStatus;
-    if (utr) list[idx].utr = utr;
-    allOrders[currentUser.mobile] = list;
+    Object.assign(list[idx], patch);
+    allOrders[userMobile] = list;
     setStorage(STORAGE_KEYS.ORDERS, allOrders);
     updateAllUserUI();
   }
@@ -2224,7 +2017,7 @@ $("aoCancelBtn").addEventListener("click", () => {
   if (!activeOrderState) return;
   clearInterval(orderCountdownInterval);
   activeOrderState.status = "Failed";
-  updateStoredOrderStatus(activeOrderState.code, "Failed");
+  updateOrderRecord(currentUser.mobile, activeOrderState.code, { status: "Failed" });
   $("aoStatusBadge").textContent = "Failed";
   $("aoStatusBadge").className = "badge red";
   $("aoCancelBtn").classList.add("hidden");
@@ -2234,7 +2027,7 @@ $("aoCancelBtn").addEventListener("click", () => {
 $("aoGoPayBtn").addEventListener("click", () => {
   if (!activeOrderState) return;
   const amt = activeOrderState.amount.toFixed(2);
-  const upiParams = `pa=${encodeURIComponent(OWNER_CONFIG.payeeUpi)}&pn=${encodeURIComponent(OWNER_CONFIG.payeeName)}&am=${amt}&cu=INR&tn=${activeOrderState.code}`;
+  const upiParams = `pa=${encodeURIComponent(activeOrderState.ownerUpi)}&pn=${encodeURIComponent(activeOrderState.ownerName)}&am=${amt}&cu=INR&tn=${activeOrderState.code}`;
 
   let deepLink = `upi://pay?${upiParams}`;
   if (activeOrderState.walletId === "phonepe") deepLink = `phonepe://pay?${upiParams}`;
@@ -2243,7 +2036,7 @@ $("aoGoPayBtn").addEventListener("click", () => {
   else if (activeOrderState.walletId === "freecharge") deepLink = `freecharge://upi/pay?${upiParams}`;
   else if (activeOrderState.walletId === "bharatpe") deepLink = `bharatpe://upi/pay?${upiParams}`;
 
-  showToast("Opening " + activeOrderState.wallet + " directly...");
+  showToast("Opening " + activeOrderState.wallet + "...");
   window.location.href = deepLink;
 });
 
@@ -2262,7 +2055,7 @@ $("aoVoucherFile").addEventListener("change", (e) => {
     voucherBase64 = ev.target.result;
     $("aoVoucherPreview").src = voucherBase64;
     $("aoVoucherPreview").style.display = "block";
-    $("aoUploadLabel").textContent = "✓ Screenshot Attached (" + file.name.slice(0, 18) + ")";
+    $("aoUploadLabel").textContent = "✓ Screenshot Attached";
     checkProofReady();
   };
   reader.readAsDataURL(file);
@@ -2275,9 +2068,13 @@ $("aoSubmitProofBtn").addEventListener("click", () => {
   const utr = $("aoUtrInput").value.trim();
   clearInterval(orderCountdownInterval);
   activeOrderState.status = "Reviewing";
-  updateStoredOrderStatus(activeOrderState.code, "Reviewing", utr);
+  updateOrderRecord(currentUser.mobile, activeOrderState.code, {
+    status: "Reviewing",
+    utr,
+    proofImg: voucherBase64
+  });
 
-  showToast("Proof submitted! Under transaction review (3-5 mins).");
+  showToast("Proof submitted! Under review.");
   navigateTo("order");
   currentOrderTab = "purchase";
   $("orderTabPurchase").classList.add("active");
@@ -2285,7 +2082,12 @@ $("aoSubmitProofBtn").addEventListener("click", () => {
   renderOrders();
 });
 
+/* USDT Deposit */
 let selectedUsdtChain = "TRC20";
+const USDT_ADDRS = {
+  TRC20: "TX8k9P2mN4vL7qR5wJ3cZ9yH6tB1nF8sA2",
+  BEP20: "0x71C956E4b2A89f1D3c04E9aB58F219dC4E8a10B3"
+};
 
 $("chainTrc20").addEventListener("click", () => {
   selectedUsdtChain = "TRC20";
@@ -2293,7 +2095,7 @@ $("chainTrc20").addEventListener("click", () => {
   $("chainBep20").classList.remove("selected");
   $("chainTrc20").querySelector("input").checked = true;
   $("selectedChainLabel").textContent = "TRC20";
-  $("usdtAddressText").textContent = OWNER_CONFIG.usdtTrc20;
+  $("usdtAddressText").textContent = USDT_ADDRS.TRC20;
 });
 
 $("chainBep20").addEventListener("click", () => {
@@ -2302,30 +2104,23 @@ $("chainBep20").addEventListener("click", () => {
   $("chainTrc20").classList.remove("selected");
   $("chainBep20").querySelector("input").checked = true;
   $("selectedChainLabel").textContent = "BSC (BEP20)";
-  $("usdtAddressText").textContent = OWNER_CONFIG.usdtBep20;
+  $("usdtAddressText").textContent = USDT_ADDRS.BEP20;
 });
 
-$("copyUsdtAddrBtn").addEventListener("click", () => {
-  copyText($("usdtAddressText").textContent, "USDT Address copied!");
-});
+$("copyUsdtAddrBtn").addEventListener("click", () => copyText($("usdtAddressText").textContent, "Address copied!"));
 
 $("usdtInput").addEventListener("input", () => {
   const val = parseFloat($("usdtInput").value);
-  const hint = $("usdtHint");
-  const out = $("usdtInrOutput");
-  const bonusOut = $("usdtBonusOut");
-
   if (isNaN(val) || val <= 0) {
-    hint.textContent = "";
-    out.textContent = "₹0.00";
-    bonusOut.textContent = "₹0.00";
+    $("usdtHint").textContent = "";
+    $("usdtInrOutput").textContent = "₹0.00";
+    $("usdtBonusOut").textContent = "₹0.00";
     return;
   }
-  hint.textContent = val < 10 ? "Minimum deposit amount is 10 USDT." : "";
+  $("usdtHint").textContent = val < 10 ? "Minimum deposit is 10 USDT." : "";
   const inr = val * 114;
-  const bonus = inr * 0.02;
-  out.textContent = "₹" + inr.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  bonusOut.textContent = "₹" + bonus.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  $("usdtInrOutput").textContent = "₹" + inr.toLocaleString("en-IN", { minimumFractionDigits: 2 });
+  $("usdtBonusOut").textContent = "₹" + (inr * 0.02).toLocaleString("en-IN", { minimumFractionDigits: 2 });
 });
 
 $("usdtDepositBtn").addEventListener("click", () => {
@@ -2337,22 +2132,24 @@ $("usdtDepositBtn").addEventListener("click", () => {
   const inrAmt = Math.round(val * 114);
   const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
   const list = allOrders[currentUser.mobile] || [];
-  const now = new Date();
   list.unshift({
     code: "U" + Date.now().toString().slice(-7),
+    userMobile: currentUser.mobile,
+    userName: currentUser.username,
     amount: inrAmt,
     reward: (inrAmt * 0.02).toFixed(2),
     wallet: "USDT-" + selectedUsdtChain,
     status: "Pending",
-    time: now.toISOString().slice(0, 10) + " " + now.toTimeString().slice(0, 5)
+    time: new Date().toISOString().slice(0, 16).replace("T", " ")
   });
   allOrders[currentUser.mobile] = list;
   setStorage(STORAGE_KEYS.ORDERS, allOrders);
   updateAllUserUI();
-  showToast(`USDT (${selectedUsdtChain}) deposit order created!`);
+  showToast("USDT deposit order created!");
   navigateTo("order");
 });
 
+/* Order History & Home Transactions */
 $("orderTabReceive").addEventListener("click", () => {
   currentOrderTab = "receive";
   $("orderTabReceive").classList.add("active");
@@ -2370,20 +2167,17 @@ $("orderTabPurchase").addEventListener("click", () => {
 function renderOrders() {
   const container = $("orderListContainer");
   const summaryBox = $("purchaseSummaryBox");
-
   if (currentOrderTab === "receive") {
     summaryBox.classList.add("hidden");
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">↓</div><b>No Data</b><div class="muted" style="margin-top:4px;">No receive orders available.</div></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">↓</div><b>No Data</b></div>`;
     return;
   }
-
   summaryBox.classList.remove("hidden");
   const orders = getUserOrders();
   if (orders.length === 0) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Data</b><div class="muted" style="margin-top:4px;">No purchase orders yet.</div></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Data</b></div>`;
     return;
   }
-
   container.innerHTML = "";
   orders.forEach(o => {
     const badgeClass = o.status === "Failed" ? "red" : (o.status === "Succeed" ? "green" : "orange");
@@ -2392,12 +2186,12 @@ function renderOrders() {
     row.innerHTML = `
       <div>
         <b style="font-size:16px;">+₹${o.amount.toLocaleString("en-IN")}</b>
-        <div style="font-size:12px;color:var(--orange);font-weight:700;margin-top:2px;">Reward: +₹${o.reward}</div>
-        <div class="muted" style="font-size:11px;margin-top:3px;">Code: ${o.code} · ${o.wallet}</div>
+        <div style="font-size:12px;color:var(--orange);font-weight:700;">Reward: +₹${o.reward}</div>
+        <div class="muted" style="font-size:11px;">${o.code} · ${o.wallet}</div>
       </div>
       <div style="text-align:right;">
         <span class="badge ${badgeClass}">${o.status}</span>
-        <div class="muted" style="font-size:11px;margin-top:6px;">${o.time}</div>
+        <div class="muted" style="font-size:11px;margin-top:5px;">${o.time}</div>
       </div>
     `;
     container.appendChild(row);
@@ -2408,33 +2202,191 @@ function renderHomeTransactions() {
   const container = $("homeTxContainer");
   const orders = getUserOrders();
   if (orders.length === 0) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Transactions</b><div class="muted" style="margin-top:4px;">Your activity will appear here.</div></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Transactions</b><div class="muted">Your activity will appear here.</div></div>`;
     return;
   }
-
   container.innerHTML = "";
   orders.slice(0, 3).forEach(o => {
     const badgeClass = o.status === "Failed" ? "red" : (o.status === "Succeed" ? "green" : "orange");
     const row = document.createElement("div");
     row.className = "listrow";
     row.innerHTML = `
-      <div>
-        <b>Deposit INR (${o.wallet})</b>
-        <div class="muted" style="font-size:12px;margin-top:2px;">${o.time}</div>
-      </div>
-      <div style="text-align:right;">
-        <b style="color:var(--blue);">₹${o.amount.toFixed(2)}</b>
-        <div style="margin-top:3px;"><span class="badge ${badgeClass}">${o.status}</span></div>
-      </div>
+      <div><b>Deposit INR (${o.wallet})</b><div class="muted" style="font-size:12px;">${o.time}</div></div>
+      <div style="text-align:right;"><b style="color:var(--blue);">₹${o.amount.toFixed(2)}</b><div><span class="badge ${badgeClass}">${o.status}</span></div></div>
     `;
     container.appendChild(row);
   });
 }
 
+/* ==================== SECRET ADMIN PANEL (5 TAPS + PIN 9079) ==================== */
+$("secretVersionTap").addEventListener("click", () => {
+  versionTapCount++;
+  clearTimeout(versionTapTimer);
+  versionTapTimer = setTimeout(() => { versionTapCount = 0; }, 2000);
+  if (versionTapCount >= 5) {
+    versionTapCount = 0;
+    $("adminPinInput").value = "";
+    $("adminPinErr").textContent = "";
+    $("adminPinModal").classList.remove("hidden");
+  }
+});
+
+$("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classList.add("hidden"));
+
+$("verifyAdminPinBtn").addEventListener("click", () => {
+  if ($("adminPinInput").value.trim() === ADMIN_PIN) {
+    $("adminPinModal").classList.add("hidden");
+    renderAdminPanel();
+    navigateTo("admin");
+    showToast("Admin Mode Unlocked");
+  } else {
+    $("adminPinErr").textContent = "Invalid Admin PIN";
+  }
+});
+
+$("admTabUsers").addEventListener("click", () => switchAdminTab("users"));
+$("admTabOrders").addEventListener("click", () => switchAdminTab("orders"));
+$("admTabOwners").addEventListener("click", () => switchAdminTab("owners"));
+
+function switchAdminTab(tab) {
+   $("admTabUsers").classList.toggle("active", tab === "users");
+  $("admTabOrders").classList.toggle("active", tab === "orders");
+  $("admTabOwners").classList.toggle("active", tab === "owners");
+  $("adminUsersSection").classList.toggle("hidden", tab !== "users");
+  $("adminOrdersSection").classList.toggle("hidden", tab !== "orders");
+  $("adminOwnersSection").classList.toggle("hidden", tab !== "owners");
+}
+
+function renderAdminPanel() {
+  /* 1. Users List with +Add / -Minus Balance */
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  const uBox = $("adminUsersSection");
+  uBox.innerHTML = "";
+  users.forEach((u, idx) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="row">
+        <div><b>${u.username}</b> <span class="badge blue">${u.id}</span><div class="muted">${u.mobile}</div></div>
+        <b style="font-size:18px;color:var(--blue);">₹${u.balance}</b>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <button type="button" class="btn green sm" style="flex:1;" data-act="add">+ Add ₹100</button>
+        <button type="button" class="btn red sm" style="flex:1;" data-act="sub">- Minus ₹100</button>
+      </div>
+    `;
+    card.querySelector('[data-act="add"]').addEventListener("click", () => {
+      users[idx].balance = Number(users[idx].balance) + 100;
+      setStorage(STORAGE_KEYS.USERS, users);
+      updateAllUserUI();
+      renderAdminPanel();
+      showToast("Added ₹100 to " + u.username);
+    });
+    card.querySelector('[data-act="sub"]').addEventListener("click", () => {
+      users[idx].balance = Math.max(0, Number(users[idx].balance) - 100);
+      setStorage(STORAGE_KEYS.USERS, users);
+      updateAllUserUI();
+      renderAdminPanel();
+      showToast("Deducted ₹100 from " + u.username);
+    });
+    uBox.appendChild(card);
+  });
+
+  /* 2. Orders List with Approve (Succeed) / Reject (Failed) */
+  const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
+  const oBox = $("adminOrdersSection");
+  oBox.innerHTML = "";
+  let flatOrders = [];
+  Object.keys(allOrders).forEach(mob => {
+    (allOrders[mob] || []).forEach(o => flatOrders.push({ ...o, userMobile: mob }));
+  });
+
+  if (flatOrders.length === 0) {
+    oBox.innerHTML = `<div class="card empty-state"><b>No Orders Yet</b></div>`;
+  } else {
+    flatOrders.forEach(o => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="row">
+          <b>${o.code} · ₹${o.amount}</b>
+          <span class="badge ${o.status === 'Succeed' ? 'green' : (o.status === 'Failed' ? 'red' : 'orange')}">${o.status}</span>
+        </div>
+        <div class="muted" style="font-size:12px;margin-top:4px;">User: ${o.userMobile} · UTR: <b>${o.utr || 'N/A'}</b></div>
+        ${o.proofImg ? `<img src="${o.proofImg}" style="max-height:110px;border-radius:8px;margin-top:8px;display:block;">` : ''}
+        <div class="row" style="margin-top:10px;">
+          <button type="button" class="btn green sm" style="flex:1;" data-oact="approve">Approve (Succeed)</button>
+          <button type="button" class="btn red sm" style="flex:1;" data-oact="reject">Reject (Failed)</button>
+        </div>
+      `;
+      card.querySelector('[data-oact="approve"]').addEventListener("click", () => {
+        if (o.status !== "Succeed") {
+          const uList = getStorage(STORAGE_KEYS.USERS, []);
+          const uIdx = uList.findIndex(x => x.mobile === o.userMobile);
+          if (uIdx !== -1) {
+            uList[uIdx].balance = Number(uList[uIdx].balance) + Number(o.amount) + Number(o.reward || 0);
+            setStorage(STORAGE_KEYS.USERS, uList);
+          }
+        }
+        updateOrderRecord(o.userMobile, o.code, { status: "Succeed" });
+        renderAdminPanel();
+        showToast("Order marked Succeed & Balance credited!");
+      });
+      card.querySelector('[data-oact="reject"]').addEventListener("click", () => {
+        updateOrderRecord(o.userMobile, o.code, { status: "Failed" });
+        renderAdminPanel();
+        showToast("Order marked Failed");
+      });
+      oBox.appendChild(card);
+    });
+  }
+
+  /* 3. Multi-Owner Rotation Manager */
+  const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
+  const ownBox = $("adminOwnersSection");
+  ownBox.innerHTML = `
+    <div class="card">
+      <b>Add New Payment Owner (For Rotation)</b>
+      <input class="field" id="newOwnName" placeholder="Owner Name" style="margin-top:8px;">
+      <input class="field" id="newOwnAcc" placeholder="Bank Account Number">
+      <input class="field" id="newOwnIfsc" placeholder="IFSC Code">
+      <input class="field" id="newOwnUpi" placeholder="Direct UPI ID">
+      <button type="button" class="btn full" id="addOwnerBtn">+ Add Owner to Rotation</button>
+    </div>
+  `;
+  owners.forEach((ow, idx) => {
+    const c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = `
+      <div class="row"><b>${ow.name}</b><span class="badge ${ow.active ? 'green' : 'red'}">${ow.active ? 'Active' : 'Off'}</span></div>
+      <div class="muted" style="font-size:12px;margin-top:4px;">UPI: ${ow.upi}<br>Acc: ${ow.acc} (${ow.ifsc})</div>
+      <button type="button" class="btn light sm" style="margin-top:8px;">Toggle Active/Off</button>
+    `;
+    c.querySelector("button").addEventListener("click", () => {
+      owners[idx].active = !owners[idx].active;
+      setStorage(STORAGE_KEYS.OWNERS, owners);
+      renderAdminPanel();
+    });
+    ownBox.appendChild(c);
+  });
+
+  $("addOwnerBtn").addEventListener("click", () => {
+    const name = $("newOwnName").value.trim();
+    const acc = $("newOwnAcc").value.trim();
+    const ifsc = $("newOwnIfsc").value.trim().toUpperCase();
+    const upi = $("newOwnUpi").value.trim();
+    if (!name || !upi) { showToast("Name and UPI ID required"); return; }
+    owners.push({ id: Date.now(), name, acc: acc || "N/A", ifsc: ifsc || "N/A", upi, active: true });
+    setStorage(STORAGE_KEYS.OWNERS, owners);
+    renderAdminPanel();
+    showToast("New owner added to rotation!");
+  });
+}
+
+/* Copy & Share */
 $("notifBtn").addEventListener("click", () => showToast("No new notifications"));
 $("copyUidBtn").addEventListener("click", () => currentUser && copyText(currentUser.id, "User ID copied!"));
 $("copyRefBtn").addEventListener("click", () => copyText($("refLinkDisplay").textContent, "Referral link copied!"));
-$("copyServiceBtn").addEventListener("click", () => copyText("@OFFICALSERVICE06", "Copied @OFFICALSERVICE06"));
 
 document.querySelectorAll("[data-share]").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -2448,10 +2400,12 @@ document.querySelectorAll("[data-share]").forEach(btn => {
   });
 });
 
+/* Init */
 (function init() {
+  if (!localStorage.getItem(STORAGE_KEYS.OWNERS)) {
+    setStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
+  }
   renderPaymentAmounts();
-  $("usdtAddressText").textContent = OWNER_CONFIG.usdtTrc20;
-
   const savedSession = getStorage(STORAGE_KEYS.SESSION, null);
   if (savedSession && savedSession.mobile) {
     const users = getStorage(STORAGE_KEYS.USERS, []);
