@@ -32,7 +32,7 @@
   }
 
   button, input, select, textarea { font: inherit; outline: none; }
-  button { cursor: pointer; transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.15s ease, background-color 0.2s ease; }
+  button { cursor: pointer; transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.15s ease; }
   button:active:not(:disabled) { transform: scale(0.95); }
 
   .app-shell {
@@ -126,14 +126,14 @@
 
   .notice-bar { background: var(--orange-light); color: #92400e; border: 1px solid #fde68a; border-radius: 12px; padding: 10px 12px; font-size: 12px; font-weight: 600; margin-bottom: 14px; }
 
-  .amount-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+  .amount-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .amount-card .amt { font-size: 17px; font-weight: 800; color: var(--navy); }
-  .amount-card .qty { font-size: 12px; color: var(--muted); margin-top: 3px; }
-  .amount-card .rew { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 3px; }
+  .amount-card .qty { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .amount-card .rew { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 4px; }
   .special-pill { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 8px; margin-left: 4px; }
 
-  .seg-tabs { display: flex; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 4px; margin-bottom: 14px; overflow-x: auto; }
-  .seg-tabs button { flex: 1; border: 0; border-radius: 10px; padding: 9px 6px; background: transparent; color: var(--muted); font-weight: 700; font-size: 12px; white-space: nowrap; }
+  .seg-tabs { display: flex; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 4px; margin-bottom: 14px; overflow-x: auto; gap: 6px; }
+  .seg-tabs button { flex: 1; border: 0; border-radius: 10px; padding: 9px 10px; background: transparent; color: var(--muted); font-weight: 700; font-size: 12px; white-space: nowrap; }
   .seg-tabs button.active { background: var(--blue); color: var(--white); }
 
   .wallet-item { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -165,6 +165,7 @@
 
   .profile-box { display: flex; align-items: center; gap: 14px; }
   .avatar { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), #4f9cf9); color: var(--white); display: grid; place-items: center; font-size: 22px; font-weight: 900; flex-shrink: 0; }
+  .my-icon-box { width: 34px; height: 34px; border-radius: 10px; background: var(--blue-light); color: var(--blue); display: grid; place-items: center; font-size: 16px; font-weight: bold; flex-shrink: 0; }
 
   .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; height: calc(68px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: var(--white); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-around; z-index: 30; }
   .nav-item { border: 0; background: transparent; color: var(--muted); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; font-weight: 600; width: 20%; padding: 6px 0; }
@@ -231,10 +232,10 @@
       <label class="label" for="regUsername">Username</label>
       <input class="field" id="regUsername" type="text" maxlength="25" placeholder="Enter username" required>
 
-      <label class="label" for="regMobile">Mobile Number</label>
-      <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter mobile number" required>
+      <label class="label" for="regMobile">Mobile Number (Starts with 6,7,8,9)</label>
+      <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number" required>
 
-      <label class="label" for="regPassword">Password (min 6 characters)</label>
+      <label class="label" for="regPassword">Password (Min 6 characters)</label>
       <input class="field" id="regPassword" type="password" minlength="6" placeholder="Create password" required>
 
       <label class="label" for="regConfirm">Confirm Password</label>
@@ -256,8 +257,8 @@
       </p>
     </form>
   </div>
-  </div>
-  <div id="mainApp" class="app-shell hidden">
+      </div>
+      <div id="mainApp" class="app-shell hidden">
   <header class="topbar">
     <div class="logo"><span class="logo-badge">DP</span> DUDPAY</div>
     <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications">
@@ -299,11 +300,12 @@
         <button type="button" id="toggleHomeSellingBtn" class="btn orange sm">Start Selling</button>
       </div>
 
+      <!-- 4 Quick Grid Options: USDT, Task, Order, Team -->
       <div class="quick-grid">
         <button type="button" class="quick-item" data-nav="usdt"><span class="rate-tag" id="homeUsdtTag">114 INR</span><div class="quick-icon">₮</div><span>USDT</span></button>
         <button type="button" class="quick-item" data-nav="task"><div class="quick-icon">✓</div><span>Task</span></button>
+        <button type="button" class="quick-item" data-nav="order"><div class="quick-icon">⚡</div><span>Order</span></button>
         <button type="button" class="quick-item" data-nav="team"><div class="quick-icon">👥</div><span>Team</span></button>
-        <button type="button" class="quick-item" data-nav="service"><div class="quick-icon">🎧</div><span>Service</span></button>
       </div>
 
       <div class="reward-banner">
@@ -312,7 +314,7 @@
       </div>
 
       <div class="row" style="margin-bottom:10px;">
-        <b style="font-size:17px;">Transactions</b>
+        <b style="font-size:17px;">Transactions History</b>
         <button type="button" class="btn light sm" data-nav="order">See All</button>
       </div>
 
@@ -336,7 +338,7 @@
       </div>
 
       <div class="notice-bar">
-        ⚠ Tap <span style="cursor:pointer;text-decoration:underline;font-weight:bold;" onclick="triggerPaymentRefresh()">🔄 Refresh</span> to update live market quotas. Select an amount tier below.
+        ⚠ Please use Freecharge or Phonepe or Mobikwik or MoneyView wallet for payment! Tap <span style="cursor:pointer;text-decoration:underline;font-weight:bold;" onclick="triggerPaymentRefresh()">🔄 Refresh</span> to update live orders.
       </div>
 
       <div class="seg-tabs" id="tierTabsContainer">
@@ -422,15 +424,15 @@
         <div class="metric-card"><span class="muted">Balance</span><span class="val blue" id="myBalance">₹77</span></div>
       </div>
       <div class="card">
-        <div class="listrow" data-nav="wallet" style="cursor:pointer;"><b>Wallet</b><span class="muted">›</span></div>
-        <div class="listrow" data-nav="service" style="cursor:pointer;"><b>Customer Service</b><span class="muted">›</span></div>
-        <div class="listrow" data-nav="message" style="cursor:pointer;"><b>Message</b><span class="muted">›</span></div>
-        <div class="listrow" data-nav="tutorial" style="cursor:pointer;"><b>Tutorial</b><span class="muted">›</span></div>
-        <div class="listrow" id="logoutBtn" style="cursor:pointer;color:var(--red);"><b>Logout</b><span>›</span></div>
+        <div class="listrow" data-nav="wallet" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">▣</div><b>Wallet</b></div><span class="muted">›</span></div>
+        <div class="listrow" data-nav="service" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">🎧</div><b>Customer Service</b></div><span class="muted">›</span></div>
+        <div class="listrow" data-nav="message" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">✉</div><b>Message</b></div><span class="muted">›</span></div>
+        <div class="listrow" data-nav="tutorial" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">📖</div><b>Tutorial</b></div><span class="muted">›</span></div>
+        <div class="listrow" id="logoutBtn" style="cursor:pointer;color:var(--red);"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box" style="background:var(--red-light);color:var(--red);">🚪</div><b>Logout</b></div><span>›</span></div>
       </div>
       <p class="center muted" id="secretVersionTap" style="user-select:none;cursor:pointer;padding:8px;">DUDPAY Version 1.0.3</p>
-                                                                                                    </section>
-              <section id="page-usdt" class="page">
+  </section>
+                                                                                                                                                                                                                  <section id="page-usdt" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">USDT Deposit</h2>
@@ -448,8 +450,16 @@
     <section id="page-task" class="page">
       <div class="sub-header"><button type="button" class="back-btn" data-nav="home">←</button><h2 class="page-title">Task Rewards</h2></div>
       <div class="card">
-        <h3 style="margin:0 0 6px;font-size:18px;">Newbie Task</h3>
-        <p class="muted">Complete trading target of ₹2,000 to unlock ₹300 reward.</p>
+        <div class="row">
+          <span class="badge blue">NEWBIE</span>
+          <span class="badge orange">Reward: ₹300</span>
+        </div>
+        <h3 style="margin:12px 0 6px;font-size:18px;">New Member Tasks</h3>
+        <p class="muted" style="margin:0 0 14px;">Register and start trading. Once your total trading amount reaches 2,000.</p>
+        <div class="row" style="font-size:13px;">
+          <span>Current Progress</span>
+          <b><span style="color:var(--blue);" id="taskCurrentAmt">₹0</span> / ₹2,000</b>
+        </div>
         <div class="progress-wrap"><div class="progress-fill" id="taskProgressBar" style="width:0%;"></div></div>
       </div>
     </section>
@@ -462,12 +472,13 @@
           <div class="pay-box center"><small>Total Team Deposit</small><b>₹0.00</b></div>
           <div class="pay-box center"><small>Today Team Deposit</small><b>₹0.00</b></div>
           <div class="pay-box center"><small>Commissions Today</small><b>₹0.00</b></div>
-          <div class="pay-box center"><small>Total Team Members</small><b>0</b></div>
+          <div class="pay-box center"><small>Total Members</small><b>0</b></div>
         </div>
       </div>
       <div class="card">
         <b style="font-size:16px;">Invitation Link</b>
-        <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;">
+        <p class="muted" style="margin:4px 0 10px;">Share your referral link with friends to earn commissions (Level A: 1%, Level B: 0.3%).</p>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
           <span id="refLinkDisplay" style="font-size:12px;color:var(--blue);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">https://dudpay.app/invite/DP0000</span>
           <button type="button" class="btn sm" id="copyRefBtn">Copy</button>
         </div>
@@ -499,7 +510,7 @@
       <button type="button" class="btn green full" id="aoGoPayBtn" style="margin-bottom:14px;padding:14px;">Go Pay via Selected App</button>
       <div class="card">
         <b style="font-size:15px;display:block;margin-bottom:4px;">Submit Payment Proof</b>
-        <p class="muted" style="font-size:12px;margin-bottom:10px;">1. Copy UPI ID or QR.<br>2. Open your payment app and transfer exact amount.<br>3. Enter 12-digit UTR reference number below.</p>
+        <p class="muted" style="font-size:12px;margin-bottom:10px;">Please copy UPI ID after payment. Please upload screenshot or UTR for confirmation.</p>
         <label class="label" for="aoUtrInput">12-Digit UTR Number</label>
         <input class="field" id="aoUtrInput" type="tel" maxlength="12" inputmode="numeric" placeholder="Enter 12-digit UTR">
         <button type="button" class="btn full" id="aoSubmitProofBtn" disabled>Confirm & Submit</button>
@@ -511,7 +522,7 @@
       <div class="card center" style="padding:34px 22px;">
         <div class="avatar" style="margin:0 auto 16px;width:72px;height:72px;font-size:30px;">🎧</div>
         <h3 style="margin:0 0 8px;">24/7 Live Support</h3>
-        <p class="muted" style="margin:0 0 14px;">You are in a queue. Drop your issue or problem below:</p>
+        <p class="muted" style="margin:0 0 14px;">You are in a queue, please wait. Drop a message below:</p>
         <textarea class="field" id="userIssueInput" placeholder="Write your problem/issue here..." style="height:80px;resize:none;"></textarea>
         <button type="button" class="btn full" id="submitIssueBtn" style="margin-bottom:14px;">Submit Issue</button>
         <div id="serviceButtonsContainer"></div>
@@ -543,10 +554,8 @@
     <button type="button" class="nav-item" data-nav="statistics"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Statistics</span></button>
     <button type="button" class="nav-item" data-nav="my"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>My</span></button>
   </nav>
-</div>
-
-<!-- MODALS -->
-<div id="bindModal" class="modal-backdrop hidden">
+                                </div>
+  <div id="bindModal" class="modal-backdrop hidden">
   <div class="modal-card">
     <div class="row" style="margin-bottom:8px;"><b style="font-size:17px;" id="bindModalTitle">Link Wallet</b><button type="button" class="btn light sm" id="closeBindModal">✕</button></div>
     <div class="stepper">
@@ -628,7 +637,11 @@ const BRAND_LOGOS = {
   bharatpe: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#0F172A"/><text x="24" y="27" text-anchor="middle" fill="#00B5B8" font-size="9" font-weight="900">BharatPe</text></svg>`,
   induspay: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#B91C1C"/><text x="24" y="28" text-anchor="middle" fill="#fff" font-size="9" font-weight="900">IndusPay</text></svg>`,
   navi: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#052E16"/><text x="24" y="28" text-anchor="middle" fill="#4ADE80" font-size="10" font-weight="900">Navi</text></svg>`,
-  moneyview: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#064E3B"/><text x="24" y="28" text-anchor="middle" fill="#34D399" font-size="9" font-weight="900">MoneyView</text></svg>`
+  moneyview: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#064E3B"/><text x="24" y="28" text-anchor="middle" fill="#34D399" font-size="9" font-weight="900">MoneyView</text></svg>`,
+  phonepe_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#3B0764"/><text x="24" y="27" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">PP Biz</text></svg>`,
+  gpay_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#1A73E8"/><text x="24" y="27" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">GPay Biz</text></svg>`,
+  paytm_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#002970"/><text x="24" y="27" text-anchor="middle" fill="#00BAF2" font-size="11" font-weight="bold">Paytm Biz</text></svg>`,
+  bharatpe_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#1E293B"/><text x="24" y="27" text-anchor="middle" fill="#FF6B00" font-size="10" font-weight="bold">Bharat Biz</text></svg>`
 };
 
 const WALLETS_DATA = [
@@ -637,7 +650,11 @@ const WALLETS_DATA = [
   { id: "phonepe", name: "PhonePe", category: "personal", range: "Payin 50.00 - 1000.00", payout: true, scheme: "phonepe://pay" },
   { id: "induspay", name: "IndusPay", category: "personal", range: "Payin 50.00 - 5000.00", payout: true, scheme: "induspay://" },
   { id: "navi", name: "Navi", category: "personal", range: "Payin 50.00 - 5000.00", payout: false, scheme: "navi://" },
-  { id: "moneyview", name: "MoneyView", category: "personal", range: "Payin 50.00 - 1000.00", payout: true, scheme: "moneyview://" }
+  { id: "moneyview", name: "MoneyView", category: "personal", range: "Payin 50.00 - 1000.00", payout: true, scheme: "moneyview://" },
+  { id: "phonepe_biz", name: "PhonePe Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "phonepebusiness://" },
+  { id: "gpay_biz", name: "GPay Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "gpaybusiness://" },
+  { id: "paytm_biz", name: "Paytm Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "paytmbusiness://" },
+  { id: "bharatpe_biz", name: "BharatPe Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "bharatpe://" }
 ];
 
 let currentUser = null;
@@ -696,6 +713,7 @@ function showToast(msg) {
 }
 function copyText(text, msg="Copied!") { navigator.clipboard?.writeText(text).then(() => showToast(msg)).catch(() => showToast(text)); }
 
+/* Auth Validation with Indian Mobile (6-9 starting) */
 $("tabLogin").addEventListener("click", () => { $("loginForm").classList.remove("hidden"); $("registerForm").classList.add("hidden"); $("tabLogin").classList.add("active"); $("tabRegister").classList.remove("active"); });
 $("tabRegister").addEventListener("click", () => { $("registerForm").classList.remove("hidden"); $("loginForm").classList.add("hidden"); $("tabRegister").classList.add("active"); $("tabLogin").classList.remove("active"); });
 $("linkToRegister").addEventListener("click", (e) => { e.preventDefault(); $("tabRegister").click(); });
@@ -706,9 +724,20 @@ $("registerForm").addEventListener("submit", async (e) => {
   const username = $("regUsername").value.trim();
   const mobile = $("regMobile").value.trim();
   const password = $("regPassword").value;
-  if (!username || !mobile || password.length < 6) { showToast("Please fill valid details (Password min 6 chars)"); return; }
+  const confirm = $("regConfirm").value;
+  const privacy = $("regPrivacy").checked;
+  const errEl = $("registerError");
+  errEl.textContent = "";
+
+  if (!username) { errEl.textContent = "Please enter username."; return; }
+  if (!/^[6-9]\d{9}$/.test(mobile)) { errEl.textContent = "Please enter valid 10-digit Indian mobile starting with 6,7,8,9."; return; }
+  if (password.length < 6) { errEl.textContent = "Password must be at least 6 characters."; return; }
+  if (password !== confirm) { errEl.textContent = "Passwords do not match."; return; }
+  if (!privacy) { errEl.textContent = "Please accept Privacy Policy & Terms."; return; }
+
   const users = getStorage(STORAGE_KEYS.USERS, []);
-  if (users.some(u => u.mobile === mobile)) { showToast("Mobile already registered"); return; }
+  if (users.some(u => u.mobile === mobile)) { errEl.textContent = "Mobile already registered."; return; }
+
   const newUser = { id: "DP" + mobile.slice(-6), username, mobile, password, balance: 77, blocked: false };
   users.push(newUser);
   setStorage(STORAGE_KEYS.USERS, users);
@@ -721,11 +750,17 @@ $("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const mobile = $("loginMobile").value.trim();
   const password = $("loginPassword").value;
+  const errEl = $("loginError");
+  errEl.textContent = "";
+
+  if (!/^[6-9]\d{9}$/.test(mobile)) { errEl.textContent = "Please enter valid mobile number."; return; }
+  if (!password) { errEl.textContent = "Please enter password."; return; }
+
   await syncAllFromCloud();
   const users = getStorage(STORAGE_KEYS.USERS, []);
   const found = users.find(u => u.mobile === mobile && u.password === password);
-  if (!found) { showToast("Invalid mobile or password"); return; }
-  if (found.blocked) { showToast("Account blocked by admin"); return; }
+  if (!found) { errEl.textContent = "Invalid mobile or password."; return; }
+  if (found.blocked) { errEl.textContent = "Account blocked by admin."; return; }
   currentUser = found;
   if ($("rememberMe").checked) setStorage(STORAGE_KEYS.SESSION, { mobile, password });
   $("authScreen").classList.add("hidden");
@@ -738,7 +773,7 @@ $("logoutBtn").addEventListener("click", () => {
   currentUser = null; localStorage.removeItem(STORAGE_KEYS.SESSION);
   $("mainApp").classList.add("hidden"); $("authScreen").classList.remove("hidden");
 });
-
+    <script>
 function navigateTo(pageKey) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   $("page-" + pageKey)?.classList.add("active");
@@ -748,6 +783,7 @@ function navigateTo(pageKey) {
   if (pageKey === "add-wallet") renderAllWalletsSelector();
   if (pageKey === "payment") renderPaymentAmounts(currentActiveTier);
   if (pageKey === "order") renderOrders();
+  if (pageKey === "home") { syncAllFromCloud(); renderHomeTransactions(); }
 }
 
 document.addEventListener("click", (e) => {
@@ -784,10 +820,7 @@ function renderAllWalletsSelector() {
   });
 }
 
-$("confirmAddToolBtn").addEventListener("click", () => {
-  navigateTo("wallet");
-  showToast("Wallet tools updated");
-});
+$("confirmAddToolBtn").addEventListener("click", () => { navigateTo("wallet"); showToast("Wallet tools updated"); });
 
 function openBindStepper(w) {
   activeBindWallet = w; appLaunchAttempted = false;
@@ -934,6 +967,20 @@ function renderOrders() {
   });
 }
 
+function renderHomeTransactions() {
+  const container = $("homeTxContainer");
+  const orders = getUserOrders();
+  if (orders.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Transactions</b><div class="muted" style="margin-top:4px;">Your activity will appear here.</div></div>`;
+    return;
+  }
+  container.innerHTML = "";
+  orders.slice(0, 3).forEach(o => {
+    const badgeClass = o.status === "Failed" ? "red" : (o.status === "Succeed" ? "green" : "orange");
+    container.innerHTML += `<div class="listrow"><div><b>₹${o.amount}</b><div class="muted">${o.time}</div></div><div style="text-align:right;"><span class="badge ${badgeClass}">${o.status}</span></div></div>`;
+  });
+}
+
 function updateAllUserUI() {
   if (!currentUser) return;
   $("homeGreeting").textContent = "Hello, " + currentUser.username;
@@ -943,6 +990,7 @@ function updateAllUserUI() {
   $("myBalance").textContent = "₹" + currentUser.balance;
   $("myUsername").textContent = currentUser.username;
   $("myUserId").textContent = currentUser.id;
+  $("refLinkDisplay").textContent = "https://dudpay.app/invite/" + currentUser.id;
 }
 
 $("toggleSellingBtn").addEventListener("click", toggleAppSelling);
@@ -1023,12 +1071,27 @@ function renderAdminPanel() {
   uBox.innerHTML = "";
   getStorage(STORAGE_KEYS.USERS, []).forEach((u, i) => {
     const c = document.createElement("div"); c.className = "card";
-    c.innerHTML = `<b>${u.username} (${u.mobile})</b> - ₹${u.balance} <button type="button" class="btn sm green" data-add>+₹500</button>`;
+    c.innerHTML = `<b>${u.username} (${u.mobile})</b> - ₹${u.balance} <div class="row" style="margin-top:8px;"><input type="number" class="field" placeholder="Amount" id="admUsrAmt_${i}" style="margin:0;padding:6px;flex:1;"><button type="button" class="btn green sm" data-add>+ Add</button><button type="button" class="btn red sm" data-sub>- Sub</button><button type="button" class="btn orange sm" data-blk>${u.blocked ? 'Unblock' : 'Block'}</button></div>`;
+    
     c.querySelector("[data-add]").addEventListener("click", async () => {
-      u.balance += 500;
+      const val = Number($("admUsrAmt_" + i).value) || 100;
+      u.balance += val;
       const users = getStorage(STORAGE_KEYS.USERS, []); users[i] = u;
       setStorage(STORAGE_KEYS.USERS, users); await cloudPut(`users/${u.mobile}`, u);
-      renderAdminPanel(); showToast("Balance updated!");
+      renderAdminPanel(); showToast("Balance added!");
+    });
+    c.querySelector("[data-sub]").addEventListener("click", async () => {
+      const val = Number($("admUsrAmt_" + i).value) || 100;
+      u.balance = Math.max(0, u.balance - val);
+      const users = getStorage(STORAGE_KEYS.USERS, []); users[i] = u;
+      setStorage(STORAGE_KEYS.USERS, users); await cloudPut(`users/${u.mobile}`, u);
+      renderAdminPanel(); showToast("Balance deducted!");
+    });
+    c.querySelector("[data-blk]").addEventListener("click", async () => {
+      u.blocked = !u.blocked;
+      const users = getStorage(STORAGE_KEYS.USERS, []); users[i] = u;
+      setStorage(STORAGE_KEYS.USERS, users); await cloudPut(`users/${u.mobile}`, u);
+      renderAdminPanel(); showToast(u.blocked ? "User blocked" : "User unblocked");
     });
     uBox.appendChild(c);
   });
@@ -1055,7 +1118,7 @@ function renderAdminPanel() {
           <button type="button" class="btn red sm" style="flex:1;" data-fail>Failed (Reject)</button>
         </div>`;
 
-                       card.querySelector("[data-success]").addEventListener("click", async () => {
+      card.querySelector("[data-success]").addEventListener("click", async () => {
         const txnCode = "TXN" + Math.floor(100000 + Math.random() * 900000);
         const users = getStorage(STORAGE_KEYS.USERS, []);
         const uIdx = users.findIndex(x => x.mobile === o.userMobile);
@@ -1107,7 +1170,7 @@ function renderAdminPanel() {
       upi: $("admOwnerUpi").value.trim(),
       active: true
     };
-    setStorage(STORAGE_KEYS.OWNERS, owners);
+    setStoragSTORAGE_KEYS.OWNERS, owners);
     await cloudPut("owners", owners);
     showToast("Owner & UPI details updated successfully!");
   });
