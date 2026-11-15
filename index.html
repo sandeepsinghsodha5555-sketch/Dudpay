@@ -779,16 +779,7 @@ document.querySelectorAll("#tierTabsContainer button").forEach(btn => {
     document.querySelectorAll("#tierTabsContainer button").forEach(b => b.classList.remove("active"));
     e.target.classList.add("active");
     currentActiveTier = e.target.dataset.tier;
-    renderPaymentAmounts(currentActiveTier);
-  });
-});
-
-function triggerPaymentRefresh() {
-  showToast("Refreshing live market orders...");
-  renderPaymentAmounts(currentActiveTier);
-}
-
-function renderPaymentAmounts(tierKey) {
+    function renderPaymentAmounts(tierKey) {
   const container = $("paymentAmountList");
   container.innerHTML = "";
   const rawList = MULTI_TIER_AMOUNTS[tierKey] || MULTI_TIER_AMOUNTS.top;
@@ -818,6 +809,7 @@ function handleReceiveClick(item) {
   });
   $("selectToolModal").classList.remove("hidden");
 }
+
 $("closeSelectToolModal").addEventListener("click", () => $("selectToolModal").classList.add("hidden"));
 $("confirmToolSelectBtn").addEventListener("click", () => {
   $("selectToolModal").classList.add("hidden");
@@ -909,9 +901,7 @@ function toggleAppSelling() {
   showToast(newState ? "Selling started!" : "Selling stopped");
 }
 
-$("submitIssueBtn").addEventListener("click", async () => {
-  con   
-  $("usdtDepositBtn").addEventListener("click", async () => {
+$("usdtDepositBtn").addEventListener("click", async () => {
   const val = parseFloat($("usdtInput").value);
   const rate = Number(getAppConfig().usdtRate) || 114;
   if (isNaN(val) || val < 10) { showToast("Minimum USDT deposit is 10 USDT."); return; }
@@ -1080,4 +1070,3 @@ function renderAdminPanel() {
 </script>
 </body>
 </html>
-          
