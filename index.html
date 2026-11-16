@@ -3,191 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#1769d2">
-<title>DUDPAY - Secure Fintech Platform</title>
+<meta name="theme-color" content="#121212">
+<title>DUDPAY</title>
 <style>
   :root {
-    --blue: #1769d2;
-    --blue-dark: #0d4fa3;
-    --blue-light: #eaf2ff;
-    --navy: #142b4d;
-    --bg: #f3f7fc;
+    --bg-dark: #121212;
+    --card-dark: #1e1e24;
+    --card-border: #33333d;
+    --gold: #d4af37;
+    --gold-light: #fef3c7;
+    --gold-dark: #b8860b;
+    --accent: #f59e0b;
     --white: #ffffff;
-    --muted: #6e8098;
-    --border: #dfe8f3;
-    --orange: #f59e0b;
-    --orange-light: #fef3c7;
+    --muted: #9ca3af;
     --green: #10b981;
-    --green-light: #d1fae5;
     --red: #ef4444;
-    --red-light: #fee2e2;
+    --blue: #3b82f6;
   }
-
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
   html, body {
     margin: 0; padding: 0; min-height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #e4edf8; color: var(--navy); overflow-x: hidden;
+    background: var(--bg-dark); color: var(--white); overflow-x: hidden;
   }
-
   button, input, select, textarea { font: inherit; outline: none; }
-  button { cursor: pointer; transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.15s ease; }
-  button:active:not(:disabled) { transform: scale(0.95); }
-
+  button { cursor: pointer; transition: transform 0.14s ease, opacity 0.15s ease, background-color 0.2s ease; }
+  button:active:not(:disabled) { transform: scale(0.96); }
   .app-shell {
-    max-width: 480px; min-height: 100vh; margin: 0 auto; background: var(--bg);
-    position: relative; box-shadow: 0 0 32px rgba(20, 43, 77, 0.09);
-    padding-bottom: calc(84px + env(safe-area-inset-bottom));
+    max-width: 480px; min-height: 100vh; margin: 0 auto; background: var(--bg-dark);
+    position: relative; box-shadow: 0 0 32px rgba(0, 0, 0, 0.8); padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
-
   .hidden { display: none !important; }
   .muted { color: var(--muted); font-size: 13px; }
   .center { text-align: center; }
-
   .topbar {
-    position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(8px); padding: 14px 18px; display: flex; align-items: center;
-    justify-content: space-between; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 20; background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(8px);
+    padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--card-border);
   }
-
-  .logo { font-weight: 900; letter-spacing: 0.8px; color: var(--blue); font-size: 22px; display: flex; align-items: center; gap: 7px; }
-  .logo-badge { background: linear-gradient(135deg, #1769d2, #3b82f6); color: var(--white); font-size: 12px; padding: 3px 8px; border-radius: 7px; font-weight: 800; }
-
-  .icon-btn {
-    width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--border);
-    background: var(--bg); color: var(--navy); display: grid; place-items: center; position: relative;
-  }
-  .notif-dot { position: absolute; top: 8px; right: 9px; width: 7px; height: 7px; background: var(--orange); border-radius: 50%; }
-
+  .logo { font-weight: 900; letter-spacing: 1px; color: var(--gold); font-size: 22px; display: flex; align-items: center; gap: 7px; }
+  .logo-badge { background: linear-gradient(135deg, var(--gold), var(--accent)); color: #121212; font-size: 12px; padding: 3px 8px; border-radius: 7px; font-weight: 800; }
+  .icon-btn { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--card-border); background: var(--card-dark); color: var(--white); display: grid; place-items: center; position: relative; }
+  .notif-dot { position: absolute; top: 8px; right: 9px; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: pulseDot 1.8s infinite; }
+  @keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.65; } }
   .sub-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .back-btn { width: 36px; height: 36px; border-radius: 11px; border: 1px solid var(--border); background: var(--white); color: var(--navy); display: grid; place-items: center; font-weight: 800; font-size: 18px; }
-  .page-title { font-size: 20px; font-weight: 800; margin: 0; }
+  .back-btn { width: 36px; height: 36px; border-radius: 11px; border: 1px solid var(--card-border); background: var(--card-dark); color: var(--white); display: grid; place-items: center; font-weight: 800; font-size: 18px; }
+  .page-title { font-size: 20px; font-weight: 800; margin: 0; color: var(--gold); }
   main { padding: 16px; }
   .page { display: none; animation: pageEnter 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
   .page.active { display: block; }
   @keyframes pageEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  .card { background: var(--white); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(20, 43, 77, 0.04); }
+  .card { background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 18px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
   .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
-
-  .metric-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 14px; }
-  .metric-card .val { display: block; font-size: 20px; font-weight: 800; margin-top: 6px; color: var(--navy); }
-  .metric-card .val.orange { color: var(--orange); }
+  .metric-card { background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; }
+  .metric-card .val { display: block; font-size: 20px; font-weight: 800; margin-top: 6px; color: var(--white); }
+  .metric-card .val.gold { color: var(--gold); }
   .metric-card .val.blue { color: var(--blue); }
   .metric-card .val.green { color: var(--green); }
-
-  .balance-card {
-    background: linear-gradient(135deg, #1769d2 0%, #257be8 100%);
-    color: var(--white); border-radius: 22px; padding: 20px; margin: 14px 0;
-    position: relative; overflow: hidden; box-shadow: 0 12px 26px rgba(23, 105, 210, 0.26);
-  }
-  .balance-card .lbl { font-size: 13px; color: #dbeafe; font-weight: 600; }
-  .balance-card .big-amt { display: block; font-size: 36px; font-weight: 900; margin: 8px 0 14px; }
-  .balance-sub { background: rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; }
-
+  .balance-card { background: linear-gradient(135deg, #24242d 0%, #1a1a22 100%); border: 1.5px solid var(--gold); color: var(--white); border-radius: 22px; padding: 20px; margin: 14px 0; position: relative; overflow: hidden; box-shadow: 0 12px 26px rgba(212, 175, 55, 0.15); }
+  .balance-card::after { content: ""; position: absolute; right: -25px; top: -25px; width: 115px; height: 115px; border-radius: 50%; background: rgba(212, 175, 55, 0.1); }
+  .balance-card .lbl { font-size: 13px; color: var(--gold-light); font-weight: 600; }
+  .balance-card .big-amt { display: block; font-size: 36px; font-weight: 900; margin: 8px 0 14px; color: var(--gold); }
+  .balance-sub { background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; }
   .quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
-  .quick-item { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 14px 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--navy); font-weight: 700; font-size: 12px; position: relative; cursor: pointer; }
-  .quick-icon { width: 42px; height: 42px; border-radius: 13px; background: var(--blue-light); color: var(--blue); display: grid; place-items: center; font-size: 19px; font-weight: 800; }
-  .rate-tag { position: absolute; top: -6px; right: 4px; background: var(--orange); color: #fff; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 8px; }
-
-  .reward-banner { background: linear-gradient(135deg, #1769d2 0%, #3b82f6 100%); color: var(--white); border-radius: 18px; padding: 18px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .reward-banner h3 { margin: 0 0 6px; font-size: 17px; }
-  .reward-banner p { margin: 0; font-size: 12px; color: #e0edff; }
-
-  .btn { border: 0; border-radius: 12px; background: var(--blue); color: var(--white); padding: 12px 16px; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
-  .btn.light { background: var(--blue-light); color: var(--blue); }
-  .btn.white { background: var(--white); color: var(--blue); }
-  .btn.orange { background: var(--orange); color: var(--white); }
-  .btn.green { background: var(--green); color: var(--white); }
-  .btn.red { background: var(--red); color: var(--white); }
+  .quick-item { background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--white); font-weight: 700; font-size: 12px; position: relative; }
+  .quick-icon { width: 42px; height: 42px; border-radius: 13px; background: rgba(212, 175, 55, 0.1); color: var(--gold); display: grid; place-items: center; font-size: 19px; font-weight: 800; }
+  .rate-tag { position: absolute; top: -6px; right: 4px; background: var(--gold); color: #121212; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 8px; }
+  .reward-banner { background: linear-gradient(135deg, #1e1e24 0%, #2a2a35 100%); border: 1px solid var(--gold); color: var(--white); border-radius: 18px; padding: 18px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .reward-banner h3 { margin: 0 0 6px; font-size: 17px; color: var(--gold); }
+  .reward-banner p { margin: 0; font-size: 12px; color: var(--muted); }
+  .btn { border: 0; border-radius: 12px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #121212; padding: 12px 16px; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+  .btn.light { background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid var(--card-border); }
+  .btn.white { background: var(--white); color: #121212; }
+  .btn.dark { background: var(--card-dark); color: var(--white); border: 1px solid var(--card-border); }
+  .btn.green { background: var(--green); color: #fff; }
+  .btn.red { background: var(--red); color: #fff; }
   .btn.sm { padding: 7px 12px; font-size: 12px; border-radius: 9px; }
   .btn.full { width: 100%; margin-top: 10px; }
-  .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-
-  .label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--navy); }
-  .field { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; background: var(--white); color: var(--navy); font-size: 14px; }
-  .field:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(23, 105, 210, 0.14); }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+  .label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--gold-light); }
+  .field { width: 100%; padding: 12px 14px; border: 1px solid var(--card-border); border-radius: 12px; margin-bottom: 12px; background: var(--bg-dark); color: var(--white); font-size: 14px; }
+  .field:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
   .error-text { font-size: 13px; color: var(--red); min-height: 18px; margin: 4px 0 8px; font-weight: 600; }
-
-  .auth-wrap { min-height: 100vh; max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(160deg, #dceafe 0%, #f5f9ff 100%); }
-  .auth-card { width: 100%; background: var(--white); border: 1px solid var(--border); border-radius: 24px; padding: 24px; box-shadow: 0 14px 36px rgba(20, 43, 77, 0.1); }
-  .auth-tabs { display: flex; background: var(--bg); padding: 4px; border-radius: 12px; margin: 18px 0; border: 1px solid var(--border); }
+  .auth-wrap { min-height: 100vh; max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 20px; background: var(--bg-dark); }
+  .auth-card { width: 100%; background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 24px; padding: 24px; box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5); }
+  .auth-tabs { display: flex; background: var(--bg-dark); padding: 4px; border-radius: 12px; margin: 18px 0; border: 1px solid var(--card-border); }
   .auth-tabs button { flex: 1; border: 0; border-radius: 9px; padding: 10px; background: transparent; color: var(--muted); font-weight: 700; }
-  .auth-tabs button.active { background: var(--blue); color: var(--white); }
-
-  .pay-summary { background: linear-gradient(135deg, #1769d2, #0d4fa6); color: var(--white); border-radius: 20px; padding: 18px; margin-bottom: 14px; }
-  .pay-rate { font-size: 32px; font-weight: 900; color: var(--orange); margin: 4px 0 12px; }
-  .pay-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .pay-box { background: rgba(255, 255, 255, 0.13); border-radius: 12px; padding: 10px; }
-  .pay-box small { display: block; font-size: 11px; color: #dbeafe; }
-  .pay-box b { font-size: 15px; display: block; margin-top: 4px; }
-
-  .notice-bar { background: var(--orange-light); color: #92400e; border: 1px solid #fde68a; border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 600; margin-bottom: 16px; line-height: 1.5; }
-
-  .amount-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 2px 8px rgba(20, 43, 77, 0.02); }
-  .amount-card .amt { font-size: 17px; font-weight: 800; color: var(--navy); }
-  .amount-card .qty { font-size: 12px; color: var(--muted); margin-top: 4px; }
-  .amount-card .rew { font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 4px; }
-  .special-pill { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 8px; margin-left: 4px; }
-
-  .seg-tabs { display: flex; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 4px; margin-bottom: 16px; overflow-x: auto; gap: 6px; }
-  .seg-tabs button { flex: 1; border: 0; border-radius: 10px; padding: 10px 12px; background: transparent; color: var(--muted); font-weight: 700; font-size: 12px; white-space: nowrap; }
-  .seg-tabs button.active { background: var(--blue); color: var(--white); }
-
-  .wallet-item { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .wallet-item.bound { border-color: var(--green); background: linear-gradient(to right, #ffffff, #f3fcf8); }
-  .wallet-left { display: flex; align-items: center; gap: 12px; }
-  .w-logo { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; flex-shrink: 0; overflow: hidden; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); }
-
-  .stepper { display: flex; align-items: center; justify-content: space-between; margin: 10px 0 18px; position: relative; }
-  .stepper::before { content: ""; position: absolute; top: 15px; left: 16%; right: 16%; height: 2px; background: var(--border); z-index: 1; }
-  .step-node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 5px; width: 33.3%; font-size: 11px; font-weight: 700; color: var(--muted); }
-  .step-circle { width: 30px; height: 30px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border); display: grid; place-items: center; font-weight: 800; font-size: 13px; }
-  .step-node.active { color: var(--blue); }
-  .step-node.active .step-circle { background: var(--blue); border-color: var(--blue); color: #fff; }
-  .step-node.done { color: var(--green); }
-  .step-node.done .step-circle { background: var(--green); border-color: var(--green); color: #fff; }
-
-  .badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 20px; display: inline-block; }
-  .badge.orange { background: var(--orange-light); color: #b45309; }
-  .badge.green { background: var(--green-light); color: #065f46; }
-  .badge.red { background: var(--red-light); color: #991b1b; }
-  .badge.blue { background: var(--blue-light); color: var(--blue); }
-
-  .listrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-  .listrow:last-child { border-bottom: 0; padding-bottom: 0; }
-  .listrow:first-child { padding-top: 0; }
-
-  .progress-wrap { height: 10px; background: var(--blue-light); border-radius: 20px; overflow: hidden; margin: 12px 0; }
-  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), var(--orange)); border-radius: 20px; }
-
-  .profile-box { display: flex; align-items: center; gap: 14px; }
-  .avatar { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), #4f9cf9); color: var(--white); display: grid; place-items: center; font-size: 22px; font-weight: 900; flex-shrink: 0; }
-  .my-icon-box { width: 34px; height: 34px; border-radius: 10px; background: var(--blue-light); color: var(--blue); display: grid; place-items: center; font-size: 16px; font-weight: bold; flex-shrink: 0; }
-
-  .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; height: calc(68px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: var(--white); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-around; z-index: 30; }
-  .nav-item { border: 0; background: transparent; color: var(--muted); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; font-weight: 600; width: 20%; padding: 6px 0; }
-  .nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
-  .nav-item.active { color: var(--blue); font-weight: 800; }
-
-  .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px; }
-  .modal-card { width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; background: var(--white); border-radius: 22px; padding: 20px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25); }
-
-  .success-check { width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-size: 32px; font-weight: 900; margin: 0 auto 14px; }
-  .toast { position: fixed; bottom: calc(84px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); background: var(--navy); color: var(--white); padding: 11px 18px; border-radius: 12px; font-size: 13px; font-weight: 600; z-index: 70; display: none; max-width: 88%; text-align: center; }
-  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .empty-state { text-align: center; padding: 34px 16px; color: var(--muted); }
-  .empty-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--blue-light); color: var(--blue); display: grid; place-items: center; margin: 0 auto 10px; font-size: 22px; font-weight: 800; }
+  .auth-tabs button.active { background: var(--gold); color: #121212; }
 </style>
 </head>
 <body>
-  <div id="maintenanceOverlay" class="modal-backdrop hidden" style="z-index:60;">
+
+<div id="maintenanceOverlay" class="modal-backdrop hidden" style="z-index:60;">
   <div class="modal-card center" style="padding:32px 22px;">
-    <div class="avatar" style="margin:0 auto 14px;background:var(--orange);">🛠</div>
-    <h3 style="margin:0 0 8px;">System Maintenance</h3>
+    <div class="avatar" style="margin:0 auto 14px;background:var(--accent);">🛠</div>
+    <h3 style="margin:0 0 8px;color:var(--gold);">System Maintenance</h3>
     <p class="muted" style="margin:0 0 18px;">DUDPAY is undergoing scheduled upgrades. Please check back shortly.</p>
     <button type="button" class="btn light sm" id="maintAdminTrigger">Admin Access</button>
   </div>
@@ -214,7 +124,7 @@
       <label class="label" for="loginPassword">Password</label>
       <input class="field" id="loginPassword" type="password" placeholder="Enter password" required>
 
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;color:var(--muted);">
         <input type="checkbox" id="rememberMe" checked>
         <span>Remember Me on this device</span>
       </label>
@@ -223,7 +133,7 @@
       <button type="submit" id="loginSubmitBtn" class="btn full">Login</button>
 
       <p class="center muted" style="margin-top:16px;">
-        New to DUDPAY? <a href="#" id="linkToRegister" style="color:var(--blue);font-weight:700;text-decoration:none;">Create Account</a>
+        New to DUDPAY? <a href="#" id="linkToRegister" style="color:var(--gold);font-weight:700;text-decoration:none;">Create Account</a>
       </p>
     </form>
 
@@ -231,10 +141,10 @@
       <label class="label" for="regUsername">Username</label>
       <input class="field" id="regUsername" type="text" maxlength="25" placeholder="Enter username" required>
 
-      <label class="label" for="regMobile">Mobile Number (Starts with 6, 7, 8, 9)</label>
-      <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number" required>
+      <label class="label" for="regMobile">Mobile Number</label>
+      <input class="field" id="regMobile" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter mobile number" required>
 
-      <label class="label" for="regPassword">Password (Min 6 characters)</label>
+      <label class="label" for="regPassword">Password (min 6 characters)</label>
       <input class="field" id="regPassword" type="password" minlength="6" placeholder="Create password" required>
 
       <label class="label" for="regConfirm">Confirm Password</label>
@@ -243,22 +153,21 @@
       <label class="label" for="regInvite">Invite / Referral Code (Optional)</label>
       <input class="field" id="regInvite" type="text" maxlength="12" placeholder="Optional invite code">
 
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:12px;cursor:pointer;">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;color:var(--muted);">
         <input type="checkbox" id="regPrivacy" required>
-        <span>I agree to Privacy Policy & Terms</span>
+        <span>I agree to the Privacy Policy & Terms</span>
       </label>
 
       <div id="registerError" class="error-text" aria-live="polite"></div>
       <button type="submit" id="regSubmitBtn" class="btn full">Create Account</button>
 
       <p class="center muted" style="margin-top:16px;">
-        Already registered? <a href="#" id="linkToLogin" style="color:var(--blue);font-weight:700;text-decoration:none;">Login</a>
+        Already registered? <a href="#" id="linkToLogin" style="color:var(--gold);font-weight:700;text-decoration:none;">Login</a>
       </p>
     </form>
   </div>
-</div>
-
-<div id="mainApp" class="app-shell hidden">
+  </div>
+        <div id="mainApp" class="app-shell hidden">
   <header class="topbar">
     <div class="logo"><span class="logo-badge">DP</span> DUDPAY</div>
     <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications">
@@ -274,13 +183,13 @@
     <section id="page-home" class="page active">
       <div class="row">
         <div>
-          <div style="font-size:18px;font-weight:800;" id="homeGreeting">Hello, User</div>
+          <div style="font-size:18px;font-weight:800;color:var(--white);" id="homeGreeting">Hello, User</div>
           <div class="muted" style="margin-top:3px;display:flex;align-items:center;gap:6px;">
-            <span>ID: <b id="homeUserId" style="color:var(--navy);">DP000000</b></span>
+            <span>ID: <b id="homeUserId" style="color:var(--gold);">DP000000</b></span>
             <button type="button" class="btn light sm" id="copyUidBtn" style="padding:3px 8px;">Copy</button>
           </div>
         </div>
-        <span class="badge blue">Cloud Active</span>
+        <span class="badge gold">Cloud Active</span>
       </div>
 
       <div class="balance-card">
@@ -292,85 +201,111 @@
         </div>
       </div>
 
-      <div class="card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;">
-        <div>
-          <b>Selling Status</b>
-          <div class="muted" style="font-size:11px;">Commissions are high, withdrawal very fast now!</div>
+      <div class="grid2">
+        <div class="metric-card">
+          <span class="muted">Deposit</span>
+          <span class="val blue" id="cardDeposit">₹0</span>
         </div>
-        <button type="button" id="toggleHomeSellingBtn" class="btn orange sm">Start Selling</button>
+        <div class="metric-card">
+          <span class="muted">Withdrawal</span>
+          <span class="val gold" id="cardWithdraw">₹0</span>
+        </div>
       </div>
 
       <div class="quick-grid">
-        <button type="button" class="quick-item" data-nav="usdt"><span class="rate-tag" id="homeUsdtTag">114 INR</span><div class="quick-icon">₮</div><span>USDT</span></button>
-        <button type="button" class="quick-item" data-nav="task"><div class="quick-icon">✓</div><span>Task</span></button>
-        <button type="button" class="quick-item" data-nav="order"><div class="quick-icon">⚡</div><span>Order</span></button>
-        <button type="button" class="quick-item" data-nav="team"><div class="quick-icon">👥</div><span>Team</span></button>
+        <button type="button" class="quick-item" data-nav="usdt">
+          <span class="rate-tag" id="homeUsdtTag">114 INR</span>
+          <div class="quick-icon">₮</div>
+          <span>USDT</span>
+        </button>
+        <button type="button" class="quick-item" data-nav="task">
+          <div class="quick-icon">✓</div>
+          <span>Task</span>
+        </button>
+        <button type="button" class="quick-item" data-nav="team">
+          <div class="quick-icon">👥</div>
+          <span>Team</span>
+        </button>
+        <button type="button" class="quick-item" data-nav="order">
+          <div class="quick-icon">⚡</div>
+          <span>Order</span>
+        </button>
       </div>
 
       <div class="reward-banner">
-        <div><h3>Newcomer Rewards</h3><p>Check your newcomer task progress.</p></div>
+        <div>
+          <h3>Newcomer Rewards</h3>
+          <p>Check your newcomer task progress.</p>
+        </div>
         <button type="button" class="btn white sm" data-nav="task" style="white-space:nowrap;">View Task</button>
       </div>
 
       <div class="row" style="margin-bottom:10px;">
-        <b style="font-size:17px;">Transactions History</b>
+        <b style="font-size:17px;color:var(--white);">Transactions</b>
         <button type="button" class="btn light sm" data-nav="order">See All</button>
       </div>
 
       <div class="card" id="homeTxContainer">
-        <div class="empty-state"><div class="empty-icon">▤</div><b>No Transactions</b><div class="muted" style="margin-top:4px;">Your activity will appear here.</div></div>
+        <div class="empty-state">
+          <div class="empty-icon">▤</div>
+          <b>No Transactions</b>
+          <div class="muted" style="margin-top:4px;">Your activity will appear here.</div>
+        </div>
       </div>
     </section>
 
     <section id="page-payment" class="page">
       <div class="pay-summary">
         <div class="row">
-          <span style="font-size:13px;font-weight:700;color:#dbeafe;">Cashback Rate</span>
-          <span class="badge orange">Live Market</span>
+          <span style="font-size:13px;font-weight:700;color:var(--gold-light);">Cashback Rate</span>
+          <span class="badge gold">Live Market</span>
         </div>
         <div class="pay-rate" id="payRateDisplay">5.5%</div>
         <div class="pay-boxes">
           <div class="pay-box"><small>Balance</small><b id="payBalance">₹77</b></div>
-          <div class="pay-box"><small>Reward</small><b id="payReward" style="color:#fde68a;">₹0</b></div>
+          <div class="pay-box"><small>Reward</small><b id="payReward" style="color:var(--gold);">₹0</b></div>
           <div class="pay-box"><small>Pending</small><b id="payPending">₹0</b></div>
         </div>
       </div>
 
       <div class="notice-bar">
-        ⚠ Please use Freecharge or Phonepe or Mobikwik or MoneyView wallet for payment! Tap <span style="cursor:pointer;text-decoration:underline;font-weight:bold;" onclick="triggerPaymentRefresh()">🔄 Refresh</span> to update live market quotas.
-      </div>
-
-      <div class="seg-tabs" id="tierTabsContainer">
-        <button type="button" class="active" data-tier="top">Top Picks</button>
-        <button type="button" data-tier="100-499">100-499</button>
-        <button type="button" data-tier="500-999">500-999</button>
-        <button type="button" data-tier="1000-1999">1000-1999</button>
-        <button type="button" data-tier="2000-4999">2000-4999</button>
-        <button type="button" data-tier="5000-9999">5000-9999</button>
+        ⚠ Bind your wallet first. Orders ₹1,000–₹4,000 earn <b>+₹20 Extra</b> and ₹5,000 earns <b>+₹35 Extra</b>!
       </div>
 
       <div id="paymentAmountList"></div>
-  </section>
-      <section id="page-wallet" class="page">
+    </section>
+
+    <section id="page-wallet" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">My Wallet</h2>
       </div>
-      <div id="boundWalletsList"></div>
-      <button type="button" class="btn full" id="openAddWalletSelectorBtn" style="padding:14px;">+ Add Wallet</button>
-    </section>
 
-    <section id="page-add-wallet" class="page">
+      <div id="boundWalletsList"></div>
+
+      <button type="button" class="btn full" id="openAddWalletSelectorBtn" style="padding:14px;">
+        + Add Wallet
+      </button>
+
+      <div class="card" style="background:rgba(212,175,55,0.05);border-color:rgba(212,175,55,0.3);margin-top:14px;">
+        <b style="font-size:13px;color:var(--gold);">Wallet Binding Rules</b>
+        <p class="muted" style="margin:6px 0 0;font-size:12px;">
+          Only verified wallets linked with your registered login mobile number appear here. Tap "+ Add Wallet" to connect a new Personal or Business wallet.
+        </p>
+      </div>
+  </section>
+           <section id="page-add-wallet" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="wallet">←</button>
         <h2 class="page-title">Choose Your Payment</h2>
       </div>
+
       <div class="seg-tabs">
         <button type="button" id="wTabPersonal" class="active">Personal</button>
-        <button type="button" id="wTabBusiness">Business</button>
+        <button type="button" id="wTabBusiness">Business (Payin Only)</button>
       </div>
+
       <div id="allWalletsSelectorList"></div>
-      <button type="button" class="btn full" id="confirmAddToolBtn" style="margin-top:14px;">Sure</button>
     </section>
 
     <section id="page-statistics" class="page">
@@ -378,24 +313,27 @@
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">Statistics</h2>
       </div>
+
       <div class="grid2">
-        <div class="metric-card"><span class="muted">Balance</span><span class="val orange" id="statBalance">₹77</span></div>
+        <div class="metric-card"><span class="muted">Balance</span><span class="val gold" id="statBalance">₹77</span></div>
         <div class="metric-card"><span class="muted">Sell</span><span class="val" id="statSell">₹0</span></div>
         <div class="metric-card"><span class="muted">Deposit</span><span class="val blue" id="statDeposit">₹0</span></div>
-        <div class="metric-card"><span class="muted">Commission</span><span class="val orange" id="statCommission">₹0</span></div>
+        <div class="metric-card"><span class="muted">Commission</span><span class="val gold" id="statCommission">₹0</span></div>
       </div>
+
       <div class="card">
         <div class="row" style="margin-bottom:12px;">
           <b style="font-size:16px;">Payment Details</b>
-          <span id="sellingStatusBadge" class="badge orange">Closed Selling</span>
+          <span id="sellingStatusBadge" class="badge gold">Closed Selling</span>
         </div>
-        <div class="listrow"><span class="muted">Exchange Rate</span><b style="color:var(--blue);" id="statExRate">₹114</b></div>
+        <div class="listrow"><span class="muted">Exchange Rate</span><b style="color:var(--gold);" id="statExRate">₹114</b></div>
         <div class="listrow"><span class="muted">In Process Amount</span><b id="statProcessAmt">₹0</b></div>
         <div class="listrow"><span class="muted">In Process Orders</span><b id="statProcessOrders">0</b></div>
-        <div class="listrow"><span class="muted">Commission Rate</span><b style="color:var(--orange);" id="statCommRate">5.5%</b></div>
-        <div class="listrow"><span class="muted">Estimated Income</span><b style="color:var(--orange);" id="statEstIncome">₹0</b></div>
+        <div class="listrow"><span class="muted">Commission Rate</span><b style="color:var(--gold);" id="statCommRate">5.5%</b></div>
+        <div class="listrow"><span class="muted">Estimated Income</span><b style="color:var(--gold);" id="statEstIncome">₹0</b></div>
       </div>
-      <button type="button" id="toggleSellingBtn" class="btn orange full">Start Selling</button>
+
+      <button type="button" id="toggleSellingBtn" class="btn full">Start Selling</button>
     </section>
 
     <section id="page-my" class="page">
@@ -406,29 +344,23 @@
           <div class="muted" style="margin-top:4px;">User ID: <b id="myUserId">DP000000</b></div>
         </div>
       </div>
-      <div class="card" style="background:var(--blue-light);border-color:#c7defc;">
-        <div class="row">
-          <div>
-            <b>Platform Status</b>
-            <div class="muted" style="font-size:11px;margin-top:2px;">Commissions are high, withdrawal very fast now!</div>
-          </div>
-          <span class="badge green">Active</span>
-        </div>
-      </div>
+
       <div class="grid2">
         <div class="metric-card"><span class="muted">Deposit</span><span class="val" id="myDeposit">₹0</span></div>
         <div class="metric-card"><span class="muted">Withdraw</span><span class="val" id="myWithdraw">₹0</span></div>
-        <div class="metric-card"><span class="muted">Commission</span><span class="val orange" id="myCommission">₹0</span></div>
+        <div class="metric-card"><span class="muted">Commission</span><span class="val gold" id="myCommission">₹0</span></div>
         <div class="metric-card"><span class="muted">Balance</span><span class="val blue" id="myBalance">₹77</span></div>
       </div>
+
       <div class="card">
-        <div class="listrow" data-nav="wallet" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">▣</div><b>Wallet</b></div><span class="muted">›</span></div>
-        <div class="listrow" data-nav="service" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">🎧</div><b>Customer Service</b></div><span class="muted">›</span></div>
-        <div class="listrow" data-nav="message" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">✉</div><b>Message</b></div><span class="muted">›</span></div>
-        <div class="listrow" data-nav="tutorial" style="cursor:pointer;"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box">📖</div><b>Tutorial</b></div><span class="muted">›</span></div>
-        <div class="listrow" id="logoutBtn" style="cursor:pointer;color:var(--red);"><div style="display:flex;align-items:center;gap:10px;"><div class="my-icon-box" style="background:var(--red-light);color:var(--red);">🚪</div><b>Logout</b></div><span>›</span></div>
+        <div class="listrow" data-nav="wallet" style="cursor:pointer;"><b>Wallet</b><span class="muted">›</span></div>
+        <div class="listrow" data-nav="service" style="cursor:pointer;"><b>Customer Service</b><span class="muted">›</span></div>
+        <div class="listrow" data-nav="message" style="cursor:pointer;"><b>Message</b><span class="muted">›</span></div>
+        <div class="listrow" data-nav="tutorial" style="cursor:pointer;"><b>Tutorial</b><span class="muted">›</span></div>
+        <div class="listrow" id="logoutBtn" style="cursor:pointer;color:var(--red);"><b>Logout</b><span>›</span></div>
       </div>
-      <p class="center muted" id="secretVersionTap" style="user-select:none;cursor:pointer;padding:8px;">DUDPAY Version 1.0.3</p>
+
+      <p class="center muted" id="secretVersionTap" style="user-select:none;cursor:pointer;padding:8px;">DUDPAY Version 1.0.0</p>
     </section>
 
     <section id="page-usdt" class="page">
@@ -436,111 +368,281 @@
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">USDT Deposit</h2>
       </div>
+
+      <div class="card" style="background:rgba(59,130,246,0.05);border-color:rgba(59,130,246,0.3);font-size:12px;">
+        <b style="color:var(--blue);display:block;margin-bottom:4px;">Deposit Instructions:</b>
+        1. Enter the USDT amount (minimum 10 USDT) to recharge.<br>
+        2. Select Chain Type (TRC20, BSC BEP20 or Polygon) and copy deposit address.<br>
+        3. After transfer, click Deposit to record your order.
+      </div>
+
       <div class="card">
-        <label class="label" for="usdtInput">USDT Amount (Min 10 USDT)</label>
-        <input class="field" id="usdtInput" type="number" min="10" placeholder="Min 10">
-        <div class="grid2">
-          <div class="metric-card" style="background:var(--bg);padding:10px;"><span class="muted" style="font-size:11px;">You Will Receive</span><span class="val orange" style="font-size:16px;" id="usdtInrOutput">₹0.00</span></div>
+        <div class="row" style="margin-bottom:8px;">
+          <b>Calculator</b>
+          <span class="badge gold" id="usdtRatioBadge">Ratio: 1 USDT = 114 INR</span>
         </div>
+
+        <label class="label" for="usdtInput">USDT Amount (Min 10 USDT)</label>
+        <input class="field" id="usdtInput" type="number" min="10" step="any" placeholder="Please Enter A Number (Min 10)">
+        <div id="usdtHint" class="error-text" style="margin-top:-8px;"></div>
+
+        <div class="grid2" style="margin-bottom:12px;">
+          <div class="metric-card" style="background:var(--bg-dark);padding:10px;">
+            <span class="muted" style="font-size:11px;">Estimated Bonus</span>
+            <span class="val blue" style="font-size:16px;" id="usdtBonusOut">₹0.00</span>
+          </div>
+          <div class="metric-card" style="background:var(--bg-dark);padding:10px;">
+            <span class="muted" style="font-size:11px;">You Will Receive</span>
+            <span class="val gold" style="font-size:16px;" id="usdtInrOutput">₹0.00</span>
+          </div>
+        </div>
+
+        <label class="label">Select Chain Type</label>
+        <div class="chain-card selected" id="chainTrc20">
+          <div><b>TRC20</b><div class="muted" style="font-size:11px;">USDT - TRON Network</div></div>
+          <input type="radio" name="usdtChain" value="TRC20" checked>
+        </div>
+        <div class="chain-card" id="chainBep20">
+          <div><b>BSC (BEP20)</b><div class="muted" style="font-size:11px;">USDT - BNB Smart Chain</div></div>
+          <input type="radio" name="usdtChain" value="BEP20">
+        </div>
+        <div class="chain-card" id="chainPolygon">
+          <div><b>Polygon</b><div class="muted" style="font-size:11px;">USDT - Polygon Network</div></div>
+          <input type="radio" name="usdtChain" value="Polygon">
+        </div>
+
+        <div style="background:var(--bg-dark);border:1px solid var(--card-border);border-radius:12px;padding:10px 12px;margin-top:8px;">
+          <div class="muted" style="font-size:11px;">Deposit Wallet Address (<span id="selectedChainLabel">TRC20</span>):</div>
+          <div class="row" style="margin-top:4px;">
+            <b id="usdtAddressText" style="font-size:11px;word-break:break-all;color:var(--gold);">TX8k9P2mN4vL7qR5wJ3cZ9yH6tB1nF8sA2</b>
+            <button type="button" class="btn sm" id="copyUsdtAddrBtn">Copy</button>
+          </div>
+        </div>
+
         <button type="button" class="btn full" id="usdtDepositBtn">Deposit USDT</button>
       </div>
     </section>
 
     <section id="page-task" class="page">
-      <div class="sub-header"><button type="button" class="back-btn" data-nav="home">←</button><h2 class="page-title">Task Rewards</h2></div>
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Task Rewards</h2>
+      </div>
+
       <div class="card">
         <div class="row">
           <span class="badge blue">NEWBIE</span>
-          <span class="badge orange">Reward: ₹300</span>
+          <span class="badge gold">Reward: ₹300</span>
         </div>
-        <h3 style="margin:12px 0 6px;font-size:18px;">New Member Tasks</h3>
-        <p class="muted" style="margin:0 0 14px;">Register and start trading. Once your total trading amount reaches 2,000.</p>
+        <h3 style="margin:12px 0 6px;font-size:18px;">Newbie Task</h3>
+        <p class="muted" style="margin:0 0 14px;">Complete your trading target of ₹2,000 to unlock the ₹300 newcomer reward.</p>
         <div class="row" style="font-size:13px;">
           <span>Current Progress</span>
-          <b><span style="color:var(--blue);" id="taskCurrentAmt">₹0</span> / ₹2,000</b>
+          <b><span style="color:var(--gold);" id="taskCurrentAmt">₹0</span> / ₹2,000</b>
         </div>
         <div class="progress-wrap"><div class="progress-fill" id="taskProgressBar" style="width:0%;"></div></div>
-      </div>
-    </section>
-
-    <section id="page-team" class="page">
-      <div class="sub-header"><button type="button" class="back-btn" data-nav="home">←</button><h2 class="page-title">Team</h2></div>
-      <div class="balance-card" style="margin-top:0;">
-        <div class="center"><span class="lbl">My Total Commissions</span><strong class="big-amt" style="margin:6px 0 14px;">₹0.00</strong></div>
-        <div class="grid2" style="margin-bottom:0;">
-          <div class="pay-box center"><small>Total Team Deposit</small><b>₹0.00</b></div>
-          <div class="pay-box center"><small>Today Team Deposit</small><b>₹0.00</b></div>
-          <div class="pay-box center"><small>Commissions Today</small><b>₹0.00</b></div>
-          <div class="pay-box center"><small>Total Members</small><b>0</b></div>
+        <div class="row" style="margin-top:14px;">
+          <span class="muted">Target: <b>₹2,000</b></span>
+          <button type="button" class="btn sm" data-nav="payment">Go to Payment</button>
         </div>
       </div>
+  </section>
+        <section id="page-team" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Team</h2>
+      </div>
+
+      <div class="balance-card" style="margin-top:0;">
+        <div class="center">
+          <span class="lbl">Total Commission</span>
+          <strong class="big-amt" style="margin:6px 0 14px;">₹0</strong>
+        </div>
+        <div class="grid2" style="margin-bottom:0;">
+          <div class="pay-box center"><small>Yesterday Commission</small><b>₹0</b></div>
+          <div class="pay-box center"><small>Today's Commission</small><b>₹0</b></div>
+          <div class="pay-box center"><small>Total Team Members</small><b>0</b></div>
+          <div class="pay-box center"><small>Total Team Deposit</small><b>₹0</b></div>
+        </div>
+      </div>
+
       <div class="card">
         <b style="font-size:16px;">Invitation Link</b>
-        <p class="muted" style="margin:4px 0 10px;">Share your referral link with friends to earn commissions (Level A: 1%, Level B: 0.3%).</p>
-        <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
-          <span id="refLinkDisplay" style="font-size:12px;color:var(--blue);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">https://dudpay.app/invite/DP0000</span>
+        <p class="muted" style="margin:4px 0 10px;">Share your referral link with friends to earn commissions.</p>
+        <div style="background:var(--bg-dark);border:1px solid var(--card-border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <span id="refLinkDisplay" style="font-size:12px;color:var(--gold);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">https://dudpay.app/invite/DP0000</span>
           <button type="button" class="btn sm" id="copyRefBtn">Copy</button>
         </div>
+        <div class="share-grid">
+          <button type="button" class="share-btn" data-share="telegram"><span style="color:#0088cc;font-size:18px;">✈</span><span>Telegram</span></button>
+          <button type="button" class="share-btn" data-share="facebook"><span style="color:#1877f2;font-size:18px;">f</span><span>Facebook</span></button>
+          <button type="button" class="share-btn" data-share="whatsapp"><span style="color:#25d366;font-size:18px;">💬</span><span>WhatsApp</span></button>
+          <button type="button" class="share-btn" data-share="copy"><span style="color:var(--gold);font-size:18px;">🔗</span><span>Copy</span></button>
+        </div>
+      </div>
+
+      <div class="card">
+        <b style="font-size:15px;display:block;margin-bottom:8px;">Commission Information</b>
+        <div class="listrow"><span>Level B Commission</span><b style="color:var(--gold);">1%</b></div>
+        <div class="listrow"><span>Level C Commission</span><b style="color:var(--gold);">0.3%</b></div>
       </div>
     </section>
 
     <section id="page-order" class="page">
-      <div class="sub-header"><button type="button" class="back-btn" data-nav="home">←</button><h2 class="page-title">Order History</h2></div>
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="home">←</button>
+        <h2 class="page-title">Order History</h2>
+      </div>
+
       <div class="seg-tabs">
         <button type="button" id="orderTabReceive" class="active">Receive</button>
         <button type="button" id="orderTabPurchase">Purchase</button>
       </div>
+
+      <div id="purchaseSummaryBox" class="pay-summary hidden" style="padding:14px;">
+        <div class="pay-boxes">
+          <div class="pay-box"><small>Balance</small><b id="ordBalance">₹77</b></div>
+          <div class="pay-box"><small>Reward</small><b id="ordReward" style="color:var(--gold);">₹0</b></div>
+          <div class="pay-box"><small>Pending</small><b id="ordPending">₹0</b></div>
+        </div>
+      </div>
+
       <div id="orderListContainer" class="card"></div>
     </section>
 
     <section id="page-active-order" class="page">
-      <div class="sub-header"><button type="button" class="back-btn" data-nav="payment">←</button><h2 class="page-title">Order Payment</h2></div>
-      <div class="card center">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="payment">←</button>
+        <h2 class="page-title">Order Payment</h2>
+      </div>
+
+      <div class="card center" style="background:linear-gradient(135deg,#1e1e24,#2a2a35);">
         <div class="muted">Order Amount</div>
-        <div style="font-size:32px;font-weight:900;color:var(--blue);margin:4px 0;" id="aoAmount">INR 200.00</div>
-        <div class="badge orange">Expire in: <b id="aoTimer">29:59</b></div>
+        <div style="font-size:32px;font-weight:900;color:var(--gold);margin:4px 0;" id="aoAmount">₹200.00</div>
+        <div class="badge gold" style="font-size:12px;padding:5px 12px;">
+          Expire in: <b id="aoTimer">29:59</b>
+        </div>
+        <p style="font-size:11px;color:var(--gold-light);margin:10px 0 0;">
+          Notice: Upload either your payment screenshot OR enter your 12-digit UTR number (any 1 is enough to submit) before timer expires.
+        </p>
       </div>
+
       <div class="card">
-        <div class="listrow"><span class="muted">Payee Account</span><span><b id="aoPayeeAcc"></b></span></div>
-        <div class="listrow"><span class="muted">Payee Name</span><span><b id="aoPayeeName"></b></span></div>
-        <div class="listrow"><span class="muted">IFSC</span><span><b id="aoPayeeIfsc"></b></span></div>
-        <div class="listrow"><span class="muted">UPI ID</span><span><b id="aoPayeeUpi"></b></span></div>
+        <div class="listrow">
+          <span class="muted">Payee Account</span>
+          <span><b id="aoPayeeAcc">06342311224492</b> <button type="button" class="btn light sm" data-copy-el="aoPayeeAcc" style="padding:2px 7px;">Copy</button></span>
+        </div>
+        <div class="listrow">
+          <span class="muted">Payee Name</span>
+          <span><b id="aoPayeeName">Sandeep</b> <button type="button" class="btn light sm" data-copy-el="aoPayeeName" style="padding:2px 7px;">Copy</button></span>
+        </div>
+        <div class="listrow">
+          <span class="muted">IFSC Code</span>
+          <span><b id="aoPayeeIfsc">UCBA0000634</b> <button type="button" class="btn light sm" data-copy-el="aoPayeeIfsc" style="padding:2px 7px;">Copy</button></span>
+        </div>
+        <div class="listrow">
+          <span class="muted">Direct UPI ID</span>
+          <span><b id="aoPayeeUpi">sandeep06936@ptyes</b> <button type="button" class="btn light sm" data-copy-el="aoPayeeUpi" style="padding:2px 7px;">Copy</button></span>
+        </div>
+        <div class="listrow">
+          <span class="muted">Selected Wallet</span>
+          <b style="color:var(--gold);" id="aoWalletName">MobiKwik</b>
+        </div>
+        <div class="listrow">
+          <span class="muted">Bound Mobile</span>
+          <b id="aoUserBound">9876543210</b>
+        </div>
+        <div class="listrow">
+          <span class="muted">Order NO</span>
+          <span><b id="aoOrderNo">R20261114001</b> <button type="button" class="btn light sm" data-copy-el="aoOrderNo" style="padding:2px 7px;">Copy</button></span>
+        </div>
+        <div class="listrow">
+          <span class="muted">Status</span>
+          <div>
+            <span class="badge gold" id="aoStatusBadge">Pending</span>
+            <button type="button" class="btn light sm" id="aoCancelBtn" style="padding:3px 8px;color:var(--red);">Cancel</button>
+          </div>
+        </div>
       </div>
-      <button type="button" class="btn green full" id="aoGoPayBtn" style="margin-bottom:14px;padding:14px;">Go Pay via Selected App</button>
+
+      <button type="button" class="btn green full" id="aoGoPayBtn" style="margin-bottom:14px;padding:14px;">
+        Go Pay via Selected App
+      </button>
+
       <div class="card">
-        <b style="font-size:15px;display:block;margin-bottom:4px;">Submit Payment Proof</b>
-        <p class="muted" style="font-size:12px;margin-bottom:10px;">Please copy UPI ID after payment. Please upload screenshot or UTR for confirmation.</p>
-        <label class="label" for="aoUtrInput">12-Digit UTR Number</label>
-        <input class="field" id="aoUtrInput" type="tel" maxlength="12" inputmode="numeric" placeholder="Enter 12-digit UTR">
-        <label class="label" for="aoFileProof">Or Upload Screenshot Proof</label>
-        <input class="field" id="aoFileProof" type="file" accept="image/*" style="padding:8px;">
-        <button type="button" class="btn full" id="aoSubmitProofBtn" disabled>Confirm & Submit</button>
+        <b style="font-size:15px;display:block;margin-bottom:4px;">Submit Proof (Screenshot OR UTR)</b>
+        <p class="muted" style="margin:0 0 10px;font-size:12px;">Upload payment screenshot OR enter 12-digit UTR — any 1 is enough to submit.</p>
+        <label class="upload-box" for="aoVoucherFile">
+          <div style="font-weight:700;color:var(--gold);font-size:13px;" id="aoUploadLabel">+ Tap to Upload Payment Screenshot (Optional if UTR entered)</div>
+          <div class="muted" style="font-size:11px;margin-top:3px;">JPG, PNG supported</div>
+          <img id="aoVoucherPreview" class="upload-preview" alt="Receipt Preview">
+        </label>
+        <input type="file" id="aoVoucherFile" accept="image/*" class="hidden">
+
+        <label class="label" for="aoUtrInput">12-Digit UTR / Reference Number (Optional if Screenshot uploaded)</label>
+        <input class="field" id="aoUtrInput" type="tel" maxlength="12" inputmode="numeric" placeholder="Enter 12-digit UTR number">
+
+        <button type="button" class="btn full" id="aoSubmitProofBtn" disabled>Submit Payment Proof</button>
       </div>
     </section>
 
     <section id="page-service" class="page">
-      <div class="sub-header"><button type="button" class="back-btn" data-nav="my">←</button><h2 class="page-title">Customer Service</h2></div>
-      <div class="card center" style="padding:34px 22px;">
-        <div class="avatar" style="margin:0 auto 16px;width:72px;height:72px;font-size:30px;">🎧</div>
-        <h3 style="margin:0 0 8px;">24/7 Live Support</h3>
-        <p class="muted" style="margin:0 0 14px;">You are in a queue, please wait. Drop a message below:</p>
-        <textarea class="field" id="userIssueInput" placeholder="Write your problem/issue here..." style="height:80px;resize:none;"></textarea>
-        <button type="button" class="btn full" id="submitIssueBtn" style="margin-bottom:14px;">Submit Issue</button>
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Customer Service</h2>
+      </div>
+
+      <div class="card" style="padding:16px;">
+        <div class="row" style="margin-bottom:12px;">
+          <b style="color:var(--gold);">Live Support Desk</b>
+          <span class="badge green">24/7 Online</span>
+        </div>
+        <div class="chat-box" id="liveChatBox" style="height:260px; overflow-y:auto; background:var(--bg-dark); border:1px solid var(--card-border); border-radius:12px; padding:12px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px;"></div>
+        <div style="display:flex;gap:8px;">
+          <input class="field" id="chatInput" placeholder="Type your message..." style="margin:0;flex:1;">
+          <button type="button" class="btn" id="sendChatBtn" style="padding:0 16px;">Send</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:20px;">
+        <h3 style="margin:0 0 12px;font-size:16px;color:var(--gold);">Official Channels</h3>
         <div id="serviceButtonsContainer"></div>
       </div>
     </section>
 
-    <section id="page-message" class="page"><div class="sub-header"><button type="button" class="back-btn" data-nav="my">←</button><h2 class="page-title">Message</h2></div><div id="userMessagesContainer" class="card"></div></section>
-    <section id="page-tutorial" class="page"><div class="sub-header"><button type="button" class="back-btn" data-nav="my">←</button><h2 class="page-title">Tutorial</h2></div><div id="userTutorialsContainer" class="card"></div></section>
+    <section id="page-message" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Message</h2>
+      </div>
+      <div id="userMessagesContainer"></div>
+    </section>
 
-    <section id="page-admin" class="page">
-      <div class="sub-header"><button type="button" class="back-btn" data-nav="my">←</button><h2 class="page-title">Master Admin Panel</h2></div>
+    <section id="page-tutorial" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Tutorial</h2>
+      </div>
+      <div id="userTutorialsContainer"></div>
+  </section>
+      <section id="page-admin" class="page">
+      <div class="sub-header">
+        <button type="button" class="back-btn" data-nav="my">←</button>
+        <h2 class="page-title">Master Admin Panel</h2>
+      </div>
+
+      <div class="row" style="margin-bottom:10px;">
+        <span class="badge green">● Live Firebase Control</span>
+        <button type="button" class="btn light sm" id="refreshAdminCloudBtn">↻ Sync Now</button>
+      </div>
+
       <div class="seg-tabs">
         <button type="button" id="admTabUsers" class="active">Users</button>
         <button type="button" id="admTabOrders">Orders</button>
-        <button type="button" id="admTabOwners">Owners & UPI</button>
+        <button type="button" id="admTabOwners">Owners</button>
         <button type="button" id="admTabSettings">Controls</button>
       </div>
+
       <div id="adminUsersSection"></div>
       <div id="adminOrdersSection" class="hidden"></div>
       <div id="adminOwnersSection" class="hidden"></div>
@@ -549,36 +651,76 @@
   </main>
 
   <nav class="bottom-nav" aria-label="Bottom Navigation">
-    <button type="button" class="nav-item active" data-nav="home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Home</span></button>
-    <button type="button" class="nav-item" data-nav="payment"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg><span>Payment</span></button>
-    <button type="button" class="nav-item" data-nav="wallet"><svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"></path></svg><span>Wallet</span></button>
-    <button type="button" class="nav-item" data-nav="statistics"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Statistics</span></button>
-    <button type="button" class="nav-item" data-nav="my"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>My</span></button>
+    <button type="button" class="nav-item active" data-nav="home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Home</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="payment">
+      <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+      <span>Payment</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="wallet">
+      <svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"></path></svg>
+      <span>Wallet</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="statistics">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span>Statistics</span>
+    </button>
+    <button type="button" class="nav-item" data-nav="my">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>My</span>
+    </button>
   </nav>
-            </div>
-          <div id="bindModal" class="modal-backdrop hidden">
+</div>
+
+<!-- MODALS -->
+<div id="bindModal" class="modal-backdrop hidden">
   <div class="modal-card">
-    <div class="row" style="margin-bottom:8px;"><b style="font-size:17px;" id="bindModalTitle">Link Wallet</b><button type="button" class="btn light sm" id="closeBindModal">✕</button></div>
+    <div class="row" style="margin-bottom:8px;">
+      <b style="font-size:17px;color:var(--gold);" id="bindModalTitle">Link Wallet</b>
+      <button type="button" class="btn light sm" id="closeBindModal">✕</button>
+    </div>
+
     <div class="stepper">
       <div class="step-node active" id="stepNode1"><div class="step-circle">1</div><span>Phone</span></div>
       <div class="step-node" id="stepNode2"><div class="step-circle">2</div><span>Authorize</span></div>
       <div class="step-node" id="stepNode3"><div class="step-circle">3</div><span>Finish</span></div>
     </div>
+
     <div id="bindStep1">
-      <label class="label" for="bindPhoneInput">Mobile Number</label>
-      <input class="field" id="bindPhoneInput" type="tel" maxlength="10" placeholder="Mobile number">
+      <div style="background:rgba(245,158,11,0.1);color:var(--gold-light);padding:10px 12px;border-radius:10px;font-size:12px;font-weight:600;margin-bottom:12px;">
+        Please enter the same mobile number used to login to this app.
+      </div>
+      <label class="label" for="bindPhoneInput">Mobile Number (+91)</label>
+      <input class="field" id="bindPhoneInput" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter your registered mobile number">
       <div id="bindStep1Err" class="error-text"></div>
       <button type="button" class="btn full" id="toStep2Btn">Next</button>
     </div>
+
     <div id="bindStep2" class="hidden">
-      <button type="button" class="btn orange full" id="verifyOpenAppBtn" style="margin-bottom:12px;">Verify & Open App</button>
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;"><input type="checkbox" id="appInstalledConfirm"><span>Yes, app opened</span></label>
+      <div style="background:rgba(59,130,246,0.1);border-radius:14px;padding:12px;margin-bottom:12px;font-size:12px;">
+        <b>App Verification Check:</b><br>
+        Tap <b>"Verify & Open App"</b> below to check if <b id="stepWalletName2">the app</b> is installed on your device.
+      </div>
+      <button type="button" class="btn green full" id="verifyOpenAppBtn" style="margin-bottom:12px;">Verify & Open App</button>
+
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;color:var(--muted);">
+        <input type="checkbox" id="appInstalledConfirm">
+        <span>Yes, the app opened on my phone</span>
+      </label>
+
       <div id="bindStep2Err" class="error-text"></div>
-      <button type="button" class="btn full" id="toStep3Btn">Authorize</button>
+      <div class="row">
+        <button type="button" class="btn light" id="backToStep1Btn" style="flex:1;">Back</button>
+        <button type="button" class="btn" id="toStep3Btn" style="flex:1;">Authorize</button>
+      </div>
     </div>
+
     <div id="bindStep3" class="hidden center">
       <div class="success-check">✓</div>
-      <h3>Wallet Linked Successfully!</h3>
+      <h3 style="margin:0 0 6px;color:var(--gold);">Wallet Linked!</h3>
+      <p class="muted" id="bindSuccessSummary" style="margin:0 0 14px;">Your wallet is verified and active.</p>
       <button type="button" class="btn full" id="finishBindBtn">Finish</button>
     </div>
   </div>
@@ -586,85 +728,116 @@
 
 <div id="selectToolModal" class="modal-backdrop hidden">
   <div class="modal-card">
-    <div class="row" style="margin-bottom:10px;"><b style="font-size:17px;">Select Bound Tool</b><button type="button" class="btn light sm" id="closeSelectToolModal">✕</button></div>
+    <div class="row" style="margin-bottom:10px;">
+      <b style="font-size:17px;color:var(--gold);">Select Bound Tool</b>
+      <button type="button" class="btn light sm" id="closeSelectToolModal">✕</button>
+    </div>
+    <p class="muted" style="margin-top:0;font-size:12px;">Only your linked wallets are shown below. Payment will open directly in the selected app.</p>
     <div id="boundToolsRadioList"></div>
-    <div class="row" style="margin-top:14px;"><button type="button" class="btn" id="confirmToolSelectBtn" style="flex:1;">Confirm</button></div>
+    <div class="row" style="margin-top:14px;">
+      <button type="button" class="btn light" id="cancelToolSelectBtn" style="flex:1;">Cancel</button>
+      <button type="button" class="btn" id="confirmToolSelectBtn" style="flex:1;">Confirm</button>
+    </div>
   </div>
 </div>
 
 <div id="adminPinModal" class="modal-backdrop hidden">
   <div class="modal-card center">
-    <div class="row" style="margin-bottom:8px;"><b>Admin Verification</b><button type="button" class="btn light sm" id="closeAdminPinModal">✕</button></div>
-    <input class="field center" id="adminPinInput" type="password" maxlength="4" placeholder="••••">
+    <div class="row" style="margin-bottom:8px;">
+      <b style="font-size:17px;color:var(--gold);">Admin Verification</b>
+      <button type="button" class="btn light sm" id="closeAdminPinModal">✕</button>
+    </div>
+    <p class="muted" style="margin-top:0;">Enter 4-digit Admin Security PIN</p>
+    <input class="field center" id="adminPinInput" type="password" maxlength="4" inputmode="numeric" placeholder="••••" style="font-size:22px;letter-spacing:8px;">
     <div id="adminPinErr" class="error-text"></div>
-    <button type="button" class="btn full" id="verifyAdminPinBtn">Unlock</button>
+    <button type="button" class="btn full" id="verifyAdminPinBtn">Unlock Admin Panel</button>
   </div>
 </div>
 
-<div id="paymentInfoModal" class="modal-backdrop hidden">
-  <div class="modal-card center" style="padding:24px;">
-    <div class="avatar" style="margin:0 auto 14px;background:var(--blue);">ℹ</div>
-    <h3 style="margin:0 0 8px;">Payment Instructions</h3>
-    <p class="muted" style="margin:0 0 18px;font-size:13px;line-height:1.5;">Please copy UPI ID after payment. Please upload screenshot or UTR for confirmation.</p>
-    <button type="button" class="btn full" id="proceedPaymentInfoBtn">I Understand & Proceed</button>
+<div id="successAnimModal" class="modal-backdrop hidden">
+  <div class="modal-card center" style="padding:28px 20px;">
+    <div class="success-check">✓</div>
+    <h3 style="margin:0 0 6px;color:var(--gold);">Registration Successful!</h3>
+    <p class="muted" style="margin:0 0 16px;">Your DUDPAY account has been created.</p>
+    <button type="button" class="btn full" id="closeAnimModalBtn">Continue to Login</button>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 "use strict";
+
 const FIREBASE_DB_URL = "https://dudpay-default-rtdb.asia-southeast1.firebasedatabase.app";
 const ADMIN_PIN = "9079";
 
-const DEFAULT_OWNERS = [{ id: 1, name: "Sandeep", acc: "06342311224492", ifsc: "UCBA0000634", upi: "sandeep06936@ptyes", active: true }];
-const DEFAULT_CONFIG = { commRate: 5.5, usdtRate: 114, welcomeBonus: 77, maintenance: false, telegramLinks: [{ label: "Telegram Customer Service", url: "https://t.me/OFFICALSERVICE06" }], messages: [], tutorials: [] };
+const DEFAULT_OWNERS = [
+  { id: 1, name: "Sandeep", acc: "06342311224492", ifsc: "UCBA0000634", upi: "sandeep06936@ptyes", active: true }
+];
 
-const STORAGE_KEYS = { USERS: "dudpay_users_v6", SESSION: "dudpay_session_v6", WALLETS: "dudpay_wallets_v6", ORDERS: "dudpay_orders_v6", OWNERS: "dudpay_owners_v6", CONFIG: "dudpay_config_v6", ROT_IDX: "dudpay_rot_idx_v6" };
-
-const MULTI_TIER_AMOUNTS = {
-  top: [500, 700, 1000],
-  "100-499": [100, 200, 250, 300, 400, 450],
-  "500-999": [500, 600, 700, 750, 800, 900, 970],
-  "1000-1999": [1000, 1200, 1500, 1650, 1700, 1800, 2000],
-  "2000-4999": [2000, 2500, 2700, 3000, 4000, 4500],
-  "5000-9999": [5000, 8000]
+const DEFAULT_CONFIG = {
+  commRate: 5.5,
+  usdtRate: 114,
+  welcomeBonus: 77,
+  maintenance: false,
+  telegramLinks: [
+    { label: "Official Support Desk", url: "https://t.me/OFFICALSERVICE06" },
+    { label: "Dudpay Official Channel", url: "https://t.me/OFFICALSERVICE06" }
+  ],
+  messages: [],
+  tutorials: []
 };
 
-const TIER_EXTRAS = {
-  top: 15,
-  "100-499": 8,
-  "500-999": 15,
-  "1000-1999": 35,
-  "2000-4999": 65,
-  "5000-9999": 90
+const STORAGE_KEYS = {
+  USERS: "dudpay_users_v5",
+  SESSION: "dudpay_session_v5",
+  WALLETS: "dudpay_wallets_v5",
+  ORDERS: "dudpay_orders_v5",
+  OWNERS: "dudpay_owners_v5",
+  CONFIG: "dudpay_config_v5",
+  ROT_IDX: "dudpay_rot_idx_v5",
+  CHATS: "dudpay_chats_v5"
 };
+
+const BASE_AMOUNTS = [
+  { amount: 200, extra: 0, qty: 14 },
+  { amount: 300, extra: 0, qty: 23 },
+  { amount: 500, extra: 0, qty: 9 },
+  { amount: 700, extra: 0, qty: 31 },
+  { amount: 1000, extra: 20, qty: 17 },
+  { amount: 1200, extra: 20, qty: 8 },
+  { amount: 1500, extra: 20, qty: 19 },
+  { amount: 2000, extra: 20, qty: 6 },
+  { amount: 3000, extra: 20, qty: 11 },
+  { amount: 4000, extra: 20, qty: 4 },
+  { amount: 5000, extra: 35, qty: 7 }
+];
 
 const BRAND_LOGOS = {
-  mobikwik: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#0066CC"/><path d="M11 33V15l7.5 10L26 15v18h-4.2v-9.5l-3.3 4.3-3.3-4.3V33H11z" fill="#fff"/></svg>`,
+  mobikwik: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#0066CC"/><path d="M11 33V15l7.5 10L26 15v18h-4.2v-9.5l-3.3 4.3-3.3-4.3V33H11z" fill="#fff"/><path d="M29.5 15h6.5v18h-6.5V15z" fill="#38BDF8"/></svg>`,
   freecharge: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#E25A2B"/><path d="M27.5 11L15 26h8.5l-3 11L33 22h-8.5l3-11z" fill="#fff"/></svg>`,
   phonepe: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#5F259F"/><text x="24" y="32" text-anchor="middle" fill="#fff" font-size="25" font-weight="bold">पे</text></svg>`,
-  paytm: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#00BAF2"/><text x="24" y="27" text-anchor="middle" fill="#fff" font-size="10" font-weight="900">Paytm</text></svg>`,
-  bharatpe: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#0F172A"/><text x="24" y="27" text-anchor="middle" fill="#00B5B8" font-size="9" font-weight="900">BharatPe</text></svg>`,
-  induspay: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#B91C1C"/><text x="24" y="28" text-anchor="middle" fill="#fff" font-size="9" font-weight="900">IndusPay</text></svg>`,
-  navi: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#052E16"/><text x="24" y="28" text-anchor="middle" fill="#4ADE80" font-size="10" font-weight="900">Navi</text></svg>`,
-  moneyview: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#064E3B"/><text x="24" y="28" text-anchor="middle" fill="#34D399" font-size="9" font-weight="900">MoneyView</text></svg>`,
-  phonepe_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#3B0764"/><text x="24" y="27" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">PP Biz</text></svg>`,
-  gpay_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#1A73E8"/><text x="24" y="27" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">GPay Biz</text></svg>`,
-  paytm_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#002970"/><text x="24" y="27" text-anchor="middle" fill="#00BAF2" font-size="11" font-weight="bold">Paytm Biz</text></svg>`,
-  bharatpe_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#1E293B"/><text x="24" y="27" text-anchor="middle" fill="#FF6B00" font-size="10" font-weight="bold">Bharat Biz</text></svg>`
+  paytm: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#00BAF2"/><rect x="5" y="16" width="38" height="16" rx="4" fill="#002970"/><text x="24" y="27" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="900">Paytm</text></svg>`,
+  bharatpe: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#0F172A"/><path d="M16 14h9.5a5.5 5.5 0 010 11H16V14zm0 11h10.5a5.5 5.5 0 010 11H16V25z" fill="#00B5B8"/><circle cx="33" cy="16" r="3" fill="#FF6B00"/></svg>`,
+  navi: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#052E16"/><path d="M14 33V15l13 18V15" stroke="#22C55E" stroke-width="4.2" fill="none" stroke-linecap="round"/><circle cx="34" cy="16" r="3" fill="#4ADE80"/></svg>`,
+  moneyview: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#064E3B"/><path d="M11 31V17l13 9 13-9v14" stroke="#34D399" stroke-width="3.8" fill="none" stroke-linecap="round"/></svg>`,
+  induspay: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#991B1B"/><text x="24" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="900">INDUS</text></svg>`,
+  gpay_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#1A73E8"/><text x="24" y="22" text-anchor="middle" fill="#fff" font-size="12" font-weight="900">G Pay</text><rect x="7" y="26" width="34" height="11" rx="3" fill="#FACC15"/><text x="24" y="34" text-anchor="middle" fill="#1E293B" font-size="6.5" font-weight="900">BIZ</text></svg>`,
+  paytm_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#002970"/><text x="24" y="21" text-anchor="middle" fill="#00BAF2" font-size="10" font-weight="900">Paytm</text><rect x="8" y="25" width="32" height="11" rx="3" fill="#00BAF2"/><text x="24" y="33" text-anchor="middle" fill="#002970" font-size="6.8" font-weight="900">BIZ</text></svg>`,
+  phonepe_biz: `<svg viewBox="0 0 48 48" width="46" height="46"><rect width="48" height="48" rx="12" fill="#3B0764"/><text x="24" y="23" text-anchor="middle" fill="#fff" font-size="17" font-weight="bold">पे</text><rect x="8" y="27" width="32" height="10" rx="3" fill="#A855F7"/><text x="24" y="34.5" text-anchor="middle" fill="#fff" font-size="6.5" font-weight="900">BIZ</text></svg>`
 };
 
 const WALLETS_DATA = [
   { id: "mobikwik", name: "MobiKwik", category: "personal", range: "Payin 100.00 - 50000.00", payout: true, scheme: "mobikwik://" },
   { id: "freecharge", name: "Freecharge", category: "personal", range: "Payin 50.00 - 5000.00", payout: true, scheme: "freecharge://" },
   { id: "phonepe", name: "PhonePe", category: "personal", range: "Payin 50.00 - 1000.00", payout: true, scheme: "phonepe://pay" },
-  { id: "induspay", name: "IndusPay", category: "personal", range: "Payin 50.00 - 5000.00", payout: true, scheme: "induspay://" },
+  { id: "paytm", name: "Paytm", category: "personal", range: "Payin 100.00 - 50000.00", payout: true, scheme: "paytmmp://pay" },
+  { id: "bharatpe", name: "BharatPe", category: "personal", range: "Payin 100.00 - 10000.00", payout: true, scheme: "bharatpe://" },
   { id: "navi", name: "Navi", category: "personal", range: "Payin 50.00 - 5000.00", payout: false, scheme: "navi://" },
   { id: "moneyview", name: "MoneyView", category: "personal", range: "Payin 50.00 - 1000.00", payout: true, scheme: "moneyview://" },
-  { id: "phonepe_biz", name: "PhonePe Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "phonepebusiness://" },
-  { id: "gpay_biz", name: "GPay Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "gpaybusiness://" },
-  { id: "paytm_biz", name: "Paytm Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "paytmbusiness://" },
-  { id: "bharatpe_biz", name: "BharatPe Business", category: "business", range: "Payin 100.00 - 100000.00", payout: true, scheme: "bharatpe://" }
+  { id: "induspay", name: "IndusPay", category: "personal", range: "Payin 100.00 - 20000.00", payout: true, scheme: "induspay://" },
+  { id: "gpay_biz", name: "GooglePay Business", category: "business", range: "Payin 10.00 - 50000.00", payout: false, scheme: "gpaybusiness://" },
+  { id: "paytm_biz", name: "Paytm Business", category: "business", range: "Payin 10.00 - 2000.00", payout: false, scheme: "paytmbusiness://" },
+  { id: "phonepe_biz", name: "PhonePe Business", category: "business", range: "Payin 100.00 - 2000.00", payout: false, scheme: "phonepebusiness://" }
 ];
 
 let currentUser = null;
@@ -676,58 +849,181 @@ let pendingAmountItem = null;
 let selectedToolId = null;
 let activeOrderState = null;
 let orderCountdownInterval = null;
-let currentActiveTier = "top";
+let voucherBase64 = "";
+let isSellingActive = false;
 let versionTapCount = 0;
 let versionTapTimer = null;
 
 const $ = (id) => document.getElementById(id);
-function getStorage(key, fallback) { try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch(e) { return fallback; } }
-function setStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch(e) {} }
-function getAppConfig() { return { ...DEFAULT_CONFIG, ...getStorage(STORAGE_KEYS.CONFIG, DEFAULT_CONFIG) }; }
 
-async function cloudGet(path) { try { const res = await fetch(`${FIREBASE_DB_URL}/${path}.json`); return res.ok ? await res.json() : null; } catch(e) { return null; } }
-async function cloudPut(path, data) { try { await fetch(`${FIREBASE_DB_URL}/${path}.json`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); } catch(e) {} }
-
-async function syncAllFromCloud() {
-  const [cUsers, cOrders, cOwners, cConfig, cWallets, cRot] = await Promise.all([
-    cloudGet("users"), cloudGet("orders"), cloudGet("owners"), cloudGet("config"), cloudGet("wallets"), cloudGet("rotationIndex")
-  ]);
-  if (cUsers) setStorage(STORAGE_KEYS.USERS, Array.isArray(cUsers) ? cUsers.filter(Boolean) : Object.values(cUsers));
-  if (cOrders) setStorage(STORAGE_KEYS.ORDERS, cOrders);
-  if (cWallets) setStorage(STORAGE_KEYS.WALLETS, cWallets);
-  if (cOwners && Array.isArray(cOwners)) setStorage(STORAGE_KEYS.OWNERS, cOwners);
-  if (typeof cRot === "number") setStorage(STORAGE_KEYS.ROT_IDX, cRot);
-  if (cConfig) setStorage(STORAGE_KEYS.CONFIG, { ...DEFAULT_CONFIG, ...cConfig });
-  applyLiveConfigUI();
-  if (currentUser) updateAllUserUI();
+function getStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (e) { return fallback; }
 }
 
+function setStorage(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+}
+
+function getAppConfig() {
+  return { ...DEFAULT_CONFIG, ...getStorage(STORAGE_KEYS.CONFIG, DEFAULT_CONFIG) };
+}
+
+async function cloudGet(path) {
+  try {
+    const res = await fetch(`${FIREBASE_DB_URL}/${path}.json`);
+    return res.ok ? await res.json() : null;
+  } catch (e) { return null; }
+}
+
+async function cloudPut(path, data) {
+  try {
+    await fetch(`${FIREBASE_DB_URL}/${path}.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+  } catch (e) {}
+}
+
+async function syncAllFromCloud() {
+  const [cUsers, cOrders, cOwners, cConfig, cWallets, cRot, cChats] = await Promise.all([
+    cloudGet("users"),
+    cloudGet("orders"),
+    cloudGet("owners"),
+    cloudGet("config"),
+    cloudGet("wallets"),
+    cloudGet("rotationIndex"),
+    cloudGet("chats")
+  ]);
+
+  if (cUsers && typeof cUsers === "object") {
+    const arr = Array.isArray(cUsers) ? cUsers.filter(Boolean) : Object.values(cUsers);
+    if (arr.length > 0) setStorage(STORAGE_KEYS.USERS, arr);
+  }
+  if (cOrders && typeof cOrders === "object") setStorage(STORAGE_KEYS.ORDERS, cOrders);
+  if (cWallets && typeof cWallets === "object") setStorage(STORAGE_KEYS.WALLETS, cWallets);
+  if (cOwners && Array.isArray(cOwners) && cOwners.length > 0) setStorage(STORAGE_KEYS.OWNERS, cOwners);
+  if (typeof cRot === "number") setStorage(STORAGE_KEYS.ROT_IDX, cRot);
+  if (cConfig && typeof cConfig === "object") setStorage(STORAGE_KEYS.CONFIG, { ...DEFAULT_CONFIG, ...cConfig });
+  if (cChats && typeof cChats === "object") setStorage(STORAGE_KEYS.CHATS, cChats);
+
+  applyLiveConfigUI();
+  if (currentUser) {
+    const fresh = getStorage(STORAGE_KEYS.USERS, []).find(u => u.mobile === currentUser.mobile);
+    if (fresh && fresh.blocked) {
+      showToast("Your account has been suspended by Admin.");
+      $("logoutBtn").click();
+      return;
+    }
+    updateAllUserUI();
+    renderLiveChat();
+  }
+}
+  <script>
 function applyLiveConfigUI() {
   const cfg = getAppConfig();
   $("payRateDisplay").textContent = cfg.commRate + "%";
+  $("statCommRate").textContent = cfg.commRate + "%";
+  $("statExRate").textContent = "₹" + cfg.usdtRate;
   $("homeUsdtTag").textContent = cfg.usdtRate + " INR";
+  $("usdtRatioBadge").textContent = `Ratio: 1 USDT = ${cfg.usdtRate} INR`;
+
+  const onAdminPage = $("page-admin").classList.contains("active");
+  $("maintenanceOverlay").classList.toggle("hidden", !cfg.maintenance || onAdminPage);
+
   const srvBox = $("serviceButtonsContainer");
-  if (srvBox) {
-    srvBox.innerHTML = "";
-    (cfg.telegramLinks || DEFAULT_CONFIG.telegramLinks).forEach(item => {
-      const a = document.createElement("a");
-      a.href = item.url; a.target = "_blank"; a.className = "btn full"; a.style.textDecoration = "none"; a.style.marginBottom = "10px"; a.textContent = item.label;
-      srvBox.appendChild(a);
+  srvBox.innerHTML = "";
+  const links = (cfg.telegramLinks && cfg.telegramLinks.length > 0) ? cfg.telegramLinks : DEFAULT_CONFIG.telegramLinks;
+  links.forEach(item => {
+    const a = document.createElement("a");
+    a.href = item.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.className = "btn full";
+    a.style.textDecoration = "none";
+    a.style.marginBottom = "10px";
+    a.textContent = item.label || "Contact Support";
+    srvBox.appendChild(a);
+  });
+
+  const msgBox = $("userMessagesContainer");
+  const msgs = cfg.messages || [];
+  if (msgs.length === 0) {
+    msgBox.innerHTML = `<div class="card empty-state"><div class="empty-icon">✉</div><b>No Message</b><div class="muted" style="margin-top:4px;">You have no new messages at the moment.</div></div>`;
+  } else {
+    msgBox.innerHTML = "";
+    msgs.forEach(m => {
+      const c = document.createElement("div");
+      c.className = "card";
+      c.innerHTML = `<b>${m.title}</b><p class="muted" style="margin:6px 0 0;">${m.body}</p><div class="muted" style="font-size:11px;margin-top:6px;">${m.time || ""}</div>`;
+      msgBox.appendChild(c);
+    });
+  }
+
+  const tutBox = $("userTutorialsContainer");
+  const tuts = cfg.tutorials || [];
+  if (tuts.length === 0) {
+    tutBox.innerHTML = `<div class="card empty-state"><div class="empty-icon">📖</div><b>No Tutorial</b><div class="muted" style="margin-top:4px;">Guides and tutorials will be updated soon.</div></div>`;
+  } else {
+    tutBox.innerHTML = "";
+    tuts.forEach(t => {
+      const c = document.createElement("div");
+      c.className = "card";
+      c.innerHTML = `<b>${t.title}</b><p class="muted" style="margin:6px 0 0;">${t.body}</p>`;
+      tutBox.appendChild(c);
     });
   }
 }
 
-function showToast(msg) {
-  const el = $("toast"); el.textContent = msg; el.style.display = "block";
-  setTimeout(() => { el.style.display = "none"; }, 2700);
+function isValidMobile(num) {
+  if (!/^[6-9]\d{9}$/.test(num)) return false;
+  if (/^(\d)\1{9}$/.test(num)) return false;
+  return !["9876543210", "9123456789"].includes(num);
 }
-function copyText(text, msg="Copied!") { navigator.clipboard?.writeText(text).then(() => showToast(msg)).catch(() => showToast(text)); }
 
-/* Authentication Setup with Indian Mobile Validation (6,7,8,9 starting) */
-$("tabLogin").addEventListener("click", () => { $("loginForm").classList.remove("hidden"); $("registerForm").classList.add("hidden"); $("tabLogin").classList.add("active"); $("tabRegister").classList.remove("active"); });
-$("tabRegister").addEventListener("click", () => { $("registerForm").classList.remove("hidden"); $("loginForm").classList.add("hidden"); $("tabRegister").classList.add("active"); $("tabLogin").classList.remove("active"); });
-$("linkToRegister").addEventListener("click", (e) => { e.preventDefault(); $("tabRegister").click(); });
-$("linkToLogin").addEventListener("click", (e) => { e.preventDefault(); $("tabLogin").click(); });
+let toastTimer = null;
+function showToast(msg) {
+  const el = $("toast");
+  el.textContent = msg;
+  el.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.style.display = "none"; }, 2700);
+}
+
+function copyText(text, successMsg = "Copied!") {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));
+  } else { fallbackCopy(text, successMsg); }
+}
+
+function fallbackCopy(text, successMsg) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); showToast(successMsg); } catch (e) { showToast("Copy: " + text); }
+  document.body.removeChild(ta);
+}
+
+function switchAuthTab(mode) {
+  const isLogin = mode === "login";
+  $("loginForm").classList.toggle("hidden", !isLogin);
+  $("registerForm").classList.toggle("hidden", isLogin);
+  $("tabLogin").classList.toggle("active", isLogin);
+  $("tabRegister").classList.toggle("active", !isLogin);
+  $("loginError").textContent = "";
+  $("registerError").textContent = "";
+}
+
+$("tabLogin").addEventListener("click", () => switchAuthTab("login"));
+$("tabRegister").addEventListener("click", () => switchAuthTab("register"));
+$("linkToRegister").addEventListener("click", (e) => { e.preventDefault(); switchAuthTab("register"); });
+$("linkToLogin").addEventListener("click", (e) => { e.preventDefault(); switchAuthTab("login"); });
 
 $("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -735,304 +1031,674 @@ $("registerForm").addEventListener("submit", async (e) => {
   const mobile = $("regMobile").value.trim();
   const password = $("regPassword").value;
   const confirm = $("regConfirm").value;
+  const invite = $("regInvite").value.trim();
   const privacy = $("regPrivacy").checked;
   const errEl = $("registerError");
   errEl.textContent = "";
 
-  if (!username) { errEl.textContent = "Please enter username."; return; }
-  if (!/^[6-9]\d{9}$/.test(mobile)) { errEl.textContent = "Enter valid 10-digit Indian mobile starting with 6,7,8,9."; return; }
+  if (!/^[a-zA-Z\s]{3,25}$/.test(username)) { errEl.textContent = "Please enter a valid username (letters only)."; return; }
+  if (!isValidMobile(mobile)) { errEl.textContent = "Please enter a valid 10-digit mobile number."; return; }
   if (password.length < 6) { errEl.textContent = "Password must be at least 6 characters."; return; }
   if (password !== confirm) { errEl.textContent = "Passwords do not match."; return; }
-  if (!privacy) { errEl.textContent = "Please accept Privacy Policy & Terms."; return; }
+  if (!privacy) { errEl.textContent = "Please accept the Privacy Policy."; return; }
 
+  const btn = $("regSubmitBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Creating...';
+
+  await syncAllFromCloud();
   const users = getStorage(STORAGE_KEYS.USERS, []);
-  if (users.some(u => u.mobile === mobile)) { errEl.textContent = "Mobile already registered."; return; }
+  if (users.some(u => u.mobile === mobile)) {
+    btn.disabled = false;
+    btn.textContent = "Create Account";
+    errEl.textContent = "This mobile number is already registered.";
+    return;
+  }
 
-  const newUser = { id: "DP" + mobile.slice(-6), username, mobile, password, balance: 77, blocked: false };
+  const cfg = getAppConfig();
+  const newUser = {
+    id: "DP" + mobile.slice(-6),
+    username,
+    mobile,
+    password,
+    inviteCode: invite || "",
+    balance: Number(cfg.welcomeBonus) || 77,
+    blocked: false
+  };
   users.push(newUser);
   setStorage(STORAGE_KEYS.USERS, users);
   await cloudPut(`users/${mobile}`, newUser);
-  showToast("Account created successfully!");
-  $("tabLogin").click();
+
+  btn.disabled = false;
+  btn.textContent = "Create Account";
+  $("registerForm").reset();
+  $("loginMobile").value = mobile;
+  $("loginPassword").value = "";
+  switchAuthTab("login");
+  $("successAnimModal").classList.remove("hidden");
 });
+
+$("closeAnimModalBtn").addEventListener("click", () => $("successAnimModal").classList.add("hidden"));
 
 $("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const mobile = $("loginMobile").value.trim();
   const password = $("loginPassword").value;
+  const remember = $("rememberMe").checked;
   const errEl = $("loginError");
   errEl.textContent = "";
 
-  if (!/^[6-9]\d{9}$/.test(mobile)) { errEl.textContent = "Enter valid mobile number."; return; }
-  if (!password) { errEl.textContent = "Please enter password."; return; }
+  if (!isValidMobile(mobile)) { errEl.textContent = "Please enter a valid 10-digit mobile number."; return; }
+  if (!password) { errEl.textContent = "Please enter your password."; return; }
+
+  const btn = $("loginSubmitBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Logging in...';
 
   await syncAllFromCloud();
   const users = getStorage(STORAGE_KEYS.USERS, []);
-  const found = users.find(u => u.mobile === mobile && u.password === password);
-  if (!found) { errEl.textContent = "Invalid mobile or password."; return; }
-  if (found.blocked) { errEl.textContent = "Account blocked by admin."; return; }
-  currentUser = found;
-  if ($("rememberMe").checked) setStorage(STORAGE_KEYS.SESSION, { mobile, password });
+  const foundUser = users.find(u => u.mobile === mobile);
+
+  btn.disabled = false;
+  btn.textContent = "Login";
+
+  if (!foundUser) { errEl.textContent = "Account not found. Please register first."; return; }
+  if (foundUser.blocked) { errEl.textContent = "This account has been blocked by Admin."; return; }
+  if (foundUser.password !== password) { errEl.textContent = "Incorrect password."; return; }
+
+  if (remember) {
+    setStorage(STORAGE_KEYS.SESSION, { mobile: foundUser.mobile, savedPassword: foundUser.password });
+  } else { localStorage.removeItem(STORAGE_KEYS.SESSION); }
+  openDashboard(foundUser);
+  showToast("Login successful!");
+});
+
+function openDashboard(user) {
+  currentUser = user;
   $("authScreen").classList.add("hidden");
   $("mainApp").classList.remove("hidden");
   updateAllUserUI();
+  renderLiveChat();
   navigateTo("home");
-});
+}
 
 $("logoutBtn").addEventListener("click", () => {
-  currentUser = null; localStorage.removeItem(STORAGE_KEYS.SESSION);
-  $("mainApp").classList.add("hidden"); $("authScreen").classList.remove("hidden");
+  currentUser = null;
+  clearInterval(orderCountdownInterval);
+  const saved = getStorage(STORAGE_KEYS.SESSION, null);
+  localStorage.removeItem(STORAGE_KEYS.SESSION);
+  $("mainApp").classList.add("hidden");
+  $("authScreen").classList.remove("hidden");
+  if (saved && saved.mobile) {
+    $("loginMobile").value = saved.mobile;
+    $("loginPassword").value = saved.savedPassword || "";
+  } else { $("loginPassword").value = ""; }
+  switchAuthTab("login");
+  showToast("Logged out");
 });
-  <script>
+
 function navigateTo(pageKey) {
+  const targetPage = $("page-" + pageKey);
+  if (!targetPage) return;
+
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  $("page-" + pageKey)?.classList.add("active");
+  targetPage.classList.add("active");
+
   const mainTabs = ["home", "payment", "wallet", "statistics", "my"];
-  document.querySelectorAll(".nav-item").forEach(btn => btn.classList.toggle("active", mainTabs.includes(pageKey) && btn.dataset.nav === pageKey));
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.classList.toggle("active", mainTabs.includes(pageKey) && btn.dataset.nav === pageKey);
+  });
+
   if (pageKey === "wallet") renderBoundWalletsPage();
   if (pageKey === "add-wallet") renderAllWalletsSelector();
-  if (pageKey === "payment") renderPaymentAmounts(currentActiveTier);
   if (pageKey === "order") renderOrders();
   if (pageKey === "home") { syncAllFromCloud(); renderHomeTransactions(); }
+  if (pageKey === "payment") renderPaymentAmounts();
+  if (pageKey === "service") renderLiveChat();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 document.addEventListener("click", (e) => {
-  const nav = e.target.closest("[data-nav]");
-  if (nav) { e.preventDefault(); navigateTo(nav.dataset.nav); }
+  const navTrigger = e.target.closest("[data-nav]");
+  if (navTrigger) { e.preventDefault(); navigateTo(navTrigger.dataset.nav); }
+  const copyTrigger = e.target.closest("[data-copy-el]");
+  if (copyTrigger) {
+    const el = $(copyTrigger.dataset.copyEl);
+    if (el) copyText(el.textContent.trim(), "Copied!");
+  }
 });
 
 $("openAddWalletSelectorBtn").addEventListener("click", () => navigateTo("add-wallet"));
-$("wTabPersonal").addEventListener("click", () => { currentWalletCategory = "personal"; $("wTabPersonal").classList.add("active"); $("wTabBusiness").classList.remove("active"); renderAllWalletsSelector(); });
-$("wTabBusiness").addEventListener("click", () => { currentWalletCategory = "business"; $("wTabBusiness").classList.add("active"); $("wTabPersonal").classList.remove("active"); renderAllWalletsSelector(); });
+$("wTabPersonal").addEventListener("click", () => {
+  currentWalletCategory = "personal";
+  $("wTabPersonal").classList.add("active");
+  $("wTabBusiness").classList.remove("active");
+  renderAllWalletsSelector();
+});
+$("wTabBusiness").addEventListener("click", () => {
+  currentWalletCategory = "business";
+  $("wTabBusiness").classList.add("active");
+  $("wTabPersonal").classList.remove("active");
+  renderAllWalletsSelector();
+});
 
-function getUserWallets() { return currentUser ? (getStorage(STORAGE_KEYS.WALLETS, {})[currentUser.mobile] || {}) : {}; }
+function getUserWallets() {
+  if (!currentUser) return {};
+  return getStorage(STORAGE_KEYS.WALLETS, {})[currentUser.mobile] || {};
+}
 
 function renderBoundWalletsPage() {
   const container = $("boundWalletsList");
-  const bound = Object.values(getUserWallets());
-  container.innerHTML = bound.length === 0 ? `<div class="card empty-state"><b>No Wallet Linked</b></div>` : "";
-  bound.forEach(b => {
-    const div = document.createElement("div"); div.className = "wallet-item bound";
-    div.innerHTML = `<div class="wallet-left"><div class="w-logo">${BRAND_LOGOS[b.id]||""}</div><div><b>${b.name}</b><div class="muted">${b.phone}</div></div></div><span class="badge green">Linked</span>`;
+  const boundList = Object.values(getUserWallets());
+  container.innerHTML = "";
+  if (boundList.length === 0) {
+    container.innerHTML = `
+      <div class="card empty-state">
+        <div class="empty-icon">▣</div>
+        <b>No Wallet Linked</b>
+        <div class="muted" style="margin-top:4px;">Tap "+ Add Wallet" below to verify and link your payment app.</div>
+      </div>`;
+    return;
+  }
+  boundList.forEach(b => {
+    const wMeta = WALLETS_DATA.find(x => x.id === b.id) || { payout: true };
+    const div = document.createElement("div");
+    div.className = "wallet-item bound";
+    div.innerHTML = `
+      <div class="wallet-left">
+        <div class="w-logo">${BRAND_LOGOS[b.id] || ""}</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <b>${b.name}</b>
+            <span class="badge green">Enabled</span>
+          </div>
+          <div class="muted" style="font-size:12px;margin-top:4px;">Mobile: <b>${b.phone}</b></div>
+        </div>
+      </div>
+      <span class="badge ${wMeta.payout ? 'blue' : 'gold'}">${wMeta.payout ? 'Payout' : 'Payin Only'}</span>`;
     container.appendChild(div);
   });
 }
 
 function renderAllWalletsSelector() {
   const container = $("allWalletsSelectorList");
+  const bound = getUserWallets();
+  const filtered = WALLETS_DATA.filter(w => w.category === currentWalletCategory);
   container.innerHTML = "";
-  WALLETS_DATA.filter(w => w.category === currentWalletCategory).forEach(w => {
-    const bound = getUserWallets()[w.id];
-    const div = document.createElement("div"); div.className = "wallet-item" + (bound ? " bound" : "");
-    div.innerHTML = `<div class="wallet-left"><div class="w-logo">${BRAND_LOGOS[w.id]||""}</div><div><b>${w.name}</b><div class="muted">${w.range}</div></div></div><button type="button" class="btn sm ${bound ? 'green' : ''}">${bound ? 'Linked' : '+ Link'}</button>`;
-    if (!bound) div.querySelector("button").addEventListener("click", () => openBindStepper(w));
+  filtered.forEach(w => {
+    const isLinked = Boolean(bound[w.id]);
+    const div = document.createElement("div");
+    div.className = "wallet-item" + (isLinked ? " bound" : "");
+    div.innerHTML = `
+      <div class="wallet-left">
+        <div class="w-logo">${BRAND_LOGOS[w.id] || ""}</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <b>${w.name}</b>
+            ${w.payout ? '<span class="badge green">Payout</span>' : '<span class="badge gold">Payin Only</span>'}
+          </div>
+          <div class="muted" style="font-size:11px;margin-top:3px;">${w.range}</div>
+        </div>
+      </div>
+      <button type="button" class="btn ${isLinked ? 'light' : ''} sm">${isLinked ? 'Linked' : 'Select'}</button>`;
+    div.querySelector("button").addEventListener("click", () => openBindStepper(w));
     container.appendChild(div);
   });
 }
-
-$("confirmAddToolBtn").addEventListener("click", () => { navigateTo("wallet"); showToast("Wallet tools updated"); });
-
-function openBindStepper(w) {
-  activeBindWallet = w; appLaunchAttempted = false;
-  $("bindPhoneInput").value = currentUser ? currentUser.mobile : "";
-  $("appInstalledConfirm").checked = false;
-  setStepperUI(1);
-  $("bindModal").classList.remove("hidden");
-}
-$("closeBindModal").addEventListener("click", () => $("bindModal").classList.add("hidden"));
 
 function setStepperUI(step) {
   [1, 2, 3].forEach(n => {
     $("bindStep" + n).classList.toggle("hidden", n !== step);
     const node = $("stepNode" + n);
-    node.classList.toggle("active", n === step);
-    node.classList.toggle("done", n < step);
+    node.classList.remove("active", "done");
+    if (n < step) node.classList.add("done");
+    if (n === step) node.classList.add("active");
   });
 }
+
+function openBindStepper(wallet) {
+  activeBindWallet = wallet;
+  appLaunchAttempted = false;
+  $("bindModalTitle").textContent = "Link " + wallet.name;
+  $("stepWalletName2").textContent = wallet.name;
+  $("bindPhoneInput").value = "";
+  $("appInstalledConfirm").checked = false;
+  $("bindStep1Err").textContent = "";
+  $("bindStep2Err").textContent = "";
+  setStepperUI(1);
+  $("bindModal").classList.remove("hidden");
+}
+
+$("closeBindModal").addEventListener("click", () => $("bindModal").classList.add("hidden"));
 
 $("toStep2Btn").addEventListener("click", () => {
-  if (!$("bindPhoneInput").value.trim()) { $("bindStep1Err").textContent = "Enter mobile"; return; }
+  const phone = $("bindPhoneInput").value.trim();
+  const err = $("bindStep1Err");
+  err.textContent = "";
+  if (!isValidMobile(phone)) { err.textContent = "Please enter a valid 10-digit mobile number."; return; }
+  if (currentUser && phone !== currentUser.mobile) { err.textContent = "Mobile number must match your DUDPAY login mobile number."; return; }
   setStepperUI(2);
 });
-$("verifyOpenAppBtn").addEventListener("click", () => { appLaunchAttempted = true; window.location.href = activeBindWallet.scheme; });
+
+$("backToStep1Btn").addEventListener("click", () => setStepperUI(1));
+
+$("verifyOpenAppBtn").addEventListener("click", () => {
+  if (!activeBindWallet) return;
+  appLaunchAttempted = true;
+  showToast("Checking " + activeBindWallet.name + " on your device...");
+  window.location.href = activeBindWallet.scheme;
+});
+
 $("toStep3Btn").addEventListener("click", () => {
-  if (!appLaunchAttempted || !$("appInstalledConfirm").checked) { $("bindStep2Err").textContent = "Please verify app installation first (App not found / Download first)."; return; }
-  const wallets = getStorage(STORAGE_KEYS.WALLETS, {});
-  if (!wallets[currentUser.mobile]) wallets[currentUser.mobile] = {};
-  wallets[currentUser.mobile][activeBindWallet.id] = { id: activeBindWallet.id, name: activeBindWallet.name, phone: $("bindPhoneInput").value.trim() };
-  setStorage(STORAGE_KEYS.WALLETS, wallets);
-  cloudPut(`wallets/${currentUser.mobile}`, wallets[currentUser.mobile]);
-  setStepperUI(3);
+  const err = $("bindStep2Err");
+  err.textContent = "";
+  if (!appLaunchAttempted || !$("appInstalledConfirm").checked) {
+    err.textContent = "App not detected. Please download and install " + activeBindWallet.name + " first before linking.";
+    return;
+  }
+  const btn = $("toStep3Btn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Authorizing...';
+  setTimeout(async () => {
+    btn.disabled = false;
+    btn.textContent = "Authorize";
+    const phone = $("bindPhoneInput").value.trim();
+    const allWallets = getStorage(STORAGE_KEYS.WALLETS, {});
+    if (!allWallets[currentUser.mobile]) allWallets[currentUser.mobile] = {};
+    allWallets[currentUser.mobile][activeBindWallet.id] = {
+      id: activeBindWallet.id,
+      name: activeBindWallet.name,
+      phone,
+      payout: activeBindWallet.payout,
+      scheme: activeBindWallet.scheme
+    };
+    setStorage(STORAGE_KEYS.WALLETS, allWallets);
+    await cloudPut(`wallets/${currentUser.mobile}`, allWallets[currentUser.mobile]);
+    $("bindSuccessSummary").textContent = activeBindWallet.name + " (" + phone + ") is now linked.";
+    setStepperUI(3);
+  }, 500);
 });
-$("finishBindBtn").addEventListener("click", () => { $("bindModal").classList.add("hidden"); navigateTo("wallet"); showToast("Wallet linked successfully!"); });
 
-document.querySelectorAll("#tierTabsContainer button").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    document.querySelectorAll("#tierTabsContainer button").forEach(b => b.classList.remove("active"));
-    e.target.classList.add("active");
-    currentActiveTier = e.target.dataset.tier;
-    renderPaymentAmounts(currentActiveTier);
-  });
+$("finishBindBtn").addEventListener("click", () => {
+  $("bindModal").classList.add("hidden");
+  navigateTo("wallet");
+  showToast("Wallet added!");
 });
 
-function triggerPaymentRefresh() {
-  showToast("Refreshing live market orders...");
-  renderPaymentAmounts(currentActiveTier);
+function getUserOrders() {
+  if (!currentUser) return [];
+  return getStorage(STORAGE_KEYS.ORDERS, {})[currentUser.mobile] || [];
 }
 
-function renderPaymentAmounts(tierKey) {
+function updateAllUserUI() {
+  if (!currentUser) return;
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  const freshUser = users.find(u => u.mobile === currentUser.mobile);
+  if (freshUser) currentUser = freshUser;
+
+  const orders = getUserOrders();
+  const pendingOrders = orders.filter(o => o.status === "Pending" || o.status === "Reviewing");
+  const pendingAmt = pendingOrders.reduce((sum, o) => sum + o.amount, 0);
+  const estReward = pendingOrders.reduce((sum, o) => sum + parseFloat(o.reward), 0);
+
+  $("homeGreeting").textContent = "Hello, " + currentUser.username;
+  $("homeUserId").textContent = currentUser.id;
+  $("homeBalance").textContent = "₹" + Number(currentUser.balance).toFixed(2);
+  $("payBalance").textContent = "₹" + currentUser.balance;
+  $("payPending").textContent = "₹" + pendingAmt;
+
+  $("statBalance").textContent = "₹" + currentUser.balance;
+  $("statProcessAmt").textContent = "₹" + pendingAmt;
+  $("statProcessOrders").textContent = pendingOrders.length;
+  $("statEstIncome").textContent = "₹" + estReward.toFixed(2);
+
+  $("myAvatar").textContent = currentUser.username.charAt(0).toUpperCase();
+  $("myUsername").textContent = currentUser.username;
+  $("myUserId").textContent = currentUser.id;
+  $("myBalance").textContent = "₹" + currentUser.balance;
+
+  $("ordBalance").textContent = "₹" + currentUser.balance;
+  $("ordPending").textContent = "₹" + pendingAmt;
+  $("refLinkDisplay").textContent = "https://dudpay.app/invite/" + currentUser.id;
+
+  const succeedOrders = orders.filter(o => o.status === "Succeed");
+  const totalVolume = succeedOrders.reduce((sum, o) => sum + o.amount, 0);
+  $("taskCurrentAmt").textContent = "₹" + totalVolume.toLocaleString("en-IN");
+  const pct = Math.min(100, (totalVolume / 2000) * 100);
+  $("taskProgressBar").style.width = pct + "%";
+
+  renderHomeTransactions();
+}
+
+$("toggleSellingBtn").addEventListener("click", () => {
+  isSellingActive = !isSellingActive;
+  const btn = $("toggleSellingBtn");
+  const badge = $("sellingStatusBadge");
+  if (isSellingActive) {
+    btn.textContent = "Stop Selling";
+    btn.className = "btn red full";
+    badge.textContent = "Active Selling";
+    badge.className = "badge green";
+    showToast("Selling started!");
+  } else {
+    btn.textContent = "Start Selling";
+    btn.className = "btn full";
+    badge.textContent = "Closed Selling";
+    badge.className = "badge gold";
+    showToast("Selling stopped");
+  }
+});
+
+function renderPaymentAmounts() {
   const container = $("paymentAmountList");
+  const cfg = getAppConfig();
+  const rate = Number(cfg.commRate) || 5.5;
   container.innerHTML = "";
-  const rawList = MULTI_TIER_AMOUNTS[tierKey] || MULTI_TIER_AMOUNTS.top;
-  const extraBonus = TIER_EXTRAS[tierKey] || 15;
 
-  rawList.forEach(amt => {
-    const baseRew = (amt * 5.5) / 100;
-    const totalRew = (baseRew + extraBonus).toFixed(2);
-    const finalAmt = (amt + parseFloat(totalRew)).toFixed(2);
-    const liveQty = Math.max(2, Math.floor(Math.random() * 25) + 5);
-    const itemData = { amount: amt, reward: totalRew, extra: extraBonus };
+  BASE_AMOUNTS.forEach(item => {
+    const baseRew = (item.amount * rate) / 100;
+    const totalRew = (baseRew + item.extra).toFixed(2);
+    const finalAmt = (item.amount + parseFloat(totalRew)).toFixed(2);
+    const liveQty = Math.max(2, item.qty + Math.floor(Math.random() * 7) - 3);
+    const cardItem = { amount: item.amount, reward: totalRew, extra: item.extra };
 
-    const card = document.createElement("div"); card.className = "amount-card";
-    card.innerHTML = `<div><div class="amt">Order amount: ₹${amt}</div><div class="qty">Order quantity: <b>${liveQty}</b></div><div class="rew">Reward: ₹${baseRew.toFixed(2)}${extraBonus > 0 ? `<span class="special-pill">Special +₹${extraBonus}</span>` : ""} · Final: ₹${finalAmt}</div></div><button type="button" class="btn sm">Receive</button>`;
-    card.querySelector("button").addEventListener("click", () => handleReceiveClick(itemData));
+    const card = document.createElement("div");
+    card.className = "amount-card";
+    card.innerHTML = `
+      <div>
+        <div class="amt">Order amount: ₹${item.amount.toLocaleString("en-IN")}</div>
+        <div class="qty">Order quantity: <b>${liveQty}</b></div>
+        <div class="rew">
+          Reward: ₹${baseRew.toFixed(2)}
+          ${item.extra > 0 ? `<span class="special-pill">Special +₹${item.extra}</span>` : ""}
+          · Final: ₹${finalAmt}
+        </div>
+      </div>
+      <button type="button" class="btn sm">Receive</button>`;
+    card.querySelector("button").addEventListener("click", () => handleReceiveClick(cardItem));
     container.appendChild(card);
   });
 }
 
 function handleReceiveClick(item) {
-  const bound = Object.values(getUserWallets());
-  if (bound.length === 0) { showToast("Please bind a wallet first"); navigateTo("wallet"); return; }
+  const boundList = Object.values(getUserWallets());
+  if (boundList.length === 0) {
+    showToast("Please add a wallet first!");
+    navigateTo("wallet");
+    return;
+  }
   pendingAmountItem = item;
-  $("paymentInfoModal").classList.remove("hidden");
-}
-$("proceedPaymentInfoBtn").addEventListener("click", () => {
-  $("paymentInfoModal").classList.add("hidden");
-  const bound = Object.values(getUserWallets());
-  selectedToolId = bound[0].id;
-  const list = $("boundToolsRadioList"); list.innerHTML = "";
-  bound.forEach((b, i) => {
-    list.innerHTML += `<label class="wallet-item bound"><div class="wallet-left"><div class="w-logo">${BRAND_LOGOS[b.id]||""}</div><div><b>${b.name}</b></div></div><input type="radio" name="tool" value="${b.id}" ${i===0?"checked":""}></label>`;
+  selectedToolId = boundList[0].id;
+  const listEl = $("boundToolsRadioList");
+  listEl.innerHTML = "";
+  boundList.forEach((b, idx) => {
+    const row = document.createElement("label");
+    row.className = "wallet-item bound";
+    row.style.cursor = "pointer";
+    row.innerHTML = `
+      <div class="wallet-left">
+        <div class="w-logo">${BRAND_LOGOS[b.id] || ""}</div>
+        <div><b>${b.name}</b><div class="muted" style="font-size:12px;">${b.phone}</div></div>
+      </div>
+      <input type="radio" name="boundToolRadio" value="${b.id}" ${idx === 0 ? "checked" : ""}>`;
+        listEl.appendChild(row);
   });
   $("selectToolModal").classList.remove("hidden");
-});
+}
 
 $("closeSelectToolModal").addEventListener("click", () => $("selectToolModal").classList.add("hidden"));
+$("cancelToolSelectBtn").addEventListener("click", () => $("selectToolModal").classList.add("hidden"));
+
 $("confirmToolSelectBtn").addEventListener("click", () => {
+  if (!pendingAmountItem || !selectedToolId) return;
+  const boundWallet = getUserWallets()[selectedToolId];
+  if (!boundWallet) return;
   $("selectToolModal").classList.add("hidden");
-  startActiveOrder(pendingAmountItem, getUserWallets()[selectedToolId] || Object.values(getUserWallets())[0]);
+  startActiveOrder(pendingAmountItem, boundWallet);
 });
 
-async function startActiveOrder(item, boundWallet) {
+async function getNextSequentialOwner() {
+  await syncAllFromCloud();
   const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS).filter(o => o.active);
-  const owner = owners.length > 0 ? owners[0] : DEFAULT_OWNERS[0];
+  const pool = owners.length > 0 ? owners : DEFAULT_OWNERS;
+  let idx = Number(getStorage(STORAGE_KEYS.ROT_IDX, 0)) || 0;
+  const selected = pool[idx % pool.length];
+  const nextIdx = (idx + 1) % pool.length;
+  setStorage(STORAGE_KEYS.ROT_IDX, nextIdx);
+  await cloudPut("rotationIndex", nextIdx);
+  return selected;
+}
+
+async function startActiveOrder(item, boundWallet) {
+  const owner = await getNextSequentialOwner();
   const orderNo = "R" + Date.now();
-  
+  const now = new Date();
+  const timeStr = now.toISOString().slice(0, 10) + " " + now.toTimeString().slice(0, 8);
+
   activeOrderState = {
-    code: orderNo, userMobile: currentUser.mobile, amount: item.amount, reward: item.reward,
-    wallet: boundWallet.name, ownerName: owner.name, ownerUpi: owner.upi, ownerAcc: owner.acc, ownerIfsc: owner.ifsc, status: "Pending", time: new Date().toLocaleString()
+    code: orderNo,
+    userMobile: currentUser.mobile,
+    userName: currentUser.username,
+    amount: item.amount,
+    reward: item.reward,
+    walletId: boundWallet.id,
+    wallet: boundWallet.name,
+    userPhone: boundWallet.phone,
+    ownerName: owner.name,
+    ownerUpi: owner.upi,
+    ownerAcc: owner.acc,
+    ownerIfsc: owner.ifsc,
+    status: "Pending",
+    time: timeStr,
+    secondsLeft: 1800,
+    utr: "",
+    proofImg: ""
   };
 
-  const orders = getStorage(STORAGE_KEYS.ORDERS, {});
-  if (!orders[currentUser.mobile]) orders[currentUser.mobile] = [];
-  orders[currentUser.mobile].unshift(activeOrderState);
-  setStorage(STORAGE_KEYS.ORDERS, orders);
-  await cloudPut(`orders/${currentUser.mobile}`, orders[currentUser.mobile]);
+  const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
+  const list = allOrders[currentUser.mobile] || [];
+  list.unshift({ ...activeOrderState });
+  allOrders[currentUser.mobile] = list;
+  setStorage(STORAGE_KEYS.ORDERS, allOrders);
+  updateAllUserUI();
+  cloudPut(`orders/${currentUser.mobile}`, list);
 
-  $("aoAmount").textContent = "INR " + item.amount.toFixed(2);
+  $("aoAmount").textContent = "₹" + item.amount.toFixed(2);
   $("aoPayeeAcc").textContent = owner.acc;
-  $("aoPayeeName").textContent = owner.name;
   $("aoPayeeIfsc").textContent = owner.ifsc;
   $("aoPayeeUpi").textContent = owner.upi;
+  $("aoPayeeName").textContent = owner.name;
+  $("aoWalletName").textContent = boundWallet.name;
+  $("aoUserBound").textContent = boundWallet.phone;
+  $("aoOrderNo").textContent = orderNo;
+  $("aoStatusBadge").textContent = "Pending";
+  $("aoStatusBadge").className = "badge gold";
+  $("aoCancelBtn").classList.remove("hidden");
+
+  voucherBase64 = "";
+  $("aoVoucherFile").value = "";
+  $("aoVoucherPreview").style.display = "none";
+  $("aoUploadLabel").textContent = "+ Tap to Upload Payment Screenshot (Optional if UTR entered)";
   $("aoUtrInput").value = "";
-  $("aoFileProof").value = "";
   $("aoSubmitProofBtn").disabled = true;
+
   navigateTo("active-order");
+  startOrderCountdown();
 }
+
+function startOrderCountdown() {
+  clearInterval(orderCountdownInterval);
+  orderCountdownInterval = setInterval(() => {
+    if (!activeOrderState || activeOrderState.status !== "Pending") {
+      clearInterval(orderCountdownInterval);
+      return;
+    }
+    activeOrderState.secondsLeft--;
+    const mins = Math.floor(activeOrderState.secondsLeft / 60);
+    const secs = activeOrderState.secondsLeft % 60;
+    $("aoTimer").textContent = String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+
+    if (activeOrderState.secondsLeft <= 0) {
+      clearInterval(orderCountdownInterval);
+      updateOrderRecord(currentUser.mobile, activeOrderState.code, { status: "Failed" });
+      $("aoStatusBadge").textContent = "Failed";
+      $("aoStatusBadge").className = "badge red";
+      $("aoCancelBtn").classList.add("hidden");
+      $("aoSubmitProofBtn").disabled = true;
+      showToast("Order expired (30 mins). Marked as Failed.");
+    }
+  }, 1000);
+}
+
+async function updateOrderRecord(userMobile, code, patch) {
+  const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
+  const list = allOrders[userMobile] || [];
+  const idx = list.findIndex(o => o.code === code);
+  if (idx !== -1) {
+    Object.assign(list[idx], patch);
+    allOrders[userMobile] = list;
+    setStorage(STORAGE_KEYS.ORDERS, allOrders);
+    updateAllUserUI();
+    await cloudPut(`orders/${userMobile}`, list);
+  }
+}
+
+$("aoCancelBtn").addEventListener("click", () => {
+  if (!activeOrderState) return;
+  clearInterval(orderCountdownInterval);
+  activeOrderState.status = "Failed";
+  updateOrderRecord(currentUser.mobile, activeOrderState.code, { status: "Failed" });
+  $("aoStatusBadge").textContent = "Failed";
+  $("aoStatusBadge").className = "badge red";
+  $("aoCancelBtn").classList.add("hidden");
+  showToast("Order cancelled");
+});
 
 $("aoGoPayBtn").addEventListener("click", () => {
   if (!activeOrderState) return;
-  window.location.href = `upi://pay?pa=${encodeURIComponent(activeOrderState.ownerUpi)}&pn=${encodeURIComponent(activeOrderState.ownerName)}&am=${activeOrderState.amount}&cu=INR`;
+  const amt = activeOrderState.amount.toFixed(2);
+  const upiParams = `pa=${encodeURIComponent(activeOrderState.ownerUpi)}&pn=${encodeURIComponent(activeOrderState.ownerName)}&am=${amt}&cu=INR&tn=${activeOrderState.code}`;
+  let deepLink = `upi://pay?${upiParams}`;
+  if (activeOrderState.walletId === "phonepe") deepLink = `phonepe://pay?${upiParams}`;
+  else if (activeOrderState.walletId === "paytm") deepLink = `paytmmp://pay?${upiParams}`;
+  else if (activeOrderState.walletId === "mobikwik") deepLink = `mobikwik://upi/pay?${upiParams}`;
+  else if (activeOrderState.walletId === "freecharge") deepLink = `freecharge://upi/pay?${upiParams}`;
+  else if (activeOrderState.walletId === "bharatpe") deepLink = `bharatpe://upi/pay?${upiParams}`;
+  showToast("Opening " + activeOrderState.wallet + "...");
+  window.location.href = deepLink;
 });
 
-function checkProofSubmitState() {
-  const utrVal = $("aoUtrInput").value.trim();
-  const fileVal = $("aoFileProof").files.length > 0;
-  $("aoSubmitProofBtn").disabled = !(utrVal.length === 12 || fileVal);
+function checkProofReady() {
+  const utrValid = /^\d{12}$/.test($("aoUtrInput").value.trim());
+  const imgValid = Boolean(voucherBase64);
+  const isPending = activeOrderState && activeOrderState.status === "Pending";
+  $("aoSubmitProofBtn").disabled = !((utrValid || imgValid) && isPending);
 }
 
-$("aoUtrInput").addEventListener("input", checkProofSubmitState);
-$("aoFileProof").addEventListener("change", checkProofSubmitState);
+$("aoVoucherFile").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const maxW = 480;
+      const scale = Math.min(1, maxW / img.width);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+      voucherBase64 = canvas.toDataURL("image/jpeg", 0.65);
+      $("aoVoucherPreview").src = voucherBase64;
+      $("aoVoucherPreview").style.display = "block";
+      $("aoUploadLabel").textContent = "✓ Screenshot Attached";
+      checkProofReady();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+$("aoUtrInput").addEventListener("input", checkProofReady);
 
 $("aoSubmitProofBtn").addEventListener("click", async () => {
   if (!activeOrderState) return;
-  const utr = $("aoUtrInput").value.trim();
-  activeOrderState.status = "Reviewing";
-  activeOrderState.utr = utr || "Uploaded Screenshot";
-  
-  const orders = getStorage(STORAGE_KEYS.ORDERS, {});
-  const list = orders[currentUser.mobile] || [];
-  const idx = list.findIndex(o => o.code === activeOrderState.code);
-  if (idx !== -1) list[idx] = activeOrderState;
-  setStorage(STORAGE_KEYS.ORDERS, orders);
-  await cloudPut(`orders/${currentUser.mobile}`, list);
+  const btn = $("aoSubmitProofBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Submitting...';
 
-  showToast("Proof submitted successfully!");
+  const utr = $("aoUtrInput").value.trim();
+  clearInterval(orderCountdownInterval);
+  activeOrderState.status = "Reviewing";
+  await updateOrderRecord(currentUser.mobile, activeOrderState.code, {
+    status: "Reviewing",
+    utr: utr || "Screenshot Only",
+    proofImg: voucherBase64 || ""
+  });
+
+  btn.textContent = "Submit Payment Proof";
+  showToast("Proof submitted! Under review.");
   navigateTo("order");
+  currentOrderTab = "purchase";
+  $("orderTabPurchase").classList.add("active");
+  $("orderTabReceive").classList.remove("active");
+  renderOrders();
 });
 
-function getUserOrders() { return currentUser ? (getStorage(STORAGE_KEYS.ORDERS, {})[currentUser.mobile] || []) : []; }
+let selectedUsdtChain = "TRC20";
+const USDT_ADDRS = {
+  TRC20: "TX8k9P2mN4vL7qR5wJ3cZ9yH6tB1nF8sA2",
+  BEP20: "0x71C956E4b2A89f1D3c04E9aB58F219dC4E8a10B3",
+  Polygon: "0x89C192b45F27a81230B0291eA8192aF8123490b1"
+};
 
-function renderOrders() {
-  const container = $("orderListContainer");
-  const orders = getUserOrders();
-  container.innerHTML = orders.length === 0 ? `<div class="empty-state"><b>No Orders</b></div>` : "";
-  orders.forEach(o => {
-    container.innerHTML += `<div class="listrow"><div><b>₹${o.amount}</b><div class="muted">${o.code}</div></div><span class="badge ${o.status==='Succeed'?'green':(o.status==='Failed'?'red':'orange')}">${o.status}</span></div>`;
-  });
-}
+$("chainTrc20").addEventListener("click", () => {
+  selectedUsdtChain = "TRC20";
+  $("chainTrc20").classList.add("selected");
+  $("chainBep20").classList.remove("selected");
+  $("chainPolygon").classList.remove("selected");
+  $("chainTrc20").querySelector("input").checked = true;
+  $("selectedChainLabel").textContent = "TRC20";
+  $("usdtAddressText").textContent = USDT_ADDRS.TRC20;
+});
 
-function renderHomeTransactions() {
-  const container = $("homeTxContainer");
-  const orders = getUserOrders();
-  if (orders.length === 0) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Transactions</b><div class="muted" style="margin-top:4px;">Your activity will appear here.</div></div>`;
+$("chainBep20").addEventListener("click", () => {
+  selectedUsdtChain = "BEP20";
+  $("chainBep20").classList.add("selected");
+  $("chainTrc20").classList.remove("selected");
+  $("chainPolygon").classList.remove("selected");
+  $("chainBep20").querySelector("input").checked = true;
+  $("selectedChainLabel").textContent = "BSC (BEP20)";
+  $("usdtAddressText").textContent = USDT_ADDRS.BEP20;
+});
+
+$("chainPolygon").addEventListener("click", () => {
+  selectedUsdtChain = "Polygon";
+  $("chainPolygon").classList.add("selected");
+  $("chainTrc20").classList.remove("selected");
+  $("chainBep20").classList.remove("selected");
+  $("chainPolygon").querySelector("input").checked = true;
+  $("selectedChainLabel").textContent = "Polygon";
+  $("usdtAddressText").textContent = USDT_ADDRS.Polygon;
+});
+
+$("copyUsdtAddrBtn").addEventListener("click", () => copyText($("usdtAddressText").textContent, "Address copied!"));
+
+$("usdtInput").addEventListener("input", () => {
+  const val = parseFloat($("usdtInput").value);
+  const rate = Number(getAppConfig().usdtRate) || 114;
+  if (isNaN(val) || val <= 0) {
+    $("usdtHint").textContent = "";
+    $("usdtInrOutput").textContent = "₹0.00";
+    $("usdtBonusOut").textContent = "₹0.00";
     return;
   }
-  container.innerHTML = "";
-  orders.slice(0, 3).forEach(o => {
-    const badgeClass = o.status === "Failed" ? "red" : (o.status === "Succeed" ? "green" : "orange");
-    container.innerHTML += `<div class="listrow"><div><b>₹${o.amount}</b><div class="muted">${o.time}</div></div><div style="text-align:right;"><span class="badge ${badgeClass}">${o.status}</span></div></div>`;
-  });
-}
-
-function updateAllUserUI() {
-  if (!currentUser) return;
-  $("homeGreeting").textContent = "Hello, " + currentUser.username;
-  $("homeUserId").textContent = currentUser.id;
-  $("homeBalance").textContent = "₹" + Number(currentUser.balance).toFixed(2);
-  $("payBalance").textContent = "₹" + currentUser.balance;
-  $("myBalance").textContent = "₹" + currentUser.balance;
-  $("myUsername").textContent = currentUser.username;
-  $("myUserId").textContent = currentUser.id;
-  $("refLinkDisplay").textContent = "https://dudpay.app/invite/" + currentUser.id;
-}
-
-$("copyRefBtn").addEventListener("click", () => copyText("https://dudpay.app/invite/" + currentUser.id, "Referral link copied!"));
-$("copyUidBtn").addEventListener("click", () => copyText(currentUser.id, "User ID copied!"));
-
-$("toggleSellingBtn").addEventListener("click", toggleAppSelling);
-$("toggleHomeSellingBtn").addEventListener("click", toggleAppSelling);
-
-function toggleAppSelling() {
-  const isSellingActive = $("sellingStatusBadge").textContent.includes("Active");
-  const newState = !isSellingActive;
-  $("sellingStatusBadge").textContent = newState ? "Active Selling" : "Closed Selling";
-  $("sellingStatusBadge").className = newState ? "badge green" : "badge orange";
-  $("toggleHomeSellingBtn").textContent = newState ? "Stop Selling" : "Start Selling";
-  $("toggleHomeSellingBtn").className = newState ? "btn red sm" : "btn orange sm";
-  showToast(newState ? "Selling started!" : "Selling stopped");
-}
+  $("usdtHint").textContent = val < 10 ? "Minimum deposit is 10 USDT." : "";
+  const inr = val * rate;
+  $("usdtInrOutput").textContent = "₹" + inr.toLocaleString("en-IN", { minimumFractionDigits: 2 });
+  $("usdtBonusOut").textContent = "₹" + (inr * 0.02).toLocaleString("en-IN", { minimumFractionDigits: 2 });
+});
 
 $("usdtDepositBtn").addEventListener("click", async () => {
   const val = parseFloat($("usdtInput").value);
@@ -1047,9 +1713,9 @@ $("usdtDepositBtn").addEventListener("click", async () => {
     userName: currentUser.username,
     amount: inrAmt,
     reward: (inrAmt * 0.02).toFixed(2),
-    wallet: "USDT",
+    wallet: "USDT-" + selectedUsdtChain,
     status: "Pending",
-    time: new Date().toLocaleString()
+    time: new Date().toISOString().slice(0, 16).replace("T", " ")
   });
   allOrders[currentUser.mobile] = list;
   setStorage(STORAGE_KEYS.ORDERS, allOrders);
@@ -1059,35 +1725,150 @@ $("usdtDepositBtn").addEventListener("click", async () => {
   navigateTo("order");
 });
 
-$("submitIssueBtn").addEventListener("click", async () => {
-  const text = $("userIssueInput").value.trim();
-  if (!text) { showToast("Please write your issue first"); return; }
-  const cfg = getAppConfig();
-  if (!cfg.messages) cfg.messages = [];
-  cfg.messages.unshift({ title: `Support Request from ${currentUser.username} (${currentUser.mobile})`, body: text, time: new Date().toLocaleString() });
-  setStorage(STORAGE_KEYS.CONFIG, cfg);
-  await cloudPut("config", cfg);
-  $("userIssueInput").value = "";
-  showToast("Issue submitted! You are in the queue.");
+$("orderTabReceive").addEventListener("click", () => {
+  currentOrderTab = "receive";
+  $("orderTabReceive").classList.add("active");
+  $("orderTabPurchase").classList.remove("active");
+  renderOrders();
 });
+
+$("orderTabPurchase").addEventListener("click", () => {
+  currentOrderTab = "purchase";
+  $("orderTabPurchase").classList.add("active");
+  $("orderTabReceive").classList.remove("active");
+  renderOrders();
+});
+
+function renderOrders() {
+  const container = $("orderListContainer");
+  const summaryBox = $("purchaseSummaryBox");
+  if (currentOrderTab === "receive") {
+    summaryBox.classList.add("hidden");
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">↓</div><b>No Data</b></div>`;
+    return;
+  }
+  summaryBox.classList.remove("hidden");
+  const orders = getUserOrders();
+  if (orders.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Data</b></div>`;
+    return;
+  }
+  container.innerHTML = "";
+  orders.forEach(o => {
+    const badgeClass = o.status === "Failed" ? "red" : (o.status === "Succeed" ? "green" : "gold");
+    const row = document.createElement("div");
+    row.className = "listrow";
+    row.innerHTML = `
+      <div>
+        <b style="font-size:16px;">+₹${o.amount.toLocaleString("en-IN")}</b>
+        <div style="font-size:12px;color:var(--gold);font-weight:700;">Reward: +₹${o.reward}</div>
+        <div class="muted" style="font-size:11px;">${o.code} · ${o.wallet}</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge ${badgeClass}">${o.status}</span>
+        <div class="muted" style="font-size:11px;margin-top:5px;">${o.time}</div>
+      </div>`;
+    container.appendChild(row);
+  });
+}
+
+function renderHomeTransactions() {
+  const container = $("homeTxContainer");
+  const orders = getUserOrders();
+  if (orders.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><b>No Transactions</b><div class="muted">Your activity will appear here.</div></div>`;
+    return;
+  }
+  container.innerHTML = "";
+  orders.slice(0, 3).forEach(o => {
+    const badgeClass = o.status === "Failed" ? "red" : (o.status === "Succeed" ? "green" : "gold");
+    const row = document.createElement("div");
+    row.className = "listrow";
+    row.innerHTML = `
+      <div><b>Deposit INR (${o.wallet})</b><div class="muted" style="font-size:12px;">${o.time}</div></div>
+      <div style="text-align:right;"><b style="color:var(--gold);">₹${o.amount.toFixed(2)}</b><div><span class="badge ${badgeClass}">${o.status}</span></div></div>`;
+    container.appendChild(row);
+  });
+}
+
+function getChatMessages() {
+  if (!currentUser) return [];
+  const chats = getStorage(STORAGE_KEYS.CHATS, {});
+  return chats[currentUser.mobile] || [
+    { sender: "support", text: "Hello! Welcome to DUDPAY Support. How can we help you today?", time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }
+  ];
+}
+
+function renderLiveChat() {
+  const box = $("liveChatBox");
+  if (!box || !currentUser) return;
+  const msgs = getChatMessages();
+  box.innerHTML = "";
+  msgs.forEach(m => {
+    const div = document.createElement("div");
+    div.className = "chat-msg " + (m.sender === "user" ? "user" : "support");
+    div.innerHTML = `<div>${m.text}</div><div style="font-size:9px;opacity:0.7;margin-top:2px;text-align:right;">${m.time}</div>`;
+    box.appendChild(div);
+  });
+  box.scrollTop = box.scrollHeight;
+}
+
+$("sendChatBtn").addEventListener("click", async () => {
+  const input = $("chatInput");
+  const text = input.value.trim();
+  if (!text || !currentUser) return;
+  input.value = "";
+  const chats = getStorage(STORAGE_KEYS.CHATS, {});
+  if (!chats[currentUser.mobile]) chats[currentUser.mobile] = getChatMessages();
+  
+  const timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  chats[currentUser.mobile].push({ sender: "user", text, time: timeStr });
+  setStorage(STORAGE_KEYS.CHATS, chats);
+  await cloudPut(`chats/${currentUser.mobile}`, chats[currentUser.mobile]);
+  renderLiveChat();
+
+  setTimeout(async () => {
+    chats[currentUser.mobile].push({ sender: "support", text: "Thanks for reaching out. Our support agent will verify and reply shortly.", time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
+    setStorage(STORAGE_KEYS.CHATS, chats);
+    await cloudPut(`chats/${currentUser.mobile}`, chats[currentUser.mobile]);
+    renderLiveChat();
+  }, 1000);
+});
+
+function openAdminPinPrompt() {
+  $("adminPinInput").value = "";
+  $("adminPinErr").textContent = "";
+  $("adminPinModal").classList.remove("hidden");
+}
 
 $("secretVersionTap").addEventListener("click", () => {
   versionTapCount++;
   clearTimeout(versionTapTimer);
   versionTapTimer = setTimeout(() => { versionTapCount = 0; }, 2000);
-  if (versionTapCount >= 5) { versionTapCount = 0; $("adminPinModal").classList.remove("hidden"); }
+  if (versionTapCount >= 5) { versionTapCount = 0; openAdminPinPrompt(); }
 });
 
+$("maintAdminTrigger").addEventListener("click", openAdminPinPrompt);
 $("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classList.add("hidden"));
-$("verifyAdminPinBtn").addEventListener("click", () => {
-  if ($("adminPinInput").value === ADMIN_PIN) {
+
+$("verifyAdminPinBtn").addEventListener("click", async () => {
+  if ($("adminPinInput").value.trim() === ADMIN_PIN) {
     $("adminPinModal").classList.add("hidden");
-    $("adminPinInput").value = "";
+    $("maintenanceOverlay").classList.add("hidden");
     navigateTo("admin");
+    showToast("Syncing master controls...");
+    await syncAllFromCloud();
     renderAdminPanel();
   } else {
-    $("adminPinErr").textContent = "Incorrect Admin PIN";
+    $("adminPinErr").textContent = "Invalid Admin PIN";
   }
+});
+
+$("refreshAdminCloudBtn").addEventListener("click", async () => {
+  showToast("Syncing from Firebase...");
+  await syncAllFromCloud();
+  renderAdminPanel();
+  showToast("Synced!");
 });
 
 $("admTabUsers").addEventListener("click", () => switchAdminTab("users"));
@@ -1107,126 +1888,259 @@ function switchAdminTab(tab) {
 }
 
 function renderAdminPanel() {
+  const users = getStorage(STORAGE_KEYS.USERS, []);
+  const allWallets = getStorage(STORAGE_KEYS.WALLETS, {});
   const uBox = $("adminUsersSection");
   uBox.innerHTML = "";
-  getStorage(STORAGE_KEYS.USERS, []).forEach((u, i) => {
-    const c = document.createElement("div"); c.className = "card";
-    c.innerHTML = `<b>${u.username} (${u.mobile})</b> - ID: ${u.id} - ₹${u.balance} <div class="row" style="margin-top:8px;"><input type="number" class="field" placeholder="Custom Amt" id="admUsrAmt_${i}" style="margin:0;padding:6px;flex:1;"><button type="button" class="btn green sm" data-add>+ Add</button><button type="button" class="btn red sm" data-sub>- Sub</button><button type="button" class="btn orange sm" data-blk>${u.blocked ? 'Unblock' : 'Block'}</button></div>`;
-    
-    c.querySelector("[data-add]").addEventListener("click", async () => {
-      const val = Number($("admUsrAmt_" + i).value) || 100;
-      u.balance += val;
-      const users = getStorage(STORAGE_KEYS.USERS, []); users[i] = u;
-      setStorage(STORAGE_KEYS.USERS, users); await cloudPut(`users/${u.mobile}`, u);
-      renderAdminPanel(); showToast("Balance added!");
-    });
-    c.querySelector("[data-sub]").addEventListener("click", async () => {
-      const val = Number($("admUsrAmt_" + i).value) || 100;
-      u.balance = Math.max(0, u.balance - val);
-      const users = getStorage(STORAGE_KEYS.USERS, []); users[i] = u;
-      setStorage(STORAGE_KEYS.USERS, users); await cloudPut(`users/${u.mobile}`, u);
-      renderAdminPanel(); showToast("Balance deducted!");
-    });
-    c.querySelector("[data-blk]").addEventListener("click", async () => {
-      u.blocked = !u.blocked;
-      const users = getStorage(STORAGE_KEYS.USERS, []); users[i] = u;
-      setStorage(STORAGE_KEYS.USERS, users); await cloudPut(`users/${u.mobile}`, u);
-      renderAdminPanel(); showToast(u.blocked ? "User blocked" : "User unblocked");
-    });
-    uBox.appendChild(c);
-  });
+  if (users.length === 0) uBox.innerHTML = `<div class="card empty-state"><b>No Users Registered Yet</b></div>`;
 
-  const oBox = $("adminOrdersSection");
-  oBox.innerHTML = "";
-  const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
-  let flatOrders = [];
-  Object.keys(allOrders).forEach(mob => {
-    (allOrders[mob] || []).forEach(o => flatOrders.push({ ...o, userMobile: mob }));
-  });
+  users.forEach((u, idx) => {
+    const uWallets = Object.values(allWallets[u.mobile] || {}).map(w => `${w.name} (${w.phone})`).join(", ") || "None";
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="row">
+        <div>
+          <b>${u.username}</b> <span class="badge blue">${u.id}</span>
+          ${u.blocked ? '<span class="badge red">BLOCKED</span>' : '<span class="badge green">ACTIVE</span>'}
+          <div class="muted" style="font-size:12px;margin-top:3px;">Mobile: <b>${u.mobile}</b> · Pass: <b>${u.password}</b></div>
+          <div class="muted" style="font-size:11px;margin-top:2px;">Wallets: ${uWallets}</div>
+        </div>
+        <b style="font-size:18px;color:var(--gold);">₹${u.balance}</b>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <input type="number" class="field" placeholder="Amount ₹" style="margin:0;padding:8px 10px;flex:1;" data-amt-in>
+        <button type="button" class="btn green sm" data-act="add">+ Add</button>
+        <button type="button" class="btn red sm" data-act="sub">- Minus</button>
+        <button type="button" class="btn ${u.blocked ? 'light' : 'gold'} sm" data-act="blk" style="color:${u.blocked?'var(--gold)':'#121212'}">${u.blocked ? 'Unblock' : 'Block'}</button>
+      </div>`;
 
-  if (flatOrders.length === 0) {
-    oBox.innerHTML = `<div class="card empty-state"><b>No Pending Orders</b></div>`;
-  } else {
-    flatOrders.forEach(o => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="row"><b>${o.code} · ₹${o.amount}</b><span class="badge orange">${o.status}</span></div>
-        <div class="muted" style="font-size:12px;margin-top:4px;">User: ${o.userMobile} · UTR: <b>${o.utr || 'N/A'}</b></div>
-        <div class="row" style="margin-top:10px;">
-          <button type="button" class="btn green sm" style="flex:1;" data-success>Success (Approve)</button>
-          <button type="button" class="btn red sm" style="flex:1;" data-fail>Failed (Reject)</button>
-        </div>`;
+    card.querySelector('[data-act="add"]').addEventListener("click", async () => {
+      const val = Number(card.querySelector('[data-amt-in]').value) || 100;
+      users[idx].balance = Number(users[idx].balance) + val;
+      setStorage(STORAGE_KEYS.USERS, users);
+      await cloudPut(`users/${u.mobile}`, users[idx]);
+      updateAllUserUI();
+      renderAdminPanel();
+      showToast(`Added ₹${val} to ${u.username}`);
+    });
 
-      card.querySelector("[data-success]").addEventListener("click", async () => {
-        const txnCode = "TXN" + Math.floor(100000 + Math.random() * 900000);
-        const users = getStorage(STORAGE_KEYS.USERS, []);
-        const uIdx = users.findIndex(x => x.mobile === o.userMobile);
-        if (uIdx !== -1) {
-          users[uIdx].balance = Number(users[uIdx].balance) + Number(o.amount) + Number(o.reward || 0);
-          setStorage(STORAGE_KEYS.USERS, users);
-          await cloudPut(`users/${o.userMobile}`, users[uIdx]);
-        }
-        const userOrdersList = allOrders[o.userMobile] || [];
-        const filtered = userOrdersList.filter(x => x.code !== o.code);
-        allOrders[o.userMobile] = filtered;
-        setStorage(STORAGE_KEYS.ORDERS, allOrders);
-        await cloudPut(`orders/${o.userMobile}`, filtered);
+    card.querySelector('[data-act="sub"]').addEventListener("click", async () => {
+      const val = Number(card.querySelector('[data-amt-in]').value) || 100;
+      users[idx].balance = Math.max(0, Number(users[idx].balance) - val);
+      setStorage(STORAGE_KEYS.USERS, users);
+      await cloudPut(`users/${u.mobile}`, users[idx]);
+      updateAllUserUI();
+      renderAdminPanel();
+      showToast(`Deducted ₹${val} from ${u.username}`);
+    });
+
+    card.querySelector('[data-oact="reject"]').addEventListener("click", async () => {
+        await updateOrderRecord(o.userMobile, o.code, { status: "Failed" });
         renderAdminPanel();
-        showToast(`Order approved! Code: ${txnCode}`);
-      });
-
-      card.querySelector("[data-fail]").addEventListener("click", async () => {
-        const userOrdersList = allOrders[o.userMobile] || [];
-        const filtered = userOrdersList.filter(x => x.code !== o.code);
-        allOrders[o.userMobile] = filtered;
-        setStorage(STORAGE_KEYS.ORDERS, allOrders);
-        await cloudPut(`orders/${o.userMobile}`, filtered);
-        renderAdminPanel();
-        showToast("Order rejected and removed!");
+        showToast("Order marked Failed");
       });
       oBox.appendChild(card);
     });
   }
 
-  const ownBox = $("adminOwnersSection");
   const owners = getStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
+  const ownBox = $("adminOwnersSection");
   ownBox.innerHTML = `
     <div class="card">
-      <b>Update Payer / Owner Details</b>
-      <input class="field" id="admOwnerName" value="${owners[0]?.name || ''}" placeholder="Owner Name" style="margin-top:8px;">
-      <input class="field" id="admOwnerAcc" value="${owners[0]?.acc || ''}" placeholder="Bank Account Number">
-      <input class="field" id="admOwnerIfsc" value="${owners[0]?.ifsc || ''}" placeholder="IFSC Code">
-      <input class="field" id="admOwnerUpi" value="${owners[0]?.upi || ''}" placeholder="Direct UPI ID">
-      <button type="button" class="btn full" id="saveOwnerDetailsBtn">Save Owner & UPI Info</button>
+      <b>Add Owner to Sequential Rotation (1 → 2 → 3...)</b>
+      <input class="field" id="newOwnName" placeholder="Owner Name" style="margin-top:8px;">
+      <input class="field" id="newOwnAcc" placeholder="Bank Account Number">
+      <input class="field" id="newOwnIfsc" placeholder="IFSC Code">
+      <input class="field" id="newOwnUpi" placeholder="Direct UPI ID">
+      <button type="button" class="btn full" id="addOwnerBtn">+ Add Owner</button>
     </div>`;
+  owners.forEach((ow, idx) => {
+    const c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = `
+      <div class="row"><b>#${idx + 1} · ${ow.name}</b><span class="badge ${ow.active ? 'green' : 'red'}">${ow.active ? 'Active' : 'Off'}</span></div>
+      <div class="muted" style="font-size:12px;margin-top:4px;">UPI: ${ow.upi}<br>Acc: ${ow.acc} (${ow.ifsc})</div>
+      <div class="row" style="margin-top:8px;">
+        <button type="button" class="btn light sm" style="flex:1;" data-tog>Toggle Active/Off</button>
+        ${owners.length > 1 ? '<button type="button" class="btn red sm" data-del>Delete</button>' : ''}
+      </div>`;
+    c.querySelector("[data-tog]").addEventListener("click", async () => {
+      owners[idx].active = !owners[idx].active;
+      setStorage(STORAGE_KEYS.OWNERS, owners);
+      await cloudPut("owners", owners);
+      renderAdminPanel();
+    });
+    const delCardDelBtn = c.querySelector("[data-del]");
+    if (delCardDelBtn) {
+      delCardDelBtn.addEventListener("click", async () => {
+        owners.splice(idx, 1);
+        setStorage(STORAGE_KEYS.OWNERS, owners);
+        await cloudPut("owners", owners);
+        renderAdminPanel();
+      });
+    }
+    ownBox.appendChild(c);
+  });
 
-  $("saveOwnerDetailsBtn").addEventListener("click", async () => {
-    owners[0] = {
-      id: 1,
-      name: $("admOwnerName").value.trim(),
-      acc: $("admOwnerAcc").value.trim(),
-      ifsc: $("admOwnerIfsc").value.trim().toUpperCase(),
-      upi: $("admOwnerUpi").value.trim(),
-      active: true
-    };
+  $("addOwnerBtn").addEventListener("click", async () => {
+    const name = $("newOwnName").value.trim();
+    const acc = $("newOwnAcc").value.trim();
+    const ifsc = $("newOwnIfsc").value.trim().toUpperCase();
+    const upi = $("newOwnUpi").value.trim();
+    if (!name || !upi) { showToast("Name and UPI ID required"); return; }
+    owners.push({ id: Date.now(), name, acc: acc || "N/A", ifsc: ifsc || "N/A", upi, active: true });
     setStorage(STORAGE_KEYS.OWNERS, owners);
     await cloudPut("owners", owners);
-    showToast("Owner & UPI details updated successfully!");
+    renderAdminPanel();
+    showToast("Owner added to sequential rotation!");
+  });
+
+  const cfg = getAppConfig();
+  const setBox = $("adminSettingsSection");
+  setBox.innerHTML = `
+    <div class="card">
+      <b>Rates & App Mode</b>
+      <label class="label" style="margin-top:8px;">Commission Rate (%)</label>
+      <input class="field" id="cfgCommRate" type="number" step="0.1" value="${cfg.commRate}">
+      <label class="label">USDT Exchange Rate (INR)</label>
+      <input class="field" id="cfgUsdtRate" type="number" value="${cfg.usdtRate}">
+      <label class="label">New User Welcome Bonus (₹)</label>
+      <input class="field" id="cfgWelcomeBonus" type="number" value="${cfg.welcomeBonus}">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;cursor:pointer;color:var(--muted);">
+        <input type="checkbox" id="cfgMaint" ${cfg.maintenance ? "checked" : ""}>
+        <span>Enable Maintenance Mode (Lock App for Users)</span>
+      </label>
+      <button type="button" class="btn full" id="saveRatesBtn">Save Rates & Mode</button>
+    </div>
+
+    <div class="card">
+      <b>Customer Service Telegram Links</b>
+      <input class="field" id="newTgLabel" placeholder="Button Label (e.g. Support Agent 2)" style="margin-top:8px;">
+      <input class="field" id="newTgUrl" placeholder="Telegram Link (https://t.me/...)">
+      <button type="button" class="btn light full" id="addTgBtn">+ Add Telegram Link</button>
+      <div id="adminTgList" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <b>Broadcast Message to Users</b>
+      <input class="field" id="newMsgTitle" placeholder="Message Title" style="margin-top:8px;">
+      <input class="field" id="newMsgBody" placeholder="Message Details">
+      <button type="button" class="btn full" id="sendMsgBtn">Publish Message</button>
+    </div>
+
+    <div class="card">
+      <b>Add App Tutorial Guide</b>
+      <input class="field" id="newTutTitle" placeholder="Tutorial Title" style="margin-top:8px;">
+      <input class="field" id="newTutBody" placeholder="Step-by-step instructions">
+      <button type="button" class="btn full" id="addTutBtn">Publish Tutorial</button>
+    </div>`;
+
+  const tgList = $("adminTgList");
+  (cfg.telegramLinks || []).forEach((t, i) => {
+    const r = document.createElement("div");
+    r.className = "listrow";
+    r.innerHTML = `<span style="font-size:12px;"><b>${t.label}</b><br><span class="muted">${t.url}</span></span><button type="button" class="btn red sm">Remove</button>`;
+    r.querySelector("button").addEventListener("click", async () => {
+      cfg.telegramLinks.splice(i, 1);
+      setStorage(STORAGE_KEYS.CONFIG, cfg);
+      await cloudPut("config", cfg);
+      applyLiveConfigUI();
+      renderAdminPanel();
+    });
+    tgList.appendChild(r);
+  });
+
+  $("saveRatesBtn").addEventListener("click", async () => {
+    cfg.commRate = parseFloat($("cfgCommRate").value) || 5.5;
+    cfg.usdtRate = parseFloat($("cfgUsdtRate").value) || 114;
+    cfg.welcomeBonus = parseFloat($("cfgWelcomeBonus").value) || 77;
+    cfg.maintenance = $("cfgMaint").checked;
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    renderPaymentAmounts();
+    showToast("Live Rates & Settings Saved!");
+  });
+
+  $("addTgBtn").addEventListener("click", async () => {
+    const label = $("newTgLabel").value.trim() || "Contact Support";
+    const url = $("newTgUrl").value.trim();
+    if (!url) { showToast("Enter valid Telegram link"); return; }
+    if (!cfg.telegramLinks) cfg.telegramLinks = [];
+    cfg.telegramLinks.push({ label, url });
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    renderAdminPanel();
+    showToast("Support link added!");
+  });
+
+  $("sendMsgBtn").addEventListener("click", async () => {
+    const title = $("newMsgTitle").value.trim();
+    const body = $("newMsgBody").value.trim();
+    if (!title || !body) { showToast("Title and message required"); return; }
+    if (!cfg.messages) cfg.messages = [];
+    cfg.messages.unshift({ title, body, time: new Date().toLocaleString() });
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    $("newMsgTitle").value = "";
+    $("newMsgBody").value = "";
+    showToast("Message published to all users!");
+  });
+
+  $("addTutBtn").addEventListener("click", async () => {
+    const title = $("newTutTitle").value.trim();
+    const body = $("newTutBody").value.trim();
+    if (!title || !body) { showToast("Title and guide required"); return; }
+    if (!cfg.tutorials) cfg.tutorials = [];
+    cfg.tutorials.unshift({ title, body });
+    setStorage(STORAGE_KEYS.CONFIG, cfg);
+    await cloudPut("config", cfg);
+    applyLiveConfigUI();
+    $("newTutTitle").value = "";
+    $("newTutBody").value = "";
+    showToast("Tutorial published!");
   });
 }
 
+$("notifBtn").addEventListener("click", () => navigateTo("message"));
+$("copyUidBtn").addEventListener("click", () => currentUser && copyText(currentUser.id, "User ID copied!"));
+$("copyRefBtn").addEventListener("click", () => copyText($("refLinkDisplay").textContent, "Referral link copied!"));
+
+document.querySelectorAll("[data-share]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const type = btn.dataset.share;
+    const link = $("refLinkDisplay").textContent;
+    const text = encodeURIComponent("Join DUDPAY: " + link);
+    if (type === "copy") copyText(link, "Referral link copied!");
+    else if (type === "whatsapp") window.open("https://wa.me/?text=" + text, "_blank", "noopener,noreferrer");
+    else if (type === "telegram") window.open("https://t.me/share/url?url=" + encodeURIComponent(link), "_blank", "noopener,noreferrer");
+    else if (type === "facebook") window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link), "_blank", "noopener,noreferrer");
+  });
+});
+
 (async function init() {
+  if (!localStorage.getItem(STORAGE_KEYS.OWNERS)) {
+    setStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
+    cloudPut("owners", DEFAULT_OWNERS);
+  }
   applyLiveConfigUI();
-  renderPaymentAmounts(currentActiveTier);
+  renderPaymentAmounts();
   await syncAllFromCloud();
-  const session = getStorage(STORAGE_KEYS.SESSION, null);
-  if (session) {
+  const savedSession = getStorage(STORAGE_KEYS.SESSION, null);
+  if (savedSession && savedSession.mobile) {
     const users = getStorage(STORAGE_KEYS.USERS, []);
-    const found = users.find(u => u.mobile === session.mobile && u.password === session.password);
-    if (found) { currentUser = found; $("authScreen").classList.add("hidden"); $("mainApp").classList.remove("hidden"); updateAllUserUI(); navigateTo("home"); }
+    const user = users.find(u => u.mobile === savedSession.mobile);
+    if (user && !user.blocked) {
+      $("loginMobile").value = user.mobile;
+      $("loginPassword").value = savedSession.savedPassword || "";
+      openDashboard(user);
+    }
   }
 })();
 </script>
 </body>
 </html>
+    
