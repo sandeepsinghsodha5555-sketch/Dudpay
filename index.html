@@ -60,7 +60,7 @@
   .metric-card .val.gold { color: var(--gold); }
   .metric-card .val.blue { color: var(--blue); }
   .metric-card .val.green { color: var(--green); }
-  .balance-card { background: linear-gradient(135deg, #24242d 0%, #1a1a22 100%); border: 1.5px solid var(--gold); color: var(--white); border-radius: 22px; padding: 20px; margin: 14px 0; position: relative; overflow: hidden; box-shadow: 0 12px 26px rgba(212, 175, 55, 0.15); }
+    .balance-card { background: linear-gradient(135deg, #24242d 0%, #1a1a22 100%); border: 1.5px solid var(--gold); color: var(--white); border-radius: 22px; padding: 20px; margin: 14px 0; position: relative; overflow: hidden; box-shadow: 0 12px 26px rgba(212, 175, 55, 0.15); }
   .balance-card::after { content: ""; position: absolute; right: -25px; top: -25px; width: 115px; height: 115px; border-radius: 50%; background: rgba(212, 175, 55, 0.1); }
   .balance-card .lbl { font-size: 13px; color: var(--gold-light); font-weight: 600; }
   .balance-card .big-amt { display: block; font-size: 36px; font-weight: 900; margin: 8px 0 14px; color: var(--gold); }
@@ -90,6 +90,67 @@
   .auth-tabs { display: flex; background: var(--bg-dark); padding: 4px; border-radius: 12px; margin: 18px 0; border: 1px solid var(--card-border); }
   .auth-tabs button { flex: 1; border: 0; border-radius: 9px; padding: 10px; background: transparent; color: var(--muted); font-weight: 700; }
   .auth-tabs button.active { background: var(--gold); color: #121212; }
+  .pay-summary { background: linear-gradient(135deg, #1e1e24, #2a2a35); border: 1px solid var(--gold); color: var(--white); border-radius: 20px; padding: 18px; margin-bottom: 14px; }
+  .pay-rate { font-size: 32px; font-weight: 900; color: var(--gold); margin: 4px 0 12px; }
+  .pay-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pay-box { background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 10px; }
+  .pay-box small { display: block; font-size: 11px; color: var(--muted); }
+  .pay-box b { font-size: 15px; display: block; margin-top: 4px; color: var(--white); }
+  .notice-bar { background: rgba(245, 158, 11, 0.12); color: var(--gold-light); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 10px 12px; font-size: 12px; font-weight: 600; margin-bottom: 14px; }
+  .amount-card { background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+  .amount-card .amt { font-size: 17px; font-weight: 800; color: var(--white); }
+  .amount-card .qty { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .amount-card .rew { font-size: 12px; color: var(--gold); font-weight: 700; margin-top: 3px; }
+  .special-pill { background: rgba(212, 175, 55, 0.15); color: var(--gold); font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 8px; margin-left: 4px; }
+  .seg-tabs { display: flex; background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 14px; padding: 4px; margin-bottom: 14px; overflow-x: auto; }
+  .seg-tabs button { flex: 1; border: 0; border-radius: 10px; padding: 9px 6px; background: transparent; color: var(--muted); font-weight: 700; font-size: 12px; white-space: nowrap; }
+  .seg-tabs button.active { background: var(--gold); color: #121212; }
+  .wallet-item { background: var(--card-dark); border: 1.5px solid var(--card-border); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .wallet-item.bound { border-color: var(--green); background: linear-gradient(to right, var(--card-dark), #152922); }
+  .wallet-left { display: flex; align-items: center; gap: 12px; }
+  .w-logo { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; flex-shrink: 0; overflow: hidden; background: #2b2b36; }
+  .stepper { display: flex; align-items: center; justify-content: space-between; margin: 10px 0 18px; position: relative; }
+  .stepper::before { content: ""; position: absolute; top: 15px; left: 16%; right: 16%; height: 2px; background: var(--card-border); z-index: 1; }
+  .step-node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 5px; width: 33.3%; font-size: 11px; font-weight: 700; color: var(--muted); }
+  .step-circle { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-dark); border: 2px solid var(--card-border); display: grid; place-items: center; font-weight: 800; font-size: 13px; }
+  .step-node.active { color: var(--gold); }
+  .step-node.active .step-circle { background: var(--gold); border-color: var(--gold); color: #121212; }
+  .step-node.done { color: var(--green); }
+  .step-node.done .step-circle { background: var(--green); border-color: var(--green); color: #fff; }
+  .badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 20px; display: inline-block; }
+  .badge.gold { background: rgba(212, 175, 55, 0.2); color: var(--gold); }
+  .badge.green { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+  .badge.red { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+  .badge.blue { background: rgba(59, 130, 246, 0.2); color: var(--blue); }
+  .listrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 0; border-bottom: 1px solid var(--card-border); font-size: 14px; }
+  .listrow:last-child { border-bottom: 0; padding-bottom: 0; }
+  .listrow:first-child { padding-top: 0; }
+  .progress-wrap { height: 10px; background: rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; margin: 12px 0; }
+  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold), var(--accent)); border-radius: 20px; }
+  .share-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+  .share-btn { border: 1px solid var(--card-border); background: var(--bg-dark); border-radius: 12px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--white); }
+  .profile-box { display: flex; align-items: center; gap: 14px; }
+  .avatar { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #121212; display: grid; place-items: center; font-size: 22px; font-weight: 900; flex-shrink: 0; }
+  .chain-card { border: 1.5px solid var(--card-border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; background: var(--bg-dark); }
+  .chain-card.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.08); }
+  .upload-box { border: 1.5px dashed var(--gold); background: rgba(212, 175, 55, 0.05); border-radius: 14px; padding: 14px; text-align: center; cursor: pointer; margin-bottom: 12px; display: block; }
+  .upload-preview { max-height: 110px; border-radius: 10px; margin-top: 8px; display: none; margin-left: auto; margin-right: auto; }
+  .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; height: calc(68px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: var(--card-dark); border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-around; z-index: 30; }
+  .nav-item { border: 0; background: transparent; color: var(--muted); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; font-weight: 600; width: 20%; padding: 6px 0; }
+  .nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .nav-item.active { color: var(--gold); font-weight: 800; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .modal-card { width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 22px; padding: 20px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5); }
+  .success-check { width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-size: 32px; font-weight: 900; margin: 0 auto 14px; }
+  .toast { position: fixed; bottom: calc(84px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); background: #222; color: var(--gold); border: 1px solid var(--gold); padding: 11px 18px; border-radius: 12px; font-size: 13px; font-weight: 700; z-index: 70; display: none; max-width: 88%; text-align: center; }
+  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .empty-state { text-align: center; padding: 34px 16px; color: var(--muted); }
+  .empty-icon { width: 48px; height: 48px; border-radius: 14px; background: rgba(212, 175, 55, 0.1); color: var(--gold); display: grid; place-items: center; margin: 0 auto 10px; font-size: 22px; font-weight: 800; }
+  .chat-box { height: 260px; overflow-y: auto; background: var(--bg-dark); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .chat-msg { max-width: 80%; padding: 8px 12px; border-radius: 10px; font-size: 13px; line-height: 1.4; }
+  .chat-msg.user { background: var(--gold); color: #121212; align-self: flex-end; font-weight: 600; }
+  .chat-msg.support { background: #2a2a35; color: var(--white); align-self: flex-start; border: 1px solid var(--card-border); }
 </style>
 </head>
 <body>
@@ -166,8 +227,8 @@
       </p>
     </form>
   </div>
-  </div>
-        <div id="mainApp" class="app-shell hidden">
+</div>
+       <div id="mainApp" class="app-shell hidden">
   <header class="topbar">
     <div class="logo"><span class="logo-badge">DP</span> DUDPAY</div>
     <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications">
@@ -293,8 +354,9 @@
           Only verified wallets linked with your registered login mobile number appear here. Tap "+ Add Wallet" to connect a new Personal or Business wallet.
         </p>
       </div>
-  </section>
-           <section id="page-add-wallet" class="page">
+    </section>
+
+    <section id="page-add-wallet" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="wallet">←</button>
         <h2 class="page-title">Choose Your Payment</h2>
@@ -361,9 +423,8 @@
       </div>
 
       <p class="center muted" id="secretVersionTap" style="user-select:none;cursor:pointer;padding:8px;">DUDPAY Version 1.0.0</p>
-    </section>
-
-    <section id="page-usdt" class="page">
+                                                                  </section>
+                                                                         <section id="page-usdt" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">USDT Deposit</h2>
@@ -446,8 +507,9 @@
           <button type="button" class="btn sm" data-nav="payment">Go to Payment</button>
         </div>
       </div>
-  </section>
-        <section id="page-team" class="page">
+    </section>
+
+    <section id="page-team" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="home">←</button>
         <h2 class="page-title">Team</h2>
@@ -597,7 +659,7 @@
           <b style="color:var(--gold);">Live Support Desk</b>
           <span class="badge green">24/7 Online</span>
         </div>
-        <div class="chat-box" id="liveChatBox" style="height:260px; overflow-y:auto; background:var(--bg-dark); border:1px solid var(--card-border); border-radius:12px; padding:12px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px;"></div>
+        <div class="chat-box" id="liveChatBox"></div>
         <div style="display:flex;gap:8px;">
           <input class="field" id="chatInput" placeholder="Type your message..." style="margin:0;flex:1;">
           <button type="button" class="btn" id="sendChatBtn" style="padding:0 16px;">Send</button>
@@ -625,7 +687,7 @@
       </div>
       <div id="userTutorialsContainer"></div>
   </section>
-      <section id="page-admin" class="page">
+                                                     <section id="page-admin" class="page">
       <div class="sub-header">
         <button type="button" class="back-btn" data-nav="my">←</button>
         <h2 class="page-title">Master Admin Panel</h2>
@@ -764,6 +826,7 @@
 </div>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
 <script>
 "use strict";
 
@@ -1325,7 +1388,7 @@ $("finishBindBtn").addEventListener("click", () => {
   navigateTo("wallet");
   showToast("Wallet added!");
 });
-
+  <script>
 function getUserOrders() {
   if (!currentUser) return [];
   return getStorage(STORAGE_KEYS.ORDERS, {})[currentUser.mobile] || [];
@@ -1442,7 +1505,8 @@ function handleReceiveClick(item) {
         <div><b>${b.name}</b><div class="muted" style="font-size:12px;">${b.phone}</div></div>
       </div>
       <input type="radio" name="boundToolRadio" value="${b.id}" ${idx === 0 ? "checked" : ""}>`;
-        listEl.appendChild(row);
+    row.querySelector("input").addEventListener("change", () => { selectedToolId = b.id; });
+    listEl.appendChild(row);
   });
   $("selectToolModal").classList.remove("hidden");
 }
@@ -1935,7 +1999,58 @@ function renderAdminPanel() {
       showToast(`Deducted ₹${val} from ${u.username}`);
     });
 
-    card.querySelector('[data-oact="reject"]').addEventListener("click", async () => {
+    card.querySelector('[data-act="blk"]').addEventListener("click", async () => {
+      users[idx].blocked = !users[idx].blocked;
+      setStorage(STORAGE_KEYS.USERS, users);
+      await cloudPut(`users/${u.mobile}`, users[idx]);
+      renderAdminPanel();
+      showToast(users[idx].blocked ? "User Blocked" : "User Unblocked");
+    });
+
+    uBox.appendChild(card);
+  });
+
+  const allOrders = getStorage(STORAGE_KEYS.ORDERS, {});
+  const oBox = $("adminOrdersSection");
+  oBox.innerHTML = "";
+  let flatOrders = [];
+  Object.keys(allOrders).forEach(mob => {
+    (allOrders[mob] || []).forEach(o => flatOrders.push({ ...o, userMobile: mob }));
+  });
+
+  if (flatOrders.length === 0) {
+    oBox.innerHTML = `<div class="card empty-state"><b>No Orders Yet</b></div>`;
+  } else {
+    flatOrders.forEach(o => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="row">
+          <b>${o.code} · ₹${o.amount}</b>
+          <span class="badge ${o.status === 'Succeed' ? 'green' : (o.status === 'Failed' ? 'red' : 'gold')}">${o.status}</span>
+        </div>
+        <div class="muted" style="font-size:12px;margin-top:4px;">User: ${o.userMobile} · Owner: <b>${o.ownerName || 'Sandeep'}</b></div>
+        <div class="muted" style="font-size:12px;">UTR: <b>${o.utr || 'N/A'}</b> · Reward: ₹${o.reward}</div>
+        ${o.proofImg ? `<img src="${o.proofImg}" style="max-height:140px;border-radius:8px;margin-top:8px;display:block;">` : ''}
+        <div class="row" style="margin-top:10px;">
+          <button type="button" class="btn green sm" style="flex:1;" data-oact="approve">Approve (Succeed)</button>
+          <button type="button" class="btn red sm" style="flex:1;" data-oact="reject">Reject (Failed)</button>
+        </div>`;
+      card.querySelector('[data-oact="approve"]').addEventListener("click", async () => {
+        if (o.status !== "Succeed") {
+          const uList = getStorage(STORAGE_KEYS.USERS, []);
+          const uIdx = uList.findIndex(x => x.mobile === o.userMobile);
+          if (uIdx !== -1) {
+            uList[uIdx].balance = Number(uList[uIdx].balance) + Number(o.amount) + Number(o.reward || 0);
+            setStorage(STORAGE_KEYS.USERS, uList);
+            await cloudPut(`users/${o.userMobile}`, uList[uIdx]);
+          }
+        }
+        await updateOrderRecord(o.userMobile, o.code, { status: "Succeed" });
+        renderAdminPanel();
+        showToast("Order Succeed & Balance credited!");
+      });
+      card.querySelector('[data-oact="reject"]').addEventListener("click", async () => {
         await updateOrderRecord(o.userMobile, o.code, { status: "Failed" });
         renderAdminPanel();
         showToast("Order marked Failed");
@@ -2143,4 +2258,3 @@ document.querySelectorAll("[data-share]").forEach(btn => {
 </script>
 </body>
 </html>
-    
