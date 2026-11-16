@@ -1909,7 +1909,10 @@ $("secretVersionTap").addEventListener("click", () => {
   versionTapCount++;
   clearTimeout(versionTapTimer);
   versionTapTimer = setTimeout(() => { versionTapCount = 0; }, 2000);
-  if (versionTapCount >= 5) { versionTapCount = 0; openAdminPinPrompt(); }
+  if (versionTapCount >= 5) { 
+    versionTapCount = 0; 
+    openAdminPinPrompt(); 
+  }
 });
 
 $("maintAdminTrigger").addEventListener("click", openAdminPinPrompt);
