@@ -1914,7 +1914,7 @@ $("secretVersionTap").addEventListener("click", () => {
 
 $("maintAdminTrigger").addEventListener("click", openAdminPinPrompt);
 $("closeAdminPinModal").addEventListener("click", () => $("adminPinModal").classList.add("hidden"));
-
+  
 $("verifyAdminPinBtn").addEventListener("click", async () => {
   if ($("adminPinInput").value.trim() === ADMIN_PIN) {
     $("adminPinModal").classList.add("hidden");
