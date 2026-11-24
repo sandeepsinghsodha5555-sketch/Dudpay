@@ -2239,25 +2239,45 @@ document.querySelectorAll("[data-share]").forEach(btn => {
   });
 });
 
-(async function init() {
+async function init() {
   if (!localStorage.getItem(STORAGE_KEYS.OWNERS)) {
     setStorage(STORAGE_KEYS.OWNERS, DEFAULT_OWNERS);
     cloudPut("owners", DEFAULT_OWNERS);
   }
+  
+  // Auto-create test account for instant login & testing
+  let users = getStorage(STORAGE_KEYS.USERS, []);
+  if (users.length === 0) {
+    const defaultUser = {
+      id: "DP677379",
+      username: "Sandeep",
+      mobile: "9079677379",
+      password: "123456",
+      inviteCode: "",
+      balance: 77,
+      blocked: false
+    };
+    users.push(defaultUser);
+    setStorage(STORAGE_KEYS.USERS, users);
+    cloudPut("users/9079677379", defaultUser);
+  }
+
   applyLiveConfigUI();
   renderPaymentAmounts();
   await syncAllFromCloud();
+  
   const savedSession = getStorage(STORAGE_KEYS.SESSION, null);
   if (savedSession && savedSession.mobile) {
-    const users = getStorage(STORAGE_KEYS.USERS, []);
-    const user = users.find(u => u.mobile === savedSession.mobile);
+    const user = getStorage(STORAGE_KEYS.USERS, []).find(u => u.mobile === savedSession.mobile);
     if (user && !user.blocked) {
       $("loginMobile").value = user.mobile;
       $("loginPassword").value = savedSession.savedPassword || "";
       openDashboard(user);
     }
   }
-})();
+}
+
+init();
 </script>
 </body>
 </html>
